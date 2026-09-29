@@ -1,0 +1,141 @@
+[
+ {
+  "english": "Welcome to OmniVox Neo",
+  "french": "Bienvenue dans OmniVox Neo",
+  "file": "OmnivoxNeo/Views/SecuritySetupGuidanceView.swift",
+  "line": 19,
+  "mechanism": "needs-loc-wrapper",
+  "note": "GuidancePage.title is a plain String (line 145) rendered by Text(page.title) at line 169. NONE of the 12 onboarding strings in this file are in the catalog and none can ever localize as written."
+ },
+ {
+  "english": "You've successfully signed in! Before we continue, there are a few important things to know about how this app works.",
+  "french": "Vous êtes bien connecté ! Avant de poursuivre, voici quelques points importants sur le fonctionnement de l’application.",
+  "file": "OmnivoxNeo/Views/SecuritySetupGuidanceView.swift",
+  "line": 20,
+  "mechanism": "needs-loc-wrapper",
+  "note": "GuidancePage.message String → Text(page.message) at line 174. STRAIGHT apostrophe in You've."
+ },
+ {
+  "english": "Two Ways to Verify",
+  "french": "Deux façons de vérifier",
+  "file": "OmnivoxNeo/Views/SecuritySetupGuidanceView.swift",
+  "line": 25,
+  "mechanism": "needs-loc-wrapper"
+ },
+ {
+  "english": "Neo offers a built-in authenticator that generates verification codes right in the app. Or, you can keep using the official OmniVox Mobile app for codes—both options work great!",
+  "french": "Neo offre un authentificateur intégré qui génère les codes de vérification directement dans l’application. Vous pouvez aussi continuer d’obtenir vos codes dans l’application officielle OmniVox Mobile — les deux fonctionnent très bien !",
+  "file": "OmnivoxNeo/Views/SecuritySetupGuidanceView.swift",
+  "line": 26,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Contains an em dash (U+2014) with no surrounding spaces in the English."
+ },
+ {
+  "english": "How Sign-In Works",
+  "french": "Comment fonctionne la connexion",
+  "file": "OmnivoxNeo/Views/SecuritySetupGuidanceView.swift",
+  "line": 31,
+  "mechanism": "needs-loc-wrapper"
+ },
+ {
+  "english": "Neo uses a secure sign-in method. When verification is needed, you can either use Neo's built-in authenticator or get codes from the official OmniVox Mobile app.",
+  "french": "Neo utilise une méthode de connexion sécurisée. Quand une vérification est requise, servez-vous de l’authentificateur intégré de Neo ou obtenez un code dans l’application officielle OmniVox Mobile.",
+  "file": "OmnivoxNeo/Views/SecuritySetupGuidanceView.swift",
+  "line": 32,
+  "mechanism": "needs-loc-wrapper",
+  "note": "STRAIGHT apostrophe in Neo's."
+ },
+ {
+  "english": "Built-in Authenticator",
+  "french": "Authentificateur intégré",
+  "file": "OmnivoxNeo/Views/SecuritySetupGuidanceView.swift",
+  "line": 37,
+  "mechanism": "needs-loc-wrapper",
+  "note": "A French translation for this exact key already exists in the catalog (used by MeView/TOTPCodeView), but here it is a plain String in GuidancePage.title so it renders in English regardless."
+ },
+ {
+  "english": "You can set up Neo's built-in authenticator in App Settings. It generates 6-digit codes automatically—no need to switch apps or check notifications.",
+  "french": "Vous pouvez configurer l’authentificateur intégré de Neo dans les réglages de l’application. Il génère automatiquement des codes à 6 chiffres — sans changer d’application ni consulter vos notifications.",
+  "file": "OmnivoxNeo/Views/SecuritySetupGuidanceView.swift",
+  "line": 38,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Em dash (U+2014); straight apostrophe in Neo's."
+ },
+ {
+  "english": "Using OmniVox Mobile Instead",
+  "french": "Utiliser OmniVox Mobile à la place",
+  "file": "OmnivoxNeo/Views/SecuritySetupGuidanceView.swift",
+  "line": 43,
+  "mechanism": "needs-loc-wrapper"
+ },
+ {
+  "english": "Prefer the official app? No problem! Keep OmniVox Mobile installed and Neo will detect codes from its notifications, making it easy to copy them when needed.",
+  "french": "Vous préférez l’application officielle ? Aucun problème ! Gardez OmniVox Mobile installée et Neo repérera les codes dans ses notifications, ce qui les rend faciles à copier au besoin.",
+  "file": "OmnivoxNeo/Views/SecuritySetupGuidanceView.swift",
+  "line": 44,
+  "mechanism": "needs-loc-wrapper"
+ },
+ {
+  "english": "Quick Summary",
+  "french": "En résumé",
+  "file": "OmnivoxNeo/Views/SecuritySetupGuidanceView.swift",
+  "line": 49,
+  "mechanism": "needs-loc-wrapper"
+ },
+ {
+  "english": "Choose what works for you: Neo's built-in authenticator for convenience, or the official OmniVox Mobile app. Both methods make verification quick and easy!",
+  "french": "Choisissez ce qui vous convient : l’authentificateur intégré de Neo pour la simplicité, ou l’application officielle OmniVox Mobile. Les deux rendent la vérification rapide et facile !",
+  "file": "OmnivoxNeo/Views/SecuritySetupGuidanceView.swift",
+  "line": 50,
+  "mechanism": "needs-loc-wrapper",
+  "note": "STRAIGHT apostrophe in Neo's."
+ },
+ {
+  "english": "Code unavailable",
+  "french": "Code indisponible",
+  "file": "OmnivoxNeo/Views/TOTPCodeView.swift",
+  "line": 135,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Computed String accessibleCode, applied via .accessibilityLabel(accessibleCode) at line 48. Not in the catalog."
+ },
+ {
+  "english": "Verification code, ",
+  "french": "Code de vérification, ",
+  "file": "OmnivoxNeo/Views/TOTPCodeView.swift",
+  "line": 136,
+  "mechanism": "needs-loc-wrapper",
+  "note": "String-concatenated VoiceOver prefix; trailing space is part of the literal. Better as Loc.text(\"Verification code, %@\", digits)."
+ },
+ {
+  "english": "Please enter the secret code",
+  "french": "Veuillez entrer le code secret",
+  "file": "OmnivoxNeo/Views/TOTPManualSetupView.swift",
+  "line": 222,
+  "mechanism": "needs-loc-wrapper",
+  "note": "errorMessage is a plain @State String? shown by Text(error) at line 206. Not in the catalog."
+ },
+ {
+  "english": "No active profile found.",
+  "french": "Aucun profil actif trouvé.",
+  "file": "OmnivoxNeo/Views/TOTPManualSetupView.swift",
+  "line": 238,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Same errorMessage String path."
+ },
+ {
+  "english": "Invalid secret code. Please check and try again.",
+  "french": "Code secret invalide. Vérifiez-le et réessayez.",
+  "file": "OmnivoxNeo/Views/TOTPManualSetupView.swift",
+  "line": 260,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Same errorMessage String path."
+ },
+ {
+  "english": "Using your saved authenticator.",
+  "french": "Utilisation de votre authentificateur enregistré.",
+  "file": "OmnivoxNeo/Views/VerificationView.swift",
+  "line": 300,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Source is Text(model.autoTOTPStep ?? \"Using your saved authenticator.\"). Because autoTOTPStep is String?, the whole expression is a String and Text picks the verbatim overload — the fallback never localizes and is not in the catalog."
+ }
+]

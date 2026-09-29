@@ -1,0 +1,399 @@
+[
+ {
+  "english": "Enter the 6-digit security code you received.",
+  "french": "Entrez le code de sécurité à 6 chiffres que vous avez reçu.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1567,
+  "mechanism": "needs-loc-wrapper",
+  "note": "CRITICAL / third mechanism: this is a JavaScript string literal inside the injected page-probe script. It becomes VerificationState.instruction and is rendered by Text(model.verificationState.instruction) (VerificationView.swift:97/110/264), which is the verbatim Text initializer. It can NEVER be localized by the Swift catalog. Fix: have the JS return a token (e.g. codeMethodKind) and build the sentence in Swift with Loc.text."
+ },
+ {
+  "english": "A 6-digit security code was sent to your email address.",
+  "french": "Un code de sécurité à 6 chiffres a été envoyé à votre adresse courriel.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1569,
+  "mechanism": "needs-loc-wrapper",
+  "note": "JS literal in the probe script -> VerificationState.instruction. Quebec French: 'courriel', not 'e-mail'."
+ },
+ {
+  "english": "A 6-digit security code was sent to the OmniVox Mobile app.",
+  "french": "Un code de sécurité à 6 chiffres a été envoyé à l’application OmniVox Mobile.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1571,
+  "mechanism": "needs-loc-wrapper",
+  "note": "JS literal in the probe script -> VerificationState.instruction."
+ },
+ {
+  "english": "Enter the 6-digit code from your authenticator app.",
+  "french": "Entrez le code à 6 chiffres de votre application d’authentification.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1574,
+  "mechanism": "needs-loc-wrapper",
+  "note": "JS literal in the probe script -> VerificationState.instruction."
+ },
+ {
+  "english": "Verification method",
+  "french": "Méthode de vérification",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1582,
+  "mechanism": "needs-loc-wrapper",
+  "note": "JS literal -> VerificationMethodOption.title, rendered by Text(method.title) at VerificationView.swift:214 (verbatim)."
+ },
+ {
+  "english": "Authenticator app",
+  "french": "Application d’authentification",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1590,
+  "mechanism": "needs-loc-wrapper",
+  "note": "JS literal -> VerificationMethodOption.title. Matches OmniVox's own French wording 'Application d'authentification' used by the scraper regex at line 1549."
+ },
+ {
+  "english": "OmniVox Mobile",
+  "french": "OmniVox Mobile",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1593,
+  "mechanism": "needs-loc-wrapper",
+  "note": "JS literal -> VerificationMethodOption.title. Product name, identical in French; listed only because the surrounding titles all need the same routing."
+ },
+ {
+  "english": "Email",
+  "french": "Courriel",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1596,
+  "mechanism": "needs-loc-wrapper",
+  "note": "JS literal -> VerificationMethodOption.title. Quebec French uses 'Courriel'."
+ },
+ {
+  "english": "Verify your identity",
+  "french": "Confirmez votre identité",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1697,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Fallback when the portal page has no title. (probe.title itself comes from the portal, which is already asked for the app's language via PortalConventions.localizedPortalURL.)"
+ },
+ {
+  "english": "Continue signing in",
+  "french": "Poursuivre la connexion",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1838,
+  "mechanism": "needs-loc-wrapper",
+  "note": "VerificationState.title for the unavailable-page case."
+ },
+ {
+  "english": "This sign-in step could not be presented safely. Cancel and try again.",
+  "french": "Cette étape de connexion n’a pas pu être affichée en toute sécurité. Annulez et réessayez.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1839,
+  "mechanism": "needs-loc-wrapper"
+ },
+ {
+  "english": "This verification step could not be prepared. Cancel and try signing in again.",
+  "french": "Cette étape de vérification n’a pas pu être préparée. Annulez et réessayez de vous connecter.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1731,
+  "mechanism": "needs-loc-wrapper"
+ },
+ {
+  "english": "Enter the 6-digit security code.",
+  "french": "Entrez le code de sécurité à 6 chiffres.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 818,
+  "mechanism": "needs-loc-wrapper",
+  "note": "verificationState.errorMessage."
+ },
+ {
+  "english": "A new security code was requested.",
+  "french": "Un nouveau code de sécurité a été demandé.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 834,
+  "mechanism": "needs-loc-wrapper",
+  "note": "successNotice -> verificationNotice, rendered at VerificationView.swift:72."
+ },
+ {
+  "english": "There is no step to go back to. Choose a verification method above.",
+  "french": "Il n’y a aucune étape précédente. Choisissez une méthode de vérification ci-dessus.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 889,
+  "mechanism": "needs-loc-wrapper",
+  "note": "failureMessage -> verificationState.errorMessage."
+ },
+ {
+  "english": "That verification action is not available. Cancel and try signing in again.",
+  "french": "Cette action de vérification n’est pas disponible. Annulez et réessayez de vous connecter.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1272,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Default parameter value of performVerificationAction(failureMessage:). A default argument is evaluated at the call site, so Loc.text works here — but it resolves at call time, which is correct."
+ },
+ {
+  "english": "The verification service could not connect. Check your connection and try again.",
+  "french": "Le service de vérification n’a pas pu se connecter. Vérifiez votre connexion et réessayez.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 2784,
+  "mechanism": "needs-loc-wrapper"
+ },
+ {
+  "english": "Your schedule is still locked. Try again or sign in with your OmniVox password.",
+  "french": "Votre horaire est toujours verrouillé. Réessayez ou connectez-vous avec votre mot de passe OmniVox.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 388,
+  "mechanism": "needs-loc-wrapper",
+  "note": "sessionError, rendered at LockedView.swift:28."
+ },
+ {
+  "english": "Enter your 7-digit student ID.",
+  "french": "Entrez votre numéro d’étudiant à 7 chiffres.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 402,
+  "mechanism": "needs-loc-wrapper",
+  "note": "loginError, rendered at LoginView.swift:186. Catalog already uses 'Numéro d’étudiant' for 'Student ID' — stay consistent."
+ },
+ {
+  "english": "Enter your OmniVox password.",
+  "french": "Entrez votre mot de passe OmniVox.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 406,
+  "mechanism": "needs-loc-wrapper",
+  "note": "loginError."
+ },
+ {
+  "english": "\\(existing.accountLabel) is already on this device, so there's no need to add it again. Switched to it.",
+  "french": "%@ est déjà sur cet appareil; inutile de l’ajouter de nouveau. Nous avons basculé vers ce compte.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 421,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Flows into PortalProfileStore.accountNotice (line 221) and is shown in an alert at ContentView.swift:53. String interpolation must be converted to a %@ format argument: Loc.text(\"%@ is already on this device, …\", existing.accountLabel)."
+ },
+ {
+  "english": "Device authentication is not available.",
+  "french": "L’authentification de l’appareil n’est pas disponible.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 595,
+  "mechanism": "needs-loc-wrapper",
+  "note": "securitySetupError, rendered at SecuritySetupView.swift:67 and MeView.swift:184."
+ },
+ {
+  "english": "Authentication was not completed. Try again or turn this option off.",
+  "french": "L’authentification n’a pas été effectuée. Réessayez ou désactivez cette option.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 610,
+  "mechanism": "needs-loc-wrapper",
+  "note": "securitySetupError. Note the catalog has a shorter key 'Authentication was not completed.' with NO French — this longer sentence is a different key."
+ },
+ {
+  "english": "Could not save credentials securely.",
+  "french": "Impossible d’enregistrer vos identifiants de façon sécuritaire.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 758,
+  "mechanism": "needs-loc-wrapper",
+  "note": "securitySetupError."
+ },
+ {
+  "english": "Sign in with your OmniVox password once before enabling Face ID.",
+  "french": "Connectez-vous une fois avec votre mot de passe OmniVox avant d’activer Face ID.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 764,
+  "mechanism": "needs-loc-wrapper",
+  "note": "securitySetupError. Hardcodes 'Face ID' rather than biometricCapability.name — a Touch ID device gets the wrong word in both languages."
+ },
+ {
+  "english": "Sign-in is still locked. Try again or use your OmniVox password.",
+  "french": "La connexion est toujours verrouillée. Réessayez ou utilisez votre mot de passe OmniVox.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1407,
+  "mechanism": "needs-loc-wrapper",
+  "note": "sessionError."
+ },
+ {
+  "english": "Enter your OmniVox password once to finish setting up Face ID sign-in.",
+  "french": "Entrez votre mot de passe OmniVox une fois pour terminer la configuration de la connexion par Face ID.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1416,
+  "mechanism": "needs-loc-wrapper",
+  "note": "presentCredentialFallback(message:) -> loginError. Duplicated verbatim at line 1789."
+ },
+ {
+  "english": "Enter your OmniVox password once to finish setting up Face ID sign-in.",
+  "french": "Entrez votre mot de passe OmniVox une fois pour terminer la configuration de la connexion par Face ID.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1789,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Second copy of the same literal (see line 1416). One catalog key covers both."
+ },
+ {
+  "english": "Your saved OmniVox password was not accepted. Enter your current password to update Face ID sign-in.",
+  "french": "Votre mot de passe OmniVox enregistré a été refusé. Entrez votre mot de passe actuel pour mettre à jour la connexion par Face ID.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1819,
+  "mechanism": "needs-loc-wrapper",
+  "note": "loginError."
+ },
+ {
+  "english": "Sign-in was not accepted. Check your ID and password, then try again.",
+  "french": "La connexion a été refusée. Vérifiez votre numéro d’étudiant et votre mot de passe, puis réessayez.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1821,
+  "mechanism": "needs-loc-wrapper",
+  "note": "loginError."
+ },
+ {
+  "english": "Face ID sign-in could not save your updated password.",
+  "french": "La connexion par Face ID n’a pas pu enregistrer votre nouveau mot de passe.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1972,
+  "mechanism": "needs-loc-wrapper",
+  "note": "sessionError, set from inside a MainActor.run block."
+ },
+ {
+  "english": "The schedule is not available yet. Pull to refresh in a moment.",
+  "french": "L’horaire n’est pas encore disponible. Tirez pour actualiser dans un moment.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 2241,
+  "mechanism": "needs-loc-wrapper",
+  "note": "reportPortalContentFailure -> sessionError. Note the two sibling calls at 2263/2269 ARE wrapped in Loc.text — this one was missed."
+ },
+ {
+  "english": "Couldn’t refresh your live OmniVox information. Try unlocking again.",
+  "french": "Impossible d’actualiser vos informations OmniVox en direct. Essayez de déverrouiller de nouveau.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 2314,
+  "mechanism": "needs-loc-wrapper",
+  "note": "sessionError."
+ },
+ {
+  "english": "Couldn’t verify your OmniVox session. Try unlocking again.",
+  "french": "Impossible de vérifier votre session OmniVox. Essayez de déverrouiller de nouveau.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 2747,
+  "mechanism": "needs-loc-wrapper",
+  "note": "sessionError, set from webViewWebContentProcessDidTerminate."
+ },
+ {
+  "english": "The live connection paused. Your saved information is still available.",
+  "french": "La connexion en direct est interrompue. Vos informations enregistrées demeurent disponibles.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 2751,
+  "mechanism": "needs-loc-wrapper",
+  "note": "sessionError, rendered at ScheduleView.swift:55 / AgendaView.swift:65."
+ },
+ {
+  "english": "Couldn’t verify your OmniVox session. Check your connection and try again.",
+  "french": "Impossible de vérifier votre session OmniVox. Vérifiez votre connexion et réessayez.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 2782,
+  "mechanism": "needs-loc-wrapper",
+  "note": "sessionError."
+ },
+ {
+  "english": "Couldn’t refresh right now. Your saved information is still available.",
+  "french": "Impossible d’actualiser pour l’instant. Vos informations enregistrées demeurent disponibles.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 2787,
+  "mechanism": "needs-loc-wrapper",
+  "note": "sessionError."
+ },
+ {
+  "english": "Checking your authenticator…",
+  "french": "Vérification de votre authentificateur…",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 912,
+  "mechanism": "needs-loc-wrapper",
+  "note": "autoTOTPStep, rendered at VerificationView.swift:300."
+ },
+ {
+  "english": "Opening your verification methods…",
+  "french": "Ouverture de vos méthodes de vérification…",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 993,
+  "mechanism": "needs-loc-wrapper",
+  "note": "autoTOTPStep."
+ },
+ {
+  "english": "Selecting your authenticator app…",
+  "french": "Sélection de votre application d’authentification…",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1026,
+  "mechanism": "needs-loc-wrapper",
+  "note": "autoTOTPStep."
+ },
+ {
+  "english": "Generating your code…",
+  "french": "Génération de votre code…",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1051,
+  "mechanism": "needs-loc-wrapper",
+  "note": "autoTOTPStep."
+ },
+ {
+  "english": "Signing you in…",
+  "french": "Connexion en cours…",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1068,
+  "mechanism": "needs-loc-wrapper",
+  "note": "autoTOTPStep. Catalog already has 'Logging in...' -> 'Connexion en cours…' and 'Signing you in' -> 'Connexion en cours'; consider reusing one of those keys instead of adding a third."
+ },
+ {
+  "english": "This verification step isn’t for your authenticator app. Enter the code you received, or pick the authenticator app below.",
+  "french": "Cette étape de vérification ne concerne pas votre application d’authentification. Entrez le code que vous avez reçu ou choisissez l’application d’authentification ci-dessous.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 954,
+  "mechanism": "needs-loc-wrapper",
+  "note": "AppModel.wrongPageMessage -> autoTOTPError, rendered at VerificationView.swift:53. BLOCKER: declared as a `private static let` on a @MainActor class; a static stored property cannot call the @MainActor Loc.text at init. Needs to become a static computed property (or an instance property)."
+ },
+ {
+  "english": "Your verification methods could not be opened. Enter the code manually.",
+  "french": "Impossible d’ouvrir vos méthodes de vérification. Entrez le code manuellement.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1005,
+  "mechanism": "needs-loc-wrapper",
+  "note": "AutoTOTPOutcome.failed -> autoTOTPError."
+ },
+ {
+  "english": "Your OmniVox account no longer has an authenticator app. Choose another verification method below.",
+  "french": "Votre compte OmniVox n’a plus d’application d’authentification. Choisissez une autre méthode de vérification ci-dessous.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1022,
+  "mechanism": "needs-loc-wrapper",
+  "note": "autoTOTPError."
+ },
+ {
+  "english": "The authenticator step could not be opened. Enter the code manually.",
+  "french": "Impossible d’ouvrir l’étape de l’authentificateur. Entrez le code manuellement.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1038,
+  "mechanism": "needs-loc-wrapper",
+  "note": "autoTOTPError."
+ },
+ {
+  "english": "No saved authenticator was found. Enter the code manually.",
+  "french": "Aucun authentificateur enregistré n’a été trouvé. Entrez le code manuellement.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1045,
+  "mechanism": "needs-loc-wrapper",
+  "note": "autoTOTPError."
+ },
+ {
+  "english": "The saved authenticator could not be read. Set it up again from the Me tab.",
+  "french": "Impossible de lire l’authentificateur enregistré. Configurez-le de nouveau dans l’onglet Moi.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1048,
+  "mechanism": "needs-loc-wrapper",
+  "note": "autoTOTPError. It names a tab ('Me tab') — verify the French tab label chosen for MeView and keep the two in sync; I did not confirm the Me tab's own label since MeView is outside my scope."
+ },
+ {
+  "english": "Signing in with your authenticator timed out. Enter the code manually.",
+  "french": "La connexion avec votre authentificateur a expiré. Entrez le code manuellement.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1082,
+  "mechanism": "needs-loc-wrapper",
+  "note": "autoTOTPError."
+ },
+ {
+  "english": "Your authenticator code was rejected — it may be out of sync. Enter the code manually.",
+  "french": "Votre code d’authentification a été refusé — il est peut-être désynchronisé. Entrez le code manuellement.",
+  "file": "OmnivoxNeo/Services/AppModel.swift",
+  "line": 1084,
+  "mechanism": "needs-loc-wrapper",
+  "note": "autoTOTPError."
+ }
+]

@@ -1,0 +1,169 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@ break, then %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ de pause, puis %@"
+          }
+        }
+      }
+    },
+    "+%lld more class" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+%lld autre cours"
+          }
+        }
+      }
+    },
+    "+%lld more classes" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+%lld autres cours"
+          }
+        }
+      }
+    },
+    "·" : {
+      "shouldTranslate" : false
+    },
+    "Enjoy the open space in your day." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profitez de ce temps libre."
+          }
+        }
+      }
+    },
+    "Every class today, with the one in progress highlighted." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tous vos cours du jour, celui en cours mis en évidence."
+          }
+        }
+      }
+    },
+    "In Class" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En cours"
+          }
+        }
+      }
+    },
+    "Last class of the day" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dernier cours de la journée"
+          }
+        }
+      }
+    },
+    "No Classes Today" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun cours aujourd’hui"
+          }
+        }
+      }
+    },
+    "No more classes scheduled." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus aucun cours prévu."
+          }
+        }
+      }
+    },
+    "Nothing Left Today" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus rien aujourd’hui"
+          }
+        }
+      }
+    },
+    "Open Omnivox Neo" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrez Omnivox Neo"
+          }
+        }
+      }
+    },
+    "Sign in once and your classes appear here." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connectez-vous une fois et vos cours apparaîtront ici."
+          }
+        }
+      }
+    },
+    "Then %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ensuite : %@"
+          }
+        }
+      }
+    },
+    "Today’s Classes" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les cours d’aujourd’hui"
+          }
+        }
+      }
+    },
+    "Up Next" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À venir"
+          }
+        }
+      }
+    },
+    "Your current or next class, and what follows it." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre cours actuel ou le prochain, et ce qui suit."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

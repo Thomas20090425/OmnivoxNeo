@@ -1,0 +1,6832 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "· %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "· %@"
+          }
+        }
+      }
+    },
+    "(No subject)" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(Aucun objet)"
+          }
+        }
+      }
+    },
+    "%@ · Omnivox Neo" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ · Omnivox Neo"
+          }
+        }
+      }
+    },
+    "%@ (wing %@)" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ (aile %@)"
+          }
+        }
+      }
+    },
+    "%@ break" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ de pause"
+          }
+        }
+      }
+    },
+    "%@ could not be reached. Check your connection and try again." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de joindre %@. Vérifiez votre connexion et réessayez."
+          }
+        }
+      }
+    },
+    "%@ could not be read: %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de lire %@ : %@"
+          }
+        }
+      }
+    },
+    "%@ did not publish this section for this course." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ne publie pas cette section pour ce cours."
+          }
+        }
+      }
+    },
+    "%@ did not say where this document lives." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ n’a pas indiqué où se trouve ce document."
+          }
+        }
+      }
+    },
+    "%@ is already on this device, so there’s no need to add it again. Switched to it." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ est déjà sur cet appareil : inutile de l’ajouter de nouveau. Nous avons basculé dessus."
+          }
+        }
+      }
+    },
+    "%@ isn’t a format this app can show. You can still open it in another app or save it." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ n’est pas un format que cette app peut afficher. Vous pouvez tout de même l’ouvrir dans une autre app ou l’enregistrer."
+          }
+        }
+      }
+    },
+    "%@ min %@ s" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ min %@ s"
+          }
+        }
+      }
+    },
+    "%@ no longer lists this document." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ne répertorie plus ce document."
+          }
+        }
+      }
+    },
+    "%@ of %@ recipients" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ destinataire(s) sur %@"
+          }
+        }
+      }
+    },
+    "%@ of the grade" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ de la note"
+          }
+        }
+      }
+    },
+    "%@ of the grade (%@)" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ de la note (%@)"
+          }
+        }
+      }
+    },
+    "%@ refused the download. Pull to refresh and try again." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ a refusé le téléchargement. Tirez pour actualiser et réessayez."
+          }
+        }
+      }
+    },
+    "%@ returned agenda data in an unexpected format." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ a renvoyé les données de l’agenda dans un format inattendu."
+          }
+        }
+      }
+    },
+    "%@ returned schedule data in an unexpected format." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ a renvoyé les données de l’horaire dans un format inattendu."
+          }
+        }
+      }
+    },
+    "%@ returned this document in an unexpected format." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ a renvoyé ce document dans un format inattendu."
+          }
+        }
+      }
+    },
+    "%@ returned your classes in an unexpected format." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ a renvoyé vos cours dans un format inattendu."
+          }
+        }
+      }
+    },
+    "%d added" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d ajouté(s)"
+          }
+        }
+      }
+    },
+    "%d removed" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d retiré(s)"
+          }
+        }
+      }
+    },
+    "%d updated" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d mis à jour"
+          }
+        }
+      }
+    },
+    "%lld" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
+          }
+        }
+      }
+    },
+    "%lld / %lld" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld / %lld"
+          }
+        }
+      }
+    },
+    "%lld classes" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld cours"
+          }
+        }
+      }
+    },
+    "%lld h %@ min" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld h %@ min"
+          }
+        }
+      }
+    },
+    "%lld new or updated" : {
+      "localizations" : {
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld nouveau ou modifié"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld nouveaux ou modifiés"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld of %lld" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld sur %lld"
+          }
+        }
+      }
+    },
+    "%lld pt" : {
+
+    },
+    "%lld upcoming" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld à venir"
+          }
+        }
+      }
+    },
+    "%lldm ago" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "il y a %lld min"
+          }
+        }
+      }
+    },
+    "%llds" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld s"
+          }
+        }
+      }
+    },
+    "%lldth floor" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%llde étage"
+          }
+        }
+      }
+    },
+    "^[%lld item](inflect: true) new or updated" : {
+      "localizations" : {
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld élément nouveau ou modifié"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld éléments nouveaux ou modifiés"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "^[%lld link](inflect: true)" : {
+      "localizations" : {
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld lien"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld liens"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "+%lld" : {
+
+    },
+    "⋮" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⋮"
+          }
+        }
+      }
+    },
+    "✓ Found existing authenticator" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✓ Authentificateur existant trouvé"
+          }
+        }
+      }
+    },
+    "✓ Secret copied! Click Next below to continue." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✓ Code secret copié ! Touchez Suivant ci-dessous pour continuer."
+          }
+        }
+      }
+    },
+    "000000" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "000000"
+          }
+        }
+      }
+    },
+    "0000000" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "0000000"
+          }
+        }
+      }
+    },
+    "1 class" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 cours"
+          }
+        }
+      }
+    },
+    "1 day before" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 jour avant"
+          }
+        }
+      }
+    },
+    "1 hour before" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1 heure avant"
+          }
+        }
+      }
+    },
+    "1. Click the **Add** button" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1. Cliquez sur le bouton **Ajouter**"
+          }
+        }
+      }
+    },
+    "1. Find \"Authentication application\"" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1. Repérez « Application d’authentification »"
+          }
+        }
+      }
+    },
+    "1. Go to **My Account** (bottom of menu)" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1. Allez à **Mon compte** (au bas du menu)"
+          }
+        }
+      }
+    },
+    "1. Tap **\"I cannot scan this code\"** below" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1. Touchez **« Je ne peux pas numériser ce code »** ci-dessous"
+          }
+        }
+      }
+    },
+    "1st floor" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1er étage"
+          }
+        }
+      }
+    },
+    "2 days before" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2 jours avant"
+          }
+        }
+      }
+    },
+    "2. Choose **Authenticator Application**" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2. Choisissez **Application d’authentification**"
+          }
+        }
+      }
+    },
+    "2. Select **Personal Profile**" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2. Sélectionnez **Profil personnel**"
+          }
+        }
+      }
+    },
+    "2. Tap the" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2. Touchez le"
+          }
+        }
+      }
+    },
+    "2. Then tap the **Copy** button next to the long code" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2. Touchez ensuite le bouton **Copier** à côté du long code"
+          }
+        }
+      }
+    },
+    "2nd floor" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2e étage"
+          }
+        }
+      }
+    },
+    "3. Click **\"I cannot scan this code\"**" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3. Cliquez sur **« Je ne peux pas numériser ce code »**"
+          }
+        }
+      }
+    },
+    "3. Click **Two-step verification**" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3. Cliquez sur **Vérification en deux étapes**"
+          }
+        }
+      }
+    },
+    "3. Tap \"DELETE\"" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3. Touchez « DELETE »"
+          }
+        }
+      }
+    },
+    "3rd floor" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3e étage"
+          }
+        }
+      }
+    },
+    "4. Confirm deletion" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "4. Confirmez la suppression"
+          }
+        }
+      }
+    },
+    "4H.15" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "4H.15"
+          }
+        }
+      }
+    },
+    "A 6-digit security code was sent to the OmniVox Mobile app." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un code de sécurité à 6 chiffres a été envoyé à l’application OmniVox Mobile."
+          }
+        }
+      }
+    },
+    "A 6-digit security code was sent to your email address." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un code de sécurité à 6 chiffres a été envoyé à votre adresse courriel."
+          }
+        }
+      }
+    },
+    "A new account starts at the sign-in screen with nothing carried over." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un nouveau compte démarre à l’écran de connexion, sans rien reprendre du précédent."
+          }
+        }
+      }
+    },
+    "A new security code was requested." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un nouveau code de sécurité a été demandé."
+          }
+        }
+      }
+    },
+    "Academic Calendar" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calendrier scolaire"
+          }
+        }
+      }
+    },
+    "Accent Colour" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couleur d’accent"
+          }
+        }
+      }
+    },
+    "Account" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compte"
+          }
+        }
+      }
+    },
+    "Account Already Added" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compte déjà ajouté"
+          }
+        }
+      }
+    },
+    "Accounts" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comptes"
+          }
+        }
+      }
+    },
+    "Add Account" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter un compte"
+          }
+        }
+      }
+    },
+    "Add Authenticator App" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter une application d’authentification"
+          }
+        }
+      }
+    },
+    "Add everyone in this class" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter tout le monde dans ce cours"
+          }
+        }
+      }
+    },
+    "Add Recipients" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter des destinataires"
+          }
+        }
+      }
+    },
+    "Add to Calendar" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter au calendrier"
+          }
+        }
+      }
+    },
+    "Added" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouté"
+          }
+        }
+      }
+    },
+    "Added by Omnivox Neo · %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouté par Omnivox Neo · %@"
+          }
+        }
+      }
+    },
+    "Adding Account" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajout d’un compte"
+          }
+        }
+      }
+    },
+    "Adds this person" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajoute cette personne"
+          }
+        }
+      }
+    },
+    "Administration" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Administration"
+          }
+        }
+      }
+    },
+    "After completing setup here, return to OmniVox and enter the 6-digit code that Neo generates to validate." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une fois la configuration terminée ici, retournez dans OmniVox et entrez le code à 6 chiffres généré par Neo pour valider."
+          }
+        }
+      }
+    },
+    "Agenda" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agenda"
+          }
+        }
+      }
+    },
+    "Align Centre" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Centrer"
+          }
+        }
+      }
+    },
+    "Align Left" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aligner à gauche"
+          }
+        }
+      }
+    },
+    "Align Right" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aligner à droite"
+          }
+        }
+      }
+    },
+    "All day" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toute la journée"
+          }
+        }
+      }
+    },
+    "All done" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terminé"
+          }
+        }
+      }
+    },
+    "All-day events remind you at 9:00 AM rather than at midnight." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les événements d’une journée entière vous rappellent à 9 h plutôt qu’à minuit."
+          }
+        }
+      }
+    },
+    "Allow Calendar Access" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autoriser l’accès au calendrier"
+          }
+        }
+      }
+    },
+    "Already a recipient" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déjà destinataire"
+          }
+        }
+      }
+    },
+    "Already up to date." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déjà à jour."
+          }
+        }
+      }
+    },
+    "Always 0–100%" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toujours de 0 à 100 %"
+          }
+        }
+      }
+    },
+    "Animation" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Animation"
+          }
+        }
+      }
+    },
+    "Announcement" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annonce"
+          }
+        }
+      }
+    },
+    "Announcements" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annonces"
+          }
+        }
+      }
+    },
+    "Anthropology" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anthropologie"
+          }
+        }
+      }
+    },
+    "App Settings" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réglages de l’application"
+          }
+        }
+      }
+    },
+    "Archive" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Archive"
+          }
+        }
+      }
+    },
+    "Art History" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Histoire de l’art"
+          }
+        }
+      }
+    },
+    "Arts and Letters" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arts et lettres"
+          }
+        }
+      }
+    },
+    "Assignments" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Travaux"
+          }
+        }
+      }
+    },
+    "At time of event" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À l’heure de l’événement"
+          }
+        }
+      }
+    },
+    "Attach a file" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Joindre un fichier"
+          }
+        }
+      }
+    },
+    "Attach a File" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Joindre un fichier"
+          }
+        }
+      }
+    },
+    "Attachments" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pièces jointes"
+          }
+        }
+      }
+    },
+    "Audio" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Audio"
+          }
+        }
+      }
+    },
+    "Authentication was not completed." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’authentification n’a pas été complétée."
+          }
+        }
+      }
+    },
+    "Authentication was not completed. Try again or turn this option off." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’authentification n’a pas été effectuée. Réessayez ou désactivez cette option."
+          }
+        }
+      }
+    },
+    "Authenticator app" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Application d’authentification"
+          }
+        }
+      }
+    },
+    "Automatic" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatique"
+          }
+        }
+      }
+    },
+    "Automatic follows your iPhone. Anything not yet translated appears in English." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Automatique suit votre iPhone. Tout ce qui n’est pas encore traduit s’affiche en anglais."
+          }
+        }
+      }
+    },
+    "Automatic sign-in didn’t work" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La connexion automatique n’a pas fonctionné"
+          }
+        }
+      }
+    },
+    "Average" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moyenne"
+          }
+        }
+      }
+    },
+    "Average progression" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Évolution de la moyenne"
+          }
+        }
+      }
+    },
+    "Back" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retour"
+          }
+        }
+      }
+    },
+    "Back to the list of ways to search" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revenir à la liste des façons de chercher"
+          }
+        }
+      }
+    },
+    "Before You Sign In" : {
+
+    },
+    "Biology" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biologie"
+          }
+        }
+      }
+    },
+    "Black" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Noir"
+          }
+        }
+      }
+    },
+    "Blue" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bleu"
+          }
+        }
+      }
+    },
+    "Bold" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gras"
+          }
+        }
+      }
+    },
+    "Break" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause"
+          }
+        }
+      }
+    },
+    "Built-in Authenticator" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authentificateur intégré"
+          }
+        }
+      }
+    },
+    "Bullet List" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liste à puces"
+          }
+        }
+      }
+    },
+    "Business Administration" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Administration des affaires"
+          }
+        }
+      }
+    },
+    "button" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bouton"
+          }
+        }
+      }
+    },
+    "Calendar" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calendrier"
+          }
+        }
+      }
+    },
+    "Calendar access is turned off for Omnivox Neo." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’accès au calendrier est désactivé pour Omnivox Neo."
+          }
+        }
+      }
+    },
+    "Calendar subscription" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abonnement au calendrier"
+          }
+        }
+      }
+    },
+    "Campus" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Campus"
+          }
+        }
+      }
+    },
+    "Can’t Preview This File" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aperçu impossible"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuler"
+          }
+        }
+      }
+    },
+    "Change Icon" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Changer l’icône"
+          }
+        }
+      }
+    },
+    "Chart Scale" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Échelle du graphique"
+          }
+        }
+      }
+    },
+    "Check Again" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vérifier de nouveau"
+          }
+        }
+      }
+    },
+    "Check for Existing Authenticator" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vérifier la présence d’un authentificateur"
+          }
+        }
+      }
+    },
+    "Checking for existing authenticator..." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vérification d’un authentificateur existant…"
+          }
+        }
+      }
+    },
+    "Checking your authenticator…" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vérification de votre authentificateur…"
+          }
+        }
+      }
+    },
+    "Chemistry" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chimie"
+          }
+        }
+      }
+    },
+    "Choose a Photo" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisir une photo"
+          }
+        }
+      }
+    },
+    "Choose an accent colour and a wallpaper for this account." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez une couleur d’accent et un fond d’écran pour ce compte."
+          }
+        }
+      }
+    },
+    "Choose another way to search" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisir une autre façon de chercher"
+          }
+        }
+      }
+    },
+    "Choose how you’d like to protect OmniVox Neo on this device." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez comment protéger OmniVox Neo sur cet appareil."
+          }
+        }
+      }
+    },
+    "Choose how you’d like to verify." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez votre méthode de vérification."
+          }
+        }
+      }
+    },
+    "Choose what works for you: Neo's built-in authenticator for convenience, or the official OmniVox Mobile app. Both methods make verification quick and easy!" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez ce qui vous convient : l’authentificateur intégré de Neo pour la simplicité, ou l’application officielle OmniVox Mobile. Les deux rendent la vérification rapide et facile !"
+          }
+        }
+      }
+    },
+    "Choose who this goes to" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisir les destinataires"
+          }
+        }
+      }
+    },
+    "Choose who this goes to before sending." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez le destinataire avant d’envoyer."
+          }
+        }
+      }
+    },
+    "Chosen categories appear in a calendar of their own, kept separate from yours. Removing the subscription removes that calendar and everything in it." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les catégories choisies apparaissent dans un calendrier distinct du vôtre. Retirer l’abonnement supprime ce calendrier et tout son contenu."
+          }
+        }
+      }
+    },
+    "Cinema" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cinéma"
+          }
+        }
+      }
+    },
+    "Class" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cours"
+          }
+        }
+      }
+    },
+    "Class %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Groupe %@"
+          }
+        }
+      }
+    },
+    "Class average" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moyenne du groupe"
+          }
+        }
+      }
+    },
+    "Classes finished" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cours terminés"
+          }
+        }
+      }
+    },
+    "Clear search" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Effacer la recherche"
+          }
+        }
+      }
+    },
+    "Click the **Copy** button next to the code." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cliquez sur le bouton **Copier** à côté du code."
+          }
+        }
+      }
+    },
+    "Close folders" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fermer les dossiers"
+          }
+        }
+      }
+    },
+    "Code Detected" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code détecté"
+          }
+        }
+      }
+    },
+    "Code unavailable" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code indisponible"
+          }
+        }
+      }
+    },
+    "Colour" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couleur"
+          }
+        }
+      }
+    },
+    "Community" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Communauté"
+          }
+        }
+      }
+    },
+    "Complete Setup" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terminer la configuration"
+          }
+        }
+      }
+    },
+    "Compose" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rédiger"
+          }
+        }
+      }
+    },
+    "Computer Science" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informatique"
+          }
+        }
+      }
+    },
+    "Confirm that you want to protect your %@ information." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmez que vous voulez protéger vos informations %@."
+          }
+        }
+      }
+    },
+    "Confirming…" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmation…"
+          }
+        }
+      }
+    },
+    "Continue" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuer"
+          }
+        }
+      }
+    },
+    "Continue signing in" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poursuivre la connexion"
+          }
+        }
+      }
+    },
+    "Continues" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suite"
+          }
+        }
+      }
+    },
+    "Copied" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copié"
+          }
+        }
+      }
+    },
+    "Copies the code" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copie le code"
+          }
+        }
+      }
+    },
+    "Copy the Secret Code" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copier le code secret"
+          }
+        }
+      }
+    },
+    "Corrected" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copie corrigée"
+          }
+        }
+      }
+    },
+    "Could not save credentials securely." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible d’enregistrer vos identifiants de façon sécuritaire."
+          }
+        }
+      }
+    },
+    "Couldn’t open that" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible d’ouvrir"
+          }
+        }
+      }
+    },
+    "Couldn’t refresh right now. Your saved information is still available." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible d’actualiser pour l’instant. Vos informations enregistrées demeurent disponibles."
+          }
+        }
+      }
+    },
+    "Couldn’t refresh your live OmniVox information. Try unlocking again." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible d’actualiser vos informations OmniVox en direct. Essayez de déverrouiller de nouveau."
+          }
+        }
+      }
+    },
+    "Couldn’t verify your OmniVox session. Check your connection and try again." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de vérifier votre session OmniVox. Vérifiez votre connexion et réessayez."
+          }
+        }
+      }
+    },
+    "Couldn’t verify your OmniVox session. Try unlocking again." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de vérifier votre session OmniVox. Essayez de déverrouiller de nouveau."
+          }
+        }
+      }
+    },
+    "Counts" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comptée"
+          }
+        }
+      }
+    },
+    "Course" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cours"
+          }
+        }
+      }
+    },
+    "Course Icon" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icône du cours"
+          }
+        }
+      }
+    },
+    "Crimson" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cramoisi"
+          }
+        }
+      }
+    },
+    "Current account" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Compte actuel"
+          }
+        }
+      }
+    },
+    "Dawn" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aube"
+          }
+        }
+      }
+    },
+    "Dawson writes rooms as floor, wing, then room number." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dawson écrit ses locaux ainsi : étage, aile, puis numéro de local."
+          }
+        }
+      }
+    },
+    "Deadline passed" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Échéance dépassée"
+          }
+        }
+      }
+    },
+    "Default" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Par défaut"
+          }
+        }
+      }
+    },
+    "Delete" : {
+
+    },
+    "Delete Account" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer le compte"
+          }
+        }
+      }
+    },
+    "Delete Existing Authenticator" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer l’authentificateur existant"
+          }
+        }
+      }
+    },
+    "Delete Permanently" : {
+
+    },
+    "Delete This Message?" : {
+
+    },
+    "Design" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Design"
+          }
+        }
+      }
+    },
+    "device authentication" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "l’authentification de l’appareil"
+          }
+        }
+      }
+    },
+    "Device authentication is not available." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’authentification de l’appareil n’est pas disponible."
+          }
+        }
+      }
+    },
+    "Discard" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer"
+          }
+        }
+      }
+    },
+    "Dismiss" : {
+
+    },
+    "Document" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Document"
+          }
+        }
+      }
+    },
+    "Documents" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Documents"
+          }
+        }
+      }
+    },
+    "Done" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terminé"
+          }
+        }
+      }
+    },
+    "Downloading" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Téléchargement"
+          }
+        }
+      }
+    },
+    "Draft" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Brouillon"
+          }
+        }
+      }
+    },
+    "Dramatic Arts" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Art dramatique"
+          }
+        }
+      }
+    },
+    "Dropped" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirée"
+          }
+        }
+      }
+    },
+    "Dusk" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Crépuscule"
+          }
+        }
+      }
+    },
+    "Economics" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Économie"
+          }
+        }
+      }
+    },
+    "Electronics" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Électronique"
+          }
+        }
+      }
+    },
+    "Email" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Courriel"
+          }
+        }
+      }
+    },
+    "Ends in %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se termine dans %@"
+          }
+        }
+      }
+    },
+    "Engineering Technology" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Techniques du génie"
+          }
+        }
+      }
+    },
+    "English" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anglais"
+          }
+        }
+      }
+    },
+    "Enjoy the open space in your day." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profitez de ce temps libre."
+          }
+        }
+      }
+    },
+    "Enter Secret Below" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrez le code secret ci-dessous"
+          }
+        }
+      }
+    },
+    "Enter the 6-digit code from your authenticator app." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrez le code à 6 chiffres de votre application d’authentification."
+          }
+        }
+      }
+    },
+    "Enter the 6-digit security code you received." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrez le code de sécurité à 6 chiffres que vous avez reçu."
+          }
+        }
+      }
+    },
+    "Enter the 6-digit security code." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrez le code de sécurité à 6 chiffres."
+          }
+        }
+      }
+    },
+    "Enter the Code Myself" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrer le code moi-même"
+          }
+        }
+      }
+    },
+    "Enter this code below and tap \"Validate\"" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrez ce code ci-dessous et touchez « Valider »"
+          }
+        }
+      }
+    },
+    "Enter your 7-digit student ID." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrez votre numéro d’étudiant à 7 chiffres."
+          }
+        }
+      }
+    },
+    "Enter your OmniVox password once to finish setting up Face ID sign-in." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrez votre mot de passe OmniVox une fois pour terminer la configuration de la connexion par Face ID."
+          }
+        }
+      }
+    },
+    "Enter your OmniVox password." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entrez votre mot de passe OmniVox."
+          }
+        }
+      }
+    },
+    "Event" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Événement"
+          }
+        }
+      }
+    },
+    "Everyone" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tout le monde"
+          }
+        }
+      }
+    },
+    "Everyone has read this" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tout le monde l’a lu"
+          }
+        }
+      }
+    },
+    "Exact match" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Correspondance exacte"
+          }
+        }
+      }
+    },
+    "Face ID protects the OmniVox password used when a fresh sign-in is required." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face ID protège le mot de passe OmniVox utilisé lors d’une nouvelle connexion."
+          }
+        }
+      }
+    },
+    "Face ID sign-in could not save your updated password." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La connexion par Face ID n’a pas pu enregistrer votre nouveau mot de passe."
+          }
+        }
+      }
+    },
+    "File" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fichier"
+          }
+        }
+      }
+    },
+    "Find a room from its code" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trouver un local à partir de son code"
+          }
+        }
+      }
+    },
+    "Fit to your marks" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajuster à vos notes"
+          }
+        }
+      }
+    },
+    "Fit to your marks shows small changes clearly. Always 0–100% keeps the scale honest, but flattens the line." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "« Ajuster à vos notes » montre clairement les petits écarts. « Toujours de 0 à 100 % » garde une échelle fidèle, mais aplatit la courbe."
+          }
+        }
+      }
+    },
+    "Flag" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marquer d’un drapeau"
+          }
+        }
+      }
+    },
+    "Flag removed" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drapeau retiré"
+          }
+        }
+      }
+    },
+    "Flagged" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marqué d’un drapeau"
+          }
+        }
+      }
+    },
+    "Floor" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Étage"
+          }
+        }
+      }
+    },
+    "Folders" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dossiers"
+          }
+        }
+      }
+    },
+    "Forest" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forêt"
+          }
+        }
+      }
+    },
+    "Forward" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transférer"
+          }
+        }
+      }
+    },
+    "Français" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Français"
+          }
+        }
+      }
+    },
+    "Generate verification codes directly in Neo without needing a separate authenticator app. This will register Neo as an authentication application with OmniVox." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Générez vos codes de vérification directement dans Neo, sans application d’authentification distincte. Neo sera enregistré comme application d’authentification auprès d’OmniVox."
+          }
+        }
+      }
+    },
+    "Generating your code…" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Génération de votre code…"
+          }
+        }
+      }
+    },
+    "Geography" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Géographie"
+          }
+        }
+      }
+    },
+    "Good Afternoon" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bon après-midi"
+          }
+        }
+      }
+    },
+    "Good Afternoon, %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bon après-midi, %@"
+          }
+        }
+      }
+    },
+    "Good Evening" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonsoir"
+          }
+        }
+      }
+    },
+    "Good Evening, %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonsoir, %@"
+          }
+        }
+      }
+    },
+    "Good Morning" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonjour"
+          }
+        }
+      }
+    },
+    "Good Morning, %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonjour, %@"
+          }
+        }
+      }
+    },
+    "Got It!" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "C’est compris !"
+          }
+        }
+      }
+    },
+    "Grades" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notes"
+          }
+        }
+      }
+    },
+    "Graphite" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Graphite"
+          }
+        }
+      }
+    },
+    "Green" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vert"
+          }
+        }
+      }
+    },
+    "Handed in" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remis"
+          }
+        }
+      }
+    },
+    "Harbour" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Port"
+          }
+        }
+      }
+    },
+    "Hey, Night Owl" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salut, couche-tard"
+          }
+        }
+      }
+    },
+    "Hey, Night Owl %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salut, couche-tard %@"
+          }
+        }
+      }
+    },
+    "Hide password" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masquer le mot de passe"
+          }
+        }
+      }
+    },
+    "Hide summary" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masquer le résumé"
+          }
+        }
+      }
+    },
+    "Hide the recipient list" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masquer la liste des destinataires"
+          }
+        }
+      }
+    },
+    "Hides this class" : {
+
+    },
+    "Highlight" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Surligner"
+          }
+        }
+      }
+    },
+    "History" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Histoire"
+          }
+        }
+      }
+    },
+    "Home" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accueil"
+          }
+        }
+      }
+    },
+    "How Sign-In Works" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Comment fonctionne la connexion"
+          }
+        }
+      }
+    },
+    "How the class did" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Résultats du groupe"
+          }
+        }
+      }
+    },
+    "Humanities" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Humanités"
+          }
+        }
+      }
+    },
+    "I've Deleted It - Continue" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Je l’ai supprimé — Continuer"
+          }
+        }
+      }
+    },
+    "Icon" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icône"
+          }
+        }
+      }
+    },
+    "Image" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Image"
+          }
+        }
+      }
+    },
+    "In class" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En cours"
+          }
+        }
+      }
+    },
+    "In progress" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En cours"
+          }
+        }
+      }
+    },
+    "In the OmniVox web interface, navigate to your account settings. We'll walk you through adding Neo as an authenticator." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dans l’interface web d’OmniVox, allez aux réglages de votre compte. Nous vous guiderons pour ajouter Neo comme authentificateur."
+          }
+        }
+      }
+    },
+    "Indent" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Augmenter le retrait"
+          }
+        }
+      }
+    },
+    "Indigo" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indigo"
+          }
+        }
+      }
+    },
+    "Information Studies" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sciences de l’information"
+          }
+        }
+      }
+    },
+    "Institution" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Établissement"
+          }
+        }
+      }
+    },
+    "Instructions not opened yet" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consignes pas encore ouvertes"
+          }
+        }
+      }
+    },
+    "Integrative Methods" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Méthodes intégratrices"
+          }
+        }
+      }
+    },
+    "Invalid secret code. Please check and try again." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code secret invalide. Vérifiez-le et réessayez."
+          }
+        }
+      }
+    },
+    "It moves to your deleted items in OmniVox." : {
+
+    },
+    "Italic" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Italique"
+          }
+        }
+      }
+    },
+    "just now" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "à l’instant"
+          }
+        }
+      }
+    },
+    "Justify" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Justifier"
+          }
+        }
+      }
+    },
+    "Keep Writing" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuer à écrire"
+          }
+        }
+      }
+    },
+    "Laboratory Technology" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Techniques de laboratoire"
+          }
+        }
+      }
+    },
+    "Language" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Langue"
+          }
+        }
+      }
+    },
+    "Languages" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Langues"
+          }
+        }
+      }
+    },
+    "Last synced %@ at %@." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dernière synchronisation le %1$@ à %2$@."
+          }
+        }
+      }
+    },
+    "Léa is not available for this account." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Léa n’est pas offert pour ce compte."
+          }
+        }
+      }
+    },
+    "Léa took too long to answer. Check your connection and try again." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Léa a mis trop de temps à répondre. Vérifiez votre connexion et réessayez."
+          }
+        }
+      }
+    },
+    "Line" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Courbe"
+          }
+        }
+      }
+    },
+    "Link" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lien"
+          }
+        }
+      }
+    },
+    "Links" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liens"
+          }
+        }
+      }
+    },
+    "Loading assignments…" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chargement des travaux…"
+          }
+        }
+      }
+    },
+    "Loading documents…" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chargement des documents…"
+          }
+        }
+      }
+    },
+    "Loading grades…" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chargement des notes…"
+          }
+        }
+      }
+    },
+    "Loading updates…" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chargement des mises à jour…"
+          }
+        }
+      }
+    },
+    "Loading…" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chargement…"
+          }
+        }
+      }
+    },
+    "Log Out" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se déconnecter"
+          }
+        }
+      }
+    },
+    "Log Out of %@?" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se déconnecter de %@ ?"
+          }
+        }
+      }
+    },
+    "Log Out of OmniVox?" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se déconnecter d’OmniVox ?"
+          }
+        }
+      }
+    },
+    "Log Out, Keep Account" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se déconnecter, garder le compte"
+          }
+        }
+      }
+    },
+    "Logged Out" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déconnecté"
+          }
+        }
+      }
+    },
+    "Logging in..." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connexion en cours…"
+          }
+        }
+      }
+    },
+    "Logging out keeps this account on the device with its saved authenticator. Deleting removes it completely — the next sign-in starts fresh." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se déconnecter garde ce compte sur l’appareil avec son authentificateur enregistré. Le supprimer le retire complètement — la prochaine connexion repart à zéro."
+          }
+        }
+      }
+    },
+    "Logging out keeps this account on the device. Your student ID stays prefilled and your saved authenticator still answers the verification code, so signing back in only needs your password.\n\nDeleting removes the account and its authenticator completely." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se déconnecter garde ce compte sur l’appareil. Votre numéro d’étudiant reste prérempli et votre authentificateur enregistré continue de fournir le code de vérification : il ne vous faudra que votre mot de passe pour vous reconnecter.\n\nSupprimer retire complètement le compte et son authentificateur."
+          }
+        }
+      }
+    },
+    "Look below to see if \"Authentication application\" is already listed." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regardez ci-dessous si « Application d’authentification » figure déjà dans la liste."
+          }
+        }
+      }
+    },
+    "Look Up a Room" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trouver un local"
+          }
+        }
+      }
+    },
+    "Magenta" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Magenta"
+          }
+        }
+      }
+    },
+    "Mark All as Read" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tout marquer comme lu"
+          }
+        }
+      }
+    },
+    "Mark to Read Again" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marquer à relire"
+          }
+        }
+      }
+    },
+    "Marked copy" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copie corrigée"
+          }
+        }
+      }
+    },
+    "Marked copy returned" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copie corrigée remise"
+          }
+        }
+      }
+    },
+    "Marked to read again" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À relire"
+          }
+        }
+      }
+    },
+    "Mathematics" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mathématiques"
+          }
+        }
+      }
+    },
+    "Maybe Later" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus tard"
+          }
+        }
+      }
+    },
+    "Meadow" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prairie"
+          }
+        }
+      }
+    },
+    "Media" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Médias"
+          }
+        }
+      }
+    },
+    "Median" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Médiane"
+          }
+        }
+      }
+    },
+    "Message" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Message"
+          }
+        }
+      }
+    },
+    "Message sent" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Message envoyé"
+          }
+        }
+      }
+    },
+    "Messages" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Messages"
+          }
+        }
+      }
+    },
+    "Messages are not available for this account." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La messagerie n’est pas accessible pour ce compte."
+          }
+        }
+      }
+    },
+    "Messages could not be read: %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La messagerie n’a pas pu être lue : %@"
+          }
+        }
+      }
+    },
+    "Messages took too long to answer. Check your connection and try again." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La messagerie a mis trop de temps à répondre. Vérifiez votre connexion et réessayez."
+          }
+        }
+      }
+    },
+    "More" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus"
+          }
+        }
+      }
+    },
+    "More than one student can use this device. Each account keeps its own schedule, password and authenticator." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plusieurs étudiants peuvent utiliser cet appareil. Chaque compte conserve son propre horaire, mot de passe et authentificateur."
+          }
+        }
+      }
+    },
+    "Move and Scale" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déplacer et redimensionner"
+          }
+        }
+      }
+    },
+    "Multimedia" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Multimédia"
+          }
+        }
+      }
+    },
+    "Music" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Musique"
+          }
+        }
+      }
+    },
+    "Name or keyword" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nom ou mot-clé"
+          }
+        }
+      }
+    },
+    "Navigate to 2-Step Validation" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aller à la validation en deux étapes"
+          }
+        }
+      }
+    },
+    "Navigating to Setup..." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouverture de la configuration…"
+          }
+        }
+      }
+    },
+    "Neo offers a built-in authenticator that generates verification codes right in the app. Or, you can keep using the official OmniVox Mobile app for codes—both options work great!" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neo offre un authentificateur intégré qui génère les codes de vérification directement dans l’application. Vous pouvez aussi continuer d’obtenir vos codes dans l’application officielle OmniVox Mobile — les deux fonctionnent très bien !"
+          }
+        }
+      }
+    },
+    "Neo uses a secure sign-in method. When verification is needed, you can either use Neo's built-in authenticator or get codes from the official OmniVox Mobile app." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neo utilise une méthode de connexion sécurisée. Quand une vérification est requise, servez-vous de l’authentificateur intégré de Neo ou obtenez un code dans l’application officielle OmniVox Mobile."
+          }
+        }
+      }
+    },
+    "New Account" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveau compte"
+          }
+        }
+      }
+    },
+    "New Message" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveau message"
+          }
+        }
+      }
+    },
+    "New Since Your Last Visit" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nouveautés depuis votre dernière visite"
+          }
+        }
+      }
+    },
+    "Next" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suivant"
+          }
+        }
+      }
+    },
+    "Next day" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jour suivant"
+          }
+        }
+      }
+    },
+    "Next match" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Résultat suivant"
+          }
+        }
+      }
+    },
+    "Next month" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mois suivant"
+          }
+        }
+      }
+    },
+    "Next: %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prochain : %@"
+          }
+        }
+      }
+    },
+    "No active profile found." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun profil actif trouvé."
+          }
+        }
+      }
+    },
+    "No Announcements" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune annonce"
+          }
+        }
+      }
+    },
+    "No Assignments" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun travail"
+          }
+        }
+      }
+    },
+    "No Authenticator Found - Continue" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun authentificateur trouvé — Continuer"
+          }
+        }
+      }
+    },
+    "No calendar on this device can be written to." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun calendrier de cet appareil n’est accessible en écriture."
+          }
+        }
+      }
+    },
+    "No classes" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun cours"
+          }
+        }
+      }
+    },
+    "No Classes This Term" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun cours cette session"
+          }
+        }
+      }
+    },
+    "No Documents" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun document"
+          }
+        }
+      }
+    },
+    "No Grades Yet" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune note pour l’instant"
+          }
+        }
+      }
+    },
+    "No matches" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun résultat"
+          }
+        }
+      }
+    },
+    "No Message Open" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun message ouvert"
+          }
+        }
+      }
+    },
+    "No Messages" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun message"
+          }
+        }
+      }
+    },
+    "No need to enter codes manually on this device" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plus besoin d’entrer de codes à la main sur cet appareil"
+          }
+        }
+      }
+    },
+    "No Recommended Websites" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun site recommandé"
+          }
+        }
+      }
+    },
+    "No reminder" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun rappel"
+          }
+        }
+      }
+    },
+    "No room number" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun numéro de local"
+          }
+        }
+      }
+    },
+    "No Rooms Today" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun local aujourd’hui"
+          }
+        }
+      }
+    },
+    "No saved authenticator was found. Enter the code manually." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun authentificateur enregistré n’a été trouvé. Entrez le code manuellement."
+          }
+        }
+      }
+    },
+    "No upload recorded" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun dépôt enregistré"
+          }
+        }
+      }
+    },
+    "Nobody Found" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune personne trouvée"
+          }
+        }
+      }
+    },
+    "Nobody is listed for this class." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune personne n’est inscrite à ce cours."
+          }
+        }
+      }
+    },
+    "Nobody yet. Pick somebody below." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personne pour l’instant. Choisissez quelqu’un ci-dessous."
+          }
+        }
+      }
+    },
+    "None" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun"
+          }
+        }
+      }
+    },
+    "None chosen" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun choisi"
+          }
+        }
+      }
+    },
+    "None of your teachers have recommended a website." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun de vos enseignants n’a recommandé de site."
+          }
+        }
+      }
+    },
+    "Not marked yet" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas encore corrigé"
+          }
+        }
+      }
+    },
+    "Not opened yet" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jamais ouvert"
+          }
+        }
+      }
+    },
+    "Not read by everyone yet" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas encore lu par tout le monde"
+          }
+        }
+      }
+    },
+    "Not released" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non publiée"
+          }
+        }
+      }
+    },
+    "Not signed in yet" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas encore connecté"
+          }
+        }
+      }
+    },
+    "Not submitted" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non remis"
+          }
+        }
+      }
+    },
+    "Not supported yet" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas encore pris en charge"
+          }
+        }
+      }
+    },
+    "Not Supported Yet" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pas encore pris en charge"
+          }
+        }
+      }
+    },
+    "Nothing has arrived in this folder." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rien n’est arrivé dans ce dossier."
+          }
+        }
+      }
+    },
+    "Nothing has been assigned in this course yet." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun travail n’a encore été donné dans ce cours."
+          }
+        }
+      }
+    },
+    "Nothing has been marked in this course yet." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rien n’a encore été corrigé dans ce cours."
+          }
+        }
+      }
+    },
+    "Nothing Here Matches" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune correspondance ici"
+          }
+        }
+      }
+    },
+    "Nothing is scheduled." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rien de prévu."
+          }
+        }
+      }
+    },
+    "Nothing on this day" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rien ce jour-là"
+          }
+        }
+      }
+    },
+    "Nothing Open" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rien d’ouvert"
+          }
+        }
+      }
+    },
+    "Nothing scheduled" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rien de prévu"
+          }
+        }
+      }
+    },
+    "NOW" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "EN COURS"
+          }
+        }
+      }
+    },
+    "Numbered List" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liste numérotée"
+          }
+        }
+      }
+    },
+    "Nursing" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soins infirmiers"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "OmniVox Mobile" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OmniVox Mobile"
+          }
+        }
+      }
+    },
+    "Omnivox Neo" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omnivox Neo"
+          }
+        }
+      }
+    },
+    "Omnivox Neo currently supports %@. More institutions are planned." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omnivox Neo prend actuellement en charge %@. D’autres établissements sont prévus."
+          }
+        }
+      }
+    },
+    "Omnivox Neo has permission to add events but not to read them back, so it cannot keep them up to date. Choose Full Access in Settings." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omnivox Neo peut ajouter des événements mais pas les relire, il ne peut donc pas les tenir à jour. Choisissez Accès complet dans Réglages."
+          }
+        }
+      }
+    },
+    "Omnivox Neo keeps its own calendar and writes your agenda into it." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omnivox Neo tient son propre calendrier et y inscrit votre agenda."
+          }
+        }
+      }
+    },
+    "OmniVox Neo locked" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OmniVox Neo est verrouillé"
+          }
+        }
+      }
+    },
+    "Omnivox Neo needs permission to add events to your calendar. You can grant it in Settings." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omnivox Neo a besoin de votre autorisation pour ajouter des événements à votre calendrier. Vous pouvez l’accorder dans Réglages."
+          }
+        }
+      }
+    },
+    "One School for Now" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un seul établissement pour l’instant"
+          }
+        }
+      }
+    },
+    "Only works on this device for security" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fonctionne uniquement sur cet appareil, par sécurité"
+          }
+        }
+      }
+    },
+    "Open in Another App" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir dans une autre app"
+          }
+        }
+      }
+    },
+    "Open in Browser" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir dans le navigateur"
+          }
+        }
+      }
+    },
+    "Open OmniVox Settings" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir les réglages OmniVox"
+          }
+        }
+      }
+    },
+    "Open Settings" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir Réglages"
+          }
+        }
+      }
+    },
+    "Opening %@…" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouverture de %@…"
+          }
+        }
+      }
+    },
+    "Opening the directory…" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouverture du répertoire…"
+          }
+        }
+      }
+    },
+    "Opening your verification methods…" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouverture de vos méthodes de vérification…"
+          }
+        }
+      }
+    },
+    "Opening…" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouverture…"
+          }
+        }
+      }
+    },
+    "Opens application settings" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvre les réglages de l’application"
+          }
+        }
+      }
+    },
+    "Opens in OmniVox · not supported yet" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S’ouvre dans OmniVox · pas encore pris en charge"
+          }
+        }
+      }
+    },
+    "Opens in your browser" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S’ouvre dans votre navigateur"
+          }
+        }
+      }
+    },
+    "Opens the directory" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvre le répertoire"
+          }
+        }
+      }
+    },
+    "Opens this class" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvre ce cours"
+          }
+        }
+      }
+    },
+    "Opens this draft to finish writing" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvre ce brouillon pour le terminer"
+          }
+        }
+      }
+    },
+    "Opens this file" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvre ce fichier"
+          }
+        }
+      }
+    },
+    "Orange" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orange"
+          }
+        }
+      }
+    },
+    "Other" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autre"
+          }
+        }
+      }
+    },
+    "Other links" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autres liens"
+          }
+        }
+      }
+    },
+    "Outdent" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diminuer le retrait"
+          }
+        }
+      }
+    },
+    "Password" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mot de passe"
+          }
+        }
+      }
+    },
+    "Paste secret code here" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Collez le code secret ici"
+          }
+        }
+      }
+    },
+    "Permission" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autorisation"
+          }
+        }
+      }
+    },
+    "Personalization" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personnalisation"
+          }
+        }
+      }
+    },
+    "Philosophy" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Philosophie"
+          }
+        }
+      }
+    },
+    "Physical Education" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Éducation physique"
+          }
+        }
+      }
+    },
+    "Physics" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Physique"
+          }
+        }
+      }
+    },
+    "Pick a class on the left to see it here." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez un cours à gauche pour l’afficher ici."
+          }
+        }
+      }
+    },
+    "Pick another term above, or check back once registration opens." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez une autre session ci-dessus, ou revenez à l’ouverture des inscriptions."
+          }
+        }
+      }
+    },
+    "Pick something on the left to read it here." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisissez un élément à gauche pour le lire ici."
+          }
+        }
+      }
+    },
+    "Pinch to zoom · Drag to move" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pincez pour zoomer · Glissez pour déplacer"
+          }
+        }
+      }
+    },
+    "Please enter the secret code" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Veuillez entrer le code secret"
+          }
+        }
+      }
+    },
+    "PLEASE READ INSTRUCTIONS" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VEUILLEZ LIRE LES INSTRUCTIONS"
+          }
+        }
+      }
+    },
+    "Political Science" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Science politique"
+          }
+        }
+      }
+    },
+    "Portion of the final grade" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Part de la note finale"
+          }
+        }
+      }
+    },
+    "Posted By" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Publié par"
+          }
+        }
+      }
+    },
+    "Prefer the official app? No problem! Keep OmniVox Mobile installed and Neo will detect codes from its notifications, making it easy to copy them when needed." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous préférez l’application officielle ? Aucun problème ! Gardez OmniVox Mobile installée et Neo repérera les codes dans ses notifications, ce qui les rend faciles à copier au besoin."
+          }
+        }
+      }
+    },
+    "Preparing your verification options…" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Préparation de vos options de vérification…"
+          }
+        }
+      }
+    },
+    "Preview" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aperçu"
+          }
+        }
+      }
+    },
+    "Previous day" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jour précédent"
+          }
+        }
+      }
+    },
+    "Previous match" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Résultat précédent"
+          }
+        }
+      }
+    },
+    "Previous month" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mois précédent"
+          }
+        }
+      }
+    },
+    "Print" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imprimer"
+          }
+        }
+      }
+    },
+    "Psychology" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Psychologie"
+          }
+        }
+      }
+    },
+    "Purple" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Violet"
+          }
+        }
+      }
+    },
+    "Quick Summary" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En résumé"
+          }
+        }
+      }
+    },
+    "Read all" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tout lire"
+          }
+        }
+      }
+    },
+    "Read by %@ of %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lu par %@ sur %@"
+          }
+        }
+      }
+    },
+    "Read-again mark removed" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Marque « à relire » retirée"
+          }
+        }
+      }
+    },
+    "Recipients" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Destinataires"
+          }
+        }
+      }
+    },
+    "Recommended websites" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sites Web recommandés"
+          }
+        }
+      }
+    },
+    "Recommended Websites" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sites Web recommandés"
+          }
+        }
+      }
+    },
+    "Recorded by your teacher." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Consigné par votre enseignant."
+          }
+        }
+      }
+    },
+    "Red" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rouge"
+          }
+        }
+      }
+    },
+    "Redo" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rétablir"
+          }
+        }
+      }
+    },
+    "Refresh updates" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualiser les mises à jour"
+          }
+        }
+      }
+    },
+    "Remind Me" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Me rappeler"
+          }
+        }
+      }
+    },
+    "Remove" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirer"
+          }
+        }
+      }
+    },
+    "Remove %@?" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirer %@ ?"
+          }
+        }
+      }
+    },
+    "Remove Account" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirer le compte"
+          }
+        }
+      }
+    },
+    "Remove attachment" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirer la pièce jointe"
+          }
+        }
+      }
+    },
+    "Remove Built-in Authenticator" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirer l’authentificateur intégré"
+          }
+        }
+      }
+    },
+    "Remove Built-in Authenticator?" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirer l’authentificateur intégré ?"
+          }
+        }
+      }
+    },
+    "Remove flag" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirer le drapeau"
+          }
+        }
+      }
+    },
+    "Remove Flag" : {
+
+    },
+    "Remove Highlight" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirer le surlignage"
+          }
+        }
+      }
+    },
+    "Remove Photo" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirer la photo"
+          }
+        }
+      }
+    },
+    "Remove Read-Again Mark" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirer la marque à relire"
+          }
+        }
+      }
+    },
+    "Remove Subscription" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retirer l’abonnement"
+          }
+        }
+      }
+    },
+    "Removes this person" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retire cette personne"
+          }
+        }
+      }
+    },
+    "Removes this recipient" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retire ce destinataire"
+          }
+        }
+      }
+    },
+    "Reply" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Répondre"
+          }
+        }
+      }
+    },
+    "Reply to All" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Répondre à tous"
+          }
+        }
+      }
+    },
+    "Require %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exiger %@"
+          }
+        }
+      }
+    },
+    "Require Face ID" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exiger Face ID"
+          }
+        }
+      }
+    },
+    "Required" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Requis"
+          }
+        }
+      }
+    },
+    "Return to Sign In" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retour à la connexion"
+          }
+        }
+      }
+    },
+    "Return to today" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Revenir à aujourd’hui"
+          }
+        }
+      }
+    },
+    "Reveal the Secret Code" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher le code secret"
+          }
+        }
+      }
+    },
+    "Room" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Local"
+          }
+        }
+      }
+    },
+    "Room %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Local %@"
+          }
+        }
+      }
+    },
+    "Room codes from your schedule show up here. You can still look one up above." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les codes de local de votre horaire apparaissent ici. Vous pouvez quand même en chercher un ci-dessus."
+          }
+        }
+      }
+    },
+    "Save Draft" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer le brouillon"
+          }
+        }
+      }
+    },
+    "Save this as a draft?" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistrer comme brouillon ?"
+          }
+        }
+      }
+    },
+    "Saving this selection needs MIO's own page. It is open below." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’enregistrement de cette sélection passe par la page de MIO, ouverte ci-dessous."
+          }
+        }
+      }
+    },
+    "Schedule" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Horaire"
+          }
+        }
+      }
+    },
+    "Search" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rechercher"
+          }
+        }
+      }
+    },
+    "Search in %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rechercher dans %@"
+          }
+        }
+      }
+    },
+    "Search in document" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rechercher dans le document"
+          }
+        }
+      }
+    },
+    "Search messages" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rechercher dans les messages"
+          }
+        }
+      }
+    },
+    "Securely saves your OmniVox password for automatic sign-in" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enregistre de façon sécurisée votre mot de passe OmniVox pour la connexion automatique"
+          }
+        }
+      }
+    },
+    "Security" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sécurité"
+          }
+        }
+      }
+    },
+    "Selecting your authenticator app…" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sélection de votre application d’authentification…"
+          }
+        }
+      }
+    },
+    "Send" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyer"
+          }
+        }
+      }
+    },
+    "Send a New Code" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyer un nouveau code"
+          }
+        }
+      }
+    },
+    "Sending to" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Destinataires"
+          }
+        }
+      }
+    },
+    "Set" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Définir"
+          }
+        }
+      }
+    },
+    "Set Up Built-in Authenticator" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurer l’authentificateur intégré"
+          }
+        }
+      }
+    },
+    "Set Up Now" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurer maintenant"
+          }
+        }
+      }
+    },
+    "Set Up OmniVox Neo Authenticator?" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurer l’authentificateur OmniVox Neo ?"
+          }
+        }
+      }
+    },
+    "Setup Authenticator" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configurer l’authentificateur"
+          }
+        }
+      }
+    },
+    "Setup Complete!" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuration terminée !"
+          }
+        }
+      }
+    },
+    "Share" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partager"
+          }
+        }
+      }
+    },
+    "Show all %lld recipients" : {
+      "localizations" : {
+        "fr" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Afficher le destinataire"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Afficher les %lld destinataires"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Show fewer" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher moins"
+          }
+        }
+      }
+    },
+    "Show fewer recipients" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher moins de destinataires"
+          }
+        }
+      }
+    },
+    "Show less" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réduire"
+          }
+        }
+      }
+    },
+    "Show password" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher le mot de passe"
+          }
+        }
+      }
+    },
+    "Show summary" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher le résumé"
+          }
+        }
+      }
+    },
+    "Show the Original Page" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher la page d’origine"
+          }
+        }
+      }
+    },
+    "Shows event details" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Affiche les détails de l’événement"
+          }
+        }
+      }
+    },
+    "Shows the full update" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Affiche la mise à jour complète"
+          }
+        }
+      }
+    },
+    "Shows this class" : {
+
+    },
+    "Sign In" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se connecter"
+          }
+        }
+      }
+    },
+    "Sign in to %@ again." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reconnectez-vous à %@."
+          }
+        }
+      }
+    },
+    "Sign in with your OmniVox password once before enabling Face ID." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connectez-vous une fois avec votre mot de passe OmniVox avant d’activer Face ID."
+          }
+        }
+      }
+    },
+    "Sign-in is still locked. Try again or use your OmniVox password." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La connexion est toujours verrouillée. Réessayez ou utilisez votre mot de passe OmniVox."
+          }
+        }
+      }
+    },
+    "Sign-in was not accepted. Check your ID and password, then try again." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La connexion a été refusée. Vérifiez votre numéro d’étudiant et votre mot de passe, puis réessayez."
+          }
+        }
+      }
+    },
+    "Signing in with your authenticator timed out. Enter the code manually." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La connexion avec votre authentificateur a expiré. Entrez le code manuellement."
+          }
+        }
+      }
+    },
+    "Signing you in" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connexion en cours"
+          }
+        }
+      }
+    },
+    "Signing you in…" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connexion en cours…"
+          }
+        }
+      }
+    },
+    "Sits behind your schedule and settings. Cards stay solid so everything remains readable. A photo you choose is stored with this account only." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S’affiche derrière votre horaire et vos réglages. Les fiches restent opaques pour que tout demeure lisible. La photo que vous choisissez est conservée avec ce compte seulement."
+          }
+        }
+      }
+    },
+    "Skip" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignorer"
+          }
+        }
+      }
+    },
+    "Skip 2FA on this device next time you log in by setting up the OmniVox Neo Authenticator." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sautez la double authentification sur cet appareil à votre prochaine connexion en configurant l’authentificateur OmniVox Neo."
+          }
+        }
+      }
+    },
+    "Slate" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ardoise"
+          }
+        }
+      }
+    },
+    "Slides" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diapositives"
+          }
+        }
+      }
+    },
+    "Social Science" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sciences humaines"
+          }
+        }
+      }
+    },
+    "Social Work" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Travail social"
+          }
+        }
+      }
+    },
+    "Sociology" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sociologie"
+          }
+        }
+      }
+    },
+    "Spanish" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Espagnol"
+          }
+        }
+      }
+    },
+    "Spreadsheet" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feuille de calcul"
+          }
+        }
+      }
+    },
+    "Standard deviation" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Écart type"
+          }
+        }
+      }
+    },
+    "Start Again From Scratch" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tout recommencer"
+          }
+        }
+      }
+    },
+    "Starts in %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Commence dans %@"
+          }
+        }
+      }
+    },
+    "Stops adding an account and returns to the previous one" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interrompt l’ajout d’un compte et revient au compte précédent"
+          }
+        }
+      }
+    },
+    "Strikethrough" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Barré"
+          }
+        }
+      }
+    },
+    "Student ID" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Numéro d’étudiant"
+          }
+        }
+      }
+    },
+    "Student ID is complete" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le numéro d’étudiant est complet"
+          }
+        }
+      }
+    },
+    "Subject" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Objet"
+          }
+        }
+      }
+    },
+    "Subscript" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indice"
+          }
+        }
+      }
+    },
+    "Superscript" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exposant"
+          }
+        }
+      }
+    },
+    "Switches between accounts or adds one" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change de compte ou en ajoute un"
+          }
+        }
+      }
+    },
+    "Switches to this account" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bascule vers ce compte"
+          }
+        }
+      }
+    },
+    "Switching keeps every account signed in. An account that is logged out keeps its saved authenticator, so signing back in only needs the password." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Changer de compte garde tous les comptes connectés. Un compte déconnecté conserve son authentificateur enregistré : il ne faut que le mot de passe pour s’y reconnecter."
+          }
+        }
+      }
+    },
+    "Sync" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Synchronisation"
+          }
+        }
+      }
+    },
+    "Sync Now" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Synchroniser maintenant"
+          }
+        }
+      }
+    },
+    "Tap the **Copy** button next to the long code below." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Touchez le bouton **Copier** à côté du long code ci-dessous."
+          }
+        }
+      }
+    },
+    "Teal" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sarcelle"
+          }
+        }
+      }
+    },
+    "Term" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Session"
+          }
+        }
+      }
+    },
+    "Text Colour" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couleur du texte"
+          }
+        }
+      }
+    },
+    "Text Size" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taille du texte"
+          }
+        }
+      }
+    },
+    "That could not be changed right now." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cela n’a pas pu être modifié pour l’instant."
+          }
+        }
+      }
+    },
+    "That file could not be downloaded." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce fichier n’a pas pu être téléchargé."
+          }
+        }
+      }
+    },
+    "That isn't a Dawson room code. They look like 4H.15." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce n’est pas un code de local de Dawson. Ils ressemblent à 4H.15."
+          }
+        }
+      }
+    },
+    "That photo couldn’t be loaded. Try another one." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette photo n’a pas pu être chargée. Essayez-en une autre."
+          }
+        }
+      }
+    },
+    "That photo couldn’t be saved. Try another one." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette photo n’a pas pu être enregistrée. Essayez-en une autre."
+          }
+        }
+      }
+    },
+    "That verification action is not available. Cancel and try signing in again." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette action de vérification n’est pas disponible. Annulez et réessayez de vous connecter."
+          }
+        }
+      }
+    },
+    "That’s everything for today." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "C’est tout pour aujourd’hui."
+          }
+        }
+      }
+    },
+    "The %@ sign-in form changed. Sign-in could not be completed safely." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le formulaire de connexion de %@ a changé. La connexion n’a pas pu être effectuée en toute sécurité."
+          }
+        }
+      }
+    },
+    "The %@ sign-in page could not be recognized. Please try again." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La page de connexion de %@ n’a pas pu être reconnue. Veuillez réessayer."
+          }
+        }
+      }
+    },
+    "The assignments could not be read." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de lire les travaux."
+          }
+        }
+      }
+    },
+    "The authenticator step could not be opened. Enter the code manually." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible d’ouvrir l’étape de l’authentificateur. Entrez le code manuellement."
+          }
+        }
+      }
+    },
+    "The chart could not be loaded." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de charger le graphique."
+          }
+        }
+      }
+    },
+    "The class average is %@ percent." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La moyenne du groupe est de %@ pour cent."
+          }
+        }
+      }
+    },
+    "The code refreshes every 30 seconds" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le code se renouvelle toutes les 30 secondes"
+          }
+        }
+      }
+    },
+    "The directory could not be opened." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le répertoire n’a pas pu être ouvert."
+          }
+        }
+      }
+    },
+    "The documents could not be read." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de lire les documents."
+          }
+        }
+      }
+    },
+    "The download could not be saved." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le téléchargement n’a pas pu être enregistré."
+          }
+        }
+      }
+    },
+    "The download was empty." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le téléchargement était vide."
+          }
+        }
+      }
+    },
+    "The flag could not be saved." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le drapeau n’a pas pu être enregistré."
+          }
+        }
+      }
+    },
+    "The grades could not be read." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de lire les notes."
+          }
+        }
+      }
+    },
+    "The live connection paused. Your saved information is still available." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La connexion en direct est interrompue. Vos informations enregistrées demeurent disponibles."
+          }
+        }
+      }
+    },
+    "The page was replaced before it finished loading." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La page a été remplacée avant la fin du chargement."
+          }
+        }
+      }
+    },
+    "The people who receive this will not see who else did." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les destinataires ne verront pas qui d’autre a reçu ce message."
+          }
+        }
+      }
+    },
+    "The read-again mark could not be saved." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La marque « à relire » n’a pas pu être enregistrée."
+          }
+        }
+      }
+    },
+    "The recommended websites could not be read." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de lire les sites recommandés."
+          }
+        }
+      }
+    },
+    "The saved authenticator could not be read. Set it up again from the Me tab." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de lire l’authentificateur enregistré. Configurez-le de nouveau dans l’onglet Moi."
+          }
+        }
+      }
+    },
+    "The schedule is not available yet. Pull to refresh in a moment." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L’horaire n’est pas encore disponible. Tirez pour actualiser dans un moment."
+          }
+        }
+      }
+    },
+    "The verification service could not connect. Check your connection and try again." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le service de vérification n’a pas pu se connecter. Vérifiez votre connexion et réessayez."
+          }
+        }
+      }
+    },
+    "There is no step to go back to. Choose a verification method above." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il n’y a aucune étape précédente. Choisissez une méthode de vérification ci-dessus."
+          }
+        }
+      }
+    },
+    "They will be told there is a new message the next time they sign in." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La personne sera avisée qu’un nouveau message l’attend à sa prochaine connexion."
+          }
+        }
+      }
+    },
+    "This 6-digit code refreshes every 30 seconds and can be used for OmniVox verification. It's linked to your current student ID." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce code à 6 chiffres se renouvelle toutes les 30 secondes et peut servir à la vérification OmniVox. Il est lié à votre numéro d’étudiant actuel."
+          }
+        }
+      }
+    },
+    "this account" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ce compte"
+          }
+        }
+      }
+    },
+    "This announcement could not be read." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de lire cette annonce."
+          }
+        }
+      }
+    },
+    "This class is not held in a classroom. Open the official Omnivox app or website to join it." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce cours n’a pas lieu en classe. Ouvrez l’application ou le site officiel Omnivox pour y accéder."
+          }
+        }
+      }
+    },
+    "This code refreshes automatically and can be used for OmniVox verification." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce code se renouvelle automatiquement et peut servir à la vérification OmniVox."
+          }
+        }
+      }
+    },
+    "This code refreshes automatically and can be used for OmniVox verification. Tap it to copy." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce code se renouvelle automatiquement et peut servir à la vérification OmniVox. Touchez-le pour le copier."
+          }
+        }
+      }
+    },
+    "This is a link to another website. It will open in your browser.\n\n%@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ceci est un lien vers un autre site Web. Il s’ouvrira dans votre navigateur.\n\n%@"
+          }
+        }
+      }
+    },
+    "This item is a link, not a file." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cet élément est un lien, pas un fichier."
+          }
+        }
+      }
+    },
+    "This link opens a page inside OmniVox, which Omnivox Neo cannot show yet. Open it in a browser and sign in there for now." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce lien ouvre une page dans OmniVox, qu’Omnivox Neo ne peut pas encore afficher. Ouvrez-le dans un navigateur et connectez-vous-y pour l’instant."
+          }
+        }
+      }
+    },
+    "This message could not be read." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce message n’a pas pu être lu."
+          }
+        }
+      }
+    },
+    "This message could not be sent." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce message n’a pas pu être envoyé."
+          }
+        }
+      }
+    },
+    "This message could not be started." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce message n’a pas pu être démarré."
+          }
+        }
+      }
+    },
+    "This message will be gone for good." : {
+
+    },
+    "This part of the directory is shown as MIO's own page." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette partie du répertoire s’affiche telle quelle, comme dans MIO."
+          }
+        }
+      }
+    },
+    "This removes the saved password, Face ID setting, trusted-device status and cached information from this device. Your student ID stays prefilled." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cela retire de cet appareil le mot de passe enregistré, le réglage Face ID, le statut d’appareil de confiance et les informations mises en cache. Votre numéro d’étudiant reste prérempli."
+          }
+        }
+      }
+    },
+    "This searches the messages already loaded in this folder. Older ones may not be among them." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La recherche porte sur les messages déjà chargés dans ce dossier. Les plus anciens peuvent en être absents."
+          }
+        }
+      }
+    },
+    "This sign-in step could not be presented safely. Cancel and try again." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette étape de connexion n’a pas pu être affichée en toute sécurité. Annulez et réessayez."
+          }
+        }
+      }
+    },
+    "This term could not be selected." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible de sélectionner cette session."
+          }
+        }
+      }
+    },
+    "This verification step could not be prepared. Cancel and try signing in again." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette étape de vérification n’a pas pu être préparée. Annulez et réessayez de vous connecter."
+          }
+        }
+      }
+    },
+    "This verification step isn’t for your authenticator app. Enter the code you received, or pick the authenticator app below." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette étape de vérification ne concerne pas votre application d’authentification. Entrez le code que vous avez reçu ou choisissez l’application d’authentification ci-dessous."
+          }
+        }
+      }
+    },
+    "This will remove Neo as an authentication application from your OmniVox account. You'll need to set up another verification method." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neo sera retiré des applications d’authentification de votre compte OmniVox. Vous devrez configurer une autre méthode de vérification."
+          }
+        }
+      }
+    },
+    "This will reveal the secret code you need." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cela affichera le code secret dont vous avez besoin."
+          }
+        }
+      }
+    },
+    "To" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À"
+          }
+        }
+      }
+    },
+    "Today" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aujourd’hui"
+          }
+        }
+      }
+    },
+    "Today’s Rooms" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les locaux d’aujourd’hui"
+          }
+        }
+      }
+    },
+    "Tomorrow" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Demain"
+          }
+        }
+      }
+    },
+    "Try a different name or keyword." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Essayez un autre nom ou mot-clé."
+          }
+        }
+      }
+    },
+    "Try Again" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réessayer"
+          }
+        }
+      }
+    },
+    "Try again in a moment." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réessayez dans un instant."
+          }
+        }
+      }
+    },
+    "Turn on a category above to start." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activez une catégorie ci-dessus pour commencer."
+          }
+        }
+      }
+    },
+    "Two Ways to Verify" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deux façons de vérifier"
+          }
+        }
+      }
+    },
+    "Underline" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Souligné"
+          }
+        }
+      }
+    },
+    "Undo" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annuler"
+          }
+        }
+      }
+    },
+    "Unknown sender" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expéditeur inconnu"
+          }
+        }
+      }
+    },
+    "Unlock" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déverrouiller"
+          }
+        }
+      }
+    },
+    "Unlock your %@ information." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déverrouillez vos informations %@."
+          }
+        }
+      }
+    },
+    "Unread" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non lu"
+          }
+        }
+      }
+    },
+    "Up next" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À venir"
+          }
+        }
+      }
+    },
+    "Update" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mise à jour"
+          }
+        }
+      }
+    },
+    "Update type" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Type de mise à jour"
+          }
+        }
+      }
+    },
+    "Update your saved OmniVox password" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mettez à jour votre mot de passe OmniVox enregistré."
+          }
+        }
+      }
+    },
+    "Updated %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mis à jour %@"
+          }
+        }
+      }
+    },
+    "Updates" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mises à jour"
+          }
+        }
+      }
+    },
+    "Use %@ or your device passcode to continue." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisez %@ ou le code de votre appareil pour continuer."
+          }
+        }
+      }
+    },
+    "Use Another Method" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utiliser une autre méthode"
+          }
+        }
+      }
+    },
+    "Use OmniVox password" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utiliser le mot de passe OmniVox"
+          }
+        }
+      }
+    },
+    "Use the Simple View" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utiliser la vue simplifiée"
+          }
+        }
+      }
+    },
+    "Use the Suggested Look" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utiliser l’apparence suggérée"
+          }
+        }
+      }
+    },
+    "Used for buttons, links and the selected tab. Every colour here stays readable in both light and dark appearance." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisée pour les boutons, les liens et l’onglet sélectionné. Chaque couleur proposée ici reste lisible en apparence claire comme en apparence sombre."
+          }
+        }
+      }
+    },
+    "Using OmniVox Mobile Instead" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utiliser OmniVox Mobile à la place"
+          }
+        }
+      }
+    },
+    "Using your saved authenticator." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Utilisation de votre authentificateur enregistré."
+          }
+        }
+      }
+    },
+    "Verification code, %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Code de vérification, %@"
+          }
+        }
+      }
+    },
+    "Verification method" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Méthode de vérification"
+          }
+        }
+      }
+    },
+    "Verify" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vérifier"
+          }
+        }
+      }
+    },
+    "Verify It’s You" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmez votre identité"
+          }
+        }
+      }
+    },
+    "Verify your identity" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirmez votre identité"
+          }
+        }
+      }
+    },
+    "Verifying setup completion..." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vérification de la configuration…"
+          }
+        }
+      }
+    },
+    "Video" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vidéo"
+          }
+        }
+      }
+    },
+    "Violet" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Violet"
+          }
+        }
+      }
+    },
+    "Visual Arts" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Arts visuels"
+          }
+        }
+      }
+    },
+    "Waiting..." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En attente…"
+          }
+        }
+      }
+    },
+    "Wallpaper" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fond d’écran"
+          }
+        }
+      }
+    },
+    "We won’t ask again" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nous ne vous le redemanderons plus"
+          }
+        }
+      }
+    },
+    "Websites" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sites Web"
+          }
+        }
+      }
+    },
+    "Welcome to OmniVox Neo" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bienvenue dans OmniVox Neo"
+          }
+        }
+      }
+    },
+    "Wing" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aile"
+          }
+        }
+      }
+    },
+    "Wing %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aile %@"
+          }
+        }
+      }
+    },
+    "Write your message" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Écrivez votre message"
+          }
+        }
+      }
+    },
+    "Writes a new message" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rédige un nouveau message"
+          }
+        }
+      }
+    },
+    "Yesterday" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hier"
+          }
+        }
+      }
+    },
+    "You" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous"
+          }
+        }
+      }
+    },
+    "You can set up Neo's built-in authenticator in App Settings. It generates 6-digit codes automatically—no need to switch apps or check notifications." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous pouvez configurer l’authentificateur intégré de Neo dans les réglages de l’application. Il génère automatiquement des codes à 6 chiffres — sans changer d’application ni consulter vos notifications."
+          }
+        }
+      }
+    },
+    "You can turn the built-in authenticator on whenever you like. Open the Account tab, tap App Settings, then Set Up Built-in Authenticator." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous pouvez activer l’authentificateur intégré quand vous le souhaitez. Ouvrez l’onglet Compte, touchez Réglages de l’application, puis Configurer l’authentificateur intégré."
+          }
+        }
+      }
+    },
+    "You cannot proceed until existing authenticator app has been deleted" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous ne pouvez pas continuer tant que l’application d’authentification existante n’a pas été supprimée"
+          }
+        }
+      }
+    },
+    "You'll see a long code like:" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous verrez un long code comme celui-ci :"
+          }
+        }
+      }
+    },
+    "You’re caught up" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous êtes à jour"
+          }
+        }
+      }
+    },
+    "You’re signed in" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous êtes connecté"
+          }
+        }
+      }
+    },
+    "You've successfully signed in! Before we continue, there are a few important things to know about how this app works." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous êtes bien connecté ! Avant de poursuivre, voici quelques points importants sur le fonctionnement de l’application."
+          }
+        }
+      }
+    },
+    "Your %@ session has expired. Pull down to refresh, then open it again." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre session %@ a expiré. Tirez vers le bas pour actualiser, puis ouvrez-le de nouveau."
+          }
+        }
+      }
+    },
+    "Your authenticator code was rejected — it may be out of sync. Enter the code manually." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre code d’authentification a été refusé — il est peut-être désynchronisé. Entrez le code manuellement."
+          }
+        }
+      }
+    },
+    "Your average against the class, as more of the final grade is handed back." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre moyenne comparée à celle du groupe, à mesure que la note finale est remise."
+          }
+        }
+      }
+    },
+    "Your average as more of the final grade is handed back." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre moyenne à mesure que la note finale est remise."
+          }
+        }
+      }
+    },
+    "Your average is %@ percent after %@ percent of the final grade." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre moyenne est de %@ pour cent après %@ pour cent de la note finale."
+          }
+        }
+      }
+    },
+    "Your built-in authenticator is ready to use." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre authentificateur intégré est prêt à être utilisé."
+          }
+        }
+      }
+    },
+    "Your calendar updates automatically every time you sign in." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre calendrier se met à jour automatiquement à chaque connexion."
+          }
+        }
+      }
+    },
+    "Your College" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre collège"
+          }
+        }
+      }
+    },
+    "Your current grade" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre note actuelle"
+          }
+        }
+      }
+    },
+    "Your draft is kept in the Drafts folder. Discarding deletes it." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre brouillon est conservé dans le dossier Brouillons. Le supprimer l’efface."
+          }
+        }
+      }
+    },
+    "Your folders could not be read." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vos dossiers n’ont pas pu être lus."
+          }
+        }
+      }
+    },
+    "Your Léa session expired. Pull to refresh and try again." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre session Léa a expiré. Tirez pour actualiser et réessayez."
+          }
+        }
+      }
+    },
+    "Your messages could not be read." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vos messages n’ont pas pu être lus."
+          }
+        }
+      }
+    },
+    "Your OmniVox account no longer has an authenticator app. Choose another verification method below." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre compte OmniVox n’a plus d’application d’authentification. Choisissez une autre méthode de vérification ci-dessous."
+          }
+        }
+      }
+    },
+    "Your OmniVox validation methods stay unchanged" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vos méthodes de validation OmniVox restent inchangées"
+          }
+        }
+      }
+    },
+    "Your password is stored only on this device." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre mot de passe est stocké uniquement sur cet appareil."
+          }
+        }
+      }
+    },
+    "Your Photo" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre photo"
+          }
+        }
+      }
+    },
+    "Your saved OmniVox password was not accepted. Enter your current password to update Face ID sign-in." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre mot de passe OmniVox enregistré a été refusé. Entrez votre mot de passe actuel pour mettre à jour la connexion par Face ID."
+          }
+        }
+      }
+    },
+    "Your schedule is still locked. Try again or sign in with your OmniVox password." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre horaire est toujours verrouillé. Réessayez ou connectez-vous avec votre mot de passe OmniVox."
+          }
+        }
+      }
+    },
+    "Your session expired. Pull to refresh and try again." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre session a expiré. Tirez pour actualiser et réessayez."
+          }
+        }
+      }
+    },
+    "Your teacher has not distributed anything for this course yet." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre enseignant n’a encore rien distribué pour ce cours."
+          }
+        }
+      }
+    },
+    "Your teacher has not posted anything for this course yet." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre enseignant n’a encore rien publié pour ce cours."
+          }
+        }
+      }
+    },
+    "Your verification methods could not be opened. Enter the code manually." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impossible d’ouvrir vos méthodes de vérification. Entrez le code manuellement."
+          }
+        }
+      }
+    },
+    "ZB43CZ3ARAX7C25B..." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ZB43CZ3ARAX7C25B..."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

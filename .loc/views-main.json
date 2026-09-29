@@ -1,0 +1,106 @@
+[
+ {
+  "english": "Campus",
+  "french": "Campus",
+  "file": "OmnivoxNeo/Views/HomeView.swift",
+  "line": 47,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Label(tab.title, systemImage: tab.systemImage). SchoolTab.title is a plain String (SchoolExtensions.swift:6), set to \"Campus\" at DawsonSchool.swift:38, so Label picks the StringProtocol overload and never localizes. \"Campus\" is spelled the same in French so nothing is visibly wrong today — but it is a latent bug for any future school tab title."
+ },
+ {
+  "english": "App Settings",
+  "french": "Réglages de l’application",
+  "file": "OmnivoxNeo/Views/MeView.swift",
+  "line": 75,
+  "mechanism": "needs-loc-wrapper",
+  "note": "BUG: passed as SettingsRowLabel(title:) where title is a plain String (MeView.swift:355) rendered by Text(title) at MeView.swift:364. The French translation already exists in the catalog but can never be reached. Either type SettingsRowLabel.title as LocalizedStringKey or wrap in Loc.text()."
+ },
+ {
+  "english": "Log Out",
+  "french": "Se déconnecter",
+  "file": "OmnivoxNeo/Views/MeView.swift",
+  "line": 86,
+  "mechanism": "needs-loc-wrapper",
+  "note": "BUG: same SettingsRowLabel String path as line 75. French exists in the catalog but is unreachable."
+ },
+ {
+  "english": "this account",
+  "french": "ce compte",
+  "file": "OmnivoxNeo/Views/MeView.swift",
+  "line": 112,
+  "mechanism": "needs-loc-wrapper",
+  "note": "The ?? fallback inside the interpolation is a plain Swift String, so it stays English even in a French build. Wrap in Loc.text(\"this account\")."
+ },
+ {
+  "english": "None",
+  "french": "Aucun",
+  "file": "OmnivoxNeo/Views/PersonalizationSettingsView.swift",
+  "line": 36,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Passed as wallpaperRow(title:) where title is a plain String (line 184) rendered by Text(title) at line 199. Never localizes and has no catalog entry at all."
+ },
+ {
+  "english": "That photo couldn’t be saved. Try another one.",
+  "french": "Cette photo n’a pas pu être enregistrée. Essayez-en une autre.",
+  "file": "OmnivoxNeo/Views/PersonalizationSettingsView.swift",
+  "line": 136,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Assigned to @State photoError: String? then shown by Text(photoError) at line 115. Typographic apostrophe (U+2019) in couldn’t."
+ },
+ {
+  "english": "That photo couldn’t be loaded. Try another one.",
+  "french": "Cette photo n’a pas pu être chargée. Essayez-en une autre.",
+  "file": "OmnivoxNeo/Views/PersonalizationSettingsView.swift",
+  "line": 228,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Same photoError String path. Typographic apostrophe (U+2019)."
+ },
+ {
+  "english": "Remove Account",
+  "french": "Retirer le compte",
+  "file": "OmnivoxNeo/Views/ProfileSwitcherView.swift",
+  "line": 99,
+  "mechanism": "needs-loc-wrapper",
+  "note": "removalTitle is a computed String (line 98) fed to .confirmationDialog(removalTitle, ...) at line 76, which picks the StringProtocol overload. Never localizes; not in the catalog."
+ },
+ {
+  "english": "Remove %@?",
+  "french": "Retirer %@ ?",
+  "file": "OmnivoxNeo/Views/ProfileSwitcherView.swift",
+  "line": 100,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Source is return \"Remove \\(profile.accountLabel)?\" — same computed-String path as line 99. Use Loc.text(\"Remove %@?\", profile.accountLabel)."
+ },
+ {
+  "english": "Room %@",
+  "french": "Local %@",
+  "file": "OmnivoxNeo/Schools/Dawson/DawsonCampusView.swift",
+  "line": 77,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Source is Text(entry.code.map(summary) ?? \"Room \\(entry.meeting.location ?? \"\")\"). The ?? result is a String, so Text uses the verbatim overload. Not in the catalog. Use Loc.text(\"Room %@\", location)."
+ },
+ {
+  "english": "Floor",
+  "french": "Étage",
+  "file": "OmnivoxNeo/Schools/Dawson/DawsonCampusView.swift",
+  "line": 117,
+  "mechanism": "needs-loc-wrapper",
+  "note": "detailRow(_ title: String, ...) at line 124 renders Text(title) at line 131, so this never localizes. Not in the catalog."
+ },
+ {
+  "english": "Wing",
+  "french": "Aile",
+  "file": "OmnivoxNeo/Schools/Dawson/DawsonCampusView.swift",
+  "line": 118,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Same detailRow String path as line 117."
+ },
+ {
+  "english": "Room",
+  "french": "Local",
+  "file": "OmnivoxNeo/Schools/Dawson/DawsonCampusView.swift",
+  "line": 119,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Same detailRow String path as line 117."
+ }
+]

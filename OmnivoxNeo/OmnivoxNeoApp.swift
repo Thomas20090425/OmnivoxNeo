@@ -13,5 +13,8 @@ struct OmnivoxNeoApp: App {
         WindowGroup {
             ContentView()
         }
+        #if os(macOS)
+        .defaultSize(width: 720, height: 860)
+        #endif
     }
 }

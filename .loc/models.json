@@ -1,0 +1,186 @@
+[
+ {
+  "english": "Verify your identity",
+  "french": "Confirmez votre identité",
+  "file": "OmnivoxNeo/Models/VerificationState.swift",
+  "line": 58,
+  "mechanism": "needs-loc-wrapper",
+  "note": "VerificationState.loading static. BLOCKER: this is a nonisolated `static let` and `Loc` is @MainActor, so Loc.text cannot be called here as written — it needs to become a @MainActor computed property or be resolved in the view. Catalog already has 'Verify It’s You' -> 'Confirmez votre identité' (reuse that key)."
+ },
+ {
+  "english": "Preparing your verification options…",
+  "french": "Préparation de vos options de vérification…",
+  "file": "OmnivoxNeo/Models/VerificationState.swift",
+  "line": 59,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Same @MainActor blocker as line 58. Rendered by Text(model.verificationState.instruction)."
+ },
+ {
+  "english": "device authentication",
+  "french": "l’authentification de l’appareil",
+  "file": "OmnivoxNeo/Services/BiometricAuthenticator.swift",
+  "line": 48,
+  "mechanism": "needs-loc-wrapper",
+  "note": "BiometricCapability.name for .none biometry. Interpolated into UI templates 'Require %@' and 'Use %@ or your device passcode to continue.' (both present in the catalog with NO French). Lowercase because it sits mid-sentence — the French must stay lowercase too."
+ },
+ {
+  "english": "device authentication",
+  "french": "l’authentification de l’appareil",
+  "file": "OmnivoxNeo/Services/BiometricAuthenticator.swift",
+  "line": 54,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Duplicate of line 48, in the @unknown default branch. One catalog key covers both."
+ },
+ {
+  "english": "Face ID",
+  "french": "Face ID",
+  "file": "OmnivoxNeo/Services/BiometricAuthenticator.swift",
+  "line": 30,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Apple brand name — identical in French, so no catalog entry is strictly required. Listed for completeness because it is interpolated into user-visible sentences alongside the 'device authentication' value that DOES need translating."
+ },
+ {
+  "english": "Touch ID",
+  "french": "Touch ID",
+  "file": "OmnivoxNeo/Services/BiometricAuthenticator.swift",
+  "line": 36,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Apple brand name, identical in French. No action needed."
+ },
+ {
+  "english": "Optic ID",
+  "french": "Optic ID",
+  "file": "OmnivoxNeo/Services/BiometricAuthenticator.swift",
+  "line": 42,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Apple brand name, identical in French. No action needed."
+ },
+ {
+  "english": "Use OmniVox password",
+  "french": "Utiliser le mot de passe OmniVox",
+  "file": "OmnivoxNeo/Services/BiometricAuthenticator.swift",
+  "line": 68,
+  "mechanism": "needs-loc-wrapper",
+  "note": "context.localizedCancelTitle — the cancel button iOS draws in the system Face ID / Touch ID sheet. The catalog already has the key 'Use OmniVox password' but with NO French translation, so both the wrapper and the French value are missing."
+ },
+ {
+  "english": "Update your saved OmniVox password",
+  "french": "Mettez à jour votre mot de passe OmniVox enregistré.",
+  "file": "OmnivoxNeo/Services/PortalCredentialVault.swift",
+  "line": 79,
+  "mechanism": "needs-loc-wrapper",
+  "note": "localizedReason passed to LAContext.evaluatePolicy — this is the sentence iOS prints in the system biometric prompt. The three sibling reasons in AppModel (lines 371/739/1395) ARE wrapped in Loc.text; this one was missed. The other reasons end with a period, so I added one for consistency."
+ },
+ {
+  "english": "New Account",
+  "french": "Nouveau compte",
+  "file": "OmnivoxNeo/Models/PortalProfile.swift",
+  "line": 62,
+  "mechanism": "needs-loc-wrapper",
+  "note": "PortalProfile.accountLabel fallback. Shown in the account switcher and also written into SharedSchedule.accountLabel for the widget."
+ },
+ {
+  "english": "Logged Out",
+  "french": "Déconnecté",
+  "file": "OmnivoxNeo/Models/PortalProfile.swift",
+  "line": 74,
+  "mechanism": "needs-loc-wrapper",
+  "note": "PortalProfile.statusLabel — the badge in the account switcher (AppModel.swift:1960 calls it 'the \"Logged Out\" badge')."
+ },
+ {
+  "english": "Not signed in yet",
+  "french": "Pas encore connecté",
+  "file": "OmnivoxNeo/Models/PortalProfile.swift",
+  "line": 75,
+  "mechanism": "needs-loc-wrapper",
+  "note": "PortalProfile.statusLabel for an unbound profile."
+ },
+ {
+  "english": "Campus",
+  "french": "Campus",
+  "file": "OmnivoxNeo/Schools/Dawson/DawsonSchool.swift",
+  "line": 38,
+  "mechanism": "needs-loc-wrapper",
+  "note": "TAB BAR LABEL. SchoolTab.title is a plain String rendered by Label(tab.title, systemImage:) at HomeView.swift:47 — that overload is the verbatim StringProtocol one, so it never localizes. The catalog ALREADY has 'Campus' -> 'Campus' (fr), so wrapping it in Loc.text(\"Campus\") is enough; the word happens to be identical, but the wrapper is still required for any future school tab."
+ },
+ {
+  "english": "1st floor",
+  "french": "1er étage",
+  "file": "OmnivoxNeo/Schools/Dawson/DawsonRoomCode.swift",
+  "line": 71,
+  "mechanism": "needs-loc-wrapper",
+  "note": "DawsonRoomCode.floorLabel, shown at DawsonCampusView.swift:117 and :144."
+ },
+ {
+  "english": "2nd floor",
+  "french": "2e étage",
+  "file": "OmnivoxNeo/Schools/Dawson/DawsonRoomCode.swift",
+  "line": 72,
+  "mechanism": "needs-loc-wrapper",
+  "note": "French ordinals collapse: only 1 takes a special form (1er); 2, 3 and everything above take 'e'. A literal key-for-key swap leaves three redundant French keys — better to special-case floor == 1 and use one '%lld' + 'e étage' template for the rest."
+ },
+ {
+  "english": "3rd floor",
+  "french": "3e étage",
+  "file": "OmnivoxNeo/Schools/Dawson/DawsonRoomCode.swift",
+  "line": 73,
+  "mechanism": "needs-loc-wrapper",
+  "note": "See note on line 72 about collapsing French ordinals."
+ },
+ {
+  "english": "\\(floor)th floor",
+  "french": "%lld e étage",
+  "file": "OmnivoxNeo/Schools/Dawson/DawsonRoomCode.swift",
+  "line": 74,
+  "mechanism": "needs-loc-wrapper",
+  "note": "Interpolation must become a format argument: Loc.text(\"%lld th floor\", floor). The French value should be \"%llde étage\" with no space (e.g. '4e étage') — I wrote a space here only so the placeholder stays legible in this report. Do not ship a space."
+ },
+ {
+  "english": "\\(wingName) (wing \\(wing))",
+  "french": "%1$@ (aile %2$@)",
+  "file": "OmnivoxNeo/Schools/Dawson/DawsonRoomCode.swift",
+  "line": 79,
+  "mechanism": "needs-loc-wrapper",
+  "note": "DawsonRoomCode.wingLabel. Two interpolations, so the key needs positional specifiers (%1$@/%2$@). Note wingNames is deliberately empty today (line 22), so this branch is currently unreachable — but it is still the wrong mechanism."
+ },
+ {
+  "english": "Wing \\(wing)",
+  "french": "Aile %@",
+  "file": "OmnivoxNeo/Schools/Dawson/DawsonRoomCode.swift",
+  "line": 80,
+  "mechanism": "needs-loc-wrapper",
+  "note": "DawsonRoomCode.wingLabel, the branch that actually runs today."
+ },
+ {
+  "english": "No room number",
+  "french": "Aucun numéro de local",
+  "file": "OmnivoxNeo/Schools/Dawson/DawsonRoomCode.swift",
+  "line": 84,
+  "mechanism": "needs-loc-wrapper",
+  "note": "DawsonRoomCode.roomLabel. Quebec cégeps say 'local' for a classroom, not 'salle' — OmniVox's own French uses 'local'."
+ },
+ {
+  "english": "Room \\(room)",
+  "french": "Local %@",
+  "file": "OmnivoxNeo/Schools/Dawson/DawsonRoomCode.swift",
+  "line": 85,
+  "mechanism": "needs-loc-wrapper",
+  "note": "DawsonRoomCode.roomLabel. Interpolation must become a %@ format argument."
+ },
+ {
+  "english": "\\(hours) h \\(twoDigits(minutes)) min",
+  "french": "%lld h %@ min",
+  "file": "OmnivoxNeo/Models/CourseMeeting.swift",
+  "line": 140,
+  "mechanism": "needs-loc-wrapper",
+  "note": "LOW PRIORITY — fr-CA uses exactly the same 'h'/'min' abbreviations and the same spacing, so the rendered output is already correct French. Listed only for completeness; no change required."
+ },
+ {
+  "english": "\\(twoDigits(minutes)) min \\(twoDigits(seconds)) s",
+  "french": "%@ min %@ s",
+  "file": "OmnivoxNeo/Models/CourseMeeting.swift",
+  "line": 147,
+  "mechanism": "needs-loc-wrapper",
+  "note": "LOW PRIORITY — same as line 140; 'min' and 's' are identical in fr-CA. No change required."
+ }
+]
