@@ -296,6 +296,24 @@ struct MioConventions: Sendable, Equatable {
     var pickerSelectionListSelector: String = ".listeIndividus"
     var pickerSelectionEmptySelector: String = "#divAucunIndividuSelectionne"
 
+    /// One person in that panel, and the cross that takes them off again.
+    ///
+    /// Read off the live page rather than assumed, after three attempts at
+    /// inferring it. A chosen person is **`.ItemSelectionne`** — not
+    /// `.LayoutItemSelection`, which is what MIO uses in *results* — and the
+    /// name sits as a bare text node beside the control:
+    ///
+    ///     <div class="listeIndividus">
+    ///       <div class="ItemSelectionne"><span class="Supprimer">   </span>Ma, Thomas</div>
+    ///     </div>
+    ///
+    /// The control is a **`<span>`**. No href, no onclick, no `<a>` and no
+    /// `<img>` — which is why a search for "anything clickable" inside the row
+    /// came back empty and every removal was refused as unresolvable.
+    var pickerSelectionItemSelector: String = ".ItemSelectionne"
+    var pickerSelectionRemoveSelector: String =
+        #".Supprimer, [class*="Supprim"], [class*="supprim"]"#
+
     /// "You can send a Mio to a maximum of 75 recipients." MIO's own number,
     /// printed rather than assumed — it is a college setting, not a constant.
     var pickerWarningSelector: String = ".lblWarning"
@@ -475,6 +493,8 @@ struct MioConventions: Sendable, Equatable {
             "pickerSelectionTitle": pickerSelectionTitleSelector,
             "pickerSelectionList": pickerSelectionListSelector,
             "pickerSelectionEmpty": pickerSelectionEmptySelector,
+            "pickerSelectionItem": pickerSelectionItemSelector,
+            "pickerSelectionRemove": pickerSelectionRemoveSelector,
             "pickerWarning": pickerWarningSelector,
             "pickerCommit": pickerCommitSelector,
             "pickerCancel": pickerCancelSelector,

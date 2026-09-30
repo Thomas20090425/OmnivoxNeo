@@ -941,6 +941,9 @@
         }
       }
     },
+    "Alpha Build" : {
+
+    },
     "Already a recipient" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1022,6 +1025,9 @@
           }
         }
       }
+    },
+    "App version: %@" : {
+
     },
     "Archive" : {
       "localizations" : {
@@ -1216,6 +1222,9 @@
       }
     },
     "Before You Sign In" : {
+
+    },
+    "Beta (TestFlight) Build" : {
 
     },
     "Biology" : {
@@ -2803,6 +2812,9 @@
           }
         }
       }
+    },
+    "Internal (How the fuck did you get this) build" : {
+
     },
     "Invalid secret code. Please check and try again." : {
       "localizations" : {

@@ -108,14 +108,26 @@ struct MioRecipientPicker: View {
                             .fontWeight(.semibold)
                     }
                 }
-                ToolbarItem(placement: .secondaryAction) {
-                    Button {
-                        showsOriginal.toggle()
-                    } label: {
-                        Label(
-                            showsOriginal ? "Use the Simple View" : "Show the Original Page",
-                            systemImage: showsOriginal ? "sparkles" : "safari"
-                        )
+                // Internal builds only.
+                //
+                // Driving MIO's own page by hand leaves its server-side
+                // selection in a state the app then disagrees with, and the
+                // picker misbehaves afterwards. It stays for whoever is
+                // debugging a college whose build this app has not been
+                // shown — and the fallback that matters, the one for a page
+                // this app cannot read at all, is automatic and unaffected:
+                // `content` shows MIO's own page whenever the screen is not
+                // one it recognises.
+                if AppRelease.channel == .internalBuild {
+                    ToolbarItem(placement: .secondaryAction) {
+                        Button {
+                            showsOriginal.toggle()
+                        } label: {
+                            Label(
+                                showsOriginal ? "Use the Simple View" : "Show the Original Page",
+                                systemImage: showsOriginal ? "sparkles" : "safari"
+                            )
+                        }
                     }
                 }
             }
@@ -395,7 +407,7 @@ struct MioRecipientPicker: View {
                         ForEach(Array(options.enumerated()), id: \.element.id) { index, option in
                             if index > 0 { Divider().padding(.leading, 52) }
                             Button {
-                                Task { await session.pickerTap(option.id) }
+                                Task { await session.pickerTap(option.id, named: option.title) }
                             } label: {
                                 HStack(spacing: 12) {
                                     Image(systemName: symbol(for: option))

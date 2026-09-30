@@ -973,21 +973,62 @@ extension MioService {
                 return false;
             };
 
-            const CONTROL = 'a, button, img, input[type="image"], [onclick]';
-            const controlIn = candidate => {
-                if (candidate.matches && candidate.matches(CONTROL)) return candidate;
-                return candidate.querySelector ? candidate.querySelector(CONTROL) : null;
+            // What MIO actually draws, read off the live page:
+            //
+            //   <div class="listeIndividus">
+            //     <div class="ItemSelectionne"><span class="Supprimer">   </span>Ma, Thomas</div>
+            //   </div>
+            //
+            // The control is a **span**. No href, no onclick, no anchor and no
+            // image — so every attempt to find "something clickable" in the row
+            // came back empty, and this refused each removal as unresolvable.
+            // Named now instead of inferred.
+            let item = null;
+            let control = null;
+
+            const rows = Array.prototype.slice.call(
+                panel.querySelectorAll(SEL.pickerSelectionItem)
+            );
+            // Exact first, so a name that is a prefix of somebody else's — "Ma,
+            // Thomas" inside "Ma, Thomas Jr" — cannot take the wrong row.
+            for (const row of rows) {
+                if (NORM(T(row)) === target) { item = row; break; }
+            }
+            if (!item) {
+                for (const row of rows) {
+                    if (NORM(T(row)).indexOf(target) >= 0 && !swallowsAnother(row)) {
+                        item = row;
+                        break;
+                    }
+                }
+            }
+            if (item) control = item.querySelector(SEL.pickerSelectionRemove) || item;
+
+            // A college whose build does not use those class names. Grow a
+            // container outwards from the name and stop the moment it holds
+            // anybody else — never press a control that might be theirs.
+            const CONTROL = SEL.pickerSelectionRemove
+                + ', a, button, img, input[type="image"], [onclick]';
+            const isControl = candidate => !!(candidate.matches && candidate.matches(CONTROL));
+            const carriesAnyName = candidate => {
+                const text = NORM(T(candidate));
+                if (target && text.indexOf(target) >= 0) return true;
+                return swallowsAnother(candidate);
             };
 
-            let item = node;
-            let control = null;
-            for (let depth = 0; depth < 6 && item && item !== panel; depth++) {
-                if (swallowsAnother(item)) return 'ambiguous';
-                control = controlIn(item);
-                if (control) break;
-                item = item.parentElement;
+            if (!control) {
+                let walk = node;
+                for (let depth = 0; depth < 6 && walk && walk !== panel; depth++) {
+                    if (swallowsAnother(walk)) break;
+                    if (isControl(walk)) { control = walk; item = walk; break; }
+                    const inner = walk.querySelector ? walk.querySelector(CONTROL) : null;
+                    if (inner && !carriesAnyName(inner)) { control = inner; item = walk; break; }
+                    walk = walk.parentElement;
+                }
             }
-            if (!control || !item || item === panel) return 'ambiguous';
+
+            if (!control) return 'ambiguous';
+            if (!item) item = control;
 
             const view = doc.defaultView || window;
             const press = target => {
@@ -1037,10 +1078,20 @@ extension MioService {
         (() => {
             const doc = DOC_FOR(SEL.pickerPanel);
             const ref = \#(ref.javascriptStringLiteral);
+            const expected = \#(name.javascriptStringLiteral);
             let node = ref ? doc.querySelector('[data-neo-ref="' + ref + '"]') : null;
 
+            // A handle is only as good as what it still points at. They are
+            // re-stamped on every read and the counter restarts with a new
+            // document, so after MIO redraws a panel an old handle resolves
+            // to nothing — or, worse, to somebody else's row. That is why the
+            // first press on "students or teachers from my classes" did
+            // nothing and the second worked: the first spent itself on a dead
+            // handle, and the re-read that followed minted live ones.
+            if (node && expected && T(node).indexOf(expected) < 0) node = null;
+
             if (!node) {
-                const wanted = \#(name.javascriptStringLiteral);
+                const wanted = expected;
                 if (!wanted) return 'missing';
                 // The panel of people already chosen first — that is where a
                 // name is pressed to take it off again — then anywhere else.
