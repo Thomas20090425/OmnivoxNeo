@@ -384,6 +384,9 @@ struct LeaGradesView: View {
 
     private func categoryCard(_ category: LeaGradeCategory) -> some View {
         VStack(alignment: .leading, spacing: 0) {
+            // Nothing at all when the teacher grouped nothing. Not "No
+            // section", not an empty heading — the marks simply start.
+            if category.hasHeading {
             VStack(alignment: .leading, spacing: 6) {
                 Text(category.name)
                     .font(.headline)
@@ -415,9 +418,15 @@ struct LeaGradesView: View {
             }
             .padding(16)
             .frame(maxWidth: .infinity, alignment: .leading)
+            }
 
             ForEach(Array(category.items.enumerated()), id: \.element.id) { index, item in
-                Divider().padding(.leading, 16)
+                // A divider separates marks from each other and from the
+                // heading. With no heading there is nothing above the first
+                // one to separate it from.
+                if category.hasHeading || index > 0 {
+                    Divider().padding(.leading, 16)
+                }
                 gradeRow(item, in: category)
                     .id(index)
             }

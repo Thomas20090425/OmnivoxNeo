@@ -245,7 +245,20 @@ struct LeaGradeCategory: Identifiable, Hashable, Sendable {
     let dropRule: String?
     var items: [LeaGradeItem]
 
-    var id: String { name }
+    var id: String { name.isEmpty ? "ungrouped" : name }
+
+    /// Whether there is anything to draw above this category's marks.
+    ///
+    /// Some teachers never group anything, and Léa prints their marks with no
+    /// heading row at all. That arrives here as a single category with no name
+    /// and nothing else in it — drawing its header would be an empty bold line
+    /// and sixteen points of padding sitting over the first mark.
+    var hasHeading: Bool {
+        !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            || weightText != nil
+            || averageText != nil
+            || dropRule != nil
+    }
 
     /// True when some of this category's marks will not count.
     ///

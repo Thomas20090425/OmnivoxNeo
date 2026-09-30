@@ -902,23 +902,32 @@ extension MioService {
     /// pointed at an element that no longer existed.
     /// Takes somebody off the chosen list — one way of pressing per call.
     ///
-    /// Adding somebody works by clicking the person, so removing them was
-    /// written the same way round and never worked once. The two are not
-    /// symmetrical: in the results a person *is* the control, and in the panel
-    /// of people already chosen the name is a label with a small cross beside
-    /// it, and the cross is the control. Clicking the label does nothing at
-    /// all, silently, which is exactly what the student saw.
+    /// The rule that matters here is *whose control this is*. An earlier
+    /// version found the element carrying the name and then widened to
+    /// `closest('.LayoutItemSelection') || parentElement` — and on a build
+    /// that does not mark chosen people with that class, "parentElement" is
+    /// the entire list. It then clicked the first cross inside it, which
+    /// belongs to whoever is listed first. Asking to take person B off took
+    /// person A off instead, and then reported that B could not be removed.
     ///
-    /// Which of those this college's build draws is not something this app can
-    /// know from the outside, so it tries the cross, then the row, then the
-    /// row with real mouse events, and the caller re-reads the panel after each
-    /// to see whether the person actually went.
-    func pickerRemoveScript(ref: String, name: String, method: String) -> String {
-        #"""
+    /// So the container is now grown outwards from the name one step at a
+    /// time and abandoned the moment it contains anybody *else's* name. If no
+    /// container is both big enough to hold a control and small enough to hold
+    /// only this person, nothing is pressed and the caller is told — because
+    /// removing the wrong recipient is far worse than removing none.
+    func pickerRemoveScript(
+        ref: String,
+        name: String,
+        others: [String],
+        method: String
+    ) -> String {
+        let otherList = "[" + others.map(\.javascriptStringLiteral).joined(separator: ", ") + "]"
+        return #"""
         (() => {
             const doc = DOC_FOR(SEL.pickerPanel);
             const ref = \#(ref.javascriptStringLiteral);
             const wanted = \#(name.javascriptStringLiteral);
+            const others = \#(otherList);
             const method = \#(method.javascriptStringLiteral);
 
             // Only ever inside the panel of people already chosen. The same
@@ -929,61 +938,76 @@ extension MioService {
                 const found = doc.querySelector(candidate.trim());
                 if (found) { panel = found; break; }
             }
-            if (!panel) return 'missing';
+            if (!panel) return 'nopanel';
 
-            let node = ref ? panel.querySelector('[data-neo-ref="' + ref + '"]') : null;
-            if (!node && wanted) {
-                for (const person of panel.querySelectorAll(SEL.pickerPerson)) {
-                    if (T(person) === wanted) { node = person; break; }
+            const NORM = value => (value || '').replace(/\s+/g, ' ').trim();
+            const target = NORM(wanted);
+            if (!target) return 'noname';
+            const holds = node => NORM(T(node)).indexOf(target) >= 0;
+
+            // A handle is believed only if the element it lands on still says
+            // the right thing. They are re-stamped on every read and the
+            // counter restarts with a new document, so an old handle can
+            // perfectly well resolve to somebody else.
+            let node = null;
+            if (ref) {
+                const candidate = panel.querySelector('[data-neo-ref="' + ref + '"]');
+                if (candidate && holds(candidate)) node = candidate;
+            }
+            if (!node) {
+                // The deepest element still carrying the whole name — the
+                // label itself rather than the box around it.
+                const all = panel.querySelectorAll('*');
+                for (let index = all.length - 1; index >= 0; index--) {
+                    if (holds(all[index])) { node = all[index]; break; }
                 }
             }
-            if (!node && wanted) {
-                // MIO redraws this panel on its own side, so a handle from an
-                // earlier read is gone — and it does not necessarily mark a
-                // chosen person with the same class it uses in results. Fall
-                // back to whatever in the panel actually carries the name.
-                for (const element of panel.querySelectorAll('*')) {
-                    if (element.children.length === 0 && T(element) === wanted) {
-                        node = element;
-                        break;
-                    }
+            if (!node) return 'notfound';
+
+            const swallowsAnother = candidate => {
+                const text = NORM(T(candidate));
+                for (const other of others) {
+                    const name = NORM(other);
+                    if (name && name !== target && text.indexOf(name) >= 0) return true;
                 }
+                return false;
+            };
+
+            const CONTROL = 'a, button, img, input[type="image"], [onclick]';
+            const controlIn = candidate => {
+                if (candidate.matches && candidate.matches(CONTROL)) return candidate;
+                return candidate.querySelector ? candidate.querySelector(CONTROL) : null;
+            };
+
+            let item = node;
+            let control = null;
+            for (let depth = 0; depth < 6 && item && item !== panel; depth++) {
+                if (swallowsAnother(item)) return 'ambiguous';
+                control = controlIn(item);
+                if (control) break;
+                item = item.parentElement;
             }
-            if (!node) return 'missing';
+            if (!control || !item || item === panel) return 'ambiguous';
 
             const view = doc.defaultView || window;
-            const item = (node.closest && node.closest(SEL.pickerPerson)) || node.parentElement || node;
             const press = target => {
                 if (!target) return false;
                 try { target.click(); return true; } catch (e) { return false; }
             };
 
-            if (method === 'inner') {
-                const control = item.querySelector(
-                    'a, img, input[type="image"], [onclick],'
-                    + ' [class*="uppr"], [class*="etir"], [class*="emov"], [class*="elet"]'
-                );
-                if (!control) return 'missing';
-                return press(control) ? 'ok' : 'missing';
-            }
-            if (method === 'item') {
-                return press(item) ? 'ok' : 'missing';
-            }
+            if (method === 'control') return press(control) ? 'ok' : 'missing';
+            if (method === 'item') return press(item) ? 'ok' : 'missing';
             if (method === 'events') {
                 try {
                     for (const type of ['mousedown', 'mouseup', 'click']) {
-                        item.dispatchEvent(new view.MouseEvent(type, {
+                        control.dispatchEvent(new view.MouseEvent(type, {
                             bubbles: true, cancelable: true, view
                         }));
                     }
                     return 'ok';
                 } catch (e) { return 'missing'; }
             }
-            if (method === 'ancestor') {
-                const link = node.closest ? node.closest('a, [onclick]') : null;
-                return press(link) ? 'ok' : 'missing';
-            }
-            return press(node) ? 'ok' : 'missing';
+            return press(control) ? 'ok' : 'missing';
         })()
         """#
     }

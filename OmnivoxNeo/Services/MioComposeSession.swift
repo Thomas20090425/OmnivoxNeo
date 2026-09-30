@@ -154,6 +154,17 @@ final class MioComposeSession: NSObject, ObservableObject {
     func beginPickingRecipients() async {
         pickerFailure = nil
 
+        // Held up for the *whole* sequence, not just the window opening.
+        //
+        // Reopening the directory reads the page, then walks back up to the
+        // menu — and MIO fills in who is already chosen somewhere in the
+        // middle of that. Showing the screen before it finishes meant the
+        // student's first sight of it was "Nobody yet. Pick somebody below."
+        // over a list that did in fact have them on it, which reads as the app
+        // having lost the recipient they just added.
+        pickerActivity = Loc.text("Opening the directory…")
+        defer { pickerActivity = nil }
+
         // Still open from last time. MIO focuses the window it already has
         // rather than opening a second one, so asking again produced nothing
         // to wait for and the app reported that the directory could not be
@@ -245,8 +256,10 @@ final class MioComposeSession: NSObject, ObservableObject {
     /// button that did nothing.
     func pickerTap(_ ref: String, named name: String = "") async {
         guard !ref.isEmpty || !name.isEmpty else { return }
-        _ = try? await pickerString(service.pickerClickScript(ref: ref, name: name))
-        await refreshPicker(settling: true)
+        await working(Loc.text("Adding %@…", name.nilIfBlank ?? Loc.text("this person"))) {
+            _ = try? await pickerString(service.pickerClickScript(ref: ref, name: name))
+            await refreshPicker(settling: true)
+        }
     }
 
     /// Takes somebody back off the list of people this is going to.
@@ -279,48 +292,112 @@ final class MioComposeSession: NSObject, ObservableObject {
         // Nobody ever wants an empty recipient list as an end state anyway —
         // a message with nobody on it cannot be sent.
         if (picker?.chosen.count ?? 0) <= 1 {
-            pickerNotice = Loc.text(
-                "OmniVox will not let the directory empty the list. Add whoever this should go to, then take “%@” off.",
+            say(Loc.text(
+                "A message needs at least one person. Add someone else first, then remove %@.",
                 person.name
-            )
+            ))
             return
         }
 
-        for method in ["inner", "item", "events"] {
-            let pressed = try? await pickerString(
-                service.pickerRemoveScript(ref: person.id, name: person.name, method: method)
-            )
-            guard pressed == "ok" else { continue }
-            await refreshPicker(settling: true)
-            guard picker?.chosen.contains(where: { $0.name == person.name }) == true else { return }
+        // Everybody else currently on the list, so the script can refuse to
+        // press a control that might belong to one of them.
+        let others = (picker?.chosen ?? [])
+            .map(\.name)
+            .filter { $0 != person.name }
+
+        var ambiguous = false
+        await working(Loc.text("Removing %@…", person.name)) {
+            for method in ["control", "item", "events"] {
+                let pressed = try? await pickerString(
+                    service.pickerRemoveScript(
+                        ref: person.id,
+                        name: person.name,
+                        others: others,
+                        method: method
+                    )
+                )
+                // The container that holds this person also holds somebody
+                // else, so there is no control here that is provably theirs.
+                // Pressing anyway is how the wrong person came off the list.
+                if pressed == "ambiguous" { ambiguous = true; break }
+                guard pressed == "ok" else { continue }
+                await refreshPicker(settling: true)
+                guard picker?.chosen.contains(where: { $0.name == person.name }) == true else { return }
+            }
         }
+        // Gone. Nothing to report.
+        if picker?.chosen.contains(where: { $0.name == person.name }) != true { return }
 
         #if DEBUG
         // What MIO actually drew, so the control can be named properly rather
         // than guessed at a fourth time.
         Pasteboard.copy((try? await pickerString(service.pickerSelectionDiagnosticsScript)) ?? "")
         #endif
-        pickerNotice = Loc.text("“%@” could not be taken off the list.", person.name)
+
+        // Told apart on purpose. "Nothing here is provably this person's
+        // control" and "the press did not take" are different problems, and
+        // only one of them is worth trying again.
+        say(ambiguous
+            ? Loc.text("%@ could not be removed here. Close the directory, open it again, then try.", person.name)
+            : Loc.text("%@ is still on the list. Give it a moment, then try again.", person.name))
     }
 
     /// Something that did not work, said in place.
     ///
     /// Short-lived and beside the thing it is about, unlike `pickerFailure`,
     /// which is for a directory that never opened at all and takes the screen.
+    ///
+    /// Set through `say(_:)` rather than directly, so it goes away on its own.
     @Published var pickerNotice: String?
+
+    private var noticeToken = UUID()
+
+    /// Says something, and takes it back down again.
+    ///
+    /// A message that stays until the next one is a message that is still on
+    /// screen three screens later, attached to nothing.
+    private func say(_ message: String) {
+        pickerNotice = message
+        let token = UUID()
+        noticeToken = token
+        Task { [weak self] in
+            try? await Task.sleep(for: .seconds(7))
+            guard let self, self.noticeToken == token else { return }
+            self.pickerNotice = nil
+        }
+    }
+
+    /// What MIO is doing, while it does it.
+    ///
+    /// Every one of these is a round trip to the college through a web view —
+    /// a search is a page load, and so is adding one person to a list. Several
+    /// seconds of a screen that looks finished is how somebody presses the same
+    /// name twice, and two presses on a list MIO is halfway through redrawing
+    /// is how the wrong person comes off it.
+    @Published private(set) var pickerActivity: String?
+
+    private func working<T>(_ what: String, _ body: () async -> T) async -> T {
+        pickerActivity = what
+        defer { pickerActivity = nil }
+        return await body()
+    }
 
     /// Runs MIO's own search with what was typed into the native field.
     func pickerSearch(_ text: String) async {
         let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
-        _ = try? await pickerString(service.pickerSearchScript(text: trimmed))
-        await refreshPicker(settling: true)
+        await working(Loc.text("Searching…")) {
+            _ = try? await pickerString(service.pickerSearchScript(text: trimmed))
+            await refreshPicker(settling: true)
+        }
     }
 
     /// Changes one of MIO's own term or campus menus.
     func pickerFilter(_ ref: String, to value: String) async {
-        _ = try? await pickerString(service.pickerFilterScript(ref: ref, value: value))
-        await refreshPicker(settling: true)
+        await working(Loc.text("Updating the list…")) {
+            _ = try? await pickerString(service.pickerFilterScript(ref: ref, value: value))
+            await refreshPicker(settling: true)
+        }
     }
 
     /// Presses MIO's own save, which is what hands the names back to the form.
@@ -367,8 +444,10 @@ final class MioComposeSession: NSObject, ObservableObject {
     /// Goes back to the menu of ways to find somebody, keeping the choices
     /// made so far — they live on MIO's side, not this app's.
     func pickerGoBack() async {
-        _ = try? await pickerString(service.pickerBackScript)
-        await refreshPicker(settling: true)
+        await working(Loc.text("Going back…")) {
+            _ = try? await pickerString(service.pickerBackScript)
+            await refreshPicker(settling: true)
+        }
     }
 
     /// Abandons the picker without saving.

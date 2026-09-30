@@ -4131,6 +4131,7 @@
       }
     },
     "Opens this draft to finish writing" : {
+      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {

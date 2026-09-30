@@ -112,6 +112,12 @@ struct MeView: View {
                     }
                     .disabled(isRemovingAccount)
                 }
+
+                Section {
+                    EmptyView()
+                } footer: {
+                    AppVersionFooter()
+                }
             }
             .scrollContentBackground(.hidden)
             .background(NeoBackground())

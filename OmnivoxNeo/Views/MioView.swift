@@ -26,6 +26,11 @@ struct MioView: View {
     @State private var columns: NavigationSplitViewVisibility = .doubleColumn
     /// Which message is waiting on an answer to "are you sure".
     @State private var pendingDelete: MioMessage?
+    /// Pushed programmatically rather than by `NavigationLink`, because the
+    /// row's tap now belongs to the swipe wrapper around it — a link inside
+    /// would fire at the end of a swipe and open the message you were trying
+    /// to flag.
+    @State private var path = NavigationPath()
     @FocusState private var isSearching: Bool
 
     @Environment(\.prefersSplitLayout) private var prefersSplitLayout
@@ -85,7 +90,7 @@ struct MioView: View {
 
     /// A phone: the list is the screen, and a message is pushed on top of it.
     private var stackBody: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             listColumn
                 #if os(iOS)
                 .navigationBarHidden(true)
@@ -405,8 +410,15 @@ struct MioView: View {
                         if index > 0 {
                             Divider().padding(.leading, 68)
                         }
-                        row(message)
-                            .contextMenu { rowMenu(message) }
+                        MioSwipeRow(
+                            isFlagged: message.isFlagged,
+                            onFlag: { store.toggleFlag(message) },
+                            onDelete: { pendingDelete = message },
+                            onTap: { openRow(message) }
+                        ) {
+                            rowLabel(message)
+                        }
+                        .contextMenu { rowMenu(message) }
                     }
 
                     if let total = store.currentList.value?.totalText, store.query.isEmpty {
@@ -431,46 +443,36 @@ struct MioView: View {
     /// The difference is real and not cosmetic: where the message opens beside
     /// the list, the row also has to say that it is the one being read, or the
     /// reader loses their place the moment they glance away.
-    @ViewBuilder
-    private func row(_ message: MioMessage) -> some View {
-        let label = MioRow(
+    /// One row, drawn. Pressing it is the swipe wrapper's job.
+    private func rowLabel(_ message: MioMessage) -> some View {
+        MioRow(
             message: message,
             isUnread: store.isUnread(message),
             showsRecipientCount: store.selectedFolder?.kind == .sent,
-            isSaving: store.pendingIndicators.contains(message.id),
-            onFlag: { store.toggleFlag(message) }
+            isSaving: store.pendingIndicators.contains(message.id)
         )
+        // Where the message opens beside the list, the row also has to say it
+        // is the one being read, or the reader loses their place the moment
+        // they glance away.
+        .background(
+            prefersSplitLayout && selected?.id == message.id
+                ? Neo.accent.opacity(0.12)
+                : Color.clear
+        )
+    }
 
+    /// What pressing a row does — a push on a phone, a choice on a bigger
+    /// screen, and the editor for a draft, which is a message you are still
+    /// writing rather than one to look at.
+    private func openRow(_ message: MioMessage) {
         if let draft = draftIntent(for: message) {
-            // A draft is a message you are still writing, so it opens in the
-            // editor rather than in the reader. It used to open in the reader,
-            // which meant a draft was something you could look at and never
-            // finish.
-            Button {
-                composing = draft
-            } label: {
-                label
-            }
-            .buttonStyle(LeaPressStyle())
-            .accessibilityHint(Text("Opens this draft to finish writing"))
-        } else if prefersSplitLayout {
-            Button {
-                selected = message
-            } label: {
-                label
-                    .background(
-                        selected?.id == message.id
-                            ? Neo.accent.opacity(0.12)
-                            : Color.clear
-                    )
-            }
-            .buttonStyle(LeaPressStyle())
-            .accessibilityAddTraits(selected?.id == message.id ? .isSelected : [])
+            composing = draft
+            return
+        }
+        if prefersSplitLayout {
+            selected = message
         } else {
-            NavigationLink(value: message) {
-                label
-            }
-            .buttonStyle(LeaPressStyle())
+            path.append(message)
         }
     }
 
@@ -568,6 +570,134 @@ struct MioView: View {
     }
 }
 
+// MARK: - Swiping a row
+
+/// Drag a row to the left to uncover what you can do to it.
+///
+/// Hand-built because this list is not a `List`. It is a `LazyVStack` of rows
+/// in a `ScrollView`, which is what lets it carry the monogram, the receipt
+/// counts and the skeleton loading state — and `swipeActions` only exists on
+/// `List`. Rebuilding the screen around one modifier would cost all of that.
+///
+/// The trick that keeps it simple: the buttons are drawn in a strip behind the
+/// row that is exactly as wide as the row has been dragged. The row never
+/// overlaps them, so it needs no opaque background of its own and the wallpaper
+/// still shows through the list exactly as before.
+private struct MioSwipeRow<Content: View>: View {
+    let isFlagged: Bool
+    let onFlag: () -> Void
+    let onDelete: () -> Void
+    let onTap: () -> Void
+    @ViewBuilder let content: () -> Content
+
+    @State private var offset: CGFloat = 0
+    @State private var isOpen = false
+    /// Set the moment a horizontal drag begins, and cleared a beat after it
+    /// ends.
+    ///
+    /// The row's press arrives on touch-up, which is *after* the drag has
+    /// already moved the row — so this is what tells a swipe apart from a tap.
+    /// Without it, swiping a row to flag it opened the message instead: the
+    /// button underneath counted the whole gesture as a press because the
+    /// finger never left its bounds.
+    @State private var didDrag = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    private let actionWidth: CGFloat = 78
+    private var openWidth: CGFloat { actionWidth * 2 }
+
+    var body: some View {
+        Button {
+            if didDrag { return }
+            if isOpen { settle(open: false); return }
+            onTap()
+        } label: {
+            content()
+        }
+        .buttonStyle(LeaPressStyle())
+            .offset(x: offset)
+            .background(alignment: .trailing) { actions }
+            // Simultaneous, not exclusive. An exclusive drag gesture on a row
+            // inside a scroll view swallows the vertical scroll — this list has
+            // been made untouchable by a gesture once already.
+            .simultaneousGesture(
+                DragGesture(minimumDistance: 18)
+                    .onChanged { value in
+                        // Horizontal only. A vertical flick that wanders a few
+                        // points sideways is somebody scrolling.
+                        guard abs(value.translation.width) > abs(value.translation.height) * 1.5
+                        else { return }
+                        didDrag = true
+                        let base = isOpen ? -openWidth : 0
+                        offset = min(0, max(-openWidth - 24, base + value.translation.width))
+                    }
+                    .onEnded { value in
+                        guard didDrag else { return }
+                        let base = isOpen ? -openWidth : 0
+                        settle(open: base + value.translation.width < -openWidth / 2)
+                        // Long enough for the press this gesture is about to
+                        // turn into to see it, and short enough that the next
+                        // real tap does not.
+                        Task {
+                            try? await Task.sleep(for: .milliseconds(350))
+                            didDrag = false
+                        }
+                    }
+            )
+    }
+
+    private var actions: some View {
+        HStack(spacing: 0) {
+            action(
+                symbol: isFlagged ? "flag.slash.fill" : "flag.fill",
+                label: isFlagged ? Text("Remove flag") : Text("Flag"),
+                tint: .orange
+            ) {
+                settle(open: false)
+                onFlag()
+            }
+
+            action(
+                symbol: "trash.fill",
+                label: Text("Delete"),
+                tint: .red
+            ) {
+                settle(open: false)
+                onDelete()
+            }
+        }
+        // Exactly as wide as the row has moved, so the two never overlap.
+        .frame(width: max(0, -offset))
+        .clipped()
+    }
+
+    private func action(
+        symbol: String,
+        label: Text,
+        tint: Color,
+        perform: @escaping () -> Void
+    ) -> some View {
+        Button(action: perform) {
+            Image(systemName: symbol)
+                .font(.body.weight(.semibold))
+                .foregroundStyle(.white)
+                .frame(width: actionWidth)
+                .frame(maxHeight: .infinity)
+                .background(tint)
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(label)
+    }
+
+    private func settle(open: Bool) {
+        let change = {
+            isOpen = open
+            offset = open ? -openWidth : 0
+        }
+        if reduceMotion { change() } else { withAnimation(.snappy(duration: 0.25)) { change() } }
+    }
+}
+
 // MARK: - One row
 
 /// Sender, subject, a line of the message, and when it arrived.
@@ -581,7 +711,6 @@ private struct MioRow: View {
     let showsRecipientCount: Bool
     /// True while OmniVox is still being asked to agree.
     let isSaving: Bool
-    let onFlag: () -> Void
 
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
@@ -656,27 +785,28 @@ private struct MioRow: View {
                     .foregroundStyle(.orange)
             }
 
-            Button(action: onFlag) {
-                Group {
-                    if isSaving {
-                        // Still being checked against OmniVox. The flag has
-                        // already moved; this says the answer is not in yet.
-                        ProgressView()
-                            .controlSize(.mini)
-                    } else {
-                        Image(systemName: message.isFlagged ? "flag.fill" : "flag")
-                            .font(.caption)
-                            .foregroundStyle(
-                                message.isFlagged ? Color.orange : Color.secondary.opacity(0.5)
-                            )
-                    }
-                }
-                .frame(width: 30, height: 26)
-                .contentShape(Rectangle())
+            // A mark, not a button.
+            //
+            // It used to be a control, sitting a thumb's width from the middle
+            // of the row — which was already a hazard, and became a real one
+            // once the row answered to a swipe: a swipe that starts on a
+            // button is a press on that button, so trying to reveal the
+            // actions by dragging across the flag silently flagged the
+            // message instead. Flagging lives in the swipe and in the long
+            // press now; this only says whether it is flagged.
+            if isSaving {
+                // Still being checked against OmniVox. The flag has already
+                // moved; this says the answer is not in yet.
+                ProgressView()
+                    .controlSize(.mini)
+                    .frame(width: 22)
+            } else if message.isFlagged {
+                Image(systemName: "flag.fill")
+                    .font(.caption)
+                    .foregroundStyle(.orange)
+                    .frame(width: 22)
+                    .accessibilityHidden(true)
             }
-            .buttonStyle(.plain)
-            .disabled(isSaving)
-            .accessibilityLabel(message.isFlagged ? Text("Remove flag") : Text("Flag"))
 
             if isUnread {
                 Circle()

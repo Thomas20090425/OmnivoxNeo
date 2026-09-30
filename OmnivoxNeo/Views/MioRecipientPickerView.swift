@@ -40,7 +40,16 @@ struct MioRecipientPicker: View {
             // recipient who would not come off is a thing that did not work,
             // not a directory that failed to open.
             .overlay(alignment: .top) { notice }
+            // Over the top of everything, and it takes the taps.
+            //
+            // Every action here is a page load at the college's end — three or
+            // four seconds for a search, the same to add one person. A screen
+            // that looks finished for four seconds gets pressed again, and a
+            // second press on a list MIO is halfway through redrawing is how
+            // the wrong name comes off it.
+            .overlay { activity }
             .animation(.snappy(duration: 0.25), value: session.pickerNotice)
+            .animation(.easeInOut(duration: 0.2), value: session.pickerActivity)
             .background(NeoBackground())
             .navigationTitle(Text(title))
             #if os(iOS)
@@ -150,6 +159,39 @@ struct MioRecipientPicker: View {
     }
 
     // MARK: - What is on screen
+
+    /// What the college is doing, while it does it — and nothing else gets
+    /// pressed until it is finished.
+    @ViewBuilder
+    private var activity: some View {
+        if let what = session.pickerActivity {
+            ZStack {
+                Rectangle()
+                    .fill(.black.opacity(0.12))
+                    .ignoresSafeArea()
+
+                VStack(spacing: 14) {
+                    ProgressView()
+                        .controlSize(.large)
+
+                    Text(what)
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(.primary)
+                        .multilineTextAlignment(.center)
+                }
+                .padding(.horizontal, 28)
+                .padding(.vertical, 24)
+                .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                .shadow(color: .black.opacity(0.18), radius: 18, y: 6)
+            }
+            // The point of it: taps land here and go nowhere.
+            .contentShape(Rectangle())
+            .onTapGesture {}
+            .transition(.opacity)
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel(Text(what))
+        }
+    }
 
     @ViewBuilder
     private var notice: some View {

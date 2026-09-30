@@ -469,10 +469,41 @@ extension LeaService {
             }
 
             // The teacher's name sits above the table, not in it.
+            //
+            // Taken from the wrapper Léa puts the marks inside — its first row
+            // is the "Teacher: …" line — rather than by sweeping the whole
+            // page for the first line with a colon in it. That sweep is what
+            // printed "41" under one course's marks: on a page whose teacher
+            // line it missed, it settled on whatever else had a colon, and
+            // there is always something.
+            //
+            // Structural on purpose. Nothing here knows a teacher's name, a
+            // course, or the word "Teacher" in any language — only that the
+            // label and its value are separated by a colon in the row above.
+            const nameFrom = line => {
+                const at = (line || '').indexOf(':');
+                if (at < 0) return '';
+                const value = line.slice(at + 1).trim();
+                // A number is a date, a count or a time — never a person.
+                return /[A-Za-zÀ-ÿ]/.test(value) ? value : '';
+            };
+
             let teacher = '';
-            const teacherLine = LINES(doc.body)
-                .find(line => /:/.test(line) && line.length < 80 && !/%/.test(line));
-            if (teacherLine) teacher = teacherLine.split(':').slice(1).join(':').trim();
+            const host = table.parentElement ? table.parentElement.closest('table') : null;
+            if (host) {
+                for (const line of LINES(host.querySelector('tr'))) {
+                    teacher = nameFrom(line);
+                    if (teacher) break;
+                }
+            }
+            if (!teacher) {
+                // A build that wraps it differently. Same rule as before, with
+                // the sanity check that a teacher has letters in their name.
+                const line = LINES(doc.body).find(candidate =>
+                    candidate.length < 80 && !/%/.test(candidate) && nameFrom(candidate)
+                );
+                if (line) teacher = nameFrom(line);
+            }
 
             const categories = [];
             let current = null;
@@ -531,7 +562,22 @@ extension LeaService {
                     categories.push(current);
                     continue;
                 }
-                if (!current) continue;
+                // A teacher who never grouped anything into categories.
+                //
+                // Léa then prints the marks with no heading row above them at
+                // all — no `tr-header-cat`, nothing — and every assessment row
+                // was being skipped here against a category that was never
+                // going to open. The screen said "No Grades Yet" over a table
+                // with nine assessments and a course average in it.
+                //
+                // One unnamed category is opened to hold them, and the app
+                // draws no heading for a category that has no name: an empty
+                // bold line over the first mark is not better than nothing.
+                if (!current) {
+                    if (!row.querySelector(SEL.gradePosition)) continue;
+                    current = { name: '', rule: '', weight: '', average: '', items: [] };
+                    categories.push(current);
+                }
 
                 const position = row.querySelector(SEL.gradePosition);
                 if (position) {
