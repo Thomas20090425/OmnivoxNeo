@@ -629,6 +629,24 @@ final class AppModel: NSObject, ObservableObject {
     /// Always through here, so the flag cannot be left armed — a stray page
     /// arriving minutes later would otherwise be read as the session being
     /// refused and start a countdown over a session that is perfectly fine.
+    /// Starts a restore that happens behind a screen the student is using.
+    private func beginQuietRestore() {
+        isRestoringQuietly = true
+        quietRestoreWatchdog?.cancel()
+        quietRestoreWatchdog = Task { [weak self] in
+            try? await Task.sleep(for: .seconds(45))
+            guard !Task.isCancelled else { return }
+            await MainActor.run {
+                guard let self, self.isRestoringQuietly else { return }
+                print("🔐 Quiet restore never resolved; leaving saved information alone.")
+                self.endQuietRestore()
+                self.navigationContext = .authenticated
+                self.isBusy = false
+                self.isRefreshingSchedule = false
+            }
+        }
+    }
+
     private func endQuietRestore() {
         isRestoringQuietly = false
         quietRestoreWatchdog?.cancel()
@@ -1035,8 +1053,22 @@ final class AppModel: NSObject, ObservableObject {
     /// while the schedule is still being extracted is two navigations sharing
     /// one session rather than two independent fetches, so the preload waits
     /// for this. Demo sessions never reach the portal at all.
+    /// Whether the portal web view is free for Léa and MIO to take a turn.
+    ///
+    /// The quiet restore counts as busy. Showing the schedule immediately made
+    /// this true while the restore was still navigating, so Léa and MIO began
+    /// driving the same signed-in session at the same moment — which is the
+    /// exact collision the staggering below exists to avoid, and they were
+    /// reaching the portal before it had agreed we were signed in at all.
+    ///
+    /// Going false and then true again is also what *starts* them: the moment
+    /// the restore finishes, both load.
     var portalIsIdle: Bool {
-        screen == .schedule && !isRefreshingSchedule && !isDemoMode
+        screen == .schedule
+            && !isRefreshingSchedule
+            && !isDemoMode
+            && !isRestoringQuietly
+            && limitation == nil
     }
 
     func refreshSchedule() {
@@ -1044,6 +1076,19 @@ final class AppModel: NSObject, ObservableObject {
         // real sign-in page and replace the fixture data being shown.
         if isDemoMode { return }
         guard !isRefreshingSchedule, navigationContext != .clearingSession else { return }
+
+        // Pulling a list down is not a request to sign in again.
+        //
+        // If the session has lapsed, the old path answered a refresh with a
+        // face scan, a locked screen and a full sign-in — so a student who
+        // pulled to refresh was scanned, made to wait, and handed back to the
+        // lock. Behind a screen they are already using, a refresh is exactly
+        // the quiet case: retry silently if there is a password in hand, and
+        // otherwise say plainly that a sign-in is due.
+        if screen == .schedule, hasCachedScheduleSnapshot, limitation == nil {
+            beginQuietRestore()
+        }
+
         navigationContext = .restoringSession
         isRefreshingSchedule = true
         load(institution.portalURL)
@@ -1631,22 +1676,9 @@ final class AppModel: NSObject, ObservableObject {
         // the same thing — and the college is slow. The schedule they already
         // have goes up immediately and the portal is checked behind it.
         if hasCachedScheduleSnapshot, !activeProfileIsPlaceholder {
-            isRestoringQuietly = true
+            beginQuietRestore()
             screen = .schedule
             isBusy = false
-            // A restore that simply never resolves must not leave this armed.
-            quietRestoreWatchdog?.cancel()
-            quietRestoreWatchdog = Task { [weak self] in
-                try? await Task.sleep(for: .seconds(45))
-                guard !Task.isCancelled else { return }
-                await MainActor.run {
-                    guard let self, self.isRestoringQuietly else { return }
-                    print("🔐 Quiet restore never resolved; leaving saved information alone.")
-                    self.endQuietRestore()
-                    self.navigationContext = .authenticated
-                    self.isBusy = false
-                }
-            }
         } else {
             screen = .launching
             isBusy = true
@@ -2121,6 +2153,18 @@ final class AppModel: NSObject, ObservableObject {
         }
 
         if navigationContext == .restoringSession {
+            if isRestoringQuietly {
+                // Behind a screen in use. Try the saved password without
+                // asking for anything; if there is none in hand, this is a
+                // sign-in the student has to do, on the clock.
+                if let credentials = biometricCredentials {
+                    biometricCredentials = nil
+                    beginFreshSignIn(credentials, context: .biometricReauthentication)
+                } else {
+                    demandSignIn("the session lapsed and there is no saved password in hand")
+                }
+                return
+            }
             if biometricLockEnabled {
                 requestBiometricReauthentication()
             } else {
@@ -2307,6 +2351,7 @@ final class AppModel: NSObject, ObservableObject {
         // Accepted. Any demand for a sign-in is satisfied by this and only by
         // this — which is what stops a force-quit at the password screen from
         // putting the student back on a face scan.
+        let cameInQuietly = isRestoringQuietly
         endQuietRestore()
         limitation = nil
         clearSignInDemand()
@@ -2356,11 +2401,23 @@ final class AppModel: NSObject, ObservableObject {
         pendingCredentials = nil
         submittedCredentials = nil
         biometricCredentials = nil
-        isBusy = isBiometricFlow
+        isBusy = isBiometricFlow && !cameInQuietly
         verificationIsBusy = false
         verificationNotice = nil
 
-        if isBiometricFlow {
+        if cameInQuietly {
+            // They are already looking at their schedule. Put a spinner over it
+            // now and the face scan has bought nothing — which is precisely
+            // what this did: straight in, then straight back out to
+            // `.launching` the moment the portal answered.
+            //
+            // The refresh below is unchanged and still runs in full. The cache
+            // is what makes the first screen instant; it is not a reason to
+            // skip anything.
+            authenticatedNavigationHandled = true
+            navigationContext = .authenticated
+            screen = .schedule
+        } else if isBiometricFlow {
             authenticatedNavigationHandled = true
             screen = .launching
         } else if !authenticatedNavigationHandled {
