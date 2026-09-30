@@ -274,7 +274,7 @@ final class AppModel: NSObject, ObservableObject {
             configureDemoSchedule(studentID: "1234567", displayName: "Thomas")
             // Through the real call, not by setting the state: the part worth
             // demonstrating is that the clock actually runs out.
-            demandSignIn()
+            demandSignIn("demo")
             return
         }
         // The screen a college's own interstitial lands on. Reachable without
@@ -517,6 +517,7 @@ final class AppModel: NSObject, ObservableObject {
     /// read — is turned into a countdown instead while this is set.
     private var isRestoringQuietly = false
     private var forcedSignInTask: Task<Void, Never>?
+    private var quietRestoreWatchdog: Task<Void, Never>?
 
     private static let reauthenticationDeadlineKey = "security.reauthentication-deadline"
 
@@ -553,11 +554,18 @@ final class AppModel: NSObject, ObservableObject {
     /// takes them to a real sign-in. Nothing is thrown away here: the password
     /// and the trusted device are still theirs, it is the *session* that has
     /// stopped being accepted.
-    private func demandSignIn() {
-        isRestoringQuietly = false
+    private func demandSignIn(_ reason: String) {
+        print("🔐 Sign-in demanded: \(reason)")
+        endQuietRestore()
         if case .mustSignInAgain = limitation { return }
 
-        let deadline = storedSignInDeadline ?? Date().addingTimeInterval(SessionLimitation.graceSeconds)
+        // A stored deadline is reused so that quitting and reopening does not
+        // hand out a fresh minute — but only while it is still in the future.
+        // A stale one from an earlier run would otherwise expire instantly.
+        let stored = storedSignInDeadline
+        let deadline = (stored != nil && stored! > Date())
+            ? stored!
+            : Date().addingTimeInterval(SessionLimitation.graceSeconds)
         preferences.set(
             deadline.timeIntervalSinceReferenceDate,
             forKey: scopedSecurityKey(Self.reauthenticationDeadlineKey)
@@ -587,7 +595,7 @@ final class AppModel: NSObject, ObservableObject {
         forcedSignInTask?.cancel()
         forcedSignInTask = nil
         limitation = nil
-        isRestoringQuietly = false
+        endQuietRestore()
         clearPortalData(disableBiometricLock: false, preserveTrustedDevice: true)
     }
 
@@ -599,7 +607,7 @@ final class AppModel: NSObject, ObservableObject {
     /// The college could not be reached. Nobody is signed out over that.
     private func fallBackToSavedInformation() {
         guard limitation == nil else { return }
-        isRestoringQuietly = false
+        endQuietRestore()
         navigationContext = .authenticated
         isBusy = false
         isRefreshingSchedule = false
@@ -610,10 +618,21 @@ final class AppModel: NSObject, ObservableObject {
     /// on saved information, and turns it into the countdown instead.
     ///
     /// Returns true when it handled it and the caller should stop.
-    private func interceptQuietInterruption() -> Bool {
+    private func interceptQuietInterruption(_ reason: String) -> Bool {
         guard isRestoringQuietly else { return false }
-        demandSignIn()
+        demandSignIn(reason)
         return true
+    }
+
+    /// Stops the quiet restore, however it ended.
+    ///
+    /// Always through here, so the flag cannot be left armed — a stray page
+    /// arriving minutes later would otherwise be read as the session being
+    /// refused and start a countdown over a session that is perfectly fine.
+    private func endQuietRestore() {
+        isRestoringQuietly = false
+        quietRestoreWatchdog?.cancel()
+        quietRestoreWatchdog = nil
     }
 
     func signIn(studentID: String, password: String) {
@@ -1615,6 +1634,19 @@ final class AppModel: NSObject, ObservableObject {
             isRestoringQuietly = true
             screen = .schedule
             isBusy = false
+            // A restore that simply never resolves must not leave this armed.
+            quietRestoreWatchdog?.cancel()
+            quietRestoreWatchdog = Task { [weak self] in
+                try? await Task.sleep(for: .seconds(45))
+                guard !Task.isCancelled else { return }
+                await MainActor.run {
+                    guard let self, self.isRestoringQuietly else { return }
+                    print("🔐 Quiet restore never resolved; leaving saved information alone.")
+                    self.endQuietRestore()
+                    self.navigationContext = .authenticated
+                    self.isBusy = false
+                }
+            }
         } else {
             screen = .launching
             isBusy = true
@@ -1949,7 +1981,7 @@ final class AppModel: NSObject, ObservableObject {
 
     private func handleVerificationPage(_ probe: PageProbe) {
         // A two-factor step is a manual sign-in by another name.
-        if interceptQuietInterruption() { return }
+        if interceptQuietInterruption("two-factor step") { return }
 
         screen = .verification
         isBusy = false
@@ -2040,6 +2072,17 @@ final class AppModel: NSObject, ObservableObject {
 
     private func waitForAuthenticatedDashboard() {
         guard dashboardProbeAttempt < 12 else {
+            // Slow is not refused. Behind a screen the student is already
+            // using, a dashboard that never finished loading means this
+            // refresh did not happen — nothing more. Say nothing, leave what
+            // they have, and let the next refresh try again.
+            if isRestoringQuietly {
+                endQuietRestore()
+                navigationContext = .authenticated
+                isBusy = false
+                isRefreshingSchedule = false
+                return
+            }
             handleUnknownPage()
             return
         }
@@ -2061,10 +2104,19 @@ final class AppModel: NSObject, ObservableObject {
     }
 
     private func handleLoginPage(errorMessage: String?) {
-        // One silent retry with the saved password is allowed below; a second
-        // trip to the login page means it was not accepted, and that is a real
-        // sign-in the student has to do themselves.
-        if navigationContext == .biometricReauthentication, interceptQuietInterruption() {
+        // Only once the saved password has actually been **sent** and OmniVox
+        // has bounced us back here. `submissionState == .submitted` is what
+        // says that.
+        //
+        // Without that condition this fired the moment the login *form*
+        // finished loading — which is a normal, expected step of the silent
+        // retry, arriving before the password is submitted. So the retry never
+        // ran, and a student with an entirely valid password was told to sign
+        // in again while their schedule sat there saying "updated just now".
+        if navigationContext == .biometricReauthentication,
+           submissionState == .submitted,
+           interceptQuietInterruption("saved password was not accepted")
+        {
             return
         }
 
@@ -2124,15 +2176,19 @@ final class AppModel: NSObject, ObservableObject {
     }
 
     private func handleUnknownPage() {
-        // Whatever the college has put in the way, it needs a person.
-        if interceptQuietInterruption() { return }
-
         if institution.owns(webView.url),
            submissionState == .submitted
             || navigationContext == .restoringSession
             || navigationContext == .biometricSessionValidation
             || (navigationContext == .biometricReauthentication && submissionState != .none)
         {
+            // Inside the guard, not above it. Sign-in walks through pages this
+            // app does not recognise on its way to ones it does, and the
+            // conditions above are what already tell a real dead end from a
+            // step along the road. Asking before them turned every one of
+            // those steps into a countdown.
+            if interceptQuietInterruption("page the app cannot read: \(webView.url?.absoluteString ?? "—")") { return }
+
             unrecognizedPageAddress = webView.url?.absoluteString
             // Not a broken sign-in step — a college holding sign-in up over
             // something of its own. OmniVox puts these in the middle of the
@@ -2251,7 +2307,7 @@ final class AppModel: NSObject, ObservableObject {
         // Accepted. Any demand for a sign-in is satisfied by this and only by
         // this — which is what stops a force-quit at the password screen from
         // putting the student back on a face scan.
-        isRestoringQuietly = false
+        endQuietRestore()
         limitation = nil
         clearSignInDemand()
 

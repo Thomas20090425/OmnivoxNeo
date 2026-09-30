@@ -105,6 +105,9 @@
         }
       }
     },
+    "%@ is loaded from the college, so it needs a connection." : {
+
+    },
     "%@ isn’t a format this app can show. You can still open it in another app or save it." : {
       "localizations" : {
         "fr" : {
@@ -3719,6 +3722,15 @@
         }
       }
     },
+    "Not available offline" : {
+
+    },
+    "Not Available Offline" : {
+
+    },
+    "Not available until you are back online" : {
+
+    },
     "Not marked yet" : {
       "localizations" : {
         "fr" : {
@@ -3911,6 +3923,9 @@
         }
       }
     },
+    "Offline" : {
+
+    },
     "OK" : {
       "localizations" : {
         "fr" : {
@@ -3931,6 +3946,9 @@
           }
         }
       }
+    },
+    "OmniVox needs you to sign in." : {
+
     },
     "Omnivox Neo" : {
       "localizations" : {
@@ -5111,6 +5129,9 @@
         }
       }
     },
+    "Showing what is saved on this device." : {
+
+    },
     "Shows event details" : {
       "localizations" : {
         "fr" : {
@@ -5144,6 +5165,9 @@
           }
         }
       }
+    },
+    "Sign in again" : {
+
     },
     "Sign in to %@ again." : {
       "localizations" : {
@@ -6719,6 +6743,9 @@
           }
         }
       }
+    },
+    "Your messages are kept at the college, so they need a connection." : {
+
     },
     "Your messages could not be read." : {
       "localizations" : {
