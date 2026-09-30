@@ -44,6 +44,7 @@ struct LeaView: View {
     @State private var columns: NavigationSplitViewVisibility = .doubleColumn
 
     @Environment(\.prefersSplitLayout) private var prefersSplitLayout
+    @Environment(\.sessionLimitation) private var limitation
 
     var body: some View {
         Group {
@@ -53,7 +54,12 @@ struct LeaView: View {
                 stackBody
             }
         }
-        .task { store.loadIfNeeded() }
+        // Nothing is fetched while the college is out of reach. A read that
+        // is certain to fail is not worth the error it produces.
+        .task {
+            guard limitation == nil else { return }
+            store.loadIfNeeded()
+        }
     }
 
     // MARK: - One column, or two
@@ -111,7 +117,10 @@ struct LeaView: View {
             .padding(.bottom, 34)
             .frame(maxWidth: .infinity)
         }
-        .refreshable { store.refresh() }
+        .refreshable {
+            guard limitation == nil else { return }
+            store.refresh()
+        }
         .scrollContentBackground(.hidden)
         .background(NeoBackground())
         .navigationTitle(model.institution.conventions.courseworkDisplayName)
@@ -217,6 +226,19 @@ struct LeaView: View {
 
     @ViewBuilder
     private var content: some View {
+        // This is the half of the app that lives at the college rather than on
+        // the phone, so when the college cannot be reached there is nothing
+        // here to show. Said plainly, rather than as whatever error the failed
+        // request happened to produce.
+        if limitation != nil, store.overview.value == nil {
+            ContentUnavailableView(
+                "Not Available Offline",
+                systemImage: "wifi.slash",
+                description: Text("\(model.institution.conventions.courseworkDisplayName) is loaded from the college, so it needs a connection.")
+            )
+            .frame(maxWidth: .infinity)
+            .padding(.top, 60)
+        } else {
         switch store.overview {
         case .idle, .loading:
             LeaPlaceholder(message: Text("Opening \(model.institution.conventions.courseworkDisplayName)…"))
@@ -259,6 +281,7 @@ struct LeaView: View {
                     )
                 }
             }
+        }
         }
     }
 }

@@ -263,6 +263,20 @@ final class AppModel: NSObject, ObservableObject {
             configureDemoSchedule(studentID: "1234567", displayName: "Thomas")
             return
         }
+        // The two ways the app runs on what it already has. Reachable without
+        // unplugging anything, because neither is easy to produce on purpose.
+        if startsAutomatically, ProcessInfo.processInfo.arguments.contains("--demo-offline") {
+            configureDemoSchedule(studentID: "1234567", displayName: "Thomas")
+            limitation = .offline
+            return
+        }
+        if startsAutomatically, ProcessInfo.processInfo.arguments.contains("--demo-countdown") {
+            configureDemoSchedule(studentID: "1234567", displayName: "Thomas")
+            // Through the real call, not by setting the state: the part worth
+            // demonstrating is that the clock actually runs out.
+            demandSignIn()
+            return
+        }
         // The screen a college's own interstitial lands on. Reachable without
         // credentials because the only other way to see it is to have the
         // college actually be waiting on something.
@@ -364,6 +378,20 @@ final class AppModel: NSObject, ObservableObject {
         // credential behind Face ID, so prompting would scan the user's face
         // only to find nothing to unlock. Send them straight to the form.
         let hasNothingToUnlock = activeProfileIsPlaceholder || activeProfile?.isSignedOut == true
+
+        // A sign-in this app demanded and never got.
+        //
+        // It outlives the app deliberately. Force-quitting during the
+        // countdown is the obvious thing to try, and it must not work: the
+        // demand is only ever cleared by a sign-in that OmniVox accepts, so
+        // quitting at the password screen lands right back here.
+        if hasUnmetSignInDemand, !hasNothingToUnlock {
+            presentCredentialFallback(
+                message: Loc.text("Please sign in again to continue.")
+            )
+            return
+        }
+
         if biometricLockEnabled, !hasNothingToUnlock {
             screen = .locked
             shouldUnlockWhenActive = true
@@ -474,7 +502,119 @@ final class AppModel: NSObject, ObservableObject {
     /// what actually happened instead of from a guess. Shown on the dead-end
     /// screen itself, because the person who can read it out is the person
     /// looking at it.
+    /// Running on what was already on the device, and why.
+    ///
+    /// Nil is the ordinary case: signed in, live, everything available.
+    @Published private(set) var limitation: SessionLimitation?
+
+    /// True while the app is already up on saved information and the portal is
+    /// being checked quietly behind it.
+    ///
+    /// This is what makes a face scan feel instant. The scan is the check; the
+    /// college agreeing is a formality that should happen behind the schedule
+    /// rather than in front of a spinner. Everything that would normally seize
+    /// the screen — the login form, a two-factor step, a page the app cannot
+    /// read — is turned into a countdown instead while this is set.
+    private var isRestoringQuietly = false
+    private var forcedSignInTask: Task<Void, Never>?
+
+    private static let reauthenticationDeadlineKey = "security.reauthentication-deadline"
+
     @Published private(set) var unrecognizedPageAddress: String?
+
+    // MARK: - Running on saved information
+
+    /// A sign-in this app demanded and never got.
+    ///
+    /// Stored rather than held in memory because the countdown has to survive
+    /// the app being killed. Quitting during it is the obvious way to try to
+    /// dodge it, and it must not work.
+    private var hasUnmetSignInDemand: Bool {
+        preferences.object(forKey: scopedSecurityKey(Self.reauthenticationDeadlineKey)) != nil
+    }
+
+    private var storedSignInDeadline: Date? {
+        guard let raw = preferences.object(
+            forKey: scopedSecurityKey(Self.reauthenticationDeadlineKey)
+        ) as? Double else { return nil }
+        return Date(timeIntervalSinceReferenceDate: raw)
+    }
+
+    private func clearSignInDemand() {
+        forcedSignInTask?.cancel()
+        forcedSignInTask = nil
+        preferences.removeObject(forKey: scopedSecurityKey(Self.reauthenticationDeadlineKey))
+    }
+
+    /// The portal will not take the saved session. Start the clock.
+    ///
+    /// The student keeps what is already on the device for a minute — enough
+    /// to finish reading whatever they opened the app for — and then the app
+    /// takes them to a real sign-in. Nothing is thrown away here: the password
+    /// and the trusted device are still theirs, it is the *session* that has
+    /// stopped being accepted.
+    private func demandSignIn() {
+        isRestoringQuietly = false
+        if case .mustSignInAgain = limitation { return }
+
+        let deadline = storedSignInDeadline ?? Date().addingTimeInterval(SessionLimitation.graceSeconds)
+        preferences.set(
+            deadline.timeIntervalSinceReferenceDate,
+            forKey: scopedSecurityKey(Self.reauthenticationDeadlineKey)
+        )
+        limitation = .mustSignInAgain(deadline: deadline)
+
+        navigationContext = .authenticated
+        isBusy = false
+        isRefreshingSchedule = false
+        screen = .schedule
+
+        forcedSignInTask?.cancel()
+        forcedSignInTask = Task { [weak self] in
+            let seconds = deadline.timeIntervalSinceNow
+            if seconds > 0 {
+                try? await Task.sleep(for: .seconds(seconds))
+            }
+            guard !Task.isCancelled else { return }
+            await MainActor.run { self?.takeStudentToSignIn() }
+        }
+    }
+
+    /// The clock ran out. The demand itself is deliberately **not** cleared —
+    /// it is cleared when a sign-in actually succeeds, so killing the app at
+    /// the password screen does not put the student back on a face scan.
+    private func takeStudentToSignIn() {
+        forcedSignInTask?.cancel()
+        forcedSignInTask = nil
+        limitation = nil
+        isRestoringQuietly = false
+        clearPortalData(disableBiometricLock: false, preserveTrustedDevice: true)
+    }
+
+    /// Lets a student go now rather than waiting out the rest of the minute.
+    func signInNow() {
+        takeStudentToSignIn()
+    }
+
+    /// The college could not be reached. Nobody is signed out over that.
+    private func fallBackToSavedInformation() {
+        guard limitation == nil else { return }
+        isRestoringQuietly = false
+        navigationContext = .authenticated
+        isBusy = false
+        isRefreshingSchedule = false
+        limitation = .offline
+    }
+
+    /// Catches anything that would have taken the screen while the app is up
+    /// on saved information, and turns it into the countdown instead.
+    ///
+    /// Returns true when it handled it and the caller should stop.
+    private func interceptQuietInterruption() -> Bool {
+        guard isRestoringQuietly else { return false }
+        demandSignIn()
+        return true
+    }
 
     func signIn(studentID: String, password: String) {
         let normalizedID = Self.normalizedStudentID(studentID)
@@ -666,7 +806,10 @@ final class AppModel: NSObject, ObservableObject {
         navigationContext = context
         authenticatedNavigationHandled = context == .biometricReauthentication
         isBusy = true
-        if context == .biometricReauthentication {
+        // Not while the app is already up on saved information — replacing
+        // the schedule with a spinner is the very thing the quiet path exists
+        // to avoid.
+        if context == .biometricReauthentication, !isRestoringQuietly {
             screen = .launching
         }
 
@@ -1462,8 +1605,20 @@ final class AppModel: NSObject, ObservableObject {
     }
 
     private func validatePortalSessionAfterBiometricUnlock() {
-        screen = .launching
-        isBusy = true
+        // Straight in, when there is something to go straight in to.
+        //
+        // The face was the check. Making somebody watch a spinner afterwards
+        // while the college gets round to agreeing is charging them twice for
+        // the same thing — and the college is slow. The schedule they already
+        // have goes up immediately and the portal is checked behind it.
+        if hasCachedScheduleSnapshot, !activeProfileIsPlaceholder {
+            isRestoringQuietly = true
+            screen = .schedule
+            isBusy = false
+        } else {
+            screen = .launching
+            isBusy = true
+        }
         navigationContext = .biometricSessionValidation
         submissionState = .none
         pendingCredentials = nil
@@ -1793,6 +1948,9 @@ final class AppModel: NSObject, ObservableObject {
     }
 
     private func handleVerificationPage(_ probe: PageProbe) {
+        // A two-factor step is a manual sign-in by another name.
+        if interceptQuietInterruption() { return }
+
         screen = .verification
         isBusy = false
 
@@ -1903,6 +2061,13 @@ final class AppModel: NSObject, ObservableObject {
     }
 
     private func handleLoginPage(errorMessage: String?) {
+        // One silent retry with the saved password is allowed below; a second
+        // trip to the login page means it was not accepted, and that is a real
+        // sign-in the student has to do themselves.
+        if navigationContext == .biometricReauthentication, interceptQuietInterruption() {
+            return
+        }
+
         if navigationContext == .restoringSession {
             if biometricLockEnabled {
                 requestBiometricReauthentication()
@@ -1959,6 +2124,9 @@ final class AppModel: NSObject, ObservableObject {
     }
 
     private func handleUnknownPage() {
+        // Whatever the college has put in the way, it needs a person.
+        if interceptQuietInterruption() { return }
+
         if institution.owns(webView.url),
            submissionState == .submitted
             || navigationContext == .restoringSession
@@ -2080,6 +2248,13 @@ final class AppModel: NSObject, ObservableObject {
     }
 
     private func handleAuthenticatedPage() {
+        // Accepted. Any demand for a sign-in is satisfied by this and only by
+        // this — which is what stops a force-quit at the password screen from
+        // putting the student back on a face scan.
+        isRestoringQuietly = false
+        limitation = nil
+        clearSignInDemand()
+
         let isBiometricFlow = navigationContext == .biometricSessionValidation
             || navigationContext == .biometricReauthentication
         let authenticatedCredentials = submittedCredentials ?? pendingCredentials
@@ -2937,6 +3112,15 @@ extension AppModel: WKNavigationDelegate, WKUIDelegate, WKHTTPCookieStoreObserve
 
         isBusy = false
         isRefreshingSchedule = false
+
+        // The college could not be reached. That is not a reason to sign
+        // anybody out, and — while the app is already up on saved information
+        // — not a reason to take the screen away either.
+        if isRestoringQuietly || (screen == .schedule && hasCachedScheduleSnapshot) {
+            fallBackToSavedInformation()
+            return
+        }
+
         if navigationContext == .biometricSessionValidation
             || navigationContext == .biometricReauthentication
         {

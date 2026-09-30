@@ -34,6 +34,7 @@ struct MioView: View {
     @FocusState private var isSearching: Bool
 
     @Environment(\.prefersSplitLayout) private var prefersSplitLayout
+    @Environment(\.sessionLimitation) private var limitation
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
     var body: some View {
@@ -44,7 +45,10 @@ struct MioView: View {
                 stackBody
             }
         }
-        .task { store.loadIfNeeded() }
+        .task {
+            guard limitation == nil else { return }
+            store.loadIfNeeded()
+        }
         .animation(.snappy(duration: 0.25), value: store.notice)
         // A drawer that comes in from the side, which is where the button that
         // opens it is and where every mail app on every platform puts it. It
@@ -366,6 +370,15 @@ struct MioView: View {
 
     @ViewBuilder
     private var content: some View {
+        if limitation != nil, store.overview.value == nil {
+            ContentUnavailableView(
+                "Not Available Offline",
+                systemImage: "wifi.slash",
+                description: Text("Your messages are kept at the college, so they need a connection.")
+            )
+            .frame(maxWidth: .infinity)
+            .padding(.top, 60)
+        } else {
         switch store.overview {
         case .idle, .loading:
             list(skeleton: true, messages: [])
@@ -393,6 +406,7 @@ struct MioView: View {
                 list(skeleton: false, messages: store.visibleMessages)
             }
         }
+        }
     }
 
     @ViewBuilder
@@ -411,6 +425,9 @@ struct MioView: View {
                             Divider().padding(.leading, 68)
                         }
                         MioSwipeRow(
+                            // Both of these change something at the college,
+                            // so neither is offered when it cannot be reached.
+                            actionsEnabled: limitation == nil,
                             isFlagged: message.isFlagged,
                             onFlag: { store.toggleFlag(message) },
                             onDelete: { pendingDelete = message },
@@ -435,7 +452,10 @@ struct MioView: View {
             .padding(.bottom, 96)
         }
         .scrollContentBackground(.hidden)
-        .refreshable { store.refreshEverything() }
+        .refreshable {
+            guard limitation == nil else { return }
+            store.refreshEverything()
+        }
     }
 
     /// One row, which is a push on a phone and a choice on a bigger screen.
@@ -484,6 +504,9 @@ struct MioView: View {
     /// this one is not and does.
     @ViewBuilder
     private func rowMenu(_ message: MioMessage) -> some View {
+        if limitation != nil {
+            Label("Not available offline", systemImage: "wifi.slash")
+        } else {
         Button {
             store.toggleFlag(message)
         } label: {
@@ -511,6 +534,7 @@ struct MioView: View {
                 store.deletingIsPermanent ? "Delete Permanently" : "Delete",
                 systemImage: "trash"
             )
+        }
         }
     }
 
@@ -563,6 +587,7 @@ struct MioView: View {
             .shadow(color: .black.opacity(0.18), radius: 10, y: 4)
         }
         .buttonStyle(LeaPressStyle())
+        .requiresTheCollege(limitation)
         .padding(.trailing, 20)
         .padding(.bottom, 22)
         .accessibilityLabel(Text("Compose"))
@@ -584,6 +609,7 @@ struct MioView: View {
 /// overlaps them, so it needs no opaque background of its own and the wallpaper
 /// still shows through the list exactly as before.
 private struct MioSwipeRow<Content: View>: View {
+    let actionsEnabled: Bool
     let isFlagged: Bool
     let onFlag: () -> Void
     let onDelete: () -> Void
@@ -623,6 +649,7 @@ private struct MioSwipeRow<Content: View>: View {
             .simultaneousGesture(
                 DragGesture(minimumDistance: 18)
                     .onChanged { value in
+                        guard actionsEnabled else { return }
                         // Horizontal only. A vertical flick that wanders a few
                         // points sideways is somebody scrolling.
                         guard abs(value.translation.width) > abs(value.translation.height) * 1.5

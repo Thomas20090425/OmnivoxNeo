@@ -106,6 +106,19 @@ struct HomeView: View {
                 .tag(Tab.me)
         }
         .environment(\.prefersSplitLayout, prefersSplitLayout)
+        // Said once, over everything, rather than per screen. Which half of
+        // the app is real right now is a fact about the session, not about
+        // whichever tab happens to be open.
+        .environment(\.sessionLimitation, model.limitation)
+        .safeAreaInset(edge: .top, spacing: 0) {
+            if let limitation = model.limitation {
+                SessionLimitationBanner(limitation: limitation) {
+                    model.signInNow()
+                }
+                .transition(.move(edge: .top).combined(with: .opacity))
+            }
+        }
+        .animation(.snappy(duration: 0.25), value: model.limitation)
         .onAppear {
             // Handed over here rather than looked up later: a sheet's
             // coordinator is built before it has an environment to read.
