@@ -2786,6 +2786,12 @@
         }
       }
     },
+    "Instant open and offline access" : {
+
+    },
+    "Instant Open and Offline Access" : {
+
+    },
     "Institution" : {
       "localizations" : {
         "fr" : {
@@ -2871,6 +2877,12 @@
           }
         }
       }
+    },
+    "Keeps a copy of your timetable and recent activity on this device, so the app opens straight away and still works with no signal. It stays on this phone, is never sent anywhere, and only opens after %@." : {
+
+    },
+    "Keeps a copy of your timetable and recent activity on this iPhone so Neo opens straight away and still works with no signal. It never leaves this device, is not shared with anyone, and only opens after %@. Turning this off deletes the copy now." : {
+
     },
     "Laboratory Technology" : {
       "extractionState" : "stale",
@@ -3369,6 +3381,9 @@
           }
         }
       }
+    },
+    "Needs %@" : {
+
     },
     "Neo offers a built-in authenticator that generates verification codes right in the app. Or, you can keep using the official OmniVox Mobile app for codes—both options work great!" : {
       "localizations" : {
@@ -4009,6 +4024,9 @@
           }
         }
       }
+    },
+    "On This Device" : {
+
     },
     "One School for Now" : {
       "localizations" : {
@@ -6127,6 +6145,9 @@
           }
         }
       }
+    },
+    "Turn on %@ first. Without it there would be nothing guarding the saved copy." : {
+
     },
     "Turn on a category above to start." : {
       "localizations" : {

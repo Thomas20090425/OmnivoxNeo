@@ -257,6 +257,45 @@ private struct AppSettingsView: View {
                 Text("Automatic follows your iPhone. Anything not yet translated appears in English.")
             }
 
+            // What is kept on the phone, and what that buys.
+            //
+            // Its own section rather than a line inside another one: it is the
+            // only setting in the app that decides whether the student's
+            // information is written to the device at all, and somebody
+            // looking for that should find it without reading the rest.
+            Section {
+                Toggle(isOn: Binding(
+                    get: { model.keepsInformationOnDevice },
+                    set: { model.setFastUnlockEnabled($0) }
+                )) {
+                    HStack(spacing: 12) {
+                        SettingsIcon(systemImage: "bolt.fill", tint: Neo.accent)
+
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Instant Open and Offline Access")
+                                .foregroundStyle(.primary)
+                            if !model.biometricLockEnabled {
+                                Text("Needs \(model.biometricCapability.name)")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+                }
+                .tint(Neo.accent)
+                // Dead without the lock, because the lock is the only thing
+                // standing in front of the saved copy.
+                .disabled(!model.biometricLockEnabled)
+            } header: {
+                Text("On This Device")
+            } footer: {
+                if model.biometricLockEnabled {
+                    Text("Keeps a copy of your timetable and recent activity on this iPhone so Neo opens straight away and still works with no signal. It never leaves this device, is not shared with anyone, and only opens after \(model.biometricCapability.name). Turning this off deletes the copy now.")
+                } else {
+                    Text("Turn on \(model.biometricCapability.name) first. Without it there would be nothing guarding the saved copy.")
+                }
+            }
+
             // TOTP Section
             Section {
                 if let secret = totpSecret {

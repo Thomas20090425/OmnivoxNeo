@@ -217,6 +217,14 @@ final class AppModel: NSObject, ObservableObject {
         // settings. A second student must not inherit the first one's.
         let profileIsBound = profileStore.profiles
             .first { $0.id == activeProfileID }?.isBound ?? false
+        // Defaults to on for an account that already has a biometric lock:
+        // the saved copy is what that account has been running on, and
+        // silently taking it away on upgrade would look like a regression.
+        // A new account is asked during setup.
+        let fastUnlockKey = "\(Self.fastUnlockPreferenceKey).\(activeProfileID.uuidString)"
+        fastUnlockEnabled = preferences.object(forKey: fastUnlockKey) == nil
+            ? true
+            : preferences.bool(forKey: fastUnlockKey)
         biometricLockEnabled = Self.scopedFlag(
             preferences,
             base: Self.biometricPreferenceKey,
@@ -261,6 +269,12 @@ final class AppModel: NSObject, ObservableObject {
         }
         if startsAutomatically, ProcessInfo.processInfo.arguments.contains("--demo-schedule") {
             configureDemoSchedule(studentID: "1234567", displayName: "Thomas")
+            return
+        }
+        // The choices a student is offered once, on their first sign-in.
+        if startsAutomatically, ProcessInfo.processInfo.arguments.contains("--demo-security-setup") {
+            isDemoMode = true
+            screen = .securitySetup
             return
         }
         // The two ways the app runs on what it already has. Reachable without
@@ -507,6 +521,22 @@ final class AppModel: NSObject, ObservableObject {
     /// Nil is the ordinary case: signed in, live, everything available.
     @Published private(set) var limitation: SessionLimitation?
 
+    /// Whether a copy of this student's information may be kept on the device.
+    ///
+    /// What it buys is the whole of the fast unlock and everything that works
+    /// without a connection — those are one thing, because they are one
+    /// mechanism: a saved copy, and a face scan standing in front of it.
+    ///
+    /// Tied to the biometric lock rather than offered beside it. Without a
+    /// scan there is nothing guarding the copy, and keeping it then would be
+    /// leaving a student's timetable on the device for anyone who picks it up.
+    @Published private(set) var fastUnlockEnabled: Bool = false
+
+    /// True only when the saved copy may actually be used.
+    var keepsInformationOnDevice: Bool {
+        biometricLockEnabled && fastUnlockEnabled
+    }
+
     /// True while the app is already up on saved information and the portal is
     /// being checked quietly behind it.
     ///
@@ -520,8 +550,24 @@ final class AppModel: NSObject, ObservableObject {
     private var quietRestoreWatchdog: Task<Void, Never>?
 
     private static let reauthenticationDeadlineKey = "security.reauthentication-deadline"
+    private static let fastUnlockPreferenceKey = "security.fast-unlock-enabled"
 
     @Published private(set) var unrecognizedPageAddress: String?
+
+    /// Turns the saved copy on or off.
+    ///
+    /// Turning it off throws the copy away there and then. Leaving it behind
+    /// would mean the student had asked for it not to be kept and it was kept
+    /// anyway, which is the one outcome this switch must never produce.
+    func setFastUnlockEnabled(_ enabled: Bool) {
+        fastUnlockEnabled = enabled
+        preferences.set(enabled, forKey: scopedSecurityKey(Self.fastUnlockPreferenceKey))
+        guard !enabled else { return }
+        scheduleCache.clear()
+        hasCachedScheduleSnapshot = false
+        limitation = nil
+        endQuietRestore()
+    }
 
     // MARK: - Running on saved information
 
@@ -606,7 +652,7 @@ final class AppModel: NSObject, ObservableObject {
 
     /// The college could not be reached. Nobody is signed out over that.
     private func fallBackToSavedInformation() {
-        guard limitation == nil else { return }
+        guard keepsInformationOnDevice, limitation == nil else { return }
         endQuietRestore()
         navigationContext = .authenticated
         isBusy = false
@@ -1085,7 +1131,7 @@ final class AppModel: NSObject, ObservableObject {
         // lock. Behind a screen they are already using, a refresh is exactly
         // the quiet case: retry silently if there is a password in hand, and
         // otherwise say plainly that a sign-in is due.
-        if screen == .schedule, hasCachedScheduleSnapshot, limitation == nil {
+        if keepsInformationOnDevice, screen == .schedule, hasCachedScheduleSnapshot, limitation == nil {
             beginQuietRestore()
         }
 
@@ -1675,7 +1721,7 @@ final class AppModel: NSObject, ObservableObject {
         // while the college gets round to agreeing is charging them twice for
         // the same thing — and the college is slow. The schedule they already
         // have goes up immediately and the portal is checked behind it.
-        if hasCachedScheduleSnapshot, !activeProfileIsPlaceholder {
+        if keepsInformationOnDevice, hasCachedScheduleSnapshot, !activeProfileIsPlaceholder {
             beginQuietRestore()
             screen = .schedule
             isBusy = false

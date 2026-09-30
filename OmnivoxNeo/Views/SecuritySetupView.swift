@@ -3,6 +3,7 @@ import SwiftUI
 struct SecuritySetupView: View {
     @ObservedObject var model: AppModel
     @State private var protectsSchedule = true
+    @State private var keepsInformationOnDevice = true
 
     var body: some View {
         VStack(spacing: 26) {
@@ -53,8 +54,51 @@ struct SecuritySetupView: View {
             .padding(17)
             .background(Color.secondary.opacity(0.065), in: RoundedRectangle(cornerRadius: 17, style: .continuous))
 
+            // Offered second, and only alive when the first one is.
+            //
+            // The saved copy and the scan are one mechanism: the copy is what
+            // makes the app instant and usable with no signal, and the scan is
+            // the only thing standing in front of it. Without the lock there
+            // is nothing guarding it, so the switch goes dead rather than
+            // pretending the choice is still there.
+            HStack(spacing: 14) {
+                Image(systemName: "bolt.fill")
+                    .font(.title2)
+                    .foregroundStyle(Neo.accent)
+                    .frame(width: 42, height: 42)
+                    .background(Neo.accent.opacity(0.10), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+
+                VStack(alignment: .leading, spacing: 3) {
+                    Text("Instant open and offline access")
+                        .font(.headline)
+                        .foregroundStyle(.primary)
+                        .fixedSize(horizontal: false, vertical: true)
+
+                    Text("Keeps a copy of your timetable and recent activity on this device, so the app opens straight away and still works with no signal. It stays on this phone, is never sent anywhere, and only opens after \(model.biometricCapability.name).")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+
+                Spacer()
+
+                Toggle("", isOn: $keepsInformationOnDevice)
+                    .labelsHidden()
+                    .tint(Neo.accent)
+                    .disabled(!protectsSchedule || !model.biometricCapability.isAvailable)
+            }
+            .padding(17)
+            .background(Color.secondary.opacity(0.065), in: RoundedRectangle(cornerRadius: 17, style: .continuous))
+            .opacity(protectsSchedule && model.biometricCapability.isAvailable ? 1 : 0.4)
+            // Turning the lock off takes this with it rather than leaving a
+            // switch that says yes and means nothing.
+            .onChange(of: protectsSchedule) { _, locked in
+                if !locked { keepsInformationOnDevice = false }
+            }
+
             Button("Continue") {
                 Task {
+                    model.setFastUnlockEnabled(protectsSchedule && keepsInformationOnDevice)
                     await model.completeSecuritySetup(requireBiometricLock: protectsSchedule)
                 }
             }
@@ -77,6 +121,7 @@ struct SecuritySetupView: View {
         .padding(24)
         .onAppear {
             protectsSchedule = model.biometricCapability.isAvailable
+            keepsInformationOnDevice = model.biometricCapability.isAvailable
         }
     }
 }
