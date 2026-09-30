@@ -271,6 +271,14 @@ final class AppModel: NSObject, ObservableObject {
             configureDemoSchedule(studentID: "1234567", displayName: "Thomas")
             return
         }
+        // A name long enough to prove the greeting walks rather than truncates.
+        if startsAutomatically, ProcessInfo.processInfo.arguments.contains("--demo-long-name") {
+            configureDemoSchedule(
+                studentID: "1234567",
+                displayName: "Bartholomew Maximilian"
+            )
+            return
+        }
         // The choices a student is offered once, on their first sign-in.
         if startsAutomatically, ProcessInfo.processInfo.arguments.contains("--demo-security-setup") {
             isDemoMode = true

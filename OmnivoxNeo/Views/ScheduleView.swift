@@ -39,6 +39,15 @@ struct ScheduleView: View {
             TimelineView(.periodic(from: .now, by: 1)) { timeline in
                 ScrollView {
                     LazyVStack(spacing: 18) {
+                        // Drawn here rather than left to `navigationTitle`,
+                        // which can only truncate. A greeting is addressed to
+                        // the person reading it, so "Good Afternoon, Alexand…"
+                        // cuts off the one word the sentence existed for.
+                        MarqueeText(text: greeting(at: timeline.date))
+                            .font(.largeTitle.weight(.bold))
+                            .foregroundStyle(.primary)
+                            .padding(.top, 4)
+
                         dayPicker
 
                         StatusHero(
@@ -70,9 +79,12 @@ struct ScheduleView: View {
                 // disappear into a plain white background.
                 .scrollContentBackground(.hidden)
                 .background(NeoBackground())
-                .navigationTitle(greeting(at: timeline.date))
+                // The bar keeps the salutation without the name: it is what
+                // remains once the greeting above has been scrolled away, and
+                // it is short enough that it never needed to move.
+                .navigationTitle(Self.anonymousGreetingKey(for: calendar.component(.hour, from: timeline.date)))
                 #if os(iOS)
-                .navigationBarTitleDisplayMode(.large)
+                .navigationBarTitleDisplayMode(.inline)
                 #endif
                 .toolbar {
                     if showsAgendaButton {
