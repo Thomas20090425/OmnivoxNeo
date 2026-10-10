@@ -136,7 +136,28 @@ final class MioStore: ObservableObject {
         }
     }
 
+    /// Whether this store is showing fixtures rather than a mailbox.
+    ///
+    /// Set once by `HomeView` when the demo account signs in. Every read below
+    /// checks it before reaching for the network: the demo has no session, so
+    /// a fetch would not fail gracefully, it would fail *visibly*, and a tour
+    /// that shows two working tabs and two broken ones is worse than no tour.
+    private(set) var isDemo = false
+
+    /// Fills the mailbox with the demo's own mail.
+    func loadDemoFixtures() {
+        guard !isDemo else { return }
+        isDemo = true
+        let fetchedAt = Date()
+        overview = .loaded(DemoFixtures.mioOverview(fetchedAt: fetchedAt))
+        selectedFolderKey = "demo-inbox"
+        for folder in folders {
+            lists[folder.key] = .loaded(DemoFixtures.mioMessages(in: folder.key))
+        }
+    }
+
     func reload() {
+        guard !isDemo else { return }
         guard !inFlight.contains("overview") else { return }
         inFlight.insert("overview")
         overview = .loading
@@ -183,6 +204,10 @@ final class MioStore: ObservableObject {
     }
 
     private func fetchMessages(in folderKey: String) {
+        guard !isDemo else {
+            lists[folderKey] = .loaded(DemoFixtures.mioMessages(in: folderKey))
+            return
+        }
         let key = "list:" + folderKey
         guard !inFlight.contains(key) else { return }
         inFlight.insert(key)
@@ -212,6 +237,11 @@ final class MioStore: ObservableObject {
 
     func loadMessage(_ message: MioMessage) {
         let token = message.id
+        if isDemo {
+            messages[token] = .loaded(DemoFixtures.mioDetail(for: token))
+            locallyRead.insert(token)
+            return
+        }
         if case .loaded = messages[token] { return }
         let key = "message:" + token
         guard !inFlight.contains(key) else { return }

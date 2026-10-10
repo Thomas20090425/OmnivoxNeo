@@ -147,7 +147,11 @@ final class AppModel: NSObject, ObservableObject {
     /// the flag either. Declaring it debug-only meant a release build had five
     /// references to a property that did not exist, so the app has never
     /// compiled for a device.
-    private var isDemoMode = false
+    ///
+    /// Readable from outside because the Léa and MIO stores are owned by
+    /// `HomeView`, not by this model, and they have to be told to show
+    /// fixtures rather than reach for a session the demo does not have.
+    private(set) var isDemoMode = false
     private var restoredTrustedPortalState = false
     private var trustedStatePersistenceGeneration = UUID()
     private var autoTOTPTask: Task<Void, Never>?
@@ -3096,23 +3100,70 @@ final class AppModel: NSObject, ObservableObject {
                 .addingTimeInterval(hour * 60 * 60)
         }
         userFirstName = displayName.split(separator: " ").first.map(String.init) ?? displayName
+        // A real week, not two placeholder blocks.
+        //
+        // Course codes and room numbers are written the way Dawson writes
+        // them — `201-NYA-05`, `4H.15` — because that is one of the few
+        // details that tells a student the app knows *their* college rather
+        // than colleges in general. "ABC-123" in "A-101" is nobody's timetable.
+        //
+        // Several days carry more than one class, so the day picker has
+        // something to show and the "up next" card has something to choose
+        // between. Today keeps one class in progress and one later, which is
+        // what the hero card is there to say.
+        let meeting = { (offset: Int, from: Double, to: Double, title: String, code: String, room: String) in
+            CourseMeeting(
+                institutionID: self.institution.id,
+                title: title,
+                courseLabel: code,
+                location: room,
+                start: day(offset, from),
+                end: day(offset, to)
+            )
+        }
+        // Today is measured from the clock rather than pinned to the hour, so
+        // the demo opens on a class in progress whenever it is run. Three of
+        // them, spaced so they cannot collide: one finished, one running, one
+        // to come. Pinning these to real times meant a demo opened at eleven
+        // at night showed a single class and an empty afternoon.
+        let fromNow = { (hours: Double) in now.addingTimeInterval(hours * 60 * 60) }
         courses = [
             CourseMeeting(
                 institutionID: institution.id,
-                title: "Design Fundamentals",
-                courseLabel: "ABC-123",
-                location: "A-101",
+                title: "Introduction to College English",
+                courseLabel: "603-101-MQ",
+                location: "3C.2",
+                start: fromNow(-3),
+                end: fromNow(-1.5)
+            ),
+            CourseMeeting(
+                institutionID: institution.id,
+                title: "Calculus I",
+                courseLabel: "201-NYA-05",
+                location: "4H.15",
                 start: now.addingTimeInterval(-30 * 60),
                 end: now.addingTimeInterval(75 * 60)
             ),
             CourseMeeting(
                 institutionID: institution.id,
-                title: "Applied Research",
-                courseLabel: "XYZ-210",
-                location: "B-204",
-                start: now.addingTimeInterval(2 * 60 * 60),
-                end: now.addingTimeInterval(3.5 * 60 * 60)
-            )
+                title: "Introduction to Psychology",
+                courseLabel: "350-102-RE",
+                location: "5E.19",
+                start: fromNow(2),
+                end: fromNow(3.5)
+            ),
+
+            meeting(1, 8.5, 10, "Introduction to College English", "603-101-MQ", "3C.2"),
+            meeting(1, 10.5, 12, "Calculus I", "201-NYA-05", "4H.15"),
+            meeting(1, 13, 14.5, "Introduction to Psychology", "350-102-RE", "5E.19"),
+
+            meeting(2, 10, 11.5, "Calculus I", "201-NYA-05", "4H.15"),
+            meeting(2, 13, 14.5, "Introduction to Psychology", "350-102-RE", "2D.7"),
+
+            meeting(3, 8.5, 10, "Introduction to College English", "603-101-MQ", "3C.2"),
+
+            meeting(4, 9, 10.5, "Physical Education: Fitness", "109-101-MQ", "7B.12"),
+            meeting(4, 12, 13.5, "Calculus I", "201-NYA-05", "4H.15")
         ]
         calendarEvents = [
             PortalCalendarEvent(

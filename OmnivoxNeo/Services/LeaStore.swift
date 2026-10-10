@@ -145,7 +145,23 @@ final class LeaStore: ObservableObject {
         refresh()
     }
 
+    /// Whether this store is showing fixtures rather than a real Léa.
+    ///
+    /// Same reason as the mailbox: the demo has no session, so a fetch would
+    /// fail in front of whoever is being shown the app.
+    private(set) var isDemo = false
+
+    /// Fills Léa with the demo's own term.
+    func loadDemoFixtures() {
+        guard !isDemo else { return }
+        isDemo = true
+        let fixture = DemoFixtures.leaOverview(fetchedAt: Date())
+        overview = .loaded(fixture)
+        selectedTerm = fixture.terms.first { $0.isCurrent } ?? fixture.terms.first
+    }
+
     func refresh() {
+        guard !isDemo else { return }
         guard !inFlight.contains("overview") else { return }
         inFlight.insert("overview")
         overview = .loading
@@ -197,6 +213,10 @@ final class LeaStore: ObservableObject {
     // MARK: - Sections
 
     func loadDocuments(for course: LeaCourse) {
+        if isDemo {
+            documents[course.id] = .loaded(DemoFixtures.leaDocuments(for: course))
+            return
+        }
         load(
             key: course.id,
             url: course.section(.documents)?.url,
@@ -206,6 +226,10 @@ final class LeaStore: ObservableObject {
     }
 
     func loadAssignments(for course: LeaCourse) {
+        if isDemo {
+            assignments[course.id] = .loaded(DemoFixtures.leaAssignments(for: course))
+            return
+        }
         load(
             key: course.id,
             url: course.section(.assignments)?.url,
@@ -215,6 +239,10 @@ final class LeaStore: ObservableObject {
     }
 
     func loadGrades(for course: LeaCourse) {
+        if isDemo {
+            grades[course.id] = .loaded(DemoFixtures.leaGrades(for: course))
+            return
+        }
         load(
             key: course.id,
             url: course.section(.grades)?.url,
@@ -224,6 +252,10 @@ final class LeaStore: ObservableObject {
     }
 
     func loadAnnouncement(at url: URL) {
+        if isDemo {
+            announcements[url.absoluteString] = .loaded(DemoFixtures.leaAnnouncement())
+            return
+        }
         load(
             key: url.absoluteString,
             url: url,
@@ -343,8 +375,21 @@ final class LeaStore: ObservableObject {
         if case .loaded = self[keyPath: state][key] { return }
 
         guard let url else {
+            // In the demo there is no session behind any of this, so a screen
+            // without a fixture is not a failure — it is a part of the app the
+            // tour does not cover. Said plainly, rather than reported as the
+            // college having published nothing, which reads as a bug.
             self[keyPath: state][key] = .failed(
-                Loc.text("%@ did not publish this section for this course.", institution.conventions.courseworkDisplayName)
+                isDemo
+                    ? Loc.text("Demo mode. This screen is filled from your own account in the real app.")
+                    : Loc.text("%@ did not publish this section for this course.", institution.conventions.courseworkDisplayName)
+            )
+            return
+        }
+
+        if isDemo {
+            self[keyPath: state][key] = .failed(
+                Loc.text("Demo mode. This screen is filled from your own account in the real app.")
             )
             return
         }

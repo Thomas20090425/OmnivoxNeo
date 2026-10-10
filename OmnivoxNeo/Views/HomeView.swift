@@ -137,8 +137,17 @@ struct HomeView: View {
         // Léa…". Held until the schedule's own read has settled: both drive the
         // same portal session through a web view of their own, and overlapping
         // them is how one navigation lands on the other's page.
+        // The demo has no session, so neither of these may go near the
+        // portal. Filled from fixtures instead, once, as soon as the tab bar
+        // exists — a tour that shows a working timetable next to two tabs
+        // that error is a tour of a broken app.
+        .task(id: model.isDemoMode) {
+            guard model.isDemoMode else { return }
+            lea.loadDemoFixtures()
+            mio.loadDemoFixtures()
+        }
         .task(id: model.portalIsIdle) {
-            guard model.portalIsIdle else { return }
+            guard model.portalIsIdle, !model.isDemoMode else { return }
             try? await Task.sleep(for: .milliseconds(400))
             guard !Task.isCancelled, model.portalIsIdle else { return }
             lea.loadIfNeeded()
