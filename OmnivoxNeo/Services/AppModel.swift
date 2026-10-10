@@ -138,10 +138,16 @@ final class AppModel: NSObject, ObservableObject {
     private var shouldReauthenticateWhenActive = false
     private var applicationIsActive = false
     private var authenticationGeneration = UUID()
-    #if DEBUG
-    /// Set by the `--demo-*` launch arguments so the fixture screens stay put.
+    /// True while the app is showing fixtures rather than a real session.
+    ///
+    /// Not `#if DEBUG`, even though the `--demo-*` launch arguments that set it
+    /// are. `DemoAccount` reaches the same configurators from the sign-in
+    /// screen in **every** configuration, and the three places that ask about
+    /// it — the portal-idle check and the two refresh paths — are not behind
+    /// the flag either. Declaring it debug-only meant a release build had five
+    /// references to a property that did not exist, so the app has never
+    /// compiled for a device.
     private var isDemoMode = false
-    #endif
     private var restoredTrustedPortalState = false
     private var trustedStatePersistenceGeneration = UUID()
     private var autoTOTPTask: Task<Void, Never>?

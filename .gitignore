@@ -1,7 +1,9 @@
 # Xcode build products. `build/` is this project's -derivedDataPath, so it is
 # hundreds of megabytes of machine-generated output that rebuilds from source.
 build/
+build-*/
 DerivedData/
+*.xcarchive
 *.xcuserstate
 xcuserdata/
 
