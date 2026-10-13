@@ -6,7 +6,7 @@ The rest of this page says the same thing at the length the App Store requires. 
 
 1. Acknowledgement
 
-This End User Licence Agreement ("Agreement") is a binding agreement between you and Thomas Ma, an individual developer in Quebec, Canada ("the Developer", "we", "us"), governing your use of the Omnivox Neo application for iPhone, iPad and Mac ("the Application").
+This End User Licence Agreement ("Agreement") is a binding agreement between you and Yuecheng Ma, an individual developer in Quebec, Canada ("the Developer", "we", "us"), governing your use of the Omnivox Neo application for iPhone, iPad and Mac ("the Application").
 
 You acknowledge that this Agreement is concluded between you and the Developer only, and not with Apple Inc. ("Apple"). The Developer, not Apple, is solely responsible for the Application and its content. This Agreement does not provide usage rules for the Application that conflict with the Apple Media Services Terms and Conditions, and in the event of a conflict those Terms prevail.
 
@@ -146,8 +146,8 @@ Versions distributed through TestFlight are pre-release software. They may be in
 
 Questions, complaints and claims about the Application should be directed to:
 
-Thomas Ma
-1390 rue du Fort, Apt. 1504
+Yuecheng Ma
+1390 rue du Fort
 Montréal, Québec H3H 2R7
 Canada
 Telephone: +1 581-666-6777
