@@ -50,7 +50,7 @@
 	<key>AppStoreURL</key>
 	<string>https://apps.apple.com/ca/app/omnivox-neo/id0000000000</string>
 	<key>TestFlightURL</key>
-	<string>https://testflight.apple.com/join/REPLACE_ME</string>
+	<string>https://testflight.apple.com/join/KG9CBuds</string>
 
 	<!-- Whether a required update quits the app after handing someone to the
 	     store. The blocking screen is there either way and cannot be dismissed,
@@ -91,6 +91,15 @@
 			<string>One Thing To Know</string>
 			<key>Announcement</key>
 			<string>Removing the last person from a MIO message does not work on this build — Omnivox ignores it. Add the new recipient first, then remove the old one. A fix is in review.</string>
+		</dict>
+		<key>0.0.5.3</key>
+		<dict>
+			<key>Status</key>
+			<string>normal</string>
+			<key>AnnouncementTitle</key>
+			<string></string>
+			<key>Announcement</key>
+			<string>A critical error in this version was fixed.</string>
 		</dict>
 
 		<!-- A build with nothing to say. Present only to show that an entry
