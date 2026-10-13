@@ -43,14 +43,23 @@ final class AgreementAcceptance: ObservableObject {
     static let shared = AgreementAcceptance()
 
     private static let key = "legal.accepted-version"
+    private static let dateKey = "legal.accepted-date"
 
     private let defaults: UserDefaults
 
     @Published private(set) var acceptedVersion: String?
+    /// When it was accepted.
+    ///
+    /// Kept because in Quebec the burden of showing that someone knew about a
+    /// limitation when the contract was formed falls on the party relying on
+    /// it, not on the person who agreed. A record nobody can see proves
+    /// nothing to the person it is about, so this one is shown back to them.
+    @Published private(set) var acceptedAt: Date?
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         acceptedVersion = defaults.string(forKey: Self.key)
+        acceptedAt = defaults.object(forKey: Self.dateKey) as? Date
     }
 
     /// Whether the revision now in force has been accepted.
@@ -59,12 +68,17 @@ final class AgreementAcceptance: ObservableObject {
     }
 
     func accept() {
+        let now = Date()
         acceptedVersion = LegalDocuments.currentVersion
+        acceptedAt = now
         defaults.set(LegalDocuments.currentVersion, forKey: Self.key)
+        defaults.set(now, forKey: Self.dateKey)
     }
 
     func withdraw() {
         acceptedVersion = nil
+        acceptedAt = nil
         defaults.removeObject(forKey: Self.key)
+        defaults.removeObject(forKey: Self.dateKey)
     }
 }

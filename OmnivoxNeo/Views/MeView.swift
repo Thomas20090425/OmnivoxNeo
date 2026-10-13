@@ -9,6 +9,7 @@ struct MeView: View {
     @State private var showsProfileSwitcher = false
     @State private var showsRemoveAccountOptions = false
     @State private var reading: LegalDocument?
+    @ObservedObject private var acceptance = AgreementAcceptance.shared
     @State private var isRemovingAccount = false
     @StateObject private var profileStore = PortalProfileStore.shared
 
@@ -136,7 +137,19 @@ struct MeView: View {
                 } header: {
                     Text("Legal")
                 } footer: {
-                    Text("Omnivox Neo is an independent app. It is not made by, affiliated with, or endorsed by your college or by Skytech, and it is not a replacement for Omnivox.")
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("Omnivox Neo is an independent app. It is not made by, affiliated with, or endorsed by your college or by Skytech, and it is not a replacement for Omnivox.")
+                        // Shown back rather than merely recorded: the point of
+                        // keeping it is that somebody can check what they
+                        // agreed to and when, and a record only they cannot
+                        // see would not serve that.
+                        if let version = acceptance.acceptedVersion,
+                           let date = acceptance.acceptedAt {
+                            Text(
+                                "You accepted version \(version) on \(date.formatted(date: .abbreviated, time: .shortened)). This record is kept on this device only."
+                            )
+                        }
+                    }
                 }
 
                 Section {
