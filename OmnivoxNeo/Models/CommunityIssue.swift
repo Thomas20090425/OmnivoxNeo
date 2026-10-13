@@ -226,26 +226,50 @@ enum CommunityIssueCategory: String, Codable, Hashable, Sendable, CaseIterable {
 }
 
 /// What the filter at the top of the screen is set to.
+///
+/// Three, and no "everything" among them. The two live tabs answer the only
+/// two questions somebody arrives with — *is my problem known?* and *has
+/// anybody asked for this?* — and finished work is a third place rather than a
+/// tail on both of them.
 enum CommunityIssueFilter: String, Hashable, Sendable, CaseIterable, Identifiable {
-    case all
     case bugs
     case features
+    case closed
 
     var id: String { rawValue }
 
     var title: String {
         switch self {
-        case .all: "All"
         case .bugs: "Bugs"
         case .features: "Requests"
+        case .closed: "Closed"
+        }
+    }
+
+    var systemImage: String {
+        switch self {
+        case .bugs: "ant"
+        case .features: "lightbulb"
+        case .closed: "archivebox"
         }
     }
 
     func accepts(_ issue: CommunityIssue) -> Bool {
+        let isLive = issue.status.group.isActive
         switch self {
-        case .all: true
-        case .bugs: issue.category == .bug
-        case .features: issue.category == .feature
+        case .bugs:
+            // Everything still open that is *not* a feature request, rather
+            // than only what carries a `bug` label. With no "All" tab, an
+            // issue nobody has labelled yet — or a question — would otherwise
+            // be visible nowhere at all, and invisible is the one place a
+            // report must never end up.
+            return isLive && issue.category != .feature
+        case .features:
+            return isLive && issue.category == .feature
+        case .closed:
+            // Every category, because once something is finished what it was
+            // filed as matters less than what came of it.
+            return !isLive
         }
     }
 }

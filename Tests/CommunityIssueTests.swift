@@ -257,17 +257,44 @@ do {
 }
 
 do {
-    // The filters the screen offers.
-    let bug = CommunityIssue(payload: decode("[\(issueJSON(number: 1, labels: ["bug"]))]")[0])!
-    let feature = CommunityIssue(payload: decode("[\(issueJSON(number: 2, labels: ["enhancement"]))]")[0])!
-    let other = CommunityIssue(payload: decode("[\(issueJSON(number: 3, labels: ["documentation"]))]")[0])!
+    // The three tabs the screen offers. There is no "All", so the rule that
+    // matters most is that every issue lands in exactly one of them.
+    func make(_ json: String) -> CommunityIssue {
+        CommunityIssue(payload: decode("[\(json)]")[0])!
+    }
+    let bug = make(issueJSON(number: 1, labels: ["bug"]))
+    let feature = make(issueJSON(number: 2, labels: ["enhancement"]))
+    let question = make(issueJSON(number: 3, labels: ["question"]))
+    let unlabelled = make(issueJSON(number: 4, labels: []))
+    let doneBug = make(issueJSON(number: 5, state: "closed", stateReason: "completed", labels: ["bug"]))
+    let doneFeature = make(issueJSON(number: 6, state: "closed", stateReason: "completed", labels: ["enhancement"]))
+    let rejected = make(issueJSON(number: 7, state: "closed", stateReason: "not_planned", labels: ["enhancement"]))
 
-    expect(CommunityIssueFilter.all.accepts(bug), "All accepts a bug")
-    expect(CommunityIssueFilter.all.accepts(other), "All accepts an uncategorised issue")
-    expect(CommunityIssueFilter.bugs.accepts(bug), "Bugs accepts a bug")
+    expect(CommunityIssueFilter.bugs.accepts(bug), "Bugs takes an open bug")
     expect(!CommunityIssueFilter.bugs.accepts(feature), "Bugs rejects a request")
-    expect(CommunityIssueFilter.features.accepts(feature), "Requests accepts a request")
+    expect(CommunityIssueFilter.features.accepts(feature), "Requests takes an open request")
     expect(!CommunityIssueFilter.features.accepts(bug), "Requests rejects a bug")
+
+    // With no "All" tab, anything open that nobody categorised has to surface
+    // somewhere, and Bugs is that somewhere.
+    expect(CommunityIssueFilter.bugs.accepts(question), "Bugs takes an open question")
+    expect(CommunityIssueFilter.bugs.accepts(unlabelled), "Bugs takes an open unlabelled issue")
+
+    // Closed work leaves the live tabs entirely.
+    for done in [doneBug, doneFeature, rejected] {
+        expect(!CommunityIssueFilter.bugs.accepts(done), "Bugs holds nothing finished (#\(done.number))")
+        expect(!CommunityIssueFilter.features.accepts(done), "Requests holds nothing finished (#\(done.number))")
+        expect(CommunityIssueFilter.closed.accepts(done), "Closed takes it instead (#\(done.number))")
+    }
+    for live in [bug, feature, question, unlabelled] {
+        expect(!CommunityIssueFilter.closed.accepts(live), "Closed holds nothing live (#\(live.number))")
+    }
+
+    // Exactly one tab, for every issue, every time.
+    for issue in [bug, feature, question, unlabelled, doneBug, doneFeature, rejected] {
+        let matching = CommunityIssueFilter.allCases.filter { $0.accepts(issue) }
+        expectEqual(matching.count, 1, "#\(issue.number) appears under exactly one tab")
+    }
 }
 
 // MARK: - Reading a BugDrop body
@@ -457,9 +484,15 @@ do {
     expectEqual(group(.closedOut), [5, 6], "duplicate and unexplained-closed together")
 
     let bugs = issues.filter(CommunityIssueFilter.bugs.accepts).map(\.number).sorted()
-    expectEqual(bugs, [1, 3, 4, 5], "the Bugs filter")
+    expectEqual(bugs, [1, 3], "the Bugs tab: open only, and #4 and #5 are closed bugs")
     let requests = issues.filter(CommunityIssueFilter.features.accepts).map(\.number).sorted()
-    expectEqual(requests, [2], "the Requests filter")
+    expectEqual(requests, [2], "the Requests tab")
+    let closed = issues.filter(CommunityIssueFilter.closed.accepts).map(\.number).sorted()
+    expectEqual(closed, [4, 5, 6], "the Closed tab: finished, duplicate and unexplained alike")
+    expectEqual(
+        (bugs + requests + closed).sorted(), issues.map(\.number).sorted(),
+        "the three tabs between them account for every issue, with none counted twice"
+    )
 
     // Nothing finished is mixed in with live work.
     let live = issues.filter { $0.status.group.isActive }.map(\.number).sorted()

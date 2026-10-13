@@ -9,7 +9,7 @@ import SwiftUI
 /// better confirmation message, it is being able to see the list.
 struct CommunityFeedbackView: View {
     @StateObject private var service = CommunityFeedbackService()
-    @State private var filter: CommunityIssueFilter = .all
+    @State private var filter: CommunityIssueFilter = .bugs
     @State private var isSubmitting = false
     @State private var submittedIssueNumber: Int?
     @Environment(\.openURL) private var openURL
@@ -228,7 +228,7 @@ struct CommunityFeedbackView: View {
     private var emptyState: some View {
         Section {
             VStack(spacing: 8) {
-                Image(systemName: filter == .bugs ? "ant" : "lightbulb")
+                Image(systemName: filter.systemImage)
                     .font(.largeTitle)
                     .foregroundStyle(.secondary)
                 Text(emptyTitle)
@@ -249,20 +249,20 @@ struct CommunityFeedbackView: View {
 
     private var emptyTitle: LocalizedStringKey {
         switch filter {
-        case .all: "Nothing Reported Yet"
-        case .bugs: "No Bugs Reported"
-        case .features: "No Requests Yet"
+        case .bugs: "No Open Bugs"
+        case .features: "No Open Requests"
+        case .closed: "Nothing Closed Yet"
         }
     }
 
     private var emptyMessage: LocalizedStringKey {
         switch filter {
-        case .all:
-            "Nobody has reported anything so far. If you have found something, you will be first."
         case .bugs:
             "Nothing is on the list as broken. That is not a promise that nothing is."
         case .features:
             "Nobody has asked for anything yet. There is no wrong thing to ask for."
+        case .closed:
+            "Finished work and anything that will not be built ends up here."
         }
     }
 

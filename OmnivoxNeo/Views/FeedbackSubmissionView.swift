@@ -283,7 +283,13 @@ final class FeedbackWebBridge: NSObject, ObservableObject {
         }
 
         var components = URLComponents(url: pageURL, resolvingAgainstBaseURL: false)
-        components?.fragment = fragment.joined(separator: "&")
+        // `percentEncodedFragment`, not `fragment`. The pieces above are
+        // already encoded — the accent arrives as `%23RRGGBB` because a bare
+        // `#` would end the fragment — and assigning to `fragment` encodes
+        // them a second time, turning `%23` into `%2523`. The page then sees
+        // `%23007AFF` where it expects `#007AFF`, rejects it as malformed, and
+        // falls back to BugDrop's default colour. Same for the version.
+        components?.percentEncodedFragment = fragment.joined(separator: "&")
         webView.load(URLRequest(url: components?.url ?? pageURL))
 
         watchdog = Task { [weak self] in

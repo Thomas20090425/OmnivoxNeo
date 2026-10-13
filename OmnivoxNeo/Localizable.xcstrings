@@ -7815,6 +7815,46 @@
           }
         }
       }
+    },
+    "No Open Bugs" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun bogue ouvert"
+          }
+        }
+      }
+    },
+    "No Open Requests" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune demande ouverte"
+          }
+        }
+      }
+    },
+    "Nothing Closed Yet" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rien n'est encore fermé"
+          }
+        }
+      }
+    },
+    "Finished work and anything that will not be built ends up here." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le travail terminé et tout ce qui ne sera pas réalisé aboutit ici."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
