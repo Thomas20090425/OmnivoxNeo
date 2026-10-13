@@ -101,6 +101,15 @@
 			<key>Announcement</key>
 			<string>A critical error in this version was fixed.</string>
 		</dict>
+		<key>0.0.6</key>
+		<dict>
+			<key>Status</key>
+			<string>normal</string>
+			<key>AnnouncementTitle</key>
+			<string></string>
+			<key>Announcement</key>
+			<string></string>
+		</dict>
 
 		<!-- A build with nothing to say. Present only to show that an entry
 		     like this is the same as no entry at all; either is fine. -->
