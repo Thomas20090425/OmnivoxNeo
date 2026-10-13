@@ -25,7 +25,8 @@ final class VersionGateService: ObservableObject {
     ///   at a different manifest. It must be the **raw** address — the
     ///   `github.com/.../blob/...` page is HTML and will not parse.
     static let manifestURL = URL(
-        string: "https://raw.githubusercontent.com/REPLACE_ME/OmnivoxNeo/main/VersionManifest.plist"
+        string: "https://raw.githubusercontent.com/Thomas20090425/OmnivoxNeo"
+            + "/refs/heads/main/VersionManifest.plist"
     )!
 
     /// How long launch waits before giving up and letting the app through.
