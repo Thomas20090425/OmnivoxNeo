@@ -1,7 +1,12 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "" : {},
+    "" : {
+
+    },
+    " still apply to your account." : {
+
+    },
     "· %@" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -103,7 +108,9 @@
         }
       }
     },
-    "%@ is loaded from the college, so it needs a connection." : {},
+    "%@ is loaded from the college, so it needs a connection." : {
+
+    },
     "%@ isn’t a format this app can show. You can still open it in another app or save it." : {
       "localizations" : {
         "fr" : {
@@ -124,7 +131,9 @@
         }
       }
     },
-    "%@ needs something from you" : {},
+    "%@ needs something from you" : {
+
+    },
     "%@ no longer lists this document." : {
       "localizations" : {
         "fr" : {
@@ -212,6 +221,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ a renvoyé vos cours dans un format inattendu."
+          }
+        }
+      }
+    },
+    "%@. %@, %@. Issue %@, updated %@." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@. %@, %@. Fiche %@, mise à jour %@."
           }
         }
       }
@@ -318,7 +337,9 @@
         }
       }
     },
-    "%lld pt" : {},
+    "%lld pt" : {
+
+    },
     "%lld upcoming" : {
       "localizations" : {
         "fr" : {
@@ -403,7 +424,9 @@
         }
       }
     },
-    "+%lld" : {},
+    "+%lld" : {
+
+    },
     "⋮" : {
       "localizations" : {
         "fr" : {
@@ -676,6 +699,16 @@
         }
       }
     },
+    "A follow is welcome, and entirely optional." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un abonnement est bienvenu, et entièrement facultatif."
+          }
+        }
+      }
+    },
     "A new account starts at the sign-in screen with nothing carried over." : {
       "localizations" : {
         "fr" : {
@@ -692,6 +725,36 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Un nouveau code de sécurité a été demandé."
+          }
+        }
+      }
+    },
+    "A photograph of Yuecheng Ma" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une photographie de Yuecheng Ma"
+          }
+        }
+      }
+    },
+    "About" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À propos"
+          }
+        }
+      }
+    },
+    "About the Developer" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À propos du développeur"
           }
         }
       }
@@ -867,6 +930,16 @@
         }
       }
     },
+    "Agreed, and waiting its turn." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Accepté, et en attente de son tour."
+          }
+        }
+      }
+    },
     "Align Centre" : {
       "localizations" : {
         "fr" : {
@@ -893,6 +966,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aligner à droite"
+          }
+        }
+      }
+    },
+    "All" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tout"
           }
         }
       }
@@ -937,7 +1021,9 @@
         }
       }
     },
-    "Alpha Build" : {},
+    "Alpha Build" : {
+
+    },
     "Already a recipient" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1000,6 +1086,16 @@
         }
       }
     },
+    "Anonymous contributor" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personne anonyme"
+          }
+        }
+      }
+    },
     "Anthropology" : {
       "localizations" : {
         "fr" : {
@@ -1020,7 +1116,9 @@
         }
       }
     },
-    "App version: %@" : {},
+    "App version: %@" : {
+
+    },
     "Archive" : {
       "localizations" : {
         "fr" : {
@@ -1213,8 +1311,32 @@
         }
       }
     },
-    "Before You Sign In" : {},
-    "Beta (TestFlight) Build" : {},
+    "Before Dawson I was at Kells Academy, where most of my spare time went into building things — a login system that replaces passwords with a physical key you carry, a network gateway for places with poor internet, and, earlier on, a robot that cut grass on its own. Those took me to the Montreal regional science fair, the Quebec provincial competition, and in 2026 to the international fair with Team Canada." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avant Dawson, j'étais à Kells Academy, où la plus grande partie de mon temps libre passait à construire des choses — un système de connexion qui remplace les mots de passe par une clé physique que l'on transporte, une passerelle réseau pour les endroits mal desservis par Internet et, plus tôt, un robot qui tondait le gazon tout seul. Cela m'a mené à l'Expo-sciences régionale de Montréal, à la finale provinciale québécoise et, en 2026, à la finale internationale avec Équipe Canada."
+          }
+        }
+      }
+    },
+    "Before You Sign In" : {
+
+    },
+    "Being worked on now." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En cours de réalisation."
+          }
+        }
+      }
+    },
+    "Beta (TestFlight) Build" : {
+
+    },
     "Biology" : {
       "localizations" : {
         "fr" : {
@@ -1261,6 +1383,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pause"
+          }
+        }
+      }
+    },
+    "Bug Report" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signalement de bogue"
+          }
+        }
+      }
+    },
+    "Bugs" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bogues"
           }
         }
       }
@@ -1606,6 +1748,27 @@
         }
       }
     },
+    "Closed" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fermé"
+          }
+        }
+      }
+    },
+    "Closed without a change: duplicates, things that turned out not to be faults, and requests that will not be built." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fermé sans changement : doublons, éléments qui se sont avérés ne pas être des défauts, et demandes qui ne seront pas réalisées."
+          }
+        }
+      }
+    },
     "Code Detected" : {
       "localizations" : {
         "fr" : {
@@ -1652,6 +1815,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Terminer la configuration"
+          }
+        }
+      }
+    },
+    "Completed" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terminé"
           }
         }
       }
@@ -1888,6 +2061,16 @@
         }
       }
     },
+    "Dawson College · Commerce, first year" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Collège Dawson · Commerce, première année"
+          }
+        }
+      }
+    },
     "Dawson writes rooms as floor, wing, then room number." : {
       "localizations" : {
         "fr" : {
@@ -1919,7 +2102,9 @@
         }
       }
     },
-    "Delete" : {},
+    "Delete" : {
+
+    },
     "Delete Account" : {
       "localizations" : {
         "fr" : {
@@ -1940,8 +2125,12 @@
         }
       }
     },
-    "Delete Permanently" : {},
-    "Delete This Message?" : {},
+    "Delete Permanently" : {
+
+    },
+    "Delete This Message?" : {
+
+    },
     "Design" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1983,7 +2172,9 @@
         }
       }
     },
-    "Dismiss" : {},
+    "Dismiss" : {
+
+    },
     "Document" : {
       "localizations" : {
         "fr" : {
@@ -2010,6 +2201,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Terminé"
+          }
+        }
+      }
+    },
+    "Done, and in a build — check your app version against the release it shipped in." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fait, et livré dans une version — comparez la version de votre application à celle où le correctif est paru."
           }
         }
       }
@@ -2054,6 +2255,16 @@
         }
       }
     },
+    "Duplicate" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Doublon"
+          }
+        }
+      }
+    },
     "Dusk" : {
       "localizations" : {
         "fr" : {
@@ -2086,12 +2297,21 @@
       }
     },
     "Email" : {
-      "extractionState" : "stale",
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Courriel"
+          }
+        }
+      }
+    },
+    "End User Licence Agreement" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contrat de licence utilisateur final"
           }
         }
       }
@@ -2258,6 +2478,16 @@
         }
       }
     },
+    "Everything a student needs is already in Omnivox. Reaching any of it takes too long. I wanted my timetable on the Home Screen, my grades in a list I could actually read, and my messages somewhere that behaves like mail — the same information, with the detours taken out. Simpler to get to, and better to look at. That is the whole of it." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tout ce dont un étudiant a besoin se trouve déjà dans Omnivox. Y accéder prend trop de temps. Je voulais mon horaire sur l'écran d'accueil, mes notes dans une liste réellement lisible, et mes messages dans quelque chose qui se comporte comme du courrier — la même information, sans les détours. Plus simple à atteindre, et plus agréable à regarder. C'est tout."
+          }
+        }
+      }
+    },
     "Exact match" : {
       "localizations" : {
         "fr" : {
@@ -2288,6 +2518,36 @@
         }
       }
     },
+    "Feature Request" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Demande de fonction"
+          }
+        }
+      }
+    },
+    "Feedback" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rétroaction"
+          }
+        }
+      }
+    },
+    "Feedback and Roadmap" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rétroaction et feuille de route"
+          }
+        }
+      }
+    },
     "File" : {
       "localizations" : {
         "fr" : {
@@ -2304,6 +2564,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Trouver un local à partir de son code"
+          }
+        }
+      }
+    },
+    "Finished work and anything that will not be built ends up here." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le travail terminé et tout ce qui ne sera pas réalisé aboutit ici."
           }
         }
       }
@@ -2398,6 +2668,17 @@
         }
       }
     },
+    "Found a problem? Want something added?" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un problème ? Une fonction qui manque ?"
+          }
+        }
+      }
+    },
     "Français" : {
       "localizations" : {
         "fr" : {
@@ -2434,6 +2715,56 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Géographie"
+          }
+        }
+      }
+    },
+    "GitHub answered with an error (%@). This is usually temporary." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub a répondu par une erreur (%@). C'est généralement temporaire."
+          }
+        }
+      }
+    },
+    "GitHub Could Not Answer" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub n'a pas pu répondre"
+          }
+        }
+      }
+    },
+    "GitHub limits how often it will answer without an account, and this device has reached that limit. It resets at %@." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub limite la fréquence à laquelle il répond sans compte, et cet appareil a atteint cette limite. La limite est réinitialisée à %@."
+          }
+        }
+      }
+    },
+    "GitHub limits how often it will answer without an account, and this device has reached that limit. Try again shortly." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GitHub limite la fréquence à laquelle il répond sans compte, et cet appareil a atteint cette limite. Réessayez sous peu."
+          }
+        }
+      }
+    },
+    "GitHub's answer could not be read. This usually means the app needs an update." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La réponse de GitHub n'a pas pu être lue. Cela signifie généralement que l'application doit être mise à jour."
           }
         }
       }
@@ -2578,6 +2909,26 @@
         }
       }
     },
+    "Hi. I'm a %lld-year-old first-year student at Dawson, and I wrote this app." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonjour. J'ai %lld ans, je suis étudiant de première année à Dawson, et c'est moi qui ai écrit cette application."
+          }
+        }
+      }
+    },
+    "Hi. I'm a first-year student at Dawson, and I wrote this app." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonjour. Je suis étudiant de première année à Dawson, et c'est moi qui ai écrit cette application."
+          }
+        }
+      }
+    },
     "Hide password" : {
       "localizations" : {
         "fr" : {
@@ -2608,7 +2959,9 @@
         }
       }
     },
-    "Hides this class" : {},
+    "Hides this class" : {
+
+    },
     "Highlight" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2670,6 +3023,22 @@
         }
       }
     },
+    "I accept the agreements" : {
+
+    },
+    "I also run a small company, Tjokas Technologies, doing iOS and web work and hosting servers for a few clients. Omnivox Neo is not part of that. Nobody is paying for it, nothing in it is for sale, and it collects nothing about you." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Je dirige aussi une petite entreprise, Tjokas Technologies, qui fait du développement iOS et web et héberge des serveurs pour quelques clients. Omnivox Neo n'en fait pas partie. Personne ne la paie, rien n'y est à vendre, et elle ne recueille rien à votre sujet."
+          }
+        }
+      }
+    },
+    "I have read and accept the terms below." : {
+
+    },
     "I've Deleted It - Continue" : {
       "localizations" : {
         "fr" : {
@@ -2690,7 +3059,19 @@
         }
       }
     },
-    "Ignore" : {},
+    "If something here is broken, or you want something added, the feedback form reaches me directly." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Si quelque chose ne fonctionne pas ici, ou si vous voulez un ajout, le formulaire de rétroaction me parvient directement."
+          }
+        }
+      }
+    },
+    "Ignore" : {
+
+    },
     "Image" : {
       "localizations" : {
         "fr" : {
@@ -2712,6 +3093,16 @@
       }
     },
     "In progress" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "En cours"
+          }
+        }
+      }
+    },
+    "In Progress" : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
@@ -2762,8 +3153,22 @@
         }
       }
     },
-    "Instant open and offline access" : {},
-    "Instant Open and Offline Access" : {},
+    "Instagram" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instagram"
+          }
+        }
+      }
+    },
+    "Instant open and offline access" : {
+
+    },
+    "Instant Open and Offline Access" : {
+
+    },
     "Institution" : {
       "localizations" : {
         "fr" : {
@@ -2794,7 +3199,9 @@
         }
       }
     },
-    "Internal (How the fuck did you get this) build" : {},
+    "Internal (How the fuck did you get this) build" : {
+
+    },
     "Invalid secret code. Please check and try again." : {
       "localizations" : {
         "fr" : {
@@ -2805,7 +3212,40 @@
         }
       }
     },
-    "It moves to your deleted items in OmniVox." : {},
+    "It can only photograph the form itself, not the screen the problem was on. Untick it and describe what you saw instead." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elle ne peut photographier que le formulaire lui-même, pas l'écran où le problème s'est produit. Décochez-la et décrivez plutôt ce que vous avez vu."
+          }
+        }
+      }
+    },
+    "It goes to one person — the student who writes this app — and it lands on the list below, in public, where you can watch what happens to it." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cela parvient à une seule personne — l'étudiant qui écrit cette application — et apparaît dans la liste ci-dessous, en public, où vous pouvez suivre ce qu'il en advient."
+          }
+        }
+      }
+    },
+    "It is posted as an issue on GitHub, where anyone can read it. Do not include your password, your student number or your grades." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "C'est publié comme une fiche sur GitHub, que tout le monde peut lire. N'y mettez pas votre mot de passe, votre numéro d'étudiant ni vos notes."
+          }
+        }
+      }
+    },
+    "It moves to your deleted items in OmniVox." : {
+
+    },
     "Italic" : {
       "localizations" : {
         "fr" : {
@@ -2846,8 +3286,12 @@
         }
       }
     },
-    "Keeps a copy of your timetable and recent activity on this device, so the app opens straight away and still works with no signal. It stays on this phone, is never sent anywhere, and only opens after %@." : {},
-    "Keeps a copy of your timetable and recent activity on this iPhone so Neo opens straight away and still works with no signal. It never leaves this device, is not shared with anyone, and only opens after %@. Turning this off deletes the copy now." : {},
+    "Keeps a copy of your timetable and recent activity on this device, so the app opens straight away and still works with no signal. It stays on this phone, is never sent anywhere, and only opens after %@." : {
+
+    },
+    "Keeps a copy of your timetable and recent activity on this iPhone so Neo opens straight away and still works with no signal. It never leaves this device, is not shared with anyone, and only opens after %@. Turning this off deletes the copy now." : {
+
+    },
     "Laboratory Technology" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2889,6 +3333,16 @@
         }
       }
     },
+    "Last updated" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dernière mise à jour"
+          }
+        }
+      }
+    },
     "Léa is not available for this account." : {
       "localizations" : {
         "fr" : {
@@ -2905,6 +3359,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Léa a mis trop de temps à répondre. Vérifiez votre connexion et réessayez."
+          }
+        }
+      }
+    },
+    "Legal" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mentions légales"
           }
         }
       }
@@ -2968,6 +3432,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Chargement des notes…"
+          }
+        }
+      }
+    },
+    "Loading the form…" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chargement du formulaire…"
           }
         }
       }
@@ -3326,6 +3800,16 @@
         }
       }
     },
+    "Named themselves when they sent this in." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A donné son nom au moment de l'envoi."
+          }
+        }
+      }
+    },
     "Navigate to 2-Step Validation" : {
       "localizations" : {
         "fr" : {
@@ -3346,7 +3830,9 @@
         }
       }
     },
-    "Needs %@" : {},
+    "Needs %@" : {
+
+    },
     "Neo offers a built-in authenticator that generates verification codes right in the app. Or, you can keep using the official OmniVox Mobile app for codes—both options work great!" : {
       "localizations" : {
         "fr" : {
@@ -3487,6 +3973,17 @@
         }
       }
     },
+    "No Bugs Reported" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun bogue signalé"
+          }
+        }
+      }
+    },
     "No calendar on this device can be written to." : {
       "localizations" : {
         "fr" : {
@@ -3513,6 +4010,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aucun cours cette session"
+          }
+        }
+      }
+    },
+    "No Connection" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune connexion"
           }
         }
       }
@@ -3577,6 +4084,26 @@
         }
       }
     },
+    "No Open Bugs" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun bogue ouvert"
+          }
+        }
+      }
+    },
+    "No Open Requests" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune demande ouverte"
+          }
+        }
+      }
+    },
     "No Recommended Websites" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3594,6 +4121,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aucun rappel"
+          }
+        }
+      }
+    },
+    "No Requests Yet" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucune demande"
           }
         }
       }
@@ -3644,6 +4182,27 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aucune personne trouvée"
+          }
+        }
+      }
+    },
+    "Nobody has asked for anything yet. There is no wrong thing to ask for." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personne n'a encore rien demandé. Il n'y a pas de mauvaise demande."
+          }
+        }
+      }
+    },
+    "Nobody has reported anything so far. If you have found something, you will be first." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Personne n'a encore rien signalé. Si vous avez trouvé quelque chose, vous serez le premier."
           }
         }
       }
@@ -3699,9 +4258,25 @@
         }
       }
     },
-    "Not available offline" : {},
-    "Not Available Offline" : {},
-    "Not available until you are back online" : {},
+    "Not Available" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non disponible"
+          }
+        }
+      }
+    },
+    "Not available offline" : {
+
+    },
+    "Not Available Offline" : {
+
+    },
+    "Not available until you are back online" : {
+
+    },
     "Not marked yet" : {
       "localizations" : {
         "fr" : {
@@ -3718,6 +4293,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Jamais ouvert"
+          }
+        }
+      }
+    },
+    "Not Planned" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non planifié"
+          }
+        }
+      }
+    },
+    "Not Planned or Closed" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non planifié ou fermé"
           }
         }
       }
@@ -3784,6 +4379,26 @@
         }
       }
     },
+    "Nothing Closed Yet" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rien n'est encore fermé"
+          }
+        }
+      }
+    },
+    "Nothing from your account goes with it" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rien de votre compte n'est joint"
+          }
+        }
+      }
+    },
     "Nothing has arrived in this folder." : {
       "localizations" : {
         "fr" : {
@@ -3824,12 +4439,32 @@
         }
       }
     },
+    "Nothing is on the list as broken. That is not a promise that nothing is." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rien n'est inscrit comme défectueux. Ce n'est pas une garantie que rien ne l'est."
+          }
+        }
+      }
+    },
     "Nothing is scheduled." : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rien de prévu."
+          }
+        }
+      }
+    },
+    "Nothing is sent until you fill the form in and press Submit." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rien n'est envoyé tant que vous n'avez pas rempli le formulaire et appuyé sur Submit."
           }
         }
       }
@@ -3850,6 +4485,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rien d’ouvert"
+          }
+        }
+      }
+    },
+    "Nothing Reported Yet" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rien n'a encore été signalé"
           }
         }
       }
@@ -3894,7 +4540,9 @@
         }
       }
     },
-    "Offline" : {},
+    "Offline" : {
+
+    },
     "OK" : {
       "localizations" : {
         "fr" : {
@@ -3916,7 +4564,9 @@
         }
       }
     },
-    "OmniVox needs you to sign in." : {},
+    "OmniVox needs you to sign in." : {
+
+    },
     "Omnivox Neo" : {
       "localizations" : {
         "fr" : {
@@ -3943,6 +4593,31 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Omnivox Neo peut ajouter des événements mais pas les relire, il ne peut donc pas les tenir à jour. Choisissez Accès complet dans Réglages."
+          }
+        }
+      }
+    },
+    "Omnivox Neo is an independent app. It is not made by, affiliated with, or endorsed by your college or by Skytech, and it is not a replacement for Omnivox." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omnivox Neo est une application indépendante. Elle n'est ni conçue par votre collège ou Skytech, ni affiliée à eux, ni approuvée par eux, et elle ne remplace pas Omnivox."
+          }
+        }
+      }
+    },
+    "Omnivox Neo is not made by, affiliated with, or endorsed by your college or by Skytech, and it is not a replacement for Omnivox. Your " : {
+
+    },
+    "Omnivox Neo is written by one student at Dawson, on his own time." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omnivox Neo est écrite par un seul étudiant de Dawson, sur son temps libre."
           }
         }
       }
@@ -3977,13 +4652,25 @@
         }
       }
     },
-    "On This Device" : {},
+    "On This Device" : {
+
+    },
     "One School for Now" : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Un seul établissement pour l’instant"
+          }
+        }
+      }
+    },
+    "Only the most recently updated items are shown here. The full list is on GitHub." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seuls les éléments mis à jour le plus récemment sont affichés ici. La liste complète est sur GitHub."
           }
         }
       }
@@ -4018,6 +4705,16 @@
         }
       }
     },
+    "Open It in a Browser" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'ouvrir dans un navigateur"
+          }
+        }
+      }
+    },
     "Open OmniVox Settings" : {
       "localizations" : {
         "fr" : {
@@ -4034,6 +4731,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ouvrir Réglages"
+          }
+        }
+      }
+    },
+    "Open the Feedback Form" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir le formulaire"
+          }
+        }
+      }
+    },
+    "Open the Roadmap on GitHub" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ouvrir la feuille de route sur GitHub"
           }
         }
       }
@@ -4104,6 +4821,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "S’ouvre dans votre navigateur"
+          }
+        }
+      }
+    },
+    "Opens in your browser. Replies, related changes and the full history live there." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "S'ouvre dans votre navigateur. Les réponses, les modifications liées et l'historique complet s'y trouvent."
           }
         }
       }
@@ -4299,6 +5026,16 @@
         }
       }
     },
+    "Planned" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Planifié"
+          }
+        }
+      }
+    },
     "Please enter the secret code" : {
       "localizations" : {
         "fr" : {
@@ -4419,6 +5156,16 @@
         }
       }
     },
+    "Privacy Policy" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Politique de confidentialité"
+          }
+        }
+      }
+    },
     "Psychology" : {
       "localizations" : {
         "fr" : {
@@ -4435,6 +5182,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Violet"
+          }
+        }
+      }
+    },
+    "Question" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Question"
           }
         }
       }
@@ -4469,12 +5226,42 @@
         }
       }
     },
+    "Read the Full Thread on GitHub" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lire le fil complet sur GitHub"
+          }
+        }
+      }
+    },
     "Read-again mark removed" : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Marque « à relire » retirée"
+          }
+        }
+      }
+    },
+    "Reading the roadmap…" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lecture de la feuille de route…"
+          }
+        }
+      }
+    },
+    "Received and read, with nothing decided yet." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reçu et lu, sans décision pour l'instant."
           }
         }
       }
@@ -4537,6 +5324,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Rétablir"
+          }
+        }
+      }
+    },
+    "Refresh" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Actualiser"
           }
         }
       }
@@ -4632,7 +5429,9 @@
         }
       }
     },
-    "Remove Flag" : {},
+    "Remove Flag" : {
+
+    },
     "Remove Highlight" : {
       "localizations" : {
         "fr" : {
@@ -4693,6 +5492,16 @@
         }
       }
     },
+    "Replies" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réponses"
+          }
+        }
+      }
+    },
     "Reply" : {
       "localizations" : {
         "fr" : {
@@ -4709,6 +5518,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Répondre à tous"
+          }
+        }
+      }
+    },
+    "Report a Bug or Request a Feature" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signaler un bogue ou demander une fonction"
+          }
+        }
+      }
+    },
+    "Report a bug, request a feature, or see what is already known" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signaler un bogue, demander une fonction, ou voir ce qui est déjà connu"
+          }
+        }
+      }
+    },
+    "Reported" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Signalé"
+          }
+        }
+      }
+    },
+    "Requests" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Demandes"
           }
         }
       }
@@ -4769,6 +5618,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Afficher le code secret"
+          }
+        }
+      }
+    },
+    "Roadmap Not Found" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Feuille de route introuvable"
           }
         }
       }
@@ -4943,6 +5802,9 @@
         }
       }
     },
+    "Sends a bug report or a feature request" : {
+
+    },
     "Set" : {
       "localizations" : {
         "fr" : {
@@ -5009,6 +5871,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Partager"
+          }
+        }
+      }
+    },
+    "Show" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher"
           }
         }
       }
@@ -5095,7 +5967,19 @@
         }
       }
     },
-    "Showing what is saved on this device." : {},
+    "Showing the last copy — %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Affichage de la dernière copie — %@"
+          }
+        }
+      }
+    },
+    "Showing what is saved on this device." : {
+
+    },
     "Shows event details" : {
       "localizations" : {
         "fr" : {
@@ -5117,7 +6001,9 @@
         }
       }
     },
-    "Shows this class" : {},
+    "Shows this class" : {
+
+    },
     "Sign In" : {
       "localizations" : {
         "fr" : {
@@ -5128,7 +6014,9 @@
         }
       }
     },
-    "Sign in again" : {},
+    "Sign in again" : {
+
+    },
     "Sign in to %@ again." : {
       "localizations" : {
         "fr" : {
@@ -5331,6 +6219,16 @@
         }
       }
     },
+    "Status" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "État"
+          }
+        }
+      }
+    },
     "Stops adding an account and returns to the previous one" : {
       "localizations" : {
         "fr" : {
@@ -5471,6 +6369,16 @@
         }
       }
     },
+    "Tell me what is wrong, or what is missing" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dites-moi ce qui ne va pas, ou ce qui manque"
+          }
+        }
+      }
+    },
     "Term" : {
       "localizations" : {
         "fr" : {
@@ -5497,6 +6405,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Taille du texte"
+          }
+        }
+      }
+    },
+    "Thank You" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Merci"
           }
         }
       }
@@ -5692,6 +6610,26 @@
         }
       }
     },
+    "The form asks for a short description and whether it is a bug or a request. That is all it asks for." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le formulaire demande une courte description et s'il s'agit d'un bogue ou d'une demande. C'est tout ce qu'il demande."
+          }
+        }
+      }
+    },
+    "The form could not be loaded. It needs a connection, and it is the one part of this app that does." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le formulaire n'a pas pu être chargé. Il exige une connexion, et c'est la seule partie de cette application qui en exige une."
+          }
+        }
+      }
+    },
     "The grades could not be read." : {
       "localizations" : {
         "fr" : {
@@ -5708,6 +6646,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "La connexion en direct est interrompue. Vos informations enregistrées demeurent disponibles."
+          }
+        }
+      }
+    },
+    "The name box is optional, and this one was left empty." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La case du nom est facultative, et celle-ci a été laissée vide."
           }
         }
       }
@@ -5752,6 +6700,26 @@
         }
       }
     },
+    "The repository holding the roadmap could not be found. It may have been renamed." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le dépôt contenant la feuille de route est introuvable. Il a peut-être été renommé."
+          }
+        }
+      }
+    },
+    "The roadmap is read from GitHub, so it needs a connection. Everything else in the app still works without one." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La feuille de route est lue sur GitHub : elle exige donc une connexion. Tout le reste de l'application fonctionne sans."
+          }
+        }
+      }
+    },
     "The saved authenticator could not be read. Set it up again from the Me tab." : {
       "localizations" : {
         "fr" : {
@@ -5772,12 +6740,32 @@
         }
       }
     },
+    "The screenshot option is not useful here" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'option de capture d'écran est inutile ici"
+          }
+        }
+      }
+    },
     "The verification service could not connect. Check your connection and try again." : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Le service de vérification n’a pas pu se connecter. Vérifiez votre connexion et réessayez."
+          }
+        }
+      }
+    },
+    "There is a name box and leaving it empty is normal. Whatever you type in it is published with the report, so a first name or a nickname is plenty." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Il y a une case pour le nom et la laisser vide est normal. Ce que vous y écrivez est publié avec le signalement : un prénom ou un surnom suffit amplement."
           }
         }
       }
@@ -5864,6 +6852,26 @@
         }
       }
     },
+    "This document could not be opened on this device." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce document n'a pas pu être ouvert sur cet appareil."
+          }
+        }
+      }
+    },
+    "This form runs in its own window with no access to your Omnivox session, your timetable, your grades or your messages. Your app version is attached, and nothing else is." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce formulaire s'exécute dans sa propre fenêtre, sans accès à votre session Omnivox, à votre horaire, à vos notes ni à vos messages. La version de votre application est jointe, et rien d'autre."
+          }
+        }
+      }
+    },
     "This is a link to another website. It will open in your browser.\n\n%@" : {
       "localizations" : {
         "fr" : {
@@ -5890,6 +6898,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ce lien ouvre une page dans OmniVox, qu’Omnivox Neo ne peut pas encore afficher. Ouvrez-le dans un navigateur et connectez-vous-y pour l’instant."
+          }
+        }
+      }
+    },
+    "This list is read straight from the project's public issues on GitHub. Reading it needs no account and sends nothing about you." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cette liste est lue directement dans les fiches publiques du projet sur GitHub. La consulter n'exige aucun compte et n'envoie rien à votre sujet."
           }
         }
       }
@@ -5924,7 +6942,9 @@
         }
       }
     },
-    "This message will be gone for good." : {},
+    "This message will be gone for good." : {
+
+    },
     "This part of the directory is shown as MIO's own page." : {
       "localizations" : {
         "fr" : {
@@ -6056,6 +7076,16 @@
         }
       }
     },
+    "Too Many Requests" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trop de requêtes"
+          }
+        }
+      }
+    },
     "Try a different name or keyword." : {
       "localizations" : {
         "fr" : {
@@ -6086,7 +7116,9 @@
         }
       }
     },
-    "Turn on %@ first. Without it there would be nothing guarding the saved copy." : {},
+    "Turn on %@ first. Without it there would be nothing guarding the saved copy." : {
+
+    },
     "Turn on a category above to start." : {
       "localizations" : {
         "fr" : {
@@ -6107,6 +7139,16 @@
         }
       }
     },
+    "Under Review" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "À l'étude"
+          }
+        }
+      }
+    },
     "Underline" : {
       "localizations" : {
         "fr" : {
@@ -6123,6 +7165,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Annuler"
+          }
+        }
+      }
+    },
+    "Unexpected Answer" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Réponse inattendue"
           }
         }
       }
@@ -6187,8 +7239,12 @@
         }
       }
     },
-    "Update Recommended" : {},
-    "Update Required" : {},
+    "Update Recommended" : {
+
+    },
+    "Update Required" : {
+
+    },
     "Update type" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -6452,6 +7508,36 @@
         }
       }
     },
+    "What was reported" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce qui a été signalé"
+          }
+        }
+      }
+    },
+    "What you write becomes public" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce que vous écrivez devient public"
+          }
+        }
+      }
+    },
+    "Why I made it" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pourquoi je l'ai faite"
+          }
+        }
+      }
+    },
     "Wing" : {
       "localizations" : {
         "fr" : {
@@ -6512,7 +7598,19 @@
         }
       }
     },
-    "You are signed in. Finish this below and the app will carry on by itself." : {},
+    "You accepted version %@ on %@. This record is kept on this device only." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vous avez accepté la version %@ le %@. Cette mention est conservée uniquement sur cet appareil."
+          }
+        }
+      }
+    },
+    "You are signed in. Finish this below and the app will carry on by itself." : {
+
+    },
     "You can set up Neo's built-in authenticator in App Settings. It generates 6-digit codes automatically—no need to switch apps or check notifications." : {
       "localizations" : {
         "fr" : {
@@ -6705,13 +7803,25 @@
         }
       }
     },
-    "Your messages are kept at the college, so they need a connection." : {},
+    "Your messages are kept at the college, so they need a connection." : {
+
+    },
     "Your messages could not be read." : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vos messages n’ont pas pu être lus."
+          }
+        }
+      }
+    },
+    "Your name is optional" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre nom est facultatif"
           }
         }
       }
@@ -6752,6 +7862,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Votre photo"
+          }
+        }
+      }
+    },
+    "Your report is on the roadmap as #%@. It will appear in the list below, under Under Review." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre signalement figure sur la feuille de route sous le n° %@. Il apparaîtra dans la liste ci-dessous, sous « À l'étude »."
+          }
+        }
+      }
+    },
+    "Your report is on the roadmap as #%lld. It will appear in the list below, under Under Review." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre signalement figure sur la feuille de route sous le n° %lld. Il apparaîtra dans la liste ci-dessous, sous « À l'étude »."
           }
         }
       }
@@ -6816,66 +7946,6 @@
         }
       }
     },
-    "ZB43CZ3ARAX7C25B..." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ZB43CZ3ARAX7C25B..."
-          }
-        }
-      }
-    },
-    "Feedback and Roadmap" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rétroaction et feuille de route"
-          }
-        }
-      }
-    },
-    "Report a bug, request a feature, or see what is already known" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Signaler un bogue, demander une fonction, ou voir ce qui est déjà connu"
-          }
-        }
-      }
-    },
-    "About" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "À propos"
-          }
-        }
-      }
-    },
-    "About the Developer" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "À propos du développeur"
-          }
-        }
-      }
-    },
-    "Omnivox Neo is written by one student at Dawson, on his own time." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Omnivox Neo est écrite par un seul étudiant de Dawson, sur son temps libre."
-          }
-        }
-      }
-    },
     "Yuecheng (Thomas) Ma" : {
       "localizations" : {
         "fr" : {
@@ -6886,982 +7956,12 @@
         }
       }
     },
-    "Dawson College · Commerce, first year" : {
+    "ZB43CZ3ARAX7C25B..." : {
       "localizations" : {
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Collège Dawson · Commerce, première année"
-          }
-        }
-      }
-    },
-    "A photograph of Yuecheng Ma" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Une photographie de Yuecheng Ma"
-          }
-        }
-      }
-    },
-    "Hi. I'm a first-year student at Dawson, and I wrote this app." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bonjour. Je suis étudiant de première année à Dawson, et c'est moi qui ai écrit cette application."
-          }
-        }
-      }
-    },
-    "Before Dawson I was at Kells Academy, where most of my spare time went into building things — a login system that replaces passwords with a physical key you carry, a network gateway for places with poor internet, and, earlier on, a robot that cut grass on its own. Those took me to the Montreal regional science fair, the Quebec provincial competition, and in 2026 to the international fair with Team Canada." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Avant Dawson, j'étais à Kells Academy, où la plus grande partie de mon temps libre passait à construire des choses — un système de connexion qui remplace les mots de passe par une clé physique que l'on transporte, une passerelle réseau pour les endroits mal desservis par Internet et, plus tôt, un robot qui tondait le gazon tout seul. Cela m'a mené à l'Expo-sciences régionale de Montréal, à la finale provinciale québécoise et, en 2026, à la finale internationale avec Équipe Canada."
-          }
-        }
-      }
-    },
-    "I also run a small company, Tjokas Technologies, doing iOS and web work and hosting servers for a few clients. Omnivox Neo is not part of that. Nobody is paying for it, nothing in it is for sale, and it collects nothing about you." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Je dirige aussi une petite entreprise, Tjokas Technologies, qui fait du développement iOS et web et héberge des serveurs pour quelques clients. Omnivox Neo n'en fait pas partie. Personne ne la paie, rien n'y est à vendre, et elle ne recueille rien à votre sujet."
-          }
-        }
-      }
-    },
-    "Why I made it" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pourquoi je l'ai faite"
-          }
-        }
-      }
-    },
-    "Everything a student needs is already in Omnivox. Reaching any of it takes too long. I wanted my timetable on the Home Screen, my grades in a list I could actually read, and my messages somewhere that behaves like mail — the same information, with the detours taken out. Simpler to get to, and better to look at. That is the whole of it." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tout ce dont un étudiant a besoin se trouve déjà dans Omnivox. Y accéder prend trop de temps. Je voulais mon horaire sur l'écran d'accueil, mes notes dans une liste réellement lisible, et mes messages dans quelque chose qui se comporte comme du courrier — la même information, sans les détours. Plus simple à atteindre, et plus agréable à regarder. C'est tout."
-          }
-        }
-      }
-    },
-    "If something here is broken, or you want something added, the feedback form reaches me directly." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Si quelque chose ne fonctionne pas ici, ou si vous voulez un ajout, le formulaire de rétroaction me parvient directement."
-          }
-        }
-      }
-    },
-    "Instagram" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Instagram"
-          }
-        }
-      }
-    },
-    "A follow is welcome, and entirely optional." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Un abonnement est bienvenu, et entièrement facultatif."
-          }
-        }
-      }
-    },
-    "Found a problem? Want something added?" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Un problème ? Une fonction qui manque ?"
-          }
-        }
-      }
-    },
-    "It goes to one person — the student who writes this app — and it lands on the list below, in public, where you can watch what happens to it." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cela parvient à une seule personne — l'étudiant qui écrit cette application — et apparaît dans la liste ci-dessous, en public, où vous pouvez suivre ce qu'il en advient."
-          }
-        }
-      }
-    },
-    "Report a Bug or Request a Feature" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Signaler un bogue ou demander une fonction"
-          }
-        }
-      }
-    },
-    "Show" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Afficher"
-          }
-        }
-      }
-    },
-    "All" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tout"
-          }
-        }
-      }
-    },
-    "Bugs" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bogues"
-          }
-        }
-      }
-    },
-    "Requests" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Demandes"
-          }
-        }
-      }
-    },
-    "Reading the roadmap…" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lecture de la feuille de route…"
-          }
-        }
-      }
-    },
-    "Open the Roadmap on GitHub" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ouvrir la feuille de route sur GitHub"
-          }
-        }
-      }
-    },
-    "Refresh" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Actualiser"
-          }
-        }
-      }
-    },
-    "Nothing Reported Yet" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rien n'a encore été signalé"
-          }
-        }
-      }
-    },
-    "No Bugs Reported" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aucun bogue signalé"
-          }
-        }
-      }
-    },
-    "No Requests Yet" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aucune demande"
-          }
-        }
-      }
-    },
-    "Nobody has reported anything so far. If you have found something, you will be first." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Personne n'a encore rien signalé. Si vous avez trouvé quelque chose, vous serez le premier."
-          }
-        }
-      }
-    },
-    "Nothing is on the list as broken. That is not a promise that nothing is." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rien n'est inscrit comme défectueux. Ce n'est pas une garantie que rien ne l'est."
-          }
-        }
-      }
-    },
-    "Nobody has asked for anything yet. There is no wrong thing to ask for." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Personne n'a encore rien demandé. Il n'y a pas de mauvaise demande."
-          }
-        }
-      }
-    },
-    "This list is read straight from the project's public issues on GitHub. Reading it needs no account and sends nothing about you." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cette liste est lue directement dans les fiches publiques du projet sur GitHub. La consulter n'exige aucun compte et n'envoie rien à votre sujet."
-          }
-        }
-      }
-    },
-    "Only the most recently updated items are shown here. The full list is on GitHub." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Seuls les éléments mis à jour le plus récemment sont affichés ici. La liste complète est sur GitHub."
-          }
-        }
-      }
-    },
-    "Showing the last copy — %@" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Affichage de la dernière copie — %@"
-          }
-        }
-      }
-    },
-    "Thank You" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Merci"
-          }
-        }
-      }
-    },
-    "Your report is on the roadmap as #%lld. It will appear in the list below, under Under Review." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Votre signalement figure sur la feuille de route sous le n° %lld. Il apparaîtra dans la liste ci-dessous, sous « À l'étude »."
-          }
-        }
-      }
-    },
-    "%@. %@, %@. Issue %@, updated %@." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@. %@, %@. Fiche %@, mise à jour %@."
-          }
-        }
-      }
-    },
-    "Under Review" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "À l'étude"
-          }
-        }
-      }
-    },
-    "Planned" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Planifié"
-          }
-        }
-      }
-    },
-    "In Progress" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "En cours"
-          }
-        }
-      }
-    },
-    "Completed" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Terminé"
-          }
-        }
-      }
-    },
-    "Not Planned" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Non planifié"
-          }
-        }
-      }
-    },
-    "Duplicate" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Doublon"
-          }
-        }
-      }
-    },
-    "Closed" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fermé"
-          }
-        }
-      }
-    },
-    "Not Planned or Closed" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Non planifié ou fermé"
-          }
-        }
-      }
-    },
-    "Received and read, with nothing decided yet." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Reçu et lu, sans décision pour l'instant."
-          }
-        }
-      }
-    },
-    "Agreed, and waiting its turn." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Accepté, et en attente de son tour."
-          }
-        }
-      }
-    },
-    "Being worked on now." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "En cours de réalisation."
-          }
-        }
-      }
-    },
-    "Done, and in a build — check your app version against the release it shipped in." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fait, et livré dans une version — comparez la version de votre application à celle où le correctif est paru."
-          }
-        }
-      }
-    },
-    "Closed without a change: duplicates, things that turned out not to be faults, and requests that will not be built." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fermé sans changement : doublons, éléments qui se sont avérés ne pas être des défauts, et demandes qui ne seront pas réalisées."
-          }
-        }
-      }
-    },
-    "Bug Report" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Signalement de bogue"
-          }
-        }
-      }
-    },
-    "Feature Request" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Demande de fonction"
-          }
-        }
-      }
-    },
-    "Question" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Question"
-          }
-        }
-      }
-    },
-    "Status" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "État"
-          }
-        }
-      }
-    },
-    "Last updated" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dernière mise à jour"
-          }
-        }
-      }
-    },
-    "Reported" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Signalé"
-          }
-        }
-      }
-    },
-    "Replies" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Réponses"
-          }
-        }
-      }
-    },
-    "What was reported" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ce qui a été signalé"
-          }
-        }
-      }
-    },
-    "Anonymous contributor" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Personne anonyme"
-          }
-        }
-      }
-    },
-    "Named themselves when they sent this in." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "A donné son nom au moment de l'envoi."
-          }
-        }
-      }
-    },
-    "The name box is optional, and this one was left empty." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "La case du nom est facultative, et celle-ci a été laissée vide."
-          }
-        }
-      }
-    },
-    "Read the Full Thread on GitHub" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lire le fil complet sur GitHub"
-          }
-        }
-      }
-    },
-    "Opens in your browser. Replies, related changes and the full history live there." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "S'ouvre dans votre navigateur. Les réponses, les modifications liées et l'historique complet s'y trouvent."
-          }
-        }
-      }
-    },
-    "Feedback" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rétroaction"
-          }
-        }
-      }
-    },
-    "Tell me what is wrong, or what is missing" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dites-moi ce qui ne va pas, ou ce qui manque"
-          }
-        }
-      }
-    },
-    "The form asks for a short description and whether it is a bug or a request. That is all it asks for." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Le formulaire demande une courte description et s'il s'agit d'un bogue ou d'une demande. C'est tout ce qu'il demande."
-          }
-        }
-      }
-    },
-    "What you write becomes public" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ce que vous écrivez devient public"
-          }
-        }
-      }
-    },
-    "It is posted as an issue on GitHub, where anyone can read it. Do not include your password, your student number or your grades." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "C'est publié comme une fiche sur GitHub, que tout le monde peut lire. N'y mettez pas votre mot de passe, votre numéro d'étudiant ni vos notes."
-          }
-        }
-      }
-    },
-    "Your name is optional" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Votre nom est facultatif"
-          }
-        }
-      }
-    },
-    "There is a name box and leaving it empty is normal. Whatever you type in it is published with the report, so a first name or a nickname is plenty." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Il y a une case pour le nom et la laisser vide est normal. Ce que vous y écrivez est publié avec le signalement : un prénom ou un surnom suffit amplement."
-          }
-        }
-      }
-    },
-    "Nothing from your account goes with it" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rien de votre compte n'est joint"
-          }
-        }
-      }
-    },
-    "This form runs in its own window with no access to your Omnivox session, your timetable, your grades or your messages. Your app version is attached, and nothing else is." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ce formulaire s'exécute dans sa propre fenêtre, sans accès à votre session Omnivox, à votre horaire, à vos notes ni à vos messages. La version de votre application est jointe, et rien d'autre."
-          }
-        }
-      }
-    },
-    "The screenshot option is not useful here" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "L'option de capture d'écran est inutile ici"
-          }
-        }
-      }
-    },
-    "It can only photograph the form itself, not the screen the problem was on. Untick it and describe what you saw instead." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Elle ne peut photographier que le formulaire lui-même, pas l'écran où le problème s'est produit. Décochez-la et décrivez plutôt ce que vous avez vu."
-          }
-        }
-      }
-    },
-    "Open the Feedback Form" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ouvrir le formulaire"
-          }
-        }
-      }
-    },
-    "Loading the form…" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Chargement du formulaire…"
-          }
-        }
-      }
-    },
-    "Nothing is sent until you fill the form in and press Submit." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rien n'est envoyé tant que vous n'avez pas rempli le formulaire et appuyé sur Submit."
-          }
-        }
-      }
-    },
-    "The form could not be loaded. It needs a connection, and it is the one part of this app that does." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Le formulaire n'a pas pu être chargé. Il exige une connexion, et c'est la seule partie de cette application qui en exige une."
-          }
-        }
-      }
-    },
-    "Open It in a Browser" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "L'ouvrir dans un navigateur"
-          }
-        }
-      }
-    },
-    "No Connection" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aucune connexion"
-          }
-        }
-      }
-    },
-    "Too Many Requests" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Trop de requêtes"
-          }
-        }
-      }
-    },
-    "Roadmap Not Found" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Feuille de route introuvable"
-          }
-        }
-      }
-    },
-    "GitHub Could Not Answer" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "GitHub n'a pas pu répondre"
-          }
-        }
-      }
-    },
-    "Unexpected Answer" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Réponse inattendue"
-          }
-        }
-      }
-    },
-    "The roadmap is read from GitHub, so it needs a connection. Everything else in the app still works without one." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "La feuille de route est lue sur GitHub : elle exige donc une connexion. Tout le reste de l'application fonctionne sans."
-          }
-        }
-      }
-    },
-    "GitHub limits how often it will answer without an account, and this device has reached that limit. Try again shortly." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "GitHub limite la fréquence à laquelle il répond sans compte, et cet appareil a atteint cette limite. Réessayez sous peu."
-          }
-        }
-      }
-    },
-    "GitHub limits how often it will answer without an account, and this device has reached that limit. It resets at %@." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "GitHub limite la fréquence à laquelle il répond sans compte, et cet appareil a atteint cette limite. La limite est réinitialisée à %@."
-          }
-        }
-      }
-    },
-    "The repository holding the roadmap could not be found. It may have been renamed." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Le dépôt contenant la feuille de route est introuvable. Il a peut-être été renommé."
-          }
-        }
-      }
-    },
-    "GitHub answered with an error (%@). This is usually temporary." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "GitHub a répondu par une erreur (%@). C'est généralement temporaire."
-          }
-        }
-      }
-    },
-    "GitHub's answer could not be read. This usually means the app needs an update." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "La réponse de GitHub n'a pas pu être lue. Cela signifie généralement que l'application doit être mise à jour."
-          }
-        }
-      }
-    },
-    "Legal" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mentions légales"
-          }
-        }
-      }
-    },
-    "End User Licence Agreement" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Contrat de licence utilisateur final"
-          }
-        }
-      }
-    },
-    "Privacy Policy" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Politique de confidentialité"
-          }
-        }
-      }
-    },
-    "Omnivox Neo is an independent app. It is not made by, affiliated with, or endorsed by your college or by Skytech, and it is not a replacement for Omnivox." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Omnivox Neo est une application indépendante. Elle n'est ni conçue par votre collège ou Skytech, ni affiliée à eux, ni approuvée par eux, et elle ne remplace pas Omnivox."
-          }
-        }
-      }
-    },
-    "You accepted version %@ on %@. This record is kept on this device only." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vous avez accepté la version %@ le %@. Cette mention est conservée uniquement sur cet appareil."
-          }
-        }
-      }
-    },
-    "Not Available" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Non disponible"
-          }
-        }
-      }
-    },
-    "This document could not be opened on this device." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ce document n'a pas pu être ouvert sur cet appareil."
-          }
-        }
-      }
-    },
-    "Your report is on the roadmap as #%@. It will appear in the list below, under Under Review." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Votre signalement figure sur la feuille de route sous le n° %@. Il apparaîtra dans la liste ci-dessous, sous « À l'étude »."
-          }
-        }
-      }
-    },
-    "No Open Bugs" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aucun bogue ouvert"
-          }
-        }
-      }
-    },
-    "No Open Requests" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Aucune demande ouverte"
-          }
-        }
-      }
-    },
-    "Nothing Closed Yet" : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Rien n'est encore fermé"
-          }
-        }
-      }
-    },
-    "Finished work and anything that will not be built ends up here." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Le travail terminé et tout ce qui ne sera pas réalisé aboutit ici."
-          }
-        }
-      }
-    },
-    "Hi. I'm a %lld-year-old first-year student at Dawson, and I wrote this app." : {
-      "localizations" : {
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bonjour. J'ai %lld ans, je suis étudiant de première année à Dawson, et c'est moi qui ai écrit cette application."
+            "value" : "ZB43CZ3ARAX7C25B..."
           }
         }
       }
