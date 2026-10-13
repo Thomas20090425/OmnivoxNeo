@@ -104,10 +104,10 @@
 		<key>0.0.6</key>
 		<dict>
 			<key>Status</key>
-			<string>normal</string>
+			<string>updateRecommended</string>
 			<key>AnnouncementTitle</key>
-			<string></string>
-			<key>Announcement</key>
+			<string>DEBUG ANNOUNCEMENT</string>
+			<key>Debugging purposes, an update is not necessary. Please feel free to continue using the app.</key>
 			<string></string>
 		</dict>
 
