@@ -147,13 +147,10 @@ Versions distributed through TestFlight are pre-release software. They may be in
 Questions, complaints and claims about the Application should be directed to:
 
 Thomas Ma
-
-[postal address to be inserted before App Store submission]
-
-Montreal, Quebec, Canada
-
-Telephone: [telephone number to be inserted before App Store submission]
-
+1390 rue du Fort, Apt. 1504
+Montréal, Québec H3H 2R7
+Canada
+Telephone: +1 581-666-6777
 Email: yuecheng.ma@dawsoncollege.qc.ca
 
 Omnivox Neo is an independent project and is not operated by, or on behalf of, Dawson College or Skytech Communications inc. For anything about your student record itself, contact Dawson College — they hold that information; this Application only displays it.

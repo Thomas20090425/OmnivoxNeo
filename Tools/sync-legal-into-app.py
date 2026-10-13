@@ -71,7 +71,10 @@ def plain_text(html: str) -> str:
     html = re.sub(r"<h3[^>]*>(.*?)</h3>", r"\n\n\1\n", html, flags=re.S)
     html = re.sub(r"<li[^>]*>(.*?)</li>", r"\n  - \1", html, flags=re.S)
     html = re.sub(r"</p>", "\n\n", html)
-    html = re.sub(r"<br\s*/?>", "\n", html)
+    # Any whitespace after the break goes with it. The source wraps its lines,
+    # so a <br> is usually followed by a real newline, and keeping both turns
+    # every line of the postal address into its own paragraph.
+    html = re.sub(r"<br\s*/?>\s*", "\n", html)
     html = re.sub(r"<[^>]+>", "", html)
 
     entities = {
