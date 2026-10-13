@@ -107,8 +107,8 @@
 			<string>updateRecommended</string>
 			<key>AnnouncementTitle</key>
 			<string>DEBUG ANNOUNCEMENT</string>
-			<key>Debugging purposes, an update is not necessary. Please feel free to continue using the app.</key>
-			<string></string>
+			<key>Announcement</key>
+			<string>Debugging purposes, an update is not necessary. Please feel free to continue using the app.</string>
 		</dict>
 
 		<!-- A build with nothing to say. Present only to show that an entry
