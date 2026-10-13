@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Omnivox Neo</title>
+<meta name="description" content="Omnivox Neo talks to your college's Omnivox portal and to nothing else. This policy explains what stays on your device, what never leaves it, and how to remove all of it.">
+<meta name="robots" content="index, follow">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <p class="wordmark"><a href="index.html">Omnivox&nbsp;Neo</a></p>
+  <h1>Privacy Policy</h1>
+  <p class="standfirst">Omnivox Neo talks to your college and to nobody else. There is no account to make, no server of ours in the middle, and nothing to opt out of.</p>
+  <p class="stamp">Last updated 9 October 2026 · Applies to Omnivox Neo for iPhone, iPad and Mac · <a href="confidentialite.html">Version française</a></p>
+</header>
+
+<main>
+
+<p class="lede">Omnivox Neo is an independent app that signs in to your college's own Omnivox portal on your behalf and draws what it finds there in a nicer shape. It is not made by, affiliated with, or endorsed by Dawson College or Skytech Communications, who make Omnivox.</p>
+
+<p>That independence is the thing to understand about privacy here, because it splits the question in two:</p>
+
+<ul>
+  <li><strong>Your school data belongs to your college and its Omnivox platform.</strong> Your grades, your messages, your timetable, your student record — those live on your college's Omnivox servers, and the college's and Skytech's own policies govern them. Nothing in this document changes that. <a href="#official">The official policies are linked below.</a></li>
+  <li><strong>This policy covers only the app on your device</strong> — what it asks your phone for, what it writes down locally, and where it sends things. That is the part we are responsible for, and it is a short list.</li>
+</ul>
+
+<h2 id="short">The short version</h2>
+
+<p>Omnivox Neo has no backend. There is no Omnivox Neo server, no account, no sign-up. When you use the app, your device talks straight to <strong>your college's Omnivox address over HTTPS</strong> — the same server your browser would reach — and the app is simply the thing drawing the result. Nobody sits in between, because there is no in between to sit in.</p>
+
+<p>We never see your password, your grades, your messages or your name, because none of it is ever sent to us. There is nowhere for it to go.</p>
+
+<h2 id="official">Your college's policies</h2>
+
+<p>Because your school data is handled by Omnivox and your college rather than by this app, the policies that actually govern that data are theirs. Read them — they are the ones that matter for your record:</p>
+
+<ul class="outbound">
+  <li>
+    <a href="https://skytech.com/en/confid-omnivox" rel="noopener">Omnivox privacy policy — Skytech Communications</a>
+    <span>The vendor-level policy for the Omnivox platform: the portal, the online services and the official Omnivox Mobile app. <a href="https://skytech.com/confid-omnivox" rel="noopener">En français</a>.</span>
+  </li>
+  <li>
+    <a href="https://dawsoncollege.omnivox.ca/intr/Module/Information/Confidentialite.aspx" rel="noopener">Security and Confidentiality — Dawson College Omnivox</a>
+    <span>Dawson's own statement on how your Omnivox session is secured, including its guidance on looking after your password.</span>
+  </li>
+  <li>
+    <a href="https://dawsoncollege.omnivox.ca/intr/Module/Information/Conditions.aspx" rel="noopener">Usage Conditions — Dawson College Omnivox</a>
+    <span>The terms you accepted for using your college's portal. They apply to your account however you reach it, including through this app.</span>
+  </li>
+</ul>
+
+<p>If your college ever needs something from you before it will let you in — a student ID photo, an agreement to re-read, a password reset — Omnivox Neo cannot resolve that for you. It says so and sends you to your college's own site to deal with it there.</p>
+
+<h2 id="sends">What the app sends, and where</h2>
+
+<p>Exactly one destination: the web address of the college you picked when you set the app up. For Dawson that is <code>dawsoncollege.omnivox.ca</code>. The app refuses to treat anything else as part of your session — a link has to be HTTPS, on that exact host, on the standard port, or the app hands it to your browser instead of signing in to it.</p>
+
+<p>What goes to that one destination is what a sign-in needs and what a page request needs: your student number and password at the login screen, your two-factor code if your college asks for one, session cookies afterwards, and ordinary requests for the pages you are looking at. That is identical to what your browser would send. When you write a MIO message in the app, that message goes to your college's server and is delivered by your college's mail system.</p>
+
+<p>There is nothing else. To be specific about the things apps usually do and this one does not:</p>
+
+<ul class="nevers">
+  <li>No analytics or usage tracking of any kind. The app does not measure you.</li>
+  <li>No crash or diagnostic reporting service.</li>
+  <li>No advertising, no ad identifier, no profiling, and no sale or sharing of anything.</li>
+  <li>No third-party SDKs at all. The app is built entirely from Apple's own frameworks — there is no vendor code in it to send data anywhere.</li>
+  <li>No server operated by us, so no copy of anything on one.</li>
+  <li>No iCloud, no CloudKit, no iCloud Keychain. Nothing syncs off the device.</li>
+  <li>No account with us, no email list, no newsletter.</li>
+</ul>
+
+<p>The app declares this to Apple in its privacy manifest as collecting no data types and performing no tracking, which is why its App Store listing says <em>Data Not Collected</em>.</p>
+
+<h3>One honest caveat about web content</h3>
+
+<p>Some of what your portal serves — an announcement with an image in it, a document a teacher uploaded, a link in a MIO message — is web content your college is serving, and the app renders it the way a browser would. If your college's page itself pulls in something hosted elsewhere, that request happens the same way it would in Safari. The app does not add any such content, but it also cannot rewrite what your college publishes. Links you tap that lead off your college's host are opened in your browser rather than inside your session.</p>
+
+<h2 id="device">What stays on your device</h2>
+
+<p>This is the full inventory. All of it is inside the app's own storage on your device, and all of it is removable from inside the app.</p>
+
+<dl class="inventory">
+
+  <div class="row">
+    <dt>Your Omnivox password</dt>
+    <dd>Only if you ask the app to remember it, so you do not retype it daily.</dd>
+    <dd class="where">Device keychain, pinned to this device, behind Face ID or Touch ID</dd>
+    <dd>The protection here is enforced by iOS, not by the app's screens: the password is stored so that it is unreadable while the device is locked, cannot leave this device, cannot appear in a backup, and cannot be read at all without a successful biometric check. If someone adds their face or fingerprint to your device, iOS invalidates the stored password and the app has to ask you for it again.</dd>
+  </div>
+
+  <div class="row">
+    <dt>Your authenticator secret</dt>
+    <dd>Only if you set up the built-in authenticator, so two-factor codes fill themselves in.</dd>
+    <dd class="where">Device keychain, never synced to iCloud</dd>
+    <dd>Treat it like any other two-factor secret: it is the thing that generates your codes.</dd>
+  </div>
+
+  <div class="row">
+    <dt>Your session</dt>
+    <dd>The cookies and trusted-device state that keep you signed in between launches, exactly as a browser keeps them.</dd>
+    <dd class="where">Isolated web session storage, plus the keychain, separately for each account you add</dd>
+  </div>
+
+  <div class="row">
+    <dt>A copy of your timetable</dt>
+    <dd>Only when you turn on <em>Instant Open and Offline Access</em>. It is what lets the app open on your schedule straight away, and still show it with no signal.</dd>
+    <dd class="where">App's own storage, written with full file protection on iOS and excluded from backups</dd>
+    <dd>On iPhone and iPad this file is cryptographically unreadable while your device is locked. Turning the setting off deletes it immediately.</dd>
+  </div>
+
+  <div class="row">
+    <dt>Your grades, documents and messages</dt>
+    <dd>Held in memory while you are reading them, and gone when the app closes. Omnivox Neo does not write your grades or your MIO messages to storage.</dd>
+    <dd class="where">Memory only — nothing written down</dd>
+    <dd>This is why those screens are greyed out in offline mode: there is genuinely no saved copy to show you.</dd>
+  </div>
+
+  <div class="row">
+    <dt>What your Home Screen widget draws</dt>
+    <dd>Your name as the portal gives it, your college's name, your accent colour, and today's classes with their times and rooms.</dd>
+    <dd class="where">Shared app-group storage, readable by the widget</dd>
+    <dd>Worth saying plainly: a widget has to be able to draw itself on a locked device, so this small copy is <em>not</em> behind Face ID. It holds only what you can already see on the Home Screen. Nothing else is shared with the widget — the widget process has no access to the app's keychain, cookies or anything else. It is removed when you sign out.</dd>
+  </div>
+
+  <div class="row">
+    <dt>Documents you open</dt>
+    <dd>A file a teacher posted is downloaded so it can be shown or shared, and lands in the system temporary folder that iOS clears on its own.</dd>
+    <dd class="where">Temporary storage</dd>
+  </div>
+
+  <div class="row">
+    <dt>Your own settings</dt>
+    <dd>Course colours and icons, a wallpaper you chose, which announcements you have already seen, your language, and whether the biometric lock is on.</dd>
+    <dd class="where">App preferences and the app's own storage</dd>
+  </div>
+
+  <div class="row">
+    <dt>Calendar entries, if you ask for them</dt>
+    <dd>Deadlines and classes mirrored into a calendar the app creates for you.</dd>
+    <dd class="where">Your device calendar, in a calendar named for the app</dd>
+    <dd>See the note on calendar access below.</dd>
+  </div>
+
+</dl>
+
+<div class="aside">
+  <h3>If you would rather it kept nothing</h3>
+  <p>Leave <em>Instant Open and Offline Access</em> off, in Account → On This Device, and don't ask the app to remember your password. You will sign in each time and the app will hold nothing but your session, like a browser tab. The trade is the one you would expect: no instant open, and nothing to show when you have no signal.</p>
+</div>
+
+<h2 id="permissions">What the app asks your device for</h2>
+
+<h3>Face ID or Touch ID</h3>
+<p>Used to unlock the saved password and to guard the saved timetable. Your biometric data is never available to the app — iOS performs the check and tells the app only whether it succeeded. The app asks for this only if you turn the lock on.</p>
+
+<h3>Calendar</h3>
+<p>Only if you turn on calendar sync. iOS offers apps either write-only access or full access, and write-only cannot update or remove an entry it previously created — which is the whole job here, since your timetable changes. So the app requests full access, and then uses it narrowly: it creates a calendar of its own, and only ever reads and writes inside that one. It does not list, read, or touch your other calendars or your personal events, and it does not copy anything out of them.</p>
+
+<h3>Nothing else</h3>
+<p>No location, no contacts, no photo library, no microphone, no camera, no push notifications. The app asks for no permission it does not use.</p>
+
+<h2 id="delete">Deleting your data</h2>
+
+<p>Both of these are in the app, under Account:</p>
+
+<ul>
+  <li><strong>Log out</strong> ends the session and removes the saved password, the trusted-device state, every cookie and cached web file for that account, the saved timetable, the widget's copy, and the mirrored calendar. Your name and your enrolled authenticator stay, so signing back in needs only your password.</li>
+  <li><strong>Removing the account from the device</strong> does all of that and also deletes the authenticator secret, your read-state, your personalisation, and the account's folder — so the next sign-in starts from nothing.</li>
+</ul>
+
+<p>Deleting the app removes everything it stored, as with any iOS app. One thing an app cannot reach: a calendar you asked for stays in your calendar app until you delete the app, since it was written into your own calendar store — if you want it gone first, turn calendar sync off before deleting.</p>
+
+<p>None of this touches your actual school record. To change or delete anything held <em>by your college</em>, you have to go to your college — this app has no privileged access to your record and no ability to delete anything on their servers.</p>
+
+<h2 id="demo">Demo mode</h2>
+
+<p>The app includes a demo account that uses invented students, courses, grades and messages, and never contacts any server. It exists so the app can be shown without exposing a real student's portal. Nothing you do in demo mode leaves your device, because nothing in demo mode goes anywhere.</p>
+
+<h2 id="children">Students under 14</h2>
+
+<p>Omnivox Neo is for students who already hold a college portal account, which in Quebec means CEGEP-age and older. The app does not knowingly collect anything from anyone, of any age, because it does not collect anything at all.</p>
+
+<h2 id="changes">Changes to this policy</h2>
+
+<p>If the app's behaviour changes, this page changes with it, and the date at the top moves. Because the app has no server, there is no way to change what it does with your data without shipping you a new version — which means you can always see what you agreed to by reading this page next to the version you are running. The app shows its version under Account.</p>
+
+<h2 id="contact">Contact</h2>
+
+<p>Questions about the app, this policy, or a privacy concern: <a href="mailto:ma.yuecheng@kells.ca">ma.yuecheng@kells.ca</a>. Omnivox Neo is made by Thomas Ma as an independent project.</p>
+
+<p>For anything about your actual student record — a wrong grade, a message you cannot find, access to your file, a request to correct or delete what the college holds — contact Dawson College directly. They hold that data; this app only displays it.</p>
+
+</main>
+
+<footer>
+  <p>Omnivox Neo is an unofficial client. Omnivox is a product of Skytech Communications. Dawson College is not involved in this app.</p>
+  <p><a href="index.html">Omnivox Neo</a> · <a href="confidentialite.html">Politique de confidentialité</a></p>
+</footer>
+
+</body>
+</html>

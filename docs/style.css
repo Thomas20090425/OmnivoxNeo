@@ -1,0 +1,219 @@
+/* Omnivox Neo — pages for the App Store listing.
+ *
+ * Everything here is served from the same origin as the page that loads it.
+ * No webfont service, no analytics, no embedded anything: a privacy policy
+ * that phones a third party to render itself is not telling the truth. The
+ * system font stack is the whole typography budget.
+ */
+
+:root {
+  --ink: #16181d;
+  --ink-soft: #55596b;
+  --ink-faint: #8a8fa3;
+  --paper: #fdfdfb;
+  --rule: #e3e3dd;
+  --accent: #2f5d50;
+  --panel: #f4f4f0;
+  --measure: 36rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #eceef2;
+    --ink-soft: #a7abba;
+    --ink-faint: #767b8c;
+    --paper: #14161a;
+    --rule: #2a2d35;
+    --accent: #7fc0ab;
+    --panel: #1c1f25;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  padding: 0 1.5rem 6rem;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 1.0625rem/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+main, header, footer { max-width: var(--measure); margin: 0 auto; }
+
+/* --- masthead --- */
+
+header { padding: 4.5rem 0 0; }
+
+.wordmark {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 3.5rem;
+}
+
+.wordmark a { color: var(--ink); text-decoration: none; }
+
+h1 {
+  font-size: 2.125rem;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  font-weight: 650;
+  margin: 0 0 0.75rem;
+}
+
+.standfirst {
+  font-size: 1.1875rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0 0 0.5rem;
+}
+
+/* State said in type rather than in a coloured dot or a pill. */
+.stamp {
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: 0.9375rem;
+  color: var(--ink-faint);
+  margin: 0;
+}
+
+/* --- body copy --- */
+
+h2 {
+  font-size: 1.25rem;
+  letter-spacing: -0.015em;
+  font-weight: 650;
+  margin: 3.25rem 0 0.75rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--rule);
+}
+
+h3 {
+  font-size: 1rem;
+  font-weight: 650;
+  margin: 2rem 0 0.4rem;
+}
+
+p { margin: 0 0 1rem; }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+strong { font-weight: 650; }
+
+ul { margin: 0 0 1rem; padding-left: 1.25rem; }
+
+li { margin-bottom: 0.5rem; }
+
+li::marker { color: var(--ink-faint); }
+
+.lede { font-size: 1.0625rem; }
+
+.aside {
+  background: var(--panel);
+  border-radius: 0.75rem;
+  padding: 1.25rem 1.375rem;
+  margin: 1.5rem 0;
+}
+
+.aside p:last-child { margin-bottom: 0; }
+
+.aside h3 { margin-top: 0; }
+
+/* --- the inventory table --- */
+
+.inventory { margin: 1.5rem 0 2rem; }
+
+.row {
+  border-top: 1px solid var(--rule);
+  padding: 1.125rem 0;
+}
+
+.row:last-child { border-bottom: 1px solid var(--rule); }
+
+.row dt {
+  font-weight: 650;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.row dd {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.9875rem;
+}
+
+.row dd + dd { margin-top: 0.3rem; }
+
+.row .where {
+  font-family: ui-serif, Georgia, "Times New Roman", serif;
+  font-style: italic;
+  color: var(--ink-faint);
+}
+
+/* --- never list --- */
+
+.nevers { list-style: none; padding: 0; }
+
+.nevers li {
+  padding-left: 1.5rem;
+  position: relative;
+  margin-bottom: 0.6rem;
+}
+
+.nevers li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--ink-faint);
+}
+
+/* --- links out --- */
+
+.outbound { list-style: none; padding: 0; margin: 1.25rem 0 2rem; }
+
+.outbound li {
+  border-top: 1px solid var(--rule);
+  padding: 0.9rem 0;
+  margin: 0;
+}
+
+.outbound li:last-child { border-bottom: 1px solid var(--rule); }
+
+.outbound a { font-weight: 600; display: block; margin-bottom: 0.15rem; }
+
+.outbound span { color: var(--ink-soft); font-size: 0.9375rem; }
+
+/* --- footer --- */
+
+footer {
+  margin-top: 4rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-faint);
+  font-size: 0.9375rem;
+}
+
+footer p { margin: 0 0 0.5rem; }
+
+footer a { color: var(--ink-soft); }
+
+/* --- landing page extras --- */
+
+.feature {
+  margin: 2.5rem 0;
+}
+
+.feature h3 { margin-bottom: 0.3rem; }
+
+.feature p { color: var(--ink-soft); margin-bottom: 0; }
+
+@media (max-width: 30rem) {
+  header { padding-top: 3rem; }
+  h1 { font-size: 1.75rem; }
+  .standfirst { font-size: 1.0625rem; }
+}
