@@ -609,6 +609,11 @@ final class AppModel: NSObject, ObservableObject {
         guard !enabled else { return }
         scheduleCache.clear()
         hasCachedScheduleSnapshot = false
+        // The saved roadmap goes too. It holds nothing but public issue
+        // titles, so it is not sensitive — but the Privacy Policy says this
+        // switch leaves nothing on the device, and "nothing" cannot have
+        // exceptions in it that only the developer knows about.
+        CommunityIssueCache().clear()
         limitation = nil
         endQuietRestore()
     }

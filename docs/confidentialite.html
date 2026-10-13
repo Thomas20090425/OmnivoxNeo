@@ -14,7 +14,7 @@
   <p class="wordmark"><a href="index.html">Omnivox&nbsp;Neo</a></p>
   <h1>Politique de confidentialité</h1>
   <p class="standfirst">Omnivox Neo communique avec votre collège et avec personne d'autre. Aucun compte à créer, aucun serveur à nous entre les deux, rien dont il faut se désinscrire.</p>
-  <p class="stamp">Mise à jour le 9 octobre 2026 · S'applique à Omnivox Neo pour iPhone, iPad et Mac · <a href="privacy.html">English version</a></p>
+  <p class="stamp">Mise à jour le 13 octobre 2026 · S'applique à Omnivox Neo pour iPhone, iPad et Mac · <a href="privacy.html">English version</a></p>
 </header>
 
 <main>
@@ -59,6 +59,10 @@
 
 <p>Une seule destination : l'adresse web du collège que vous avez choisi à la configuration. Pour Dawson, il s'agit de <code>dawsoncollege.omnivox.ca</code>. L'application refuse de considérer quoi que ce soit d'autre comme faisant partie de votre session : un lien doit être en HTTPS, sur cet hôte exact, sur le port standard, sinon l'application le confie à votre navigateur au lieu de s'y connecter.</p>
 
+<p>Il existe une deuxième adresse, et elle ne transporte rien à votre sujet. Avant le démarrage de l'application, celle-ci lit un petit fichier sur <code>raw.githubusercontent.com</code> indiquant quelles versions d'Omnivox Neo peuvent encore être utilisées — c'est ainsi qu'une version comportant un défaut grave peut être arrêtée. Il s'agit du téléchargement ordinaire d'un fichier public. Rien n'est transmis au-delà de ce que divulgue n'importe quelle requête web : l'adresse IP de votre appareil, et le fait que quelque chose a demandé ce fichier. Aucun identifiant, aucun compte, aucun rapport de version, rien sur vous ni sur votre collège.</p>
+
+<p>Une troisième et une quatrième n'existent qu'à cause de <a href="#retroaction">la fonction de rétroaction</a>, et seulement si vous l'utilisez. Ouvrir <strong>Rétroaction et feuille de route</strong> lit la liste publique des fiches du projet sur <code>api.github.com</code> — la même liste que n'importe qui peut consulter dans un navigateur, demandée sans compte et sans rien d'identifiant. Envoyer réellement quelque chose ajoute <code>thomas20090425.github.io</code>, qui sert le formulaire, et <code>bugdrop.neonwatty.workers.dev</code>, qui reçoit ce que vous avez écrit et le dépose. Ces deux-là sont décrites en détail plus bas, car, contrairement à tout le reste ici, elles font intervenir une entreprise qui n'est pas votre collège.</p>
+
 <p>Ce qui est transmis à cette unique destination, c'est ce qu'exige une connexion et ce qu'exige l'affichage d'une page : votre numéro d'étudiant et votre mot de passe à l'écran de connexion, votre code à deux facteurs si votre collège en demande un, les témoins de session ensuite, et les requêtes ordinaires pour les pages que vous consultez. C'est exactement ce que votre navigateur enverrait. Lorsque vous rédigez un message MIO dans l'application, ce message part vers le serveur de votre collège et c'est son système de courrier qui le livre.</p>
 
 <p>Il n'y a rien d'autre. Pour être précis sur ce que les applications font habituellement et que celle-ci ne fait pas :</p>
@@ -67,13 +71,13 @@
   <li>Aucune analytique ni suivi d'utilisation, d'aucune sorte. L'application ne vous mesure pas.</li>
   <li>Aucun service de rapport de plantage ou de diagnostic.</li>
   <li>Aucune publicité, aucun identifiant publicitaire, aucun profilage, aucune vente ni communication de quoi que ce soit.</li>
-  <li>Aucun SDK tiers. L'application est bâtie entièrement sur les cadres d'applications d'Apple : elle ne contient aucun code de fournisseur susceptible d'envoyer des données ailleurs.</li>
+  <li>Aucun SDK tiers. L'application elle-même est bâtie entièrement sur les cadres d'applications d'Apple : aucun code de fournisseur n'y est lié ni ne s'exécute au démarrage. Le seul code extérieur qui s'en approche est le formulaire de rétroaction, une page web qui n'existe que pendant que vous l'avez ouverte — <a href="#retroaction">décrite plus bas</a>.</li>
   <li>Aucun serveur exploité par nous, donc aucune copie de quoi que ce soit sur l'un d'eux.</li>
   <li>Aucun iCloud, aucun CloudKit, aucun trousseau iCloud. Rien ne se synchronise hors de l'appareil.</li>
   <li>Aucun compte chez nous, aucune liste de courriels, aucune infolettre.</li>
 </ul>
 
-<p>L'application le déclare à Apple dans son manifeste de confidentialité : aucun type de données recueilli, aucun suivi. C'est pourquoi sa fiche sur l'App Store indique <em>Aucune donnée collectée</em>.</p>
+<p>L'application le déclare à Apple dans son manifeste de confidentialité : aucun type de données recueilli, aucun suivi. C'est pourquoi sa fiche sur l'App Store indique <em>Aucune donnée collectée</em>. Le formulaire de rétroaction n'y change rien : rien n'est recueilli auprès de vous, l'ensemble se résume à ce que vous avez choisi d'écrire dans une case, et cela ne sert jamais à vous identifier, à vous mesurer, ni à quelque publicité que ce soit.</p>
 
 <h3>Une réserve honnête au sujet du contenu web</h3>
 
@@ -81,7 +85,7 @@
 
 <h2 id="avenir">Les fonctions absentes d'Omnivox, et ce qu'elles ne seront jamais</h2>
 
-<p>Omnivox Neo fait déjà des choses que le portail officiel ne fait pas — un widget pour l'écran d'accueil, un authentificateur intégré, un horaire consultable sans réseau, la synchronisation du calendrier — et d'autres s'ajouteront. Signaler un problème et demander une fonction sont deux de celles qui sont prévues.</p>
+<p>Omnivox Neo fait déjà des choses que le portail officiel ne fait pas — un widget pour l'écran d'accueil, un authentificateur intégré, un horaire consultable sans réseau, la synchronisation du calendrier — et d'autres s'ajouteront. Signaler un problème et demander une fonction étaient inscrits ici comme prévus ; ils ont maintenant été construits, et <a href="#retroaction">la section ci-dessous</a> est le compte rendu promis.</p>
 
 <p>Ces ajouts ne changent rien à l'engagement de cette page, et trois règles s'appliquent à chacun d'eux :</p>
 
@@ -92,6 +96,45 @@
 </ul>
 
 <p>Être une application non officielle n'est pas une raison de rester vague là-dessus. C'est la raison d'être précis : aucune institution ne répond d'Omnivox Neo, de sorte que la seule assurance dont vous disposez est ce qu'elle vous dit d'elle-même, et cela doit être vrai et vérifiable.</p>
+
+<h2 id="retroaction">Signaler un problème ou demander une fonction</h2>
+
+<p>C'est la seule partie d'Omnivox Neo qui envoie quelque chose ailleurs qu'à votre collège, et c'est la seule partie qu'il vous appartient entièrement d'utiliser ou d'ignorer. Rien de tout cela ne se produit à moins que vous n'ouvriez <strong>Compte → Rétroaction et feuille de route</strong> et ne choisissiez de le faire. Rien n'est recueilli en arrière-plan, à aucun moment, par aucune partie de cette fonction.</p>
+
+<h3>Consulter la liste</h3>
+
+<p>Ouvrir l'écran récupère la liste publique des fiches du projet depuis l'API de GitHub, à <code>api.github.com</code>. Il s'agit d'une requête anonyme pour une page publique : aucun compte, aucune clé, aucun identifiant, et rien sur vous, sur votre appareil au-delà de son adresse IP, ni sur votre collège. La réponse est conservée sur votre appareil pour que l'écran s'ouvre avec quelque chose dessus, et elle ne contient que des titres de fiches publiques et leur état. Elle est supprimée avec tout le reste lorsque vous désactivez <em>Ouverture instantanée et accès hors ligne</em>, ou que vous supprimez l'application.</p>
+
+<h3>Envoyer quelque chose</h3>
+
+<p>Le formulaire est une page web servie par GitHub Pages, affichée dans l'application dans une fenêtre qui lui est propre. Cette fenêtre est <strong>isolée de votre session Omnivox</strong> : elle possède son propre stockage, créé vide à l'ouverture et détruit à la fermeture, et elle n'a aucun accès à vos témoins, à votre mot de passe, à votre horaire, à vos notes ni à vos messages. Elle ne peut pas les lire, et rien dans l'application ne les lui transmet.</p>
+
+<p>Ce qui est envoyé, c'est exactement ce que vous écrivez dans le formulaire, plus deux choses que vous devez savoir :</p>
+
+<ul class="nevers">
+  <li><strong>Votre nom, seulement si vous en inscrivez un.</strong> La case est facultative et peut rester vide ; la laisser vide est normal, et la fiche indique alors qu'elle provient d'une personne anonyme. Ce que vous y inscrivez est publié avec la fiche : un prénom ou un surnom est donc le choix sensé. Aucune adresse courriel n'est demandée — ce champ est désactivé.</li>
+  <li><strong>La version de votre application</strong>, pour qu'un signalement puisse être rattaché à la version d'où il vient. C'est tout ce qui est joint automatiquement.</li>
+  <li><strong>Une capture d'écran, seulement si vous laissez la case cochée.</strong> Elle n'est jamais prise automatiquement, et dans l'application elle ne peut photographier que le formulaire lui-même plutôt que l'écran où le problème s'est produit — il vaut donc généralement mieux la décocher. Les journaux de console sont désactivés et la case correspondante part décochée.</li>
+</ul>
+
+<p><strong>Ce que vous écrivez devient public.</strong> C'est déposé comme une fiche dans le dépôt GitHub du projet, où tout le monde peut la lire, et elle y reste lisible. C'est bien l'intention — c'est ainsi que vous pouvez voir ce qu'il est advenu de votre signalement plutôt que d'avoir à croire qu'il s'est passé quelque chose — mais cela veut dire que le formulaire n'est pas l'endroit pour votre mot de passe, votre numéro d'étudiant, vos notes, ni quoi que ce soit que vous ne mettriez pas sur une page publique. L'application le dit avant d'ouvrir le formulaire, et le formulaire le redit.</p>
+
+<h3>Les deux entreprises que cela fait intervenir</h3>
+
+<p>Déposer une fiche sur GitHub exige une clé capable d'écrire dans le dépôt, et une clé livrée à l'intérieur d'une application est une clé que tout le monde possède. L'application n'en détient donc aucune. Le formulaire est plutôt pris en charge par <a href="https://bugdrop.dev" rel="noopener">BugDrop</a>, un service à code ouvert qui reçoit ce que vous avez écrit à <code>bugdrop.neonwatty.workers.dev</code> et dépose la fiche pour vous. Ce que vous envoyez transite donc par le serveur de BugDrop et aboutit sur celui de GitHub : ce sont deux entreprises ayant leurs propres politiques, qui régissent ce qu'elles en font :</p>
+
+<ul class="outbound">
+  <li>
+    <a href="https://bugdrop.dev" rel="noopener">BugDrop</a>
+    <span>Le service qui reçoit le formulaire et crée la fiche. Son code est public.</span>
+  </li>
+  <li>
+    <a href="https://docs.github.com/fr/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">Déclaration de confidentialité de GitHub</a>
+    <span>GitHub héberge la liste des fiches, le formulaire publié et le dépôt. Consulter la liste, charger le formulaire et déposer un signalement sont tous des requêtes vers GitHub.</span>
+  </li>
+</ul>
+
+<p>C'est le seul endroit, dans Omnivox Neo, où quelque chose qui vous appartient parvient à un tiers, et cela n'arrive que parce que vous avez rempli un formulaire et appuyé sur Submit. Si vous ne l'utilisez jamais, rien à votre sujet ne va ailleurs qu'à votre collège.</p>
 
 <h2 id="appareil">Ce qui reste sur votre appareil</h2>
 

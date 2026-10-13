@@ -12,8 +12,8 @@
 
 <header>
   <h1>Privacy Policy</h1>
-  <p class="standfirst">Omnivox Neo talks to your college and to nobody else. There is no account to make, no server of ours in the middle, and nothing to opt out of.</p>
-  <p class="stamp">Last updated 9 October 2026 · Applies to Omnivox Neo for iPhone, iPad and Mac</p>
+  <p class="standfirst">Omnivox Neo talks to your college and, if you choose to send feedback, to nobody else. There is no account to make, no server of ours in the middle, and nothing to opt out of.</p>
+  <p class="stamp">Last updated 13 October 2026 · Applies to Omnivox Neo for iPhone, iPad and Mac</p>
 </header>
 
 <main>
@@ -60,6 +60,8 @@
 
 <p>There is a second address, and it carries nothing about you. Before the app starts, it reads a small file from <code>raw.githubusercontent.com</code> listing which versions of Omnivox Neo are still fit to use — that is how a build with a serious fault can be told to stop. It is an ordinary download of a public file. Nothing is sent with it beyond what any web request discloses: your device's IP address, and the fact that something asked for that file. No identifier, no account, no version report, nothing about you or your college.</p>
 
+<p>A third and a fourth exist only because of <a href="#feedback">the feedback feature</a>, and only when you use it. Opening <strong>Feedback and Roadmap</strong> reads the project's public issue list from <code>api.github.com</code> — the same list anybody can read in a browser, fetched with no account and nothing identifying attached. Actually sending something adds <code>thomas20090425.github.io</code>, which serves the form, and <code>bugdrop.neonwatty.workers.dev</code>, which receives what you typed and files it. Those two are described in full below, because unlike everything else here they involve a company that is not your college.</p>
+
 <p>What goes to that one destination is what a sign-in needs and what a page request needs: your student number and password at the login screen, your two-factor code if your college asks for one, session cookies afterwards, and ordinary requests for the pages you are looking at. That is identical to what your browser would send. When you write a MIO message in the app, that message goes to your college's server and is delivered by your college's mail system.</p>
 
 <p>There is nothing else. To be specific about the things apps usually do and this one does not:</p>
@@ -68,13 +70,13 @@
   <li>No analytics or usage tracking of any kind. The app does not measure you.</li>
   <li>No crash or diagnostic reporting service.</li>
   <li>No advertising, no ad identifier, no profiling, and no sale or sharing of anything.</li>
-  <li>No third-party SDKs at all. The app is built entirely from Apple's own frameworks — there is no vendor code in it to send data anywhere.</li>
+  <li>No third-party SDKs. The app itself is built entirely from Apple's own frameworks, and no vendor code is linked into it or runs at launch. The one piece of outside code anywhere near it is the feedback form, which is a web page that only exists while you have that form open — described <a href="#feedback">below</a>.</li>
   <li>No server operated by us, so no copy of anything on one.</li>
   <li>Your password and your authenticator secret are never synced to iCloud. The app uses no CloudKit and no iCloud Keychain. The one exception is calendar sync, described below, and it is yours to switch on or leave off.</li>
   <li>No account with us, no email list, no newsletter.</li>
 </ul>
 
-<p>The app declares this to Apple in its privacy manifest as collecting no data types and performing no tracking, which is why its App Store listing says <em>Data Not Collected</em>.</p>
+<p>The app declares this to Apple in its privacy manifest as collecting no data types and performing no tracking, which is why its App Store listing says <em>Data Not Collected</em>. The feedback form does not change that: nothing is gathered from you, the whole of it is what you chose to type into a box, and it is never used to identify you, to measure you, or for advertising of any kind.</p>
 
 <h3>One honest caveat about web content</h3>
 
@@ -82,7 +84,7 @@
 
 <h2 id="future">Features that are not in Omnivox, and what they will never be</h2>
 
-<p>Omnivox Neo already does things the official portal does not — a Home Screen widget, a built-in authenticator, a timetable that works with no signal, calendar sync — and more will be added. Reporting a bug, and asking for a feature, are two that are planned.</p>
+<p>Omnivox Neo already does things the official portal does not — a Home Screen widget, a built-in authenticator, a timetable that works with no signal, calendar sync — and more will be added. Reporting a bug and asking for a feature were listed here as planned; they have now been built, and <a href="#feedback">the section below</a> is the promised account of them.</p>
 
 <p>Those additions change nothing about the promise on this page, and three rules bind every one of them:</p>
 
@@ -93,6 +95,45 @@
 </ul>
 
 <p>Being an unofficial app is not a reason to be vague about this. It is the reason to be exact: no institution stands behind Omnivox Neo, so the only assurance you have is what it tells you about itself, and that has to be true and checkable.</p>
+
+<h2 id="feedback">Reporting a bug, or asking for a feature</h2>
+
+<p>This is the one part of Omnivox Neo that sends something to somewhere other than your college, and it is the one part that is entirely yours to use or ignore. Nothing here happens unless you open <strong>Account → Feedback and Roadmap</strong> and choose to do it. Nothing is collected in the background, at any point, by any part of it.</p>
+
+<h3>Reading the list</h3>
+
+<p>Opening the screen fetches the project's public issue list from GitHub's API at <code>api.github.com</code>. That is an anonymous request for a public page: no account, no key, no identifier, and nothing about you, your device beyond its IP address, or your college. The reply is kept on your device so the screen opens with something on it, and it holds nothing but public issue titles and their status. It is deleted along with everything else when you turn off <em>Instant Open and Offline Access</em>, or delete the app.</p>
+
+<h3>Sending something</h3>
+
+<p>The form is a web page served from GitHub Pages, shown inside the app in a window of its own. That window is <strong>sealed off from your Omnivox session</strong>: it has its own storage, created empty when you open it and destroyed when you close it, and it has no access to your cookies, your password, your timetable, your grades or your messages. It cannot read them, and nothing in the app passes them to it.</p>
+
+<p>What is sent is exactly what you type into the form, plus two things you should know about:</p>
+
+<ul class="nevers">
+  <li><strong>Your name, only if you type one.</strong> The box is optional and may be left empty; leaving it empty is normal and the report is then shown as coming from an anonymous contributor. Whatever you put in it is published with the report, so a first name or a nickname is the sensible thing to use. No email address is asked for — that field is switched off.</li>
+  <li><strong>Your app version</strong>, so a report can be matched to the build it came from. That is the whole of what is attached automatically.</li>
+  <li><strong>A screenshot, only if you leave the box ticked.</strong> It is never taken automatically, and inside the app it can only photograph the feedback form itself rather than the screen you had the problem on — so it is usually worth unticking. Console logs are switched off and start unticked.</li>
+</ul>
+
+<p><strong>What you write becomes public.</strong> It is filed as an issue on the project's GitHub repository, where anyone can read it, and it stays readable there. That is the point — it is how you can see what happened to your report instead of having to trust that something did — but it means the form is not the place for your password, your student number, your grades or anything else you would not put on a public page. The app says so before it opens the form, and the form says so again.</p>
+
+<h3>The two companies this involves</h3>
+
+<p>Filing an issue on GitHub needs a key that can write to the repository, and a key shipped inside an app is a key everybody has. So the app does not hold one. Instead the form is carried by <a href="https://bugdrop.dev" rel="noopener">BugDrop</a>, an open-source service that receives what you typed at <code>bugdrop.neonwatty.workers.dev</code> and files the issue on your behalf. What you submit therefore passes through BugDrop's server and ends up on GitHub's, and both of those are companies with their own policies, which govern what they do with it:</p>
+
+<ul class="outbound">
+  <li>
+    <a href="https://bugdrop.dev" rel="noopener">BugDrop</a>
+    <span>The service that receives the form and creates the issue. Its code is public.</span>
+  </li>
+  <li>
+    <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener">GitHub Privacy Statement</a>
+    <span>GitHub hosts the issue list, the published form, and the repository. Reading the list, loading the form and filing a report are all requests to GitHub.</span>
+  </li>
+</ul>
+
+<p>This is the only place in Omnivox Neo where anything of yours reaches a third party, and it only happens because you filled in a form and pressed Submit. If you never use it, nothing about you goes anywhere except your college.</p>
 
 <h2 id="device">What stays on your device</h2>
 

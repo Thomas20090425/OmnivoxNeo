@@ -4,11 +4,11 @@ import Foundation
 /// Where this app's own agreements live, and which revision of them a student
 /// has agreed to.
 ///
-/// The addresses are `nil` until the documents are actually published. That is
-/// deliberate rather than a placeholder left behind: a link that goes nowhere
-/// is worse than a word that is plainly not a link yet, and this way the
-/// acceptance step can ship and be tested before the pages exist. Filling in
-/// `eulaURL` and `privacyURL` is the whole of turning them on.
+/// The app shows both documents from copies carried in its own bundle, so they
+/// open with no signal and cannot drift from what was agreed to. The published
+/// addresses below are not used to display anything — they are the canonical
+/// record of where the same text lives on the web, for the App Store listing
+/// and for anyone who wants to read it outside the app.
 enum LegalDocuments {
     /// Bumped whenever the agreements change in a way a student should see.
     ///
@@ -16,12 +16,25 @@ enum LegalDocuments {
     /// than quietly treating an old yes as covering new terms. That is the
     /// difference between a consent record that means something and one that
     /// only looks like it does.
-    static let currentVersion = "2026-10-13"
+    /// Moved for the feedback feature: it is the first thing in this app that
+    /// sends anything to a party other than the student's own college, and the
+    /// agreements promised in writing that such a feature would be described
+    /// and re-accepted before it shipped rather than announced afterwards.
+    static let currentVersion = "2026-10-13b"
 
-    /// This app's own End User Licence Agreement. Not published yet.
-    static let eulaURL: URL? = nil
-    /// This app's own privacy policy. Not published yet.
-    static let privacyURL: URL? = nil
+    /// This app's own End User Licence Agreement, as published.
+    ///
+    /// - Note: `docs/` is in the path because GitHub Pages for this repository
+    ///   serves from the branch root rather than from the `docs` folder. These
+    ///   addresses are the ones that actually answer; they were checked rather
+    ///   than assumed, since a link that 404s in a submission is a rejection.
+    static let eulaURL = URL(
+        string: "https://thomas20090425.github.io/OmnivoxNeo/docs/terms.html"
+    )
+    /// This app's own privacy policy, as published.
+    static let privacyURL = URL(
+        string: "https://thomas20090425.github.io/OmnivoxNeo/docs/privacy.html"
+    )
 
     /// The college's own conditions, which keep applying to a student's
     /// account however they reach it — including through this app.

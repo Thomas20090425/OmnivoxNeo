@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Omnivox Neo — report a bug or request a feature</title>
+<meta name="description" content="Report a bug in Omnivox Neo, or ask for a feature. Reports become public issues on GitHub. Your name is optional and nothing from your college account is included.">
+<meta name="robots" content="noindex, follow">
+<meta name="color-scheme" content="light dark">
+<style>
+/* Self-contained on purpose. This page is loaded inside the app as well as in
+   a browser, and a stylesheet that fails to resolve would leave somebody
+   looking at unstyled text where a form should be. */
+:root {
+  --accent: #0a84ff;
+  --ink: #1c1c1e;
+  --ink-dim: #6c6c70;
+  --canvas: #f2f2f7;
+  --surface: #ffffff;
+  --hairline: rgba(60, 60, 67, 0.18);
+  --warn-ink: #8a5a00;
+  --warn-bg: rgba(255, 196, 61, 0.16);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #f2f2f7;
+    --ink-dim: #98989f;
+    --canvas: #000000;
+    --surface: #1c1c1e;
+    --hairline: rgba(84, 84, 88, 0.6);
+    --warn-ink: #ffd479;
+    --warn-bg: rgba(255, 196, 61, 0.12);
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font: -apple-system-body;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto,
+    system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.47;
+  color: var(--ink);
+  background: var(--canvas);
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  padding: max(20px, env(safe-area-inset-top)) 20px
+           max(24px, env(safe-area-inset-bottom)) 20px;
+}
+main { max-width: 34rem; margin: 0 auto; }
+
+h1 {
+  font-size: 1.55rem;
+  line-height: 1.2;
+  letter-spacing: -0.021em;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+p { margin: 0 0 1rem; }
+.lede { color: var(--ink-dim); }
+.card {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin: 0 0 16px;
+}
+.card h2 {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin: 0 0 8px;
+}
+.card p:last-child, .card ul:last-child { margin-bottom: 0; }
+ul { margin: 0 0 1rem; padding-left: 1.15rem; }
+li { margin-bottom: 0.4rem; }
+li:last-child { margin-bottom: 0; }
+.note {
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 0 0 16px;
+  font-size: 0.94rem;
+}
+.note strong { font-weight: 650; }
+
+button.primary {
+  appearance: none;
+  -webkit-appearance: none;
+  display: block;
+  width: 100%;
+  min-height: 50px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 4px 0 14px;
+  transition: opacity 0.12s ease-out;
+}
+button.primary:active { opacity: 0.78; }
+button.primary:disabled { opacity: 0.4; cursor: default; }
+button.primary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+.status {
+  font-size: 0.9rem;
+  color: var(--ink-dim);
+  text-align: center;
+  min-height: 1.3em;
+  margin: 0 0 14px;
+}
+.status[data-kind="error"] { color: #d1342f; }
+@media (prefers-color-scheme: dark) {
+  .status[data-kind="error"] { color: #ff6961; }
+}
+
+a { color: var(--accent); }
+footer {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--hairline);
+  font-size: 0.84rem;
+  color: var(--ink-dim);
+}
+footer p { margin: 0 0 0.5rem; }
+
+/* Inside the app, the app draws the title and the explanation itself, so the
+   page shows only the button and the notices. Nothing is duplicated and
+   nothing scrolls that does not need to. */
+body.embedded .web-only { display: none; }
+body.embedded { padding-top: 4px; }
+
+[hidden] { display: none !important; }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+</style>
+</head>
+<body>
+
+<main>
+
+<div class="web-only">
+  <h1 data-i18n="title">Report a bug, or ask for a feature</h1>
+  <p class="lede" data-i18n="lede">This form files an issue against Omnivox Neo. It is read by one
+  person — the student who writes the app — and what happens to it afterwards is public, on the
+  project's issue list.</p>
+</div>
+
+<div class="note" role="note">
+  <p data-i18n="public"><strong>What you write here becomes public.</strong> It is posted as an
+  issue on GitHub, where anyone can read it. Do not include your password, your student number,
+  your grades, or anything else you would not put on a public page.</p>
+</div>
+
+<button type="button" class="primary" id="open" disabled data-i18n="open">
+  Open the feedback form
+</button>
+
+<p class="status" id="status" role="status" aria-live="polite" data-i18n="loading">Loading the
+form…</p>
+
+<div class="card web-only">
+  <h2 data-i18n="knowHead">Before you send it</h2>
+  <ul>
+    <li data-i18n="knowName"><strong>Your name is optional.</strong> The form has a name box and
+    leaving it empty is a normal thing to do — the issue then simply says it came from an
+    anonymous contributor. Whatever you type in it is published with the issue, so put in a first
+    name or a nickname rather than anything that identifies you at your college.</li>
+    <li data-i18n="knowNoAccount">You do not need a GitHub account, and you are not signing in to
+    anything.</li>
+    <li data-i18n="knowNoData">Nothing from your college account is attached. This form has no
+    access to your Omnivox session, your timetable, your grades or your messages — it runs in its
+    own window with none of that in it.</li>
+    <li data-i18n="knowShot">The form offers to attach a screenshot. Inside the app it can only
+    photograph <em>this form</em>, not the screen you had the problem on, so it is usually worth
+    unticking. Describing what you saw works better.</li>
+    <li data-i18n="knowLang">The form itself is in English. The rest of the app is not — this one
+    part is not ours to translate.</li>
+  </ul>
+</div>
+
+<div class="card web-only">
+  <h2 data-i18n="writeHead">What makes a report useful</h2>
+  <ul>
+    <li data-i18n="writeWhat">What you tapped, what you expected, and what happened instead.</li>
+    <li data-i18n="writeWhere">Which screen — schedule, grades, MIO, sign-in.</li>
+    <li data-i18n="writeVersion">Your app version. It is attached automatically, and it is also
+    shown at the bottom of the Account tab.</li>
+  </ul>
+</div>
+
+<footer class="web-only">
+  <p data-i18n="who">Submissions are carried to GitHub by
+  <a href="https://bugdrop.dev" rel="noopener">BugDrop</a>, an open-source service that files the
+  issue on your behalf so this app does not have to hold a key that could write to the
+  repository.</p>
+  <p data-i18n="links">
+    <a href="privacy.html">Privacy Policy</a> ·
+    <a href="https://github.com/Thomas20090425/OmnivoxNeo/issues" rel="noopener">Read the existing
+    issues</a>
+  </p>
+</footer>
+
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  var REPO = 'Thomas20090425/OmnivoxNeo';
+  var ISSUE_PREFIX = 'https://github.com/' + REPO + '/issues/';
+  var button = document.getElementById('open');
+  var status = document.getElementById('status');
+
+  // ---- French copy -------------------------------------------------------
+  // The BugDrop form is English-only (its locales are de/en/nl/pl), but the
+  // page around it does not have to be, and the notices on it are the part
+  // somebody actually has to understand before they press the button.
+  var FR = {
+    title: 'Signaler un bogue ou proposer une fonction',
+    lede: 'Ce formulaire crée une fiche pour Omnivox Neo. Elle est lue par une seule personne — '
+      + "l'étudiant qui écrit l'application — et la suite est publique, sur la liste des fiches "
+      + 'du projet.',
+    public: '<strong>Ce que vous écrivez ici devient public.</strong> C’est publié comme une fiche '
+      + 'sur GitHub, que tout le monde peut lire. N’y mettez pas votre mot de passe, votre numéro '
+      + 'd’étudiant, vos notes, ni quoi que ce soit que vous ne mettriez pas sur une page publique.',
+    open: 'Ouvrir le formulaire',
+    loading: 'Chargement du formulaire…',
+    knowHead: 'Avant d’envoyer',
+    knowName: '<strong>Votre nom est facultatif.</strong> Le formulaire a une case pour le nom et '
+      + 'la laisser vide est normal — la fiche indique alors simplement qu’elle vient d’une '
+      + 'personne anonyme. Ce que vous y écrivez est publié avec la fiche : mettez un prénom ou un '
+      + 'surnom plutôt que quelque chose qui vous identifie à votre collège.',
+    knowNoAccount: 'Vous n’avez pas besoin d’un compte GitHub et vous ne vous connectez à rien.',
+    knowNoData: 'Rien de votre compte collégial n’est joint. Ce formulaire n’a aucun accès à votre '
+      + 'session Omnivox, à votre horaire, à vos notes ni à vos messages — il s’exécute dans sa '
+      + 'propre fenêtre, sans rien de tout cela.',
+    knowShot: 'Le formulaire propose de joindre une capture d’écran. Dans l’application, il ne peut '
+      + 'photographier que <em>ce formulaire</em>, pas l’écran où le problème s’est produit : il '
+      + 'vaut donc généralement mieux décocher la case et décrire ce que vous avez vu.',
+    knowLang: 'Le formulaire lui-même est en anglais. Le reste de l’application ne l’est pas — '
+      + 'cette partie-là ne nous appartient pas.',
+    writeHead: 'Ce qui rend un signalement utile',
+    writeWhat: 'Ce que vous avez touché, ce que vous attendiez, et ce qui s’est passé à la place.',
+    writeWhere: 'Quel écran — horaire, notes, MIO, connexion.',
+    writeVersion: 'La version de l’application. Elle est jointe automatiquement, et elle est aussi '
+      + 'affichée au bas de l’onglet Compte.',
+    who: 'Les envois sont transmis à GitHub par <a href="https://bugdrop.dev" rel="noopener">'
+      + 'BugDrop</a>, un service à code ouvert qui dépose la fiche pour vous, afin que cette '
+      + 'application n’ait pas à détenir une clé capable d’écrire dans le dépôt.',
+    links: '<a href="confidentialite.html">Politique de confidentialité</a> · '
+      + '<a href="https://github.com/Thomas20090425/OmnivoxNeo/issues" rel="noopener">Lire les '
+      + 'fiches existantes</a>'
+  };
+
+  var STATUS_TEXT = {
+    en: {
+      loading: 'Loading the form…',
+      ready: 'Nothing is sent until you press Submit in the form.',
+      slow: 'The form is taking a while. Check your connection, or open this page in a browser.',
+      failed: 'The form could not be loaded. Open this page in a browser to try again.'
+    },
+    fr: {
+      loading: 'Chargement du formulaire…',
+      ready: 'Rien n’est envoyé avant que vous n’appuyiez sur Submit dans le formulaire.',
+      slow: 'Le formulaire est lent à charger. Vérifiez votre connexion, ou ouvrez cette page '
+        + 'dans un navigateur.',
+      failed: 'Le formulaire n’a pas pu être chargé. Ouvrez cette page dans un navigateur pour '
+        + 'réessayer.'
+    }
+  };
+
+  // ---- What the app tells the page --------------------------------------
+  // Read from the fragment rather than the query string, so none of it is sent
+  // to GitHub Pages in a request line or written into its access logs. All of
+  // it is validated: these values end up in attributes on a script tag.
+  var settings = (function () {
+    var out = { version: null, accent: null, lang: 'en', embedded: false };
+    var raw = (window.location.hash || '').replace(/^#/, '');
+    if (!raw) return out;
+    raw.split('&').forEach(function (pair) {
+      var split = pair.indexOf('=');
+      if (split < 0) return;
+      var key = pair.slice(0, split);
+      var value = decodeURIComponent(pair.slice(split + 1));
+      if (key === 'v' && /^[0-9A-Za-z.\-+_ ]{1,128}$/.test(value)) {
+        out.version = value;
+      } else if (key === 'accent' && /^#[0-9a-fA-F]{6}$/.test(value)) {
+        out.accent = value;
+      } else if (key === 'lang' && /^(en|fr)$/.test(value)) {
+        out.lang = value;
+      } else if (key === 'embedded' && value === '1') {
+        out.embedded = true;
+      }
+    });
+    return out;
+  })();
+
+  var text = STATUS_TEXT[settings.lang] || STATUS_TEXT.en;
+
+  if (settings.lang === 'fr') {
+    document.documentElement.lang = 'fr';
+    Object.keys(FR).forEach(function (key) {
+      var node = document.querySelector('[data-i18n="' + key + '"]');
+      if (node) node.innerHTML = FR[key];
+    });
+  }
+  if (settings.accent) {
+    document.documentElement.style.setProperty('--accent', settings.accent);
+  }
+  if (settings.embedded) {
+    document.body.classList.add('embedded');
+  }
+
+  // ---- Talking back to the app -----------------------------------------
+  function tellApp(payload) {
+    try {
+      var handlers = window.webkit && window.webkit.messageHandlers;
+      if (handlers && handlers.omnivoxNeo) {
+        handlers.omnivoxNeo.postMessage(payload);
+      }
+    } catch (error) {
+      // Running in a plain browser. The page works on its own.
+    }
+  }
+
+  function setStatus(message, kind) {
+    status.textContent = message;
+    if (kind) {
+      status.setAttribute('data-kind', kind);
+    } else {
+      status.removeAttribute('data-kind');
+    }
+  }
+
+  // ---- Watching for the issue that gets created -------------------------
+  // BugDrop dispatches no event on submit, but with data-show-issue-link it
+  // puts a link to the new issue on screen. Noticing that link is the only
+  // honest way to know a report actually landed — so the app can name the
+  // issue number instead of guessing that the form closing meant success.
+  var submittedNumber = null;
+
+  function noticeIssueLinks(root) {
+    var links;
+    try {
+      links = root.querySelectorAll('a[href]');
+    } catch (error) {
+      return;
+    }
+    for (var i = 0; i < links.length; i++) {
+      var href = links[i].getAttribute('href') || '';
+      if (href.indexOf(ISSUE_PREFIX) === 0) {
+        var number = parseInt(href.slice(ISSUE_PREFIX.length), 10);
+        if (number > 0) submittedNumber = number;
+      }
+    }
+  }
+
+  function scanForIssueLink(node) {
+    if (!node || node.nodeType !== 1) return;
+    noticeIssueLinks(node);
+    // The widget renders into a shadow root, which querySelectorAll does not
+    // reach into, so each host is scanned as well.
+    var hosts = node.querySelectorAll('*');
+    if (node.shadowRoot) scanForIssueLink(node.shadowRoot);
+    for (var i = 0; i < hosts.length; i++) {
+      if (hosts[i].shadowRoot) {
+        noticeIssueLinks(hosts[i].shadowRoot);
+      }
+    }
+  }
+
+  if (window.MutationObserver) {
+    new MutationObserver(function (records) {
+      for (var i = 0; i < records.length; i++) {
+        var added = records[i].addedNodes;
+        for (var j = 0; j < added.length; j++) scanForIssueLink(added[j]);
+      }
+    }).observe(document.documentElement, { childList: true, subtree: true });
+  }
+
+  // ---- Driving the form -------------------------------------------------
+  var wasOpen = false;
+
+  function watchForClose() {
+    var api = window.BugDrop;
+    if (!api || typeof api.isOpen !== 'function') return;
+    var isOpen = api.isOpen();
+    if (isOpen) {
+      wasOpen = true;
+    } else if (wasOpen) {
+      wasOpen = false;
+      scanForIssueLink(document.documentElement);
+      tellApp({ event: 'closed', issue: submittedNumber });
+      submittedNumber = null;
+    }
+  }
+  setInterval(watchForClose, 300);
+
+  function openForm() {
+    if (!window.BugDrop || typeof window.BugDrop.open !== 'function') {
+      setStatus(text.failed, 'error');
+      tellApp({ event: 'failed' });
+      return;
+    }
+    window.BugDrop.open();
+    tellApp({ event: 'opened' });
+  }
+
+  button.addEventListener('click', openForm);
+  // The app may ask for the form directly, so the person does not have to press
+  // a button on a web page that only exists to hold one.
+  window.omnivoxNeoOpenFeedback = openForm;
+
+  function markReady() {
+    button.disabled = false;
+    setStatus(text.ready);
+    tellApp({ event: 'ready' });
+  }
+
+  // Check first, listen second: the widget may already have finished before
+  // this script runs, in which case no event is coming.
+  if (window.BugDrop) {
+    markReady();
+  } else {
+    window.addEventListener('bugdrop:ready', markReady, { once: true });
+    setTimeout(function () {
+      if (window.BugDrop) return;
+      setStatus(text.slow, 'error');
+      tellApp({ event: 'slow' });
+    }, 9000);
+  }
+
+  // ---- Loading the widget ----------------------------------------------
+  // Inserted from script rather than written in the markup, because two of its
+  // attributes are decided at runtime: the app's version, so an issue records
+  // which build it came from, and the accent colour the student picked, so the
+  // form does not arrive in a different colour from the app around it.
+  var widget = document.createElement('script');
+  widget.src = 'https://bugdrop.neonwatty.workers.dev/widget.v1.56.4.js';
+  widget.setAttribute('data-repo', REPO);
+  // No floating button: the page and the app both provide their own, which is
+  // the documented API-only mode.
+  widget.setAttribute('data-button', 'false');
+  // A name box, never required. Nobody has to say who they are to report a bug.
+  widget.setAttribute('data-show-name', 'true');
+  widget.setAttribute('data-require-name', 'false');
+  // No address asked for, so none can be published by accident.
+  widget.setAttribute('data-show-email', 'false');
+  widget.setAttribute('data-require-email', 'false');
+  // Offered, never taken automatically.
+  widget.setAttribute('data-screenshot', 'optional');
+  // Off. A console log from this page would be about this page, and a log is
+  // exactly the kind of thing that carries more than anybody intended.
+  widget.setAttribute('data-send-console-logs', 'false');
+  widget.setAttribute('data-theme', 'auto');
+  widget.setAttribute('data-locale', 'en');
+  widget.setAttribute('data-welcome', 'Report a bug or request a feature in Omnivox Neo.');
+  widget.setAttribute('data-show-issue-link', 'public');
+  if (settings.accent) widget.setAttribute('data-color', settings.accent);
+  if (settings.version) widget.setAttribute('data-app-version', settings.version);
+  widget.addEventListener('error', function () {
+    setStatus(text.failed, 'error');
+    tellApp({ event: 'failed' });
+  });
+  document.body.appendChild(widget);
+
+  setStatus(text.loading);
+})();
+</script>
+
+</body>
+</html>

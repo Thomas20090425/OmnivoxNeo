@@ -90,29 +90,25 @@ struct MeView: View {
                     }
                 }
 
+                // Who wrote this, with a face on it.
+                //
+                // An unofficial app asks for a college password on nobody's
+                // authority but its own. "Who is behind this?" is the first
+                // fair question, and it should not have an answer only a
+                // lawyer can find, so it gets a row of its own rather than a
+                // line inside the licence.
                 Section {
                     NavigationLink {
-                        AppSettingsView(model: model)
+                        AboutTheAuthorView()
                     } label: {
                         SettingsRowLabel(
-                            title: "App Settings",
-                            systemImage: "gearshape.fill",
+                            title: "About the Developer",
+                            systemImage: "person.fill",
                             tint: Neo.accent
                         )
                     }
-                    .accessibilityHint("Opens application settings")
-
-                    Button(role: .destructive) {
-                        showsRemoveAccountOptions = true
-                    } label: {
-                        SettingsRowLabel(
-                            title: "Log Out",
-                            systemImage: "rectangle.portrait.and.arrow.right",
-                            tint: .red,
-                            isDestructive: true
-                        )
-                    }
-                    .disabled(isRemovingAccount)
+                } header: {
+                    Text("About")
                 }
 
                 // Reachable from inside the app, not only from the App Store
@@ -137,19 +133,56 @@ struct MeView: View {
                 } header: {
                     Text("Legal")
                 } footer: {
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text("Omnivox Neo is an independent app. It is not made by, affiliated with, or endorsed by your college or by Skytech, and it is not a replacement for Omnivox.")
-                        // Shown back rather than merely recorded: the point of
-                        // keeping it is that somebody can check what they
-                        // agreed to and when, and a record only they cannot
-                        // see would not serve that.
-                        if let version = acceptance.acceptedVersion,
-                           let date = acceptance.acceptedAt {
-                            Text(
-                                "You accepted version \(version) on \(date.formatted(date: .abbreviated, time: .shortened)). This record is kept on this device only."
-                            )
-                        }
+                    // Shown back rather than merely recorded: the point of
+                    // keeping it is that somebody can check what they agreed to
+                    // and when, and a record only they cannot see would not
+                    // serve that.
+                    if let version = acceptance.acceptedVersion,
+                       let date = acceptance.acceptedAt {
+                        Text(
+                            "You accepted version \(version) on \(date.formatted(date: .abbreviated, time: .shortened)). This record is kept on this device only."
+                        )
                     }
+                }
+
+                // Last, and in that order: the settings, then the way to say
+                // something is wrong with them, then the way out. Logging out
+                // is the end of the screen because it is the end of the
+                // session — nothing should sit below it.
+                Section {
+                    NavigationLink {
+                        AppSettingsView(model: model)
+                    } label: {
+                        SettingsRowLabel(
+                            title: "App Settings",
+                            systemImage: "gearshape.fill",
+                            tint: Neo.accent
+                        )
+                    }
+                    .accessibilityHint("Opens application settings")
+
+                    NavigationLink {
+                        CommunityFeedbackView()
+                    } label: {
+                        SettingsRowLabel(
+                            title: "Feedback and Roadmap",
+                            systemImage: "bubble.left.and.exclamationmark.bubble.right.fill",
+                            tint: Neo.accent
+                        )
+                    }
+                    .accessibilityHint("Report a bug, request a feature, or see what is already known")
+
+                    Button(role: .destructive) {
+                        showsRemoveAccountOptions = true
+                    } label: {
+                        SettingsRowLabel(
+                            title: "Log Out",
+                            systemImage: "rectangle.portrait.and.arrow.right",
+                            tint: .red,
+                            isDestructive: true
+                        )
+                    }
+                    .disabled(isRemovingAccount)
                 }
 
                 Section {
