@@ -196,6 +196,22 @@ struct PortalConventions: Sendable, Equatable {
     var cardTitleSelector: String = ".carte-portail-titre"
     var cardDetailSelector: String = ".carte-portail-desc"
 
+    // MARK: College interceptions
+    //
+    // Pages the college puts in front of a student who is otherwise signed in
+    // — an ID photo it wants retaken, an agreement to accept, a form. They are
+    // served correctly and they belong to the college, not to this app, which
+    // is exactly why the app shows them rather than trying to drive them.
+
+    /// Matched on the path, not the whole address, so one rule covers every
+    /// kind of interception rather than only the photo one we happen to have
+    /// seen. The college adds these over time and never tells anybody.
+    var interceptionPathFragment: String = "/ui/omnivox-interceptions/"
+    /// The portal's own navigation bar, hidden while the interception is shown
+    /// inside the app: it offers Quit and a link out to the college's website,
+    /// neither of which leads anywhere good from in here.
+    var interceptionChromeSelector: String = "header.MuiAppBar-root"
+
     // MARK: Multi-factor verification
 
     /// Every verification page lives under this path.
@@ -278,6 +294,8 @@ struct PortalConventions: Sendable, Equatable {
             "eventRoom": eventRoomSelector,
             "eventTypeDetail": eventTypeDetailSelector,
             "emptyAgenda": emptyAgendaSelector,
+            "interceptionPath": interceptionPathFragment,
+            "interceptionChrome": interceptionChromeSelector,
             "eventCard": eventCardSelector,
             "eventCardCategoryPrefix": eventCardCategoryClassPrefix,
             "eventCardTime": eventCardTimeSelector,

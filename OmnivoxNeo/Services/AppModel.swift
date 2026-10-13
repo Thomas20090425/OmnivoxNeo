@@ -11,6 +11,9 @@ final class AppModel: NSObject, ObservableObject {
         case verification
         case securitySetupGuidance
         case securitySetup
+        /// The college is holding sign-in up over something of its own, and
+        /// its own page is being shown so the student can deal with it here.
+        case schoolInterception
         case schedule
     }
 
@@ -127,6 +130,8 @@ final class AppModel: NSObject, ObservableObject {
     private var credentialsAwaitingBiometricEnrollment: Credentials?
     private var authenticatedNavigationHandled = false
     private var extractionGeneration = UUID()
+    /// Running only while the college's own interception page is on screen.
+    private var interceptionWatchTask: Task<Void, Never>?
     /// Set only when the app has flipped the events webpart to its other
     /// rendering to get a reading, so it knows to flip it back.
     private var hasFlippedCalendarView = false
@@ -333,6 +338,24 @@ final class AppModel: NSObject, ObservableObject {
                 errorMessage: nil
             )
             screen = .verification
+            return
+        }
+
+        // The college's own interception, reached the way the real one is:
+        // loaded into the session's web view at the address the portal uses,
+        // so detection, the hidden chrome and the hand-off all run for real
+        // rather than being set by hand here.
+        if startsAutomatically,
+           ProcessInfo.processInfo.arguments.contains("--demo-school-interception")
+        {
+            isDemoMode = true
+            screen = .launching
+            webView.loadHTMLString(
+                Self.demoInterceptionPage,
+                baseURL: institution.origin
+                    .appending(path: institution.conventions.interceptionPathFragment)
+                    .appending(path: "interception/photo/photo")
+            )
             return
         }
         #endif
@@ -2286,7 +2309,98 @@ final class AppModel: NSObject, ObservableObject {
         }
     }
 
+    /// Whether the page in front of us is the college interrupting, rather
+    /// than a page this app failed to read.
+    private var isOnSchoolInterception: Bool {
+        guard let url = webView.url, institution.owns(url) else { return false }
+        return url.path.lowercased()
+            .contains(institution.conventions.interceptionPathFragment.lowercased())
+    }
+
+    /// Shows the college's own page instead of accusing the sign-in of failing.
+    ///
+    /// This is the whole point of the exception. Landing here means the
+    /// student's password was accepted and their session is live — the college
+    /// is simply asking for something before it will hand over the portal. The
+    /// app used to read that as a sign-in that had gone wrong and start the
+    /// sixty-second countdown, which told a student their password was the
+    /// problem when it was not, and sent them round the loop again.
+    private func showSchoolInterceptionIfNeeded() -> Bool {
+        guard isOnSchoolInterception else { return false }
+
+        // Whatever was queued against this navigation is wrong, and saying so
+        // loudly matters more than tidiness: there is nothing to sign in to
+        // again, so any countdown already running is cancelled outright.
+        clearSignInDemand()
+        limitation = nil
+        endQuietRestore()
+
+        hideInterceptionChrome()
+        watchForInterceptionBeingFinished()
+
+        screen = .schoolInterception
+        isBusy = false
+        return true
+    }
+
+    /// Takes the portal's own navigation bar out of the page.
+    ///
+    /// Written as a stylesheet rule rather than by removing the element: the
+    /// page is a React app that redraws itself as the student moves through
+    /// it, and a node removed by hand comes straight back. A rule does not.
+    private func hideInterceptionChrome() {
+        let script = #"""
+        (() => {
+            const NEO = \#(institution.conventions.javascriptDescriptor);
+            if (!location.pathname.toLowerCase().includes(NEO.interceptionPath.toLowerCase())) {
+                return false;
+            }
+            const id = 'neo-interception-style';
+            if (document.getElementById(id)) return true;
+            const style = document.createElement('style');
+            style.id = id;
+            style.textContent = NEO.interceptionChrome + ' { display: none !important; }';
+            (document.head || document.documentElement).appendChild(style);
+            return true;
+        })();
+        """#
+        webView.evaluateJavaScript(script)
+    }
+
+    /// Keeps looking until the student is through.
+    ///
+    /// "Later" and "Submit" both leave this page, but the page is a React app
+    /// and can change what it shows without a navigation this app would hear
+    /// about — so waiting for `didFinish` alone is not enough. Re-reading the
+    /// page on a timer is: the moment it is the portal's own dashboard, the
+    /// ordinary classifier recognises it and moves the app on, which takes
+    /// this screen away without anything here having to decide that.
+    private func watchForInterceptionBeingFinished() {
+        guard interceptionWatchTask == nil else { return }
+        interceptionWatchTask = Task { [weak self] in
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .milliseconds(1200))
+                guard let self, !Task.isCancelled else { return }
+                guard self.screen == .schoolInterception else {
+                    self.interceptionWatchTask = nil
+                    return
+                }
+                // Still the college's page: keep its chrome hidden through
+                // whatever the page has redrawn, and look again.
+                if self.isOnSchoolInterception {
+                    self.hideInterceptionChrome()
+                } else {
+                    self.inspectLoadedPage()
+                }
+            }
+        }
+    }
+
     private func handleUnknownPage() {
+        // Before anything else, including the quiet-restore intercept below.
+        // A college interception is not a dead end and not a failed sign-in.
+        if showSchoolInterceptionIfNeeded() { return }
+
         if institution.owns(webView.url),
            submissionState == .submitted
             || navigationContext == .restoringSession
@@ -3264,6 +3378,45 @@ final class AppModel: NSObject, ObservableObject {
     // Not `#if DEBUG`: `DemoAccount` reaches these from the sign-in screen in
     // every configuration, which is what makes the demo showable on a phone
     // that has never seen Xcode.
+
+    /// The photo-ID interception, reproduced closely enough to prove the real
+    /// thing is handled — the portal's MUI navigation bar included, because
+    /// hiding that bar is half of what this screen does.
+    private static let demoInterceptionPage = """
+    <!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body { margin:0; font: 15px -apple-system, system-ui, sans-serif; color:#1f2328;
+             background:#fff; }
+      header.MuiAppBar-root { display:flex; align-items:center; gap:14px; padding:12px 16px;
+             border-bottom:1px solid #e5e7eb; box-shadow:0 4px 6px -2px rgba(0,0,0,.05); }
+      .brand { color:#f68c35; font-weight:700; font-size:20px; }
+      .who { margin-left:auto; text-align:right; font-size:13px; color:#555; }
+      main { padding:22px 20px; }
+      .row { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+      .chip { width:38px; height:38px; border-radius:10px; background:#e8eaf6;
+              display:flex; align-items:center; justify-content:center; }
+      h1 { font-size:19px; margin:0; font-weight:600; }
+      .actions { display:flex; justify-content:flex-end; gap:16px; margin-top:26px; }
+      button { font:inherit; border:0; border-radius:6px; padding:9px 18px; cursor:pointer; }
+      .later { background:none; color:#2d5fa6; }
+      .submit { background:#2d5fa6; color:#fff; }
+    </style></head><body>
+    <header class="MuiPaper-root MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionSticky">
+      <span class="brand">Omnivox</span>
+      <div class="who">Thomas Ma<br><b>Dawson College</b></div>
+      <div style="margin-left:18px">Comments</div><div style="margin-left:18px">Quit</div>
+    </header>
+    <main>
+      <div class="row"><div class="chip">&#128100;</div><h1>Photo ID</h1></div>
+      <p><b>The photo that you previously transmitted <i>does not respect of the
+      College's criteria.</i></b></p>
+      <p>Take a new photo making sure to respect the specified criteria.</p>
+      <div class="actions">
+        <button class="later">Later</button><button class="submit">Submit</button>
+      </div>
+    </main>
+    </body></html>
+    """
 
     private func configureDemoVerification() {
         isDemoMode = true

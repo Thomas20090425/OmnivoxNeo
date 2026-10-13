@@ -56,8 +56,17 @@ struct LeaView: View {
         }
         // Nothing is fetched while the college is out of reach. A read that
         // is certain to fail is not worth the error it produces.
-        .task {
-            guard limitation == nil else { return }
+        //
+        // Keyed on whether the portal is actually ready, not just on this tab
+        // appearing. Unlocking with Face ID shows the saved timetable first
+        // and signs in behind it, and someone quick enough to tap Léa during
+        // that second landed on the portal's sign-in form instead of Léa —
+        // which reads as "your session expired", from a session that was in
+        // the middle of being established. Waiting re-runs this the moment
+        // the restore finishes; until then the screen says it is opening,
+        // which is the truth.
+        .task(id: model.portalIsIdle) {
+            guard limitation == nil, model.portalIsIdle else { return }
             store.loadIfNeeded()
         }
     }

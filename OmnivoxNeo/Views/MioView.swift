@@ -45,8 +45,11 @@ struct MioView: View {
                 stackBody
             }
         }
-        .task {
-            guard limitation == nil else { return }
+        // Keyed on the portal being ready rather than on this tab appearing —
+        // see the same note in `LeaView`. A tap during a quiet restore used to
+        // reach the sign-in form and come back as "your session expired".
+        .task(id: model.portalIsIdle) {
+            guard limitation == nil, model.portalIsIdle else { return }
             store.loadIfNeeded()
         }
         .animation(.snappy(duration: 0.25), value: store.notice)

@@ -56,6 +56,9 @@ final class VersionGateService: ObservableObject {
 
     private var pollingTask: Task<Void, Never>?
     private var hasManifest = false
+    /// Whether one round trip has finished, successfully or not. Launch stops
+    /// waiting on this rather than on the clock alone.
+    @Published private(set) var hasFinishedAnAttempt = false
     private let session: URLSession
     private let version: String
     private let channel: AppRelease.Channel
@@ -103,8 +106,15 @@ final class VersionGateService: ObservableObject {
         // Races the first answer against the clock: whichever lands first ends
         // the wait. A continuous clock rather than a sleeping task because the
         // deadline has to hold across the app being suspended mid-launch.
+        //
+        // The failed-attempt check is what keeps this honest on a bad
+        // connection. Five seconds is a cap on waiting for an answer, not a
+        // penalty for not getting one: once an attempt has come back empty we
+        // already know the policy is "carry on", and holding a student on the
+        // launch screen for the remaining four seconds to prove it would undo
+        // the instant open this app went to some trouble for.
         let deadline = ContinuousClock.now.advanced(by: Self.launchGrace)
-        while decision == nil, ContinuousClock.now < deadline {
+        while decision == nil, !hasFinishedAnAttempt, ContinuousClock.now < deadline {
             try? await Task.sleep(for: .milliseconds(50))
             if Task.isCancelled { break }
         }
@@ -136,6 +146,7 @@ final class VersionGateService: ObservableObject {
         var request = URLRequest(url: Self.manifestURL)
         request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
         request.httpMethod = "GET"
+        defer { hasFinishedAnAttempt = true }
 
         do {
             let (data, response) = try await session.data(for: request)

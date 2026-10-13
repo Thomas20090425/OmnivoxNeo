@@ -114,7 +114,12 @@ private struct PortalSessionView: View {
         guard hasOpened else { return false }
         switch model.screen {
         case .schedule, .locked: return true
-        case .launching, .login, .verification, .securitySetupGuidance, .securitySetup: return false
+        // The interception sits with the rest of them for the same reason: it
+        // drives the portal session directly, and Home's three web views would
+        // be reading the same session out from under it.
+        case .launching, .login, .verification, .securitySetupGuidance, .securitySetup,
+             .schoolInterception:
+            return false
         }
     }
 
@@ -142,6 +147,8 @@ private struct PortalSessionView: View {
                         SecuritySetupGuidanceView(model: model)
                     case .securitySetup:
                         SecuritySetupView(model: model)
+                    case .schoolInterception:
+                        SchoolInterceptionView(model: model)
                     case .schedule:
                         EmptyView()
                     }
