@@ -57,7 +57,9 @@
 
 <h2 id="sends">What the app sends, and where</h2>
 
-<p>Exactly one destination: the web address of the college you picked when you set the app up. For Dawson that is <code>dawsoncollege.omnivox.ca</code>. The app refuses to treat anything else as part of your session — a link has to be HTTPS, on that exact host, on the standard port, or the app hands it to your browser instead of signing in to it.</p>
+<p>One destination carries everything about you: the web address of the college you picked when you set the app up. For Dawson that is <code>dawsoncollege.omnivox.ca</code>. The app refuses to treat anything else as part of your session — a link has to be HTTPS, on that exact host, on the standard port, or the app hands it to your browser instead of signing in to it.</p>
+
+<p>There is a second address, and it carries nothing about you. Before the app starts, it reads a small file from <code>raw.githubusercontent.com</code> listing which versions of Omnivox Neo are still fit to use — that is how a build with a serious fault can be told to stop. It is an ordinary download of a public file. Nothing is sent with it beyond what any web request discloses: your device's IP address, and the fact that something asked for that file. No identifier, no account, no version report, nothing about you or your college.</p>
 
 <p>What goes to that one destination is what a sign-in needs and what a page request needs: your student number and password at the login screen, your two-factor code if your college asks for one, session cookies afterwards, and ordinary requests for the pages you are looking at. That is identical to what your browser would send. When you write a MIO message in the app, that message goes to your college's server and is delivered by your college's mail system.</p>
 
@@ -69,7 +71,7 @@
   <li>No advertising, no ad identifier, no profiling, and no sale or sharing of anything.</li>
   <li>No third-party SDKs at all. The app is built entirely from Apple's own frameworks — there is no vendor code in it to send data anywhere.</li>
   <li>No server operated by us, so no copy of anything on one.</li>
-  <li>No iCloud, no CloudKit, no iCloud Keychain. Nothing syncs off the device.</li>
+  <li>Your password and your authenticator secret are never synced to iCloud. The app uses no CloudKit and no iCloud Keychain. The one exception is calendar sync, described below, and it is yours to switch on or leave off.</li>
   <li>No account with us, no email list, no newsletter.</li>
 </ul>
 
@@ -122,8 +124,8 @@
   <div class="row">
     <dt>What your Home Screen widget draws</dt>
     <dd>Your name as the portal gives it, your college's name, your accent colour, and today's classes with their times and rooms.</dd>
-    <dd class="where">Shared app-group storage, readable by the widget</dd>
-    <dd>Worth saying plainly: a widget has to be able to draw itself on a locked device, so this small copy is <em>not</em> behind Face ID. It holds only what you can already see on the Home Screen. Nothing else is shared with the widget — the widget process has no access to the app's keychain, cookies or anything else. It is removed when you sign out.</dd>
+    <dd class="where">Shared app-group storage, readable by the widget, included in device backups</dd>
+    <dd>Worth saying plainly: a widget has to be able to draw itself on a locked device, so this small copy is <em>not</em> behind Face ID, and unlike the file above it is not excluded from your device backup. It holds only what you can already see on your Home Screen. Nothing else is shared with the widget — the widget process has no access to the app's keychain, cookies or anything else. It is removed when you sign out.</dd>
   </div>
 
   <div class="row">
@@ -159,6 +161,16 @@
 
 <h3>Calendar</h3>
 <p>Only if you turn on calendar sync. iOS offers apps either write-only access or full access, and write-only cannot update or remove an entry it previously created — which is the whole job here, since your timetable changes. So the app requests full access, and then uses it narrowly: it creates a calendar of its own, and only ever reads and writes inside that one. It does not list, read, or touch your other calendars or your personal events, and it does not copy anything out of them.</p>
+
+<div class="aside">
+  <h3>Calendar sync is the one thing that leaves your device</h3>
+  <p>The calendar it creates is made inside whichever account your device already uses for new events. On most iPhones that is <strong>iCloud</strong> — which is the point, because it is what makes your class times show up on your Mac and iPad too. But it means that with calendar sync on, your course names, your room numbers and your coursework deadlines are uploaded to Apple and stored in your iCloud account, under Apple's privacy policy rather than this one.</p>
+  <p>That is the only case where anything about your schoolwork goes anywhere other than your college. If you would rather it did not, leave calendar sync off — everything else in the app keeps working — or change your default calendar to <em>On My iPhone</em> before switching it on.</p>
+</div>
+
+<h3>The clipboard, during two-factor setup only</h3>
+<p>If you use the guided setup for the built-in authenticator, the app watches your clipboard for a few seconds while that screen is open. It has to: Omnivox hands over the authenticator secret by copying it, and there is no other way to catch it. iOS shows you a paste banner when this happens.</p>
+<p>It watches only on that screen, it is looking for one thing, and the moment it has that secret it <strong>clears your clipboard</strong> — so the secret is not left behind for other apps to read, and does not travel to your other devices through Universal Clipboard. Nothing read from the clipboard is stored, logged or sent anywhere.</p>
 
 <h3>Nothing else</h3>
 <p>No location, no contacts, no photo library, no microphone, no camera, no push notifications. The app asks for no permission it does not use.</p>

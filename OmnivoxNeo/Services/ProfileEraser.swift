@@ -54,7 +54,21 @@ enum ProfileEraser {
         AgendaReadState(profileID: profile.id).clear()
         clearPreferences(for: profile.id, includingAuthenticatorHints: true)
         removeProfileDirectory(for: profile.id)
+
+        // The last student ID is kept across a sign-out on purpose, so signing
+        // back in only needs a password. Removing the account is the other
+        // thing entirely — it says start from nothing — and a student number
+        // still sitting in the sign-in field afterwards makes a liar of that.
+        // Only cleared when it belonged to the account being removed, so
+        // deleting one of several accounts does not empty the field for the
+        // one that is still here.
+        if UserDefaults.standard.string(forKey: retainedStudentIDKey) == profile.studentID {
+            UserDefaults.standard.removeObject(forKey: retainedStudentIDKey)
+        }
     }
+
+    /// Mirrors `AppModel.studentIDPreferenceKey`, which is private to it.
+    private static let retainedStudentIDKey = "login.last-student-id"
 
     // MARK: - Storage
 
