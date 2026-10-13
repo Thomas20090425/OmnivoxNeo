@@ -6,6 +6,20 @@
 //
 
 import SwiftUI
+
+/// Debug-only logging for the guided two-factor setup.
+///
+/// This flow reads the system clipboard on a timer to catch the secret the
+/// portal puts there, which means it sees whatever else the student had
+/// copied — another app's password, a message. None of that belongs in a log
+/// on a device anybody is actually using, and the secret itself belongs there
+/// least of all, so what survives is lengths and outcomes rather than values.
+private func devLog(_ message: @autoclosure () -> String) {
+    #if DEBUG
+    print("[2FA setup] " + message())
+    #endif
+}
+
 import WebKit
 import Combine
 
@@ -41,7 +55,7 @@ struct TOTPGuidedSetupView: View {
         .onAppear {
             // Clear clipboard when setup starts
             Pasteboard.clear()
-            print("🗑️ Cleared clipboard on setup start")
+            devLog("🗑️ Cleared clipboard on setup start")
         }
         .onChange(of: coordinator.currentStep) { _, newStep in
             // Only save when setup is completed successfully
@@ -316,7 +330,7 @@ struct TOTPGuidedSetupView: View {
 
     private func saveSecret(_ secret: String) {
         guard let profileID = PortalProfileStore.shared.activeProfileID else {
-            print("❌ No active profile found")
+            devLog("❌ No active profile found")
             return
         }
 
@@ -365,7 +379,7 @@ class SetupCoordinator: NSObject, ObservableObject {
     }
 
     func recheckClipboard() {
-        print("🔄 Manually rechecking clipboard...")
+        devLog("🔄 Manually rechecking clipboard...")
 
         if let content = Pasteboard.text {
             let cleaned = content.replacingOccurrences(of: " ", with: "")
@@ -374,28 +388,34 @@ class SetupCoordinator: NSObject, ObservableObject {
                 .replacingOccurrences(of: "\t", with: "")
                 .uppercased()
 
-            print("📋 Clipboard content: '\(cleaned)'")
-            print("📋 Length: \(cleaned.count)")
+            devLog("Clipboard holds \(cleaned.count) usable characters")
 
             let isValidLength = cleaned.count >= 16 && cleaned.count <= 52
             let isBase32 = cleaned.allSatisfy { "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567=".contains($0) }
 
-            print("📋 Valid length: \(isValidLength), Is Base32: \(isBase32)")
+            devLog("📋 Valid length: \(isValidLength), Is Base32: \(isBase32)")
 
             if isValidLength && isBase32 {
-                print("✅ Valid TOTP secret found in clipboard!")
+                devLog("✅ Valid TOTP secret found in clipboard!")
                 capturedSecret = cleaned
+                // Taken off the clipboard the moment it is in hand. This is a
+                // two-factor seed: left sitting there it is readable by every
+                // other app on the device, and with Universal Clipboard on it
+                // travels to the student's other Apple devices through Apple's
+                // servers. Clearing it at setup start was never enough — that
+                // is before the secret arrives.
+                Pasteboard.clear()
             } else {
-                print("❌ Clipboard does not contain valid TOTP secret")
+                devLog("❌ Clipboard does not contain valid TOTP secret")
             }
         } else {
-            print("❌ Clipboard is empty")
+            devLog("❌ Clipboard is empty")
         }
     }
 
     func recheckSecretVisibility() {
         guard let webView = webView else { return }
-        print("🔄 Manually rechecking secret visibility...")
+        devLog("🔄 Manually rechecking secret visibility...")
 
         webView.evaluateJavaScript("""
         (function() {
@@ -406,17 +426,17 @@ class SetupCoordinator: NSObject, ObservableObject {
         })();
         """) { [weak self] result, error in
             if let error = error {
-                print("❌ Recheck error: \(error)")
+                devLog("❌ Recheck error: \(error)")
             }
 
             if let isVisible = result as? Bool {
-                print("📄 Recheck - Secret visible: \(isVisible)")
+                devLog("📄 Recheck - Secret visible: \(isVisible)")
                 if isVisible {
-                    print("✅ Secret NOW visible - starting clipboard monitoring")
+                    devLog("✅ Secret NOW visible - starting clipboard monitoring")
                     self?.currentStep = .copySecret
                     self?.startMonitoringClipboard()
                 } else {
-                    print("❌ Secret still not visible")
+                    devLog("❌ Secret still not visible")
                 }
             }
         }
@@ -439,7 +459,7 @@ class SetupCoordinator: NSObject, ObservableObject {
                 } else {
                     // Still exists, show error
                     self?.deletionError = true
-                    print("⚠️ User tried to proceed without deleting authenticator")
+                    devLog("⚠️ User tried to proceed without deleting authenticator")
                 }
             }
         }
@@ -454,7 +474,7 @@ class SetupCoordinator: NSObject, ObservableObject {
     func revealNextButton() {
         nextButtonUnhidden = true
         guard let webView else {
-            print("❌ WebView is nil, cannot reveal the Next button")
+            devLog("❌ WebView is nil, cannot reveal the Next button")
             return
         }
 
@@ -486,9 +506,9 @@ class SetupCoordinator: NSObject, ObservableObject {
 
         webView.evaluateJavaScript(script) { result, error in
             if let error {
-                print("❌ Failed to reveal the Next button: \(error)")
+                devLog("❌ Failed to reveal the Next button: \(error)")
             } else {
-                print("✅ Next button revealed (\(result ?? 0) present)")
+                devLog("✅ Next button revealed (\(result ?? 0) present)")
             }
         }
     }
@@ -503,7 +523,7 @@ class SetupCoordinator: NSObject, ObservableObject {
     func startMonitoringClipboard() {
         isMonitoringClipboard = true
 
-        print("🔍 Started monitoring clipboard")
+        devLog("🔍 Started monitoring clipboard")
 
         // Check immediately if clipboard already has a valid secret
         if let content = Pasteboard.text {
@@ -517,8 +537,15 @@ class SetupCoordinator: NSObject, ObservableObject {
             let isBase32 = cleaned.allSatisfy { "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567=".contains($0) }
 
             if isValidLength && isBase32 {
-                print("✅ Clipboard already contains valid TOTP secret!")
+                devLog("✅ Clipboard already contains valid TOTP secret!")
                 capturedSecret = cleaned
+                // Taken off the clipboard the moment it is in hand. This is a
+                // two-factor seed: left sitting there it is readable by every
+                // other app on the device, and with Universal Clipboard on it
+                // travels to the student's other Apple devices through Apple's
+                // servers. Clearing it at setup start was never enough — that
+                // is before the secret arrives.
+                Pasteboard.clear()
                 currentStep = .enterCode
                 revealNextButton()
                 return
@@ -536,7 +563,7 @@ class SetupCoordinator: NSObject, ObservableObject {
         guard let webView = webView,
               let currentURL = webView.url,
               currentURL.path.contains("/totp/") else {
-            print("❌ Cannot navigate - invalid URL")
+            devLog("❌ Cannot navigate - invalid URL")
             return
         }
 
@@ -555,7 +582,7 @@ class SetupCoordinator: NSObject, ObservableObject {
                 .appending(queryItems: [URLQueryItem(name: "mode", value: "validation")])
                 .absoluteString
 
-            print("🔄 Navigating to validation page: \(validationURL)")
+            devLog("🔄 Navigating to validation page: \(validationURL)")
 
             if let url = URL(string: validationURL) {
                 webView.load(URLRequest(url: url))
@@ -566,21 +593,20 @@ class SetupCoordinator: NSObject, ObservableObject {
     private func checkClipboard() {
         let content = Pasteboard.text
 
-        print("📋 Checking clipboard...")
-        print("📋 Current content: \(content ?? "nil")")
-        print("📋 Last content: \(lastClipboardContent ?? "nil")")
+        devLog("📋 Checking clipboard...")
+        devLog("Clipboard: \(content?.count ?? 0) chars, previously \(lastClipboardContent?.count ?? 0)")
 
         guard let content = content else {
-            print("📋 No clipboard content")
+            devLog("📋 No clipboard content")
             return
         }
 
         guard content != lastClipboardContent else {
-            print("📋 Content unchanged")
+            devLog("📋 Content unchanged")
             return
         }
 
-        print("📋 ✅ Clipboard changed to: \(content)")
+        devLog("Clipboard changed (\(content.count) chars)")
 
         // Check if it's a TOTP secret (base32, 16-52 chars)
         let cleaned = content.replacingOccurrences(of: " ", with: "")
@@ -589,33 +615,39 @@ class SetupCoordinator: NSObject, ObservableObject {
             .replacingOccurrences(of: "\t", with: "")
             .uppercased()
 
-        print("📋 After cleaning: '\(cleaned)'")
-        print("📋 Length: \(cleaned.count)")
+        devLog("After cleaning: \(cleaned.count) chars")
 
         let isValidLength = cleaned.count >= 16 && cleaned.count <= 52
-        print("📋 Valid length (16-52): \(isValidLength)")
+        devLog("📋 Valid length (16-52): \(isValidLength)")
 
         let isBase32 = cleaned.allSatisfy { "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567=".contains($0) }
-        print("📋 Is Base32: \(isBase32)")
+        devLog("📋 Is Base32: \(isBase32)")
 
         if isValidLength && isBase32 {
-            print("✅✅✅ Valid TOTP secret detected!")
+            devLog("✅✅✅ Valid TOTP secret detected!")
             clipboardTimer?.invalidate()
             clipboardTimer = nil
             isMonitoringClipboard = false
             capturedSecret = cleaned
+            // Taken off the clipboard the moment it is in hand. This is a
+            // two-factor seed: left sitting there it is readable by every
+            // other app on the device, and with Universal Clipboard on it
+            // travels to the student's other Apple devices through Apple's
+            // servers. Clearing it at setup start was never enough — that
+            // is before the secret arrives.
+            Pasteboard.clear()
 
             // Switch to enterCode step to show TOTP code at top
             DispatchQueue.main.async { [weak self] in
                 self?.currentStep = .enterCode
-                print("✅ Step changed to enterCode - showing TOTP code")
+                devLog("✅ Step changed to enterCode - showing TOTP code")
             }
 
             DispatchQueue.main.async { [weak self] in
                 self?.revealNextButton()
             }
         } else {
-            print("❌ Not a valid TOTP secret")
+            devLog("❌ Not a valid TOTP secret")
         }
 
         lastClipboardContent = content
@@ -655,7 +687,7 @@ struct GuidedWebView: PlatformViewRepresentable {
 
         let url = institution.origin
             .appending(path: institution.conventions.mfaSettingsPath)
-        print("🔐 TOTP Setup: Loading initial URL: \(url.absoluteString)")
+        devLog("🔐 TOTP Setup: Loading initial URL: \(url.absoluteString)")
         webView.load(URLRequest(url: url))
 
         return webView
@@ -764,15 +796,15 @@ struct GuidedWebView: PlatformViewRepresentable {
 
             webView.evaluateJavaScript(script) { _, error in
                 if let error = error {
-                    print("❌ Failed to inject CSS: \(error)")
+                    devLog("❌ Failed to inject CSS: \(error)")
                 } else {
-                    print("✅ CSS injected successfully")
+                    devLog("✅ CSS injected successfully")
                 }
             }
         }
 
         func unhideNextButton(_ webView: WKWebView) {
-            print("🔓 Unhiding Next button...")
+            devLog("🔓 Unhiding Next button...")
             setupCoordinator.nextButtonUnhidden = true
             injectHideStyles(webView)
         }
@@ -780,7 +812,7 @@ struct GuidedWebView: PlatformViewRepresentable {
         func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
             // Check current page and update step
             webView.url.map { url in
-                print("📍 Current page: \(url.path)")
+                devLog("📍 Current page: \(url.path)")
 
                 if url.path.contains("/validation-methods/totp/create") {
                     // On TOTP create page - inject CSS and handle secret detection
@@ -788,7 +820,7 @@ struct GuidedWebView: PlatformViewRepresentable {
                     handleCreatePage(webView)
                 } else if url.path.contains("/validate") {
                     // On validation page - inject CSS to hide back button
-                    print("📄 On validation page - injecting CSS")
+                    devLog("📄 On validation page - injecting CSS")
                     injectValidationPageCSS(webView)
                     setupCoordinator.currentStep = .enterCode
                 } else if url.path == institution.conventions.mfaSettingsPath {
@@ -843,9 +875,9 @@ struct GuidedWebView: PlatformViewRepresentable {
 
             webView.evaluateJavaScript(script) { [weak self] _, error in
                 if let error = error {
-                    print("❌ Failed to inject validation CSS: \(error)")
+                    devLog("❌ Failed to inject validation CSS: \(error)")
                 } else {
-                    print("✅ Validation page CSS injected successfully")
+                    devLog("✅ Validation page CSS injected successfully")
 
                     // Auto-fill TOTP code after CSS injection
                     self?.autoFillTOTPCode(webView)
@@ -855,17 +887,17 @@ struct GuidedWebView: PlatformViewRepresentable {
 
         private func autoFillTOTPCode(_ webView: WKWebView) {
             guard let secret = setupCoordinator.capturedSecret else {
-                print("❌ No captured secret to generate TOTP")
+                devLog("❌ No captured secret to generate TOTP")
                 return
             }
 
             // Generate TOTP code
             guard let generator = try? TOTPGenerator(secret: secret) else {
-                print("❌ Failed to generate TOTP code")
+                devLog("❌ Failed to generate TOTP code")
                 return
             }
             let totp = generator.generateCode()
-            print("🔑 Auto-filling TOTP code: \(totp)")
+            devLog("Auto-filling the current code")
 
             // Wait a bit for the page to fully loadayou
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -911,18 +943,18 @@ struct GuidedWebView: PlatformViewRepresentable {
 
                 webView.evaluateJavaScript(script) { [weak self] result, error in
                     if let error = error {
-                        print("❌ Failed to auto-fill TOTP: \(error)")
+                        devLog("❌ Failed to auto-fill TOTP: \(error)")
                         return
                     }
 
                     if let dict = result as? [String: Any] {
-                        print("📊 Auto-fill result: \(dict)")
+                        devLog("📊 Auto-fill result: \(dict)")
                         if let success = dict["success"] as? Bool, success {
-                            print("✅ TOTP code auto-filled and input blocked")
+                            devLog("✅ TOTP code auto-filled and input blocked")
                             // Start update timer
                             self?.startTOTPUpdateTimer(webView)
                         } else {
-                            print("❌ Failed: \(dict["error"] ?? "unknown")")
+                            devLog("❌ Failed: \(dict["error"] ?? "unknown")")
                         }
                     }
                 }
@@ -932,7 +964,7 @@ struct GuidedWebView: PlatformViewRepresentable {
         private func startTOTPUpdateTimer(_ webView: WKWebView) {
             setupCoordinator.totpUpdateTimer?.invalidate()
 
-            print("⏱️ Starting TOTP auto-update timer (every 2 seconds)")
+            devLog("⏱️ Starting TOTP auto-update timer (every 2 seconds)")
 
             setupCoordinator.totpUpdateTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
                 guard let secret = self?.setupCoordinator.capturedSecret,
@@ -970,10 +1002,10 @@ struct GuidedWebView: PlatformViewRepresentable {
                 webView.evaluateJavaScript(updateScript) { result, _ in
                     if let dict = result as? [String: Any] {
                         if let updated = dict["updated"] as? Bool, updated {
-                            print("🔄 Code updated: \(dict["old"] ?? "") → \(dict["new"] ?? "")")
+                            devLog("Code rolled over")
                         }
                         if let success = dict["success"] as? Bool, !success {
-                            print("⏹️ Stopping timer - input no longer exists")
+                            devLog("⏹️ Stopping timer - input no longer exists")
                             self?.setupCoordinator.totpUpdateTimer?.invalidate()
                             self?.setupCoordinator.totpUpdateTimer = nil
                         }
@@ -985,7 +1017,7 @@ struct GuidedWebView: PlatformViewRepresentable {
         private func handleMethodsPage(_ webView: WKWebView) {
             // Set loading state
             setupCoordinator.isDetectingAuth = true
-            print("🔄 Starting auth detection...")
+            devLog("🔄 Starting auth detection...")
 
             // Wait for page to fully render before checking
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
@@ -1036,20 +1068,20 @@ struct GuidedWebView: PlatformViewRepresentable {
                     }
 
                     if let error = error {
-                        print("❌ Error detecting auth: \(error)")
+                        devLog("❌ Error detecting auth: \(error)")
                         return
                     }
 
                     if let dict = result as? [String: Any] {
-                        print("📊 Auth detection result: \(dict)")
+                        devLog("📊 Auth detection result: \(dict)")
 
                         if let exists = dict["exists"] as? Bool {
                             self?.setupCoordinator.hasExistingAuth = exists
-                            print("🔍 Has existing auth: \(exists)")
+                            devLog("🔍 Has existing auth: \(exists)")
 
                             // If we have a captured secret and auth now exists, setup was successful
                             if exists && self?.setupCoordinator.capturedSecret != nil {
-                                print("✅ TOTP setup completed successfully!")
+                                devLog("✅ TOTP setup completed successfully!")
 
                                 // Stop update timer
                                 self?.setupCoordinator.totpUpdateTimer?.invalidate()
@@ -1061,7 +1093,7 @@ struct GuidedWebView: PlatformViewRepresentable {
                                 }
                             } else if !exists && self?.setupCoordinator.capturedSecret == nil {
                                 // Only show "not detected" if we weren't just setting up
-                                print("⚠️ No auth app detected on methods page")
+                                devLog("⚠️ No auth app detected on methods page")
                             }
                         }
                     }
@@ -1079,26 +1111,26 @@ struct GuidedWebView: PlatformViewRepresentable {
                 return secretEl !== null && secretEl.textContent.trim().length > 0;
             })();
             """) { [weak self] result, error in
-                print("🔍 Checking for secret visibility...")
+                devLog("🔍 Checking for secret visibility...")
                 if let error = error {
-                    print("❌ Error checking secret: \(error)")
+                    devLog("❌ Error checking secret: \(error)")
                 }
 
                 if let isVisible = result as? Bool {
-                    print("📄 Secret visible: \(isVisible)")
+                    devLog("📄 Secret visible: \(isVisible)")
                     if isVisible {
-                        print("✅ Secret is visible - starting clipboard monitoring")
+                        devLog("✅ Secret is visible - starting clipboard monitoring")
                         self?.setupCoordinator.currentStep = .copySecret
                         self?.setupCoordinator.startMonitoringClipboard()
                     } else {
-                        print("⏳ Secret not yet visible - showing reveal guide")
+                        devLog("⏳ Secret not yet visible - showing reveal guide")
                         self?.setupCoordinator.currentStep = .revealSecret
 
                         // Poll every second to check if secret becomes visible
                         self?.startPollingForSecret(webView)
                     }
                 } else {
-                    print("⚠️ Could not determine secret visibility")
+                    devLog("⚠️ Could not determine secret visibility")
                     self?.setupCoordinator.currentStep = .revealSecret
                     self?.startPollingForSecret(webView)
                 }
@@ -1112,7 +1144,7 @@ struct GuidedWebView: PlatformViewRepresentable {
                 attempts += 1
 
                 if attempts > 30 {
-                    print("⏱️ Stopped polling for secret after 30 seconds")
+                    devLog("⏱️ Stopped polling for secret after 30 seconds")
                     timer.invalidate()
                     return
                 }
@@ -1123,7 +1155,7 @@ struct GuidedWebView: PlatformViewRepresentable {
                     return
                 }
 
-                print("🔄 Auto-checking for secret (attempt \(attempts))...")
+                devLog("🔄 Auto-checking for secret (attempt \(attempts))...")
 
                 webView.evaluateJavaScript("""
                 (function() {
@@ -1132,7 +1164,7 @@ struct GuidedWebView: PlatformViewRepresentable {
                 })();
                 """) { result, _ in
                     if let isVisible = result as? Bool, isVisible {
-                        print("✅ Secret auto-detected! Starting clipboard monitoring")
+                        devLog("✅ Secret auto-detected! Starting clipboard monitoring")
                         timer.invalidate()
                         self?.setupCoordinator.currentStep = .copySecret
                         self?.setupCoordinator.startMonitoringClipboard()

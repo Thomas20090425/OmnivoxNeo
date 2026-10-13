@@ -3041,17 +3041,29 @@ final class AppModel: NSObject, ObservableObject {
                 self.calendarEvents = parsedEvents
                 self.portalUpdates = parsedUpdates
                 self.lastScheduleRefresh = refreshedAt
-                self.hasCachedScheduleSnapshot = true
                 self.needsPortalContentCacheMigration = false
-                self.scheduleCache.save(
-                    ScheduleSnapshot(
-                        refreshedAt: refreshedAt,
-                        courses: parsedCourses,
-                        events: parsedEvents,
-                        updates: parsedUpdates,
-                        firstName: self.userFirstName
+                // Only if the student asked for a copy to be kept.
+                //
+                // This used to be unconditional, which made the setting a lie:
+                // turning it off deleted the file once and the very next
+                // refresh wrote it straight back. Account → On This Device
+                // says the copy is deleted, so there has to be no copy — not
+                // a copy that is merely unused.
+                if self.keepsInformationOnDevice {
+                    self.hasCachedScheduleSnapshot = true
+                    self.scheduleCache.save(
+                        ScheduleSnapshot(
+                            refreshedAt: refreshedAt,
+                            courses: parsedCourses,
+                            events: parsedEvents,
+                            updates: parsedUpdates,
+                            firstName: self.userFirstName
+                        )
                     )
-                )
+                } else {
+                    self.hasCachedScheduleSnapshot = false
+                    self.scheduleCache.clear()
+                }
                 self.agendaReadState.reconcile(
                     with: parsedEvents,
                     language: self.lastRequestedPortalLanguage
