@@ -116,13 +116,12 @@ struct CommunityIssueDetailView: View {
                 .foregroundStyle(.secondary)
                 .textCase(.uppercase)
 
-            // Plain text rather than rendered Markdown. The body is written by
-            // whoever filed it, and running it through a renderer would mean
-            // deciding what to do about images and links somebody else chose.
-            Text(summary)
-                .font(.callout)
+            // Rendered rather than shown raw. What people type is Markdown —
+            // it is what GitHub stores and what they see reading their own
+            // report back — so showing the asterisks and backticks would read
+            // as the app having mangled it.
+            CommunityMarkdownText(markdown: summary)
                 .textSelection(.enabled)
-                .fixedSize(horizontal: false, vertical: true)
         }
         .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)

@@ -7855,6 +7855,16 @@
           }
         }
       }
+    },
+    "Hi. I'm a %lld-year-old first-year student at Dawson, and I wrote this app." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bonjour. J'ai %lld ans, je suis étudiant de première année à Dawson, et c'est moi qui ai écrit cette application."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

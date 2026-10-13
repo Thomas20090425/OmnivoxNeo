@@ -131,6 +131,27 @@ final class CommunityFeedbackService: ObservableObject {
         await task.value
     }
 
+    /// Keeps refreshing until a just-filed report actually turns up.
+    ///
+    /// GitHub creates the issue immediately but its list endpoint can answer
+    /// without it for a second or two afterwards, so a single refresh on
+    /// closing the form often comes back exactly as it was. From the other
+    /// side of the screen that is indistinguishable from the report having
+    /// gone nowhere — which is the one thing this whole screen exists to
+    /// disprove. So it asks again, a few times, for the one number it is
+    /// waiting for, and gives up quietly rather than spinning forever.
+    func refreshUntilPresent(issue number: Int) async {
+        let waits: [Duration] = [.zero, .seconds(1), .seconds(2), .seconds(3), .seconds(5)]
+        for wait in waits {
+            if wait != .zero {
+                try? await Task.sleep(for: wait)
+                if Task.isCancelled { return }
+            }
+            await refreshAndWait()
+            if issues.contains(where: { $0.number == number }) { return }
+        }
+    }
+
     private func performRefresh() async {
         if issues.isEmpty { state = .loading }
         staleWarning = nil

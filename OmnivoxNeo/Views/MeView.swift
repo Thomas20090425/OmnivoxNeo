@@ -8,8 +8,6 @@ struct MeView: View {
 
     @State private var showsProfileSwitcher = false
     @State private var showsRemoveAccountOptions = false
-    @State private var reading: LegalDocument?
-    @ObservedObject private var acceptance = AgreementAcceptance.shared
     @State private var isRemovingAccount = false
     @StateObject private var profileStore = PortalProfileStore.shared
 
@@ -111,40 +109,6 @@ struct MeView: View {
                     Text("About")
                 }
 
-                // Reachable from inside the app, not only from the App Store
-                // listing. Somebody wondering what this thing does with their
-                // password should be able to find the answer in the app that
-                // is holding it, and the App Store requires as much.
-                Section {
-                    Button { reading = .eula } label: {
-                        SettingsRowLabel(
-                            title: "End User Licence Agreement",
-                            systemImage: "doc.text",
-                            tint: Neo.accent
-                        )
-                    }
-                    Button { reading = .privacy } label: {
-                        SettingsRowLabel(
-                            title: "Privacy Policy",
-                            systemImage: "hand.raised",
-                            tint: Neo.accent
-                        )
-                    }
-                } header: {
-                    Text("Legal")
-                } footer: {
-                    // Shown back rather than merely recorded: the point of
-                    // keeping it is that somebody can check what they agreed to
-                    // and when, and a record only they cannot see would not
-                    // serve that.
-                    if let version = acceptance.acceptedVersion,
-                       let date = acceptance.acceptedAt {
-                        Text(
-                            "You accepted version \(version) on \(date.formatted(date: .abbreviated, time: .shortened)). This record is kept on this device only."
-                        )
-                    }
-                }
-
                 // Last, and in that order: the settings, then the way to say
                 // something is wrong with them, then the way out. Logging out
                 // is the end of the screen because it is the end of the
@@ -193,9 +157,6 @@ struct MeView: View {
             }
             .scrollContentBackground(.hidden)
             .background(NeoBackground())
-            .sheet(item: $reading) { document in
-                LegalDocumentSheet(document: document)
-            }
             .navigationTitle("Account")
             #if os(iOS)
             .navigationBarTitleDisplayMode(.large)
@@ -255,6 +216,8 @@ private struct AppSettingsView: View {
     @State private var totpSecret: TOTPSecret?
     @State private var showTOTPSetup = false
     @State private var showTOTPDeleteConfirmation = false
+    @State private var reading: LegalDocument?
+    @ObservedObject private var acceptance = AgreementAcceptance.shared
     @StateObject private var profileStore = PortalProfileStore.shared
     @ObservedObject private var language = AppLanguageStore.shared
 
@@ -417,6 +380,41 @@ private struct AppSettingsView: View {
                     Text("Generate verification codes directly in Neo without needing a separate authenticator app. This will register Neo as an authentication application with OmniVox.")
                 }
             }
+
+            // Reachable from inside the app, not only from the App Store
+            // listing. Somebody wondering what this thing does with their
+            // password should be able to find the answer in the app that is
+            // holding it, and the App Store requires as much.
+            Section {
+                Button { reading = .eula } label: {
+                    HStack(spacing: 12) {
+                        SettingsIcon(systemImage: "doc.text", tint: Neo.accent)
+                        Text("End User Licence Agreement")
+                            .foregroundStyle(.primary)
+                    }
+                    .contentShape(Rectangle())
+                }
+                Button { reading = .privacy } label: {
+                    HStack(spacing: 12) {
+                        SettingsIcon(systemImage: "hand.raised", tint: Neo.accent)
+                        Text("Privacy Policy")
+                            .foregroundStyle(.primary)
+                    }
+                    .contentShape(Rectangle())
+                }
+            } header: {
+                Text("Legal")
+            } footer: {
+                // Shown back rather than merely recorded: the point of keeping
+                // it is that somebody can check what they agreed to and when,
+                // and a record only they cannot see would not serve that.
+                if let version = acceptance.acceptedVersion,
+                   let date = acceptance.acceptedAt {
+                    Text(
+                        "You accepted version \(version) on \(date.formatted(date: .abbreviated, time: .shortened)). This record is kept on this device only."
+                    )
+                }
+            }
         }
         #if os(iOS)
         .listStyle(.insetGrouped)
@@ -427,6 +425,9 @@ private struct AppSettingsView: View {
         .scrollContentBackground(.hidden)
         .background(NeoBackground())
         .navigationTitle("App Settings")
+        .sheet(item: $reading) { document in
+            LegalDocumentSheet(document: document)
+        }
         .sheet(isPresented: $showTOTPSetup) {
             loadTOTPSecret()
         } content: {

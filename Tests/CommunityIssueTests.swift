@@ -341,6 +341,52 @@ do {
 }
 
 do {
+    // The real shape of issue #1 in the repository, which is where this was
+    // found: no screenshot, so nothing between `## Description` and the
+    // System Info block. `<details>` is HTML, not a Markdown heading, so the
+    // Description section does not end there — and the whole table of browser
+    // and OS versions used to arrive as part of what the reporter wrote.
+    let noScreenshot = """
+    ## Submitted by
+    **Dominique**
+
+    ## Description
+    Omnivox Neo reports "The schedule is not available yet. Pull to refresh in a moment"
+
+    <details>
+    <summary>System Info</summary>
+
+    | Property | Value |
+    |----------|-------|
+    | **Browser** | Unknown unknown |
+    | **OS** | iOS 18.7 |
+    | **Viewport** | 440×820 @3x |
+    | **Language** | en-CA |
+    | **Page** | https://thomas20090425.github.io/OmnivoxNeo/docs/feedback.html |
+    | **Timestamp** | 2026-10-13T13:48:33.406Z |
+
+    </details>
+
+    ---
+    *Submitted via [BugDrop](https://github.com/mean-weasel/bugdrop)*
+    """
+    let summary = CommunityIssue.description(fromIssueBody: noScreenshot) ?? ""
+    expectEqual(
+        summary,
+        "Omnivox Neo reports \"The schedule is not available yet. Pull to refresh in a moment\"",
+        "the System Info block does not leak into the description"
+    )
+    expect(!summary.contains("System Info"), "no System Info heading")
+    expect(!summary.contains("Viewport"), "no browser metrics")
+    expect(!summary.contains("|"), "no table pipes")
+    expect(!summary.contains("Submitted via"), "no BugDrop footer")
+    expectEqual(
+        CommunityIssue.attribution(fromIssueBody: noScreenshot), "Dominique",
+        "and the reporter is still read correctly"
+    )
+}
+
+do {
     // No "## Submitted by" section at all: the name box was left empty, and
     // that is a choice, not missing data.
     let anonymous = bugDropBody

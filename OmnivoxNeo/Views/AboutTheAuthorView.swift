@@ -21,6 +21,27 @@ struct AboutTheAuthorView: View {
     /// is not, instead of failing silently on a device without it.
     private static let instagramURL = URL(string: "https://www.instagram.com/thomas_ycma/")!
 
+    /// 25 April 2009.
+    ///
+    /// The greeting says an age, and an age typed into a string is wrong from
+    /// the next birthday until somebody notices — which on a page whose whole
+    /// job is "here is who is really behind this" would be a bad place to be
+    /// casually inaccurate. So it is worked out from the date every time.
+    private static let dateOfBirth = DateComponents(year: 2009, month: 4, day: 25)
+
+    /// Completed years, in the reader's own calendar.
+    ///
+    /// `dateComponents(_:from:to:)` counts whole years, so the "has the
+    /// birthday happened yet this year" question answers itself rather than
+    /// being arithmetic to get subtly wrong every April.
+    private var age: Int? {
+        let calendar = Calendar.current
+        guard let born = calendar.date(from: Self.dateOfBirth) else { return nil }
+        guard let years = calendar.dateComponents([.year], from: born, to: Date()).year,
+              years > 0, years < 150 else { return nil }
+        return years
+    }
+
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
@@ -81,9 +102,20 @@ struct AboutTheAuthorView: View {
 
     // MARK: - The words
 
+    /// Falls back to the sentence without an age rather than to a wrong one.
+    /// Nothing here is worth a "0-year-old".
+    @ViewBuilder
+    private var greeting: some View {
+        if let age {
+            Text("Hi. I'm a \(age)-year-old first-year student at Dawson, and I wrote this app.")
+        } else {
+            Text("Hi. I'm a first-year student at Dawson, and I wrote this app.")
+        }
+    }
+
     private var story: some View {
         VStack(alignment: .leading, spacing: 18) {
-            Text("Hi. I'm a first-year student at Dawson, and I wrote this app.")
+            greeting
                 .font(.body.weight(.medium))
 
             Text("Before Dawson I was at Kells Academy, where most of my spare time went into building things — a login system that replaces passwords with a physical key you carry, a network gateway for places with poor internet, and, earlier on, a robot that cut grass on its own. Those took me to the Montreal regional science fair, the Quebec provincial competition, and in 2026 to the international fair with Team Canada.")

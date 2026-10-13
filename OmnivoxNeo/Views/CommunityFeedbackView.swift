@@ -15,9 +15,12 @@ struct CommunityFeedbackView: View {
     @Environment(\.openURL) private var openURL
 
     var body: some View {
-        VStack(spacing: 0) {
-            filterControl
-            roadmap
+        ZStack(alignment: .bottomTrailing) {
+            VStack(spacing: 0) {
+                filterControl
+                roadmap
+            }
+            reportButton
         }
         .background(NeoBackground())
         .navigationTitle("Feedback and Roadmap")
@@ -43,13 +46,13 @@ struct CommunityFeedbackView: View {
         .sheet(isPresented: $isSubmitting) {
             FeedbackSubmissionView { outcome in
                 isSubmitting = false
-                if case .closed(let issue) = outcome {
-                    submittedIssueNumber = issue
-                    // Whether or not anything was sent, the list is the only
-                    // honest confirmation, so it is brought up to date rather
-                    // than a thank-you being shown on faith.
-                    service.refresh()
-                }
+                guard case .closed(let issue) = outcome else { return }
+                // The thank-you goes up at once; the list catches up behind
+                // it. Whether or not anything was sent, the list is the only
+                // honest confirmation, so it is brought up to date rather than
+                // a thank-you being shown on faith.
+                submittedIssueNumber = issue
+                Task { await settle(after: issue) }
             }
         }
         .task { service.loadIfNeeded() }
@@ -69,6 +72,26 @@ struct CommunityFeedbackView: View {
                 Text("Your report is on the roadmap as #\(String(number)). It will appear in the list below, under Under Review.")
             }
         }
+    }
+
+    /// Brings the list up to date after the form closes, and moves to the tab
+    /// the new report landed in.
+    ///
+    /// Switching tabs matters as much as refreshing. A report filed as a
+    /// feature request while the Bugs tab is showing would arrive correctly
+    /// and still be invisible, which looks exactly like it was lost.
+    private func settle(after issue: Int?) async {
+        guard let issue else {
+            await service.refreshAndWait()
+            return
+        }
+        await service.refreshUntilPresent(issue: issue)
+        guard
+            let created = service.issues.first(where: { $0.number == issue }),
+            let tab = CommunityIssueFilter.allCases.first(where: { $0.accepts(created) }),
+            tab != filter
+        else { return }
+        withAnimation(.easeInOut(duration: 0.2)) { filter = tab }
     }
 
     // MARK: - Filter
@@ -95,13 +118,6 @@ struct CommunityFeedbackView: View {
         let groups = service.groups(matching: filter)
 
         List {
-            Section {
-                submitCard
-                    .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 8, trailing: 16))
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-            }
-
             if let warning = service.staleWarning {
                 Section {
                     SessionErrorBanner(
@@ -156,30 +172,42 @@ struct CommunityFeedbackView: View {
         .listStyle(.inset)
         #endif
         .scrollContentBackground(.hidden)
+        // Room at the end for the floating button, so the last issue in the
+        // list can still be read and tapped rather than sitting under it.
+        .contentMargins(.bottom, 86, for: .scrollContent)
         .refreshable { await service.refreshAndWait() }
     }
 
-    private var submitCard: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text("Found a problem? Want something added?")
-                    .font(.headline)
-                Text("It goes to one person — the student who writes this app — and it lands on the list below, in public, where you can watch what happens to it.")
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
+    /// The same floating capsule MIO writes a message with.
+    ///
+    /// Writing a message and reporting a bug are the same kind of act — the
+    /// one thing you came to this screen to *do*, as opposed to read — so they
+    /// look and sit the same. It replaces a card at the top that explained at
+    /// length what a button saying "Report a Bug or Request a Feature" already
+    /// says, and gives the list back the room that card was taking.
+    private var reportButton: some View {
+        Button {
+            isSubmitting = true
+        } label: {
+            HStack(spacing: 9) {
+                Image(systemName: "square.and.pencil")
+                    .font(.body.weight(.semibold))
+                Text("Report a Bug or Request a Feature")
+                    .font(.subheadline.weight(.semibold))
+                    .lineLimit(1)
+                    // Shrinks rather than wraps or clips on a narrow phone.
+                    .minimumScaleFactor(0.75)
             }
-
-            Button {
-                isSubmitting = true
-            } label: {
-                Label("Report a Bug or Request a Feature", systemImage: "square.and.pencil")
-            }
-            .buttonStyle(PrimaryButtonStyle())
+            .foregroundStyle(.white)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 15)
+            .background(Neo.accent, in: Capsule())
+            .shadow(color: .black.opacity(0.18), radius: 10, y: 4)
         }
-        .padding(16)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .neoCard()
+        .buttonStyle(LeaPressStyle())
+        .padding(.trailing, 20)
+        .padding(.bottom, 22)
+        .accessibilityHint(Text("Sends a bug report or a feature request"))
     }
 
     // MARK: - The states that are not a list
@@ -319,7 +347,10 @@ struct CommunityIssueRow: View {
                 }
 
                 if let summary = issue.summary {
-                    Text(summary)
+                    // Flattened rather than rendered: a row has no room for
+                    // structure, but it should not show the punctuation that
+                    // structure is made of either.
+                    Text(CommunityMarkdownText.preview(summary))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .lineLimit(2)

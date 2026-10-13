@@ -352,7 +352,12 @@ extension CommunityIssue {
     /// whole body is the description. Both shapes have to work.
     static func description(fromIssueBody body: String?) -> String? {
         guard let body, !body.isEmpty else { return nil }
-        let text = section(named: "Description", in: body) ?? strippedOfMachinery(body)
+        // Stripped whether or not the heading was found. `## Description` runs
+        // to the next *Markdown* heading, and the System Info block that
+        // follows it opens with `<details>` — which is HTML, not a heading, so
+        // the section does not end there and the whole browser-version table
+        // arrives as part of what somebody wrote.
+        let text = strippedOfMachinery(section(named: "Description", in: body) ?? body)
         let cleaned = text.trimmingCharacters(in: .whitespacesAndNewlines)
         return cleaned.isEmpty ? nil : cleaned
     }
@@ -440,12 +445,20 @@ extension CommunityIssue {
         return trimmed.dropFirst(hashes).first == " "
     }
 
-    /// For an issue written by hand: drops the parts of a BugDrop body that are
-    /// not prose, in case one was pasted in.
+    /// Drops everything in a body that is not somebody talking.
     ///
-    /// The data-URL case is the one that matters. A screenshot is embedded as
-    /// base64 directly in the body, so an unguarded body can be megabytes of
-    /// gibberish, and putting that through a `Text` view would hang the list.
+    /// BugDrop appends a collapsed table of browser and OS versions, a
+    /// horizontal rule and a footer advertising itself. On github.com those
+    /// fold away behind a disclosure triangle; here they are just text, and
+    /// shown as text they are longer than the report. None of it is about the
+    /// app — the "Page" row is the address of the feedback form itself — so
+    /// none of it belongs on a screen a student reads to find out whether
+    /// their problem is known.
+    ///
+    /// The data-URL case is the one that matters for more than tidiness. A
+    /// screenshot can be embedded as base64 directly in the body, so an
+    /// unguarded body runs to megabytes, and putting that through a `Text`
+    /// view would lock up the list.
     private static func strippedOfMachinery(_ body: String) -> String {
         var text = body
         // Embedded images, data URLs first and longest.
@@ -454,14 +467,24 @@ extension CommunityIssue {
             with: "",
             options: [.regularExpression]
         )
-        // The collapsed System Info block, and the BugDrop footer.
+        // The collapsed System Info block. Matched unanchored and without
+        // requiring the closing tag, because a truncated body loses the
+        // `</details>` and would otherwise keep the whole table.
         text = text.replacingOccurrences(
-            of: "<details>[\\s\\S]*?</details>",
+            of: "<details>[\\s\\S]*?(</details>|$)",
             with: "",
             options: [.regularExpression]
         )
+        // The BugDrop footer, with or without the rule above it.
         text = text.replacingOccurrences(
-            of: "\\n---\\s*\\n\\*Submitted via[^\\n]*",
+            of: "\\n*-{3,}\\s*\\n*\\*Submitted via[^\\n]*",
+            with: "",
+            options: [.regularExpression]
+        )
+        // Any stray Markdown table left behind — a row of pipes is a table in
+        // a renderer and a wall of punctuation in a Text view.
+        text = text.replacingOccurrences(
+            of: "(?m)^\\s*\\|.*\\|\\s*$\\n?",
             with: "",
             options: [.regularExpression]
         )
