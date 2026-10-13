@@ -135,6 +135,35 @@ struct PortalConventions: Sendable, Equatable {
     /// the list simply not having loaded yet.
     var emptyAgendaSelector: String = ".no-item:not(.filtered-out):not([disabled])"
 
+    // MARK: Agenda — card layout
+    //
+    // The same webpart renders two completely different trees, and which one a
+    // student gets is their own saved preference: a day-by-day list, or a
+    // horizontal slider of cards. Only the hidden `.modal-data` block is
+    // common to both, so the card tree needs its own selectors — and the app
+    // reads whichever it finds rather than making the student switch back.
+
+    /// One event as a card. The slider also contains its Previous/Next buttons
+    /// and a hidden skeleton it clones while loading, and neither is an event.
+    var eventCardSelector: String =
+        ".carte-portail.carte-evenement:not(.slider-more):not(.skeleton):not(.template)"
+    /// Prefix of the class naming a card's category — `categorie_Lea`. The
+    /// suffix matches what the list layout stamps on `data-cat`, so one set of
+    /// category codes covers both trees.
+    var eventCardCategoryClassPrefix: String = "categorie_"
+    /// Carries a card's time range, when it has one.
+    var eventCardTimeSelector: String = ".carte-portail-border"
+    /// The type line above a card's title — "Assessment (2%)" and the course.
+    var eventCardTypeSelector: String = ".carte-portail-type"
+    /// The course name and code inside that type line.
+    var eventCardTypeDetailSelector: String = ".carte-portail-type span"
+    /// The card slider's own empty state. Carries `disabled` while inactive,
+    /// exactly like the list layout's.
+    var emptyAgendaCardsSelector: String = "#card-no-event:not([disabled])"
+    /// Flips the webpart between its two renderings. Used only as a last
+    /// resort, when neither tree yielded anything.
+    var calendarViewSwitchSelector: String = #"#btnSwitchView, [id$="btnSwitchView"]"#
+
     // MARK: Event categories
     //
     // The codes the portal stamps on every event. They are shared across the
@@ -249,6 +278,13 @@ struct PortalConventions: Sendable, Equatable {
             "eventRoom": eventRoomSelector,
             "eventTypeDetail": eventTypeDetailSelector,
             "emptyAgenda": emptyAgendaSelector,
+            "eventCard": eventCardSelector,
+            "eventCardCategoryPrefix": eventCardCategoryClassPrefix,
+            "eventCardTime": eventCardTimeSelector,
+            "eventCardType": eventCardTypeSelector,
+            "eventCardTypeDetail": eventCardTypeDetailSelector,
+            "emptyAgendaCards": emptyAgendaCardsSelector,
+            "calendarViewSwitch": calendarViewSwitchSelector,
             "classMeetingCode": classMeetingCategoryCode,
             "whatsNewCard": whatsNewCardSelector,
             "cardTitle": cardTitleSelector,

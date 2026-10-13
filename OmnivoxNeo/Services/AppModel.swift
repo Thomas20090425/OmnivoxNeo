@@ -127,6 +127,9 @@ final class AppModel: NSObject, ObservableObject {
     private var credentialsAwaitingBiometricEnrollment: Credentials?
     private var authenticatedNavigationHandled = false
     private var extractionGeneration = UUID()
+    /// Set only when the app has flipped the events webpart to its other
+    /// rendering to get a reading, so it knows to flip it back.
+    private var hasFlippedCalendarView = false
     private var dashboardProbeAttempt = 0
     private var verificationProbeAttempt = 0
     private var hasCachedScheduleSnapshot = false
@@ -2581,45 +2584,178 @@ final class AppModel: NSObject, ObservableObject {
                 return found;
             };
             const textFromHTML = value => textOf(fragment(value));
+            // The lines the portal actually drew, split where it broke them.
+            // A card stacks a course's name over its code with a `<br>`, and
+            // flattening that to text runs the two together.
+            const linesOf = node => {
+                if (!node) return [];
+                const clone = node.cloneNode(true);
+                clone.querySelectorAll(
+                    'svg, [aria-hidden="true"], script, style, template, noscript'
+                ).forEach(element => element.remove());
+                clone.querySelectorAll('br').forEach(element => element.replaceWith('\n'));
+                return (clone.textContent || '')
+                    .split('\n')
+                    .map(line => normalize(line))
+                    .filter(Boolean);
+            };
+
+            // The card layout dates its events in .NET ticks — 100-nanosecond
+            // units since the year 1 — holding the college's own wall clock.
+            // Divided as text because the full value overflows a double, and
+            // read back through the UTC getters so that wall clock survives
+            // whatever time zone the phone happens to be in.
+            const TICK_EPOCH_SECONDS = 62135596800;
+            const secondsFromTicks = value => {
+                const digits = String(value == null ? '' : value).replace(/\D/g, '');
+                if (digits.length < 8) return null;
+                const whole = Number(digits.slice(0, -7));
+                if (!Number.isFinite(whole)) return null;
+                return whole - TICK_EPOCH_SECONDS;
+            };
+            const pad2 = value => String(value).padStart(2, '0');
+            const momentFromSeconds = seconds => {
+                if (seconds == null) return null;
+                const moment = new Date(seconds * 1000);
+                return Number.isNaN(moment.getTime()) ? null : moment;
+            };
+            const isoDateFromSeconds = seconds => {
+                const moment = momentFromSeconds(seconds);
+                if (!moment) return '';
+                return moment.getUTCFullYear()
+                    + '-' + pad2(moment.getUTCMonth() + 1)
+                    + '-' + pad2(moment.getUTCDate());
+            };
+            const clockFromSeconds = seconds => {
+                const moment = momentFromSeconds(seconds);
+                if (!moment) return '';
+                return pad2(moment.getUTCHours()) + ':' + pad2(moment.getUTCMinutes());
+            };
+            // A card's own identifier is base64 and carries both its start and
+            // its end ticks, so a multi-day event keeps its real end date
+            // without anyone parsing a month name in a language we guessed.
+            const spanOfCard = card => {
+                const stamp = secondsFromTicks(card.dataset?.timestamp);
+                let decoded = '';
+                try {
+                    decoded = card.dataset?.idunifie ? atob(card.dataset.idunifie) : '';
+                } catch (error) {
+                    decoded = '';
+                }
+                const found = [];
+                for (const run of decoded.match(/\d{15,20}/g) || []) {
+                    const seconds = secondsFromTicks(run);
+                    if (seconds != null) found.push(seconds);
+                }
+                const start = found.length ? found[0] : stamp;
+                const last = found.length > 1 ? found[found.length - 1] : null;
+                return {
+                    start,
+                    end: last != null && start != null && last > start ? last : null
+                };
+            };
 
             const records = [];
             const calendarRecords = [];
             const updates = [];
             const seenCourses = new Set();
             const seenEvents = new Set();
-            const eventElements = root.querySelectorAll(NEO.event);
+            // Both renderings, read in one pass. Whichever one the student left
+            // the webpart in, the events come out the same shape — so nobody
+            // has to flip their portal back and forth to be understood.
+            const eventElements = [
+                ...Array.from(root.querySelectorAll(NEO.event)).map(
+                    element => ({ element, isCard: false })
+                ),
+                ...Array.from(root.querySelectorAll(NEO.eventCard)).map(
+                    element => ({ element, isCard: true })
+                )
+            ];
 
-            for (const event of eventElements) {
+            for (const entry of eventElements) {
+                const event = entry.element;
                 const modal = event.querySelector(NEO.eventData);
-                const day = event.closest(NEO.eventDay);
-                const dateRange = day?.dataset?.date || '';
-                const dateParts = dateRange.split('|');
-                const isoDate = dateParts[0];
-                const isoEndDate = dateParts[1] || null;
-                const categoryCode = (event.dataset?.cat || 'OTHER').toUpperCase();
-                const descriptionElement = event.querySelector(NEO.eventDescription);
-                const visibleDescription = descriptionElement?.textContent || '';
+                let isoDate = '';
+                let isoEndDate = null;
+                let categoryCode = 'OTHER';
+                let visibleTitle = '';
+                let visibleDescription = '';
+                let typeLines = [];
+                let explicitTime = '';
+                let titleElement = null;
+
+                if (entry.isCard) {
+                    const span = spanOfCard(event);
+                    isoDate = isoDateFromSeconds(span.start);
+                    const endDate = isoDateFromSeconds(span.end);
+                    isoEndDate = endDate && endDate !== isoDate ? endDate : null;
+                    // `categorie_Lea` → LEA, which is what the list layout
+                    // writes to `data-cat`, so the category codes the app
+                    // already knows cover this tree too.
+                    const prefix = NEO.eventCardCategoryPrefix;
+                    const marker = Array.from(event.classList).find(
+                        name => name.length > prefix.length
+                            && name.slice(0, prefix.length).toLowerCase() === prefix.toLowerCase()
+                    );
+                    categoryCode = (
+                        marker
+                            ? marker.slice(prefix.length)
+                            : (modal?.dataset?.codeModule || '')
+                    ).toUpperCase() || 'OTHER';
+                    titleElement = event.querySelector(NEO.cardTitle);
+                    visibleTitle = normalize(titleElement?.textContent);
+                    visibleDescription = event.querySelector(NEO.cardDetail)?.textContent || '';
+                    typeLines = linesOf(
+                        event.querySelector(NEO.eventCardTypeDetail)
+                            || event.querySelector(NEO.eventCardType)
+                    );
+                    explicitTime = normalize(
+                        event.querySelector(NEO.eventCardTime)?.textContent
+                    );
+                    // Ticks give an exact period without reading a clock off a
+                    // localized string. Anything a whole day or longer is a
+                    // date range rather than a period on a timetable, and must
+                    // not become a 24-hour class.
+                    if (!explicitTime && span.start != null && span.end != null) {
+                        const length = span.end - span.start;
+                        if (length > 0 && length < 86400) {
+                            explicitTime = clockFromSeconds(span.start)
+                                + ' to ' + clockFromSeconds(span.end);
+                        }
+                    }
+                } else {
+                    const day = event.closest(NEO.eventDay);
+                    const dateRange = day?.dataset?.date || '';
+                    const dateParts = dateRange.split('|');
+                    isoDate = dateParts[0];
+                    isoEndDate = dateParts[1] || null;
+                    categoryCode = (event.dataset?.cat || 'OTHER').toUpperCase();
+                    titleElement = event.querySelector(NEO.eventTitle);
+                    visibleTitle = normalize(titleElement?.textContent);
+                    visibleDescription = event.querySelector(NEO.eventDescription)?.textContent || '';
+                    typeLines = linesOf(event.querySelector(NEO.eventTypeDetail));
+                }
+                const typeDetail = typeLines.join(' ');
                 // Both builds of the portal: "10:00 to 11:30" in English,
                 // "10 h 00 à 11 h 30" in French. The single-time fallbacks
                 // insist on minutes so a room code like "3H.19" is not read as
                 // three o'clock.
-                const visibleTime = visibleDescription.match(
+                const timeSource = visibleDescription + ' ' + explicitTime;
+                const visibleTime = timeSource.match(
                     /\d{1,2}:\d{2}\s*(?:à|a|to|–|—|-)\s*\d{1,2}:\d{2}/i
-                )?.[0] || visibleDescription.match(
+                )?.[0] || timeSource.match(
                     /\b\d{1,2}\s*h\s*\d{2}?\s*(?:à|a|to|–|—|-)\s*\d{1,2}\s*h\s*\d{2}?/i
-                )?.[0] || visibleDescription.match(/\d{1,2}:\d{2}/)?.[0]
-                    || visibleDescription.match(/\b\d{1,2}\s*h\s*\d{2}\b/i)?.[0] || '';
-                const titleElement = event.querySelector(NEO.eventTitle);
-                const visibleTitle = normalize(titleElement?.textContent);
+                )?.[0] || timeSource.match(/\d{1,2}:\d{2}/)?.[0]
+                    || timeSource.match(/\b\d{1,2}\s*h\s*\d{2}\b/i)?.[0] || '';
                 const titleNode = fragment(modal?.dataset?.titre || '');
                 const title = visibleTitle || textOf(titleNode);
-                const timeText = normalize(modal?.dataset?.heure || visibleTime);
+                const timeText = normalize(
+                    modal?.dataset?.heure || explicitTime || visibleTime
+                );
                 const category = textFromHTML(modal?.dataset?.nomCategorie || '');
                 const courseLabel = normalize(
                     event.querySelector(NEO.eventCourseCode)?.textContent
-                ) || normalize(
-                    event.querySelector(NEO.eventTypeDetail)?.textContent
-                ) || category
+                ) || typeDetail || category
                     // The portal doubles the category up as "COURS COURSE" in
                     // English and "COURS COURS" in French, so the second word
                     // is dropped by position rather than by spelling.
@@ -2661,11 +2797,20 @@ final class AppModel: NSObject, ObservableObject {
                 }
 
                 if (categoryCode === NEO.classMeetingCode && timeText) {
+                    // The agenda wants the whole block — "Course, Calculus I,
+                    // 201-MA1-DW sect. 00005" — but a timetable chip has room
+                    // for the code alone, and the code is the last line the
+                    // portal drew in that block. Read by position, because the
+                    // shape of a course code is the college's business.
+                    const chip = normalize(
+                        event.querySelector(NEO.eventCourseCode)?.textContent
+                    ) || (typeLines.length > 1 ? typeLines[typeLines.length - 1] : '')
+                        || normalize(courseLabel);
                     const courseRecord = {
                         isoDate,
                         title,
                         timeRange: timeText,
-                        courseLabel: normalize(courseLabel) || null,
+                        courseLabel: chip || null,
                         location: normalize(location) || null
                     };
                     const courseKey = JSON.stringify(courseRecord);
@@ -2690,7 +2835,11 @@ final class AppModel: NSObject, ObservableObject {
                 });
             }
 
-            const hasExplicitEmptyState = !!root.querySelector(NEO.emptyAgenda);
+            // Each rendering states "no events" its own way, and either of them
+            // means the webpart finished with nothing rather than not having
+            // finished at all.
+            const hasExplicitEmptyState = !!root.querySelector(NEO.emptyAgenda)
+                || !!root.querySelector(NEO.emptyAgendaCards);
             const ready = eventElements.length > 0 || hasExplicitEmptyState;
             return JSON.stringify({
                 ready,
@@ -2719,6 +2868,16 @@ final class AppModel: NSObject, ObservableObject {
                 }
 
                 if domPayload?.ready != true, attempt < 10 {
+                    // Halfway through the retries, stop waiting and push. Both
+                    // renderings of the webpart are read directly, so getting
+                    // here means neither appeared — a slider that never laid
+                    // itself out, or a build we have not seen. Flipping the
+                    // view forces a re-render; whatever it was set to is put
+                    // back once the read lands, because it is the student's
+                    // setting and not ours to keep.
+                    if attempt == 5 {
+                        await self.flipCalendarView()
+                    }
                     try? await Task.sleep(for: .milliseconds(600))
                     guard generation == self.extractionGeneration else { return }
                     self.extractSchedule(attempt: attempt + 1)
@@ -2726,6 +2885,7 @@ final class AppModel: NSObject, ObservableObject {
                 }
 
                 self.isRefreshingSchedule = false
+                await self.restoreCalendarViewIfFlipped()
 
                 guard let domPayload, domPayload.ready else {
                     self.reportPortalContentFailure(
@@ -2793,6 +2953,49 @@ final class AppModel: NSObject, ObservableObject {
                     self.screen = .schedule
                 }
                 self.scheduleTrustedPortalStatePersistence()
+            }
+        }
+    }
+
+    /// Presses the events webpart's own view switch.
+    ///
+    /// A last resort, and deliberately a dumb one: the app does not try to
+    /// read which view the label is offering, because that label is localized
+    /// and its wording is the portal's to change. It presses the control,
+    /// remembers that it did, and puts the view back afterwards — so a student
+    /// who prefers the month layout still has the month layout when they next
+    /// open their portal in a browser.
+    @discardableResult
+    private func flipCalendarView() async -> Bool {
+        let flipped = await pressCalendarViewSwitch()
+        if flipped {
+            hasFlippedCalendarView = true
+        }
+        return flipped
+    }
+
+    private func restoreCalendarViewIfFlipped() async {
+        guard hasFlippedCalendarView else { return }
+        // Cleared before the press, not after. A restore that fails must not
+        // leave the app pressing this control on every refresh from now on.
+        hasFlippedCalendarView = false
+        await pressCalendarViewSwitch()
+    }
+
+    @discardableResult
+    private func pressCalendarViewSwitch() async -> Bool {
+        let script = #"""
+        (() => {
+            const NEO = \#(institution.conventions.javascriptDescriptor);
+            const control = document.querySelector(NEO.calendarViewSwitch);
+            if (!control) return false;
+            control.click();
+            return true;
+        })();
+        """#
+        return await withCheckedContinuation { continuation in
+            webView.evaluateJavaScript(script) { value, _ in
+                continuation.resume(returning: (value as? Bool) ?? false)
             }
         }
     }
