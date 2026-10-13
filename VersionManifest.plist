@@ -50,7 +50,7 @@
 	<key>AppStoreURL</key>
 	<string>https://apps.apple.com/ca/app/omnivox-neo/id0000000000</string>
 	<key>TestFlightURL</key>
-	<string>https://testflight.apple.com/join/REPLACE_ME</string>
+	<string>https://testflight.apple.com/join/KG9CBuds</string>
 
 	<!-- Whether a required update quits the app after handing someone to the
 	     store. The blocking screen is there either way and cannot be dismissed,
