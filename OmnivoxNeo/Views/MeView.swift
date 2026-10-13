@@ -8,6 +8,7 @@ struct MeView: View {
 
     @State private var showsProfileSwitcher = false
     @State private var showsRemoveAccountOptions = false
+    @State private var reading: LegalDocument?
     @State private var isRemovingAccount = false
     @StateObject private var profileStore = PortalProfileStore.shared
 
@@ -113,6 +114,31 @@ struct MeView: View {
                     .disabled(isRemovingAccount)
                 }
 
+                // Reachable from inside the app, not only from the App Store
+                // listing. Somebody wondering what this thing does with their
+                // password should be able to find the answer in the app that
+                // is holding it, and the App Store requires as much.
+                Section {
+                    Button { reading = .eula } label: {
+                        SettingsRowLabel(
+                            title: "End User Licence Agreement",
+                            systemImage: "doc.text",
+                            tint: Neo.accent
+                        )
+                    }
+                    Button { reading = .privacy } label: {
+                        SettingsRowLabel(
+                            title: "Privacy Policy",
+                            systemImage: "hand.raised",
+                            tint: Neo.accent
+                        )
+                    }
+                } header: {
+                    Text("Legal")
+                } footer: {
+                    Text("Omnivox Neo is an independent app. It is not made by, affiliated with, or endorsed by your college or by Skytech, and it is not a replacement for Omnivox.")
+                }
+
                 Section {
                     EmptyView()
                 } footer: {
@@ -121,6 +147,9 @@ struct MeView: View {
             }
             .scrollContentBackground(.hidden)
             .background(NeoBackground())
+            .sheet(item: $reading) { document in
+                LegalDocumentSheet(document: document)
+            }
             .navigationTitle("Account")
             #if os(iOS)
             .navigationBarTitleDisplayMode(.large)

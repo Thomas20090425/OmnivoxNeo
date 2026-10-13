@@ -54,6 +54,48 @@ def strip_site_chrome(html: str) -> str:
     return html
 
 
+def plain_text(html: str) -> str:
+    """The licence as App Store Connect wants it.
+
+    Its custom-licence field takes plain text only — it strips every tag and
+    keeps line breaks — and a field holding a URL instead of the terms is a
+    recurring rejection. So the same document is also flattened to text, from
+    the same source, rather than maintained twice.
+    """
+    body = re.search(r"<main>(.*?)</main>", html, flags=re.S)
+    html = body.group(1) if body else html
+
+    html = re.sub(r"<(script|style)\b.*?</\1>", "", html, flags=re.S)
+    # Structure worth keeping, as text.
+    html = re.sub(r"<h2[^>]*>(.*?)</h2>", r"\n\n\1\n", html, flags=re.S)
+    html = re.sub(r"<h3[^>]*>(.*?)</h3>", r"\n\n\1\n", html, flags=re.S)
+    html = re.sub(r"<li[^>]*>(.*?)</li>", r"\n  - \1", html, flags=re.S)
+    html = re.sub(r"</p>", "\n\n", html)
+    html = re.sub(r"<br\s*/?>", "\n", html)
+    html = re.sub(r"<[^>]+>", "", html)
+
+    entities = {
+        "&nbsp;": " ", "&amp;": "&", "&lt;": "<", "&gt;": ">",
+        "&quot;": '"', "&#39;": "'", "&mdash;": "—", "&eacute;": "é",
+    }
+    for code, char in entities.items():
+        html = html.replace(code, char)
+
+    # Collapse the whitespace the markup left behind, without joining
+    # paragraphs that were meant to be apart.
+    lines = [re.sub(r"[ \t]+", " ", line).strip() for line in html.split("\n")]
+    out, blanks = [], 0
+    for line in lines:
+        if line:
+            out.append(line)
+            blanks = 0
+        else:
+            blanks += 1
+            if blanks == 1 and out:
+                out.append("")
+    return "\n".join(out).strip() + "\n"
+
+
 def main() -> int:
     if not DOCS.is_dir():
         raise SystemExit(f"no docs directory at {DOCS}")
@@ -75,6 +117,18 @@ def main() -> int:
     print(f"wrote {len(written)} files to {DEST.relative_to(ROOT)}:")
     for name in written:
         print(f"  {name}")
+
+    # The paste-into-App-Store-Connect copy, kept out of the app bundle: it is
+    # a submission artefact, not something the app ever shows.
+    terms = DOCS / "terms.html"
+    if terms.exists():
+        target = DOCS / "eula-for-app-store-connect.txt"
+        text = plain_text(terms.read_text())
+        target.write_text(text)
+        print(f"\nwrote {target.relative_to(ROOT)} ({len(text)} characters)")
+        if "[postal address" in text or "[telephone number" in text:
+            print("  NOTE: still contains address/telephone placeholders —")
+            print("        Apple's minimum term 8 requires both before submission.")
     return 0
 
 

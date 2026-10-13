@@ -1,0 +1,183 @@
+The short version, in plain words
+
+This app talks to your college's Omnivox server using your own account. It is not made by your college or by Skytech, it has no permission from either, and it can break. If it breaks it can get things wrong in your real account — a message sent to the wrong person, a message deleted, an authenticator removed. You are the one signed in, so you carry what happens under your login. If that is not a risk you want, use the official Omnivox website or the official Omnivox Mobile app, which is what they are for.
+
+The rest of this page says the same thing at the length the App Store requires. Nothing below takes away a right Quebec or Canadian law gives you — see section 16.
+
+1. Acknowledgement
+
+This End User Licence Agreement ("Agreement") is a binding agreement between you and Thomas Ma, an individual developer in Quebec, Canada ("the Developer", "we", "us"), governing your use of the Omnivox Neo application for iPhone, iPad and Mac ("the Application").
+
+You acknowledge that this Agreement is concluded between you and the Developer only, and not with Apple Inc. ("Apple"). The Developer, not Apple, is solely responsible for the Application and its content. This Agreement does not provide usage rules for the Application that conflict with the Apple Media Services Terms and Conditions, and in the event of a conflict those Terms prevail.
+
+Neither Apple, nor Skytech Communications inc., nor Dawson College is a party to this Agreement.
+
+This Agreement is supplied in place of Apple's standard Licensed Application End User Licence Agreement. If any provision of this Agreement is held unenforceable, the corresponding provision of Apple's standard Licensed Application End User Licence Agreement applies in its place, to the maximum extent permitted by law.
+
+2. This is not Omnivox, and it is not a replacement for Omnivox
+
+This is the most important section on the page, so it is near the top.
+
+- No affiliation. Omnivox Neo is an independent, unofficial application. It is not made, published, endorsed, sponsored, certified, authorised or supported by Skytech Communications inc. (the maker of Omnivox), by Dawson College, or by Apple. None of them has reviewed or approved it.
+
+- Trademarks. "Omnivox", "Léa" and "MIO" are marks of Skytech Communications inc.; "Dawson College" and its logos are marks of Dawson College. They remain the property of their owners and are used here only to describe, truthfully, the service this Application is compatible with.
+
+- Not a replacement. The Application is not a replacement for, a successor to, or an improvement upon Omnivox. The official Omnivox website and the official Omnivox Mobile app remain the only official way to use your student account, the authoritative record, and the only ones your college supports.
+
+- It does less, and it may be wrong. The Application implements only part of what Omnivox does, may omit features Omnivox has, and may display information that differs from the portal. Anything that matters — a grade, a deadline, a notice, a payment, a form — must be checked on the official Omnivox site. Do not rely on this Application as your only view of your account.
+
+- What it actually is. At your direction and with credentials you type in, the Application requests the same pages from the same servers you would otherwise open in a browser, and draws them in a different layout. That is the entirety of its relationship to Omnivox.
+
+- It can stop working at any time. It depends on the structure of pages your college and Skytech control and may change without notice. When they change, parts of the Application will show wrong information or stop working, perhaps permanently.
+
+Things the Application does that Omnivox does not
+
+Section 2 says the Application does less than Omnivox. In places it also does more, and that needs saying just as plainly. It already adds a Home Screen widget, a built-in two-factor authenticator, a saved timetable that works without a signal, course colours and wallpapers, and calendar sync. Features may be added later that Omnivox has no equivalent of — reporting a bug, or asking for something to be built, are two that are planned.
+
+None of those are Omnivox features, none of them come from Skytech or your college, and your college does not support them. Three commitments apply to every one of them, now and in future:
+
+- No added feature will exist in order to collect information about you. That is not what any of them are for, and it will not quietly become what they are for. There is no analytics in this Application, no usage measurement, no profiling, and no advertising, and none will be added.
+
+- Anything that sends something off your device will be optional, off until you switch it on, and honest about what it sends. It will tell you what leaves, and where it goes, before it goes — not in a settings screen you were supposed to find. It will send the least that makes the feature work, and nothing collected for one purpose will be reused for another.
+
+- It will be written down before it ships. Any new feature that touches your information will appear in this Agreement and in the Privacy Policy, with the version date moved, and you will be asked to accept the revised terms — not told afterwards.
+
+Being unofficial is not a reason to be unclear. It is the reason to be clearer: you have no institution standing behind this Application, so the only thing you have is what it tells you about itself, and that has to be true.
+
+3. Scope of licence
+
+The Developer grants you a revocable, non-exclusive, non-transferable, limited licence to use the Application on Apple-branded products that you own or control, as permitted by the Usage Rules set out in the Apple Media Services Terms and Conditions — except that the Application may also be accessed, acquired and used by other accounts associated with you through Family Sharing, volume purchasing, or Legacy Contacts.
+
+You may not:
+
+- distribute, sub-licence, rent, lease, lend, or make the Application available over a network where it could be used by several devices at once;
+
+- reverse engineer, decompile, disassemble or modify the Application, except where that restriction is prohibited by applicable law or by the terms of an open-source licence governing a component of it;
+
+- use the Application with any Omnivox account other than your own, or to read, send or alter any other person's records;
+
+- use the Application in any way that breaches your college's Omnivox Usage Conditions or the terms governing Omnivox.
+
+The Developer reserves all rights not expressly granted.
+
+4. Your account, and your college's terms
+
+The Application creates no account. It uses the Omnivox account your college already gave you.
+
+- You are responsible for your own credentials and for everything done with them, including everything the Application does while signed in as you.
+
+- Your college's terms still apply. Using the Application does not change, replace or override the Omnivox Usage Conditions your college sets, or Skytech's Omnivox privacy policy. You remain bound by both.
+
+- Your college has not authorised this Application. Reaching your account through unofficial software may be contrary to your college's conditions. You are responsible for deciding whether to do so and for the consequences if your college objects, including any action it takes against your account. The Developer makes no representation that such use is permitted by Dawson College or Skytech.
+
+- Do not use the Application to collect, store or redistribute information about other students or staff beyond your own ordinary use of your own account.
+
+5. What the Application can do to your account, and the risk you accept
+
+The Application does not only read. To be useful it also acts in your account: with your instruction it can send MIO messages, delete them, flag and file them, choose recipients, mark items read, write entries into your device calendar, and enrol or remove a two-factor authentication method. It does these by driving your college's own web pages automatically, on the live portal, and some of them cannot be undone.
+
+Because the Application interprets pages that Skytech and your college may change without notice, a defect in it — a bug, a mistaken assumption, or a change it misreads — can cause changes in your real account that you did not intend. Realistically that includes:
+
+- a message sent to the wrong recipient, or sent when you did not mean to send one;
+
+- a message deleted, flagged or filed that you wanted kept;
+
+- a two-factor authenticator enrolled, replaced or removed, which can lock you out of your own account until your college restores it;
+
+- calendar entries created, changed or deleted;
+
+- information shown wrongly, incompletely or out of date — a grade, a deadline, a room, a time — on which you might act;
+
+- a session left in a state your college's system rejects, requiring you to sign in again or contact your college.
+
+You accept and assume these risks. You acknowledge that the Application is independent, unofficial software provided free of charge; that it has not been reviewed or certified by your college, by Skytech, or by anyone else; and that you use it at your own risk and on your own judgement. You agree to verify any consequential action in the official Omnivox portal. If an outcome above would cause you serious academic or financial harm, do not use the Application for that purpose — use the official site.
+
+6. Maintenance and support
+
+The Developer is solely responsible for providing any maintenance and support for the Application, as required by applicable law. You and the Developer acknowledge that Apple has no obligation whatsoever to furnish any maintenance or support services for it. Neither Skytech nor Dawson College provides any support for it either; for problems with your Omnivox account itself, contact your college.
+
+Support is best-effort, by email, with no guaranteed response time and no commitment to continue. The Application is maintained by one person in their own time.
+
+7. Warranty
+
+The Developer is solely responsible for any product warranties, express or implied by law, to the extent not effectively disclaimed. Subject to section 16 and to the maximum extent permitted by applicable law, the Application is provided "as is" and "as available", with all faults and without warranty or condition of any kind, express, implied or statutory — including any implied warranty of merchantability, satisfactory quality, fitness for a particular purpose, accuracy, or non-infringement.
+
+In particular, the Developer does not warrant that grades, timetables, deadlines, messages or any other information shown by the Application are accurate, complete or current. They are a best-effort reproduction of what the Omnivox site returned at the time, and the Omnivox portal remains the authoritative record.
+
+In the event of any failure of the Application to conform to any applicable warranty, you may notify Apple, and Apple will refund the purchase price of the Application to you — which, the Application being free of charge, is nothing. To the maximum extent permitted by applicable law, Apple has no other warranty obligation whatsoever with respect to the Application.
+
+8. Product claims
+
+You and the Developer acknowledge that the Developer, not Apple, is responsible for addressing any claims of yours or of any third party relating to the Application or your possession or use of it, including: product liability claims; any claim that the Application fails to conform to any applicable legal or regulatory requirement; and claims arising under consumer protection, privacy or similar legislation.
+
+Subject to section 16 and to the fullest extent permitted by applicable law, the Developer is not liable for indirect, incidental, special, consequential, exemplary or punitive damages, nor for loss of data, loss of academic standing, missed deadlines, missed assessments, lost opportunity, or loss of access to your account, arising out of or in connection with the Application — whether in contract, in extra-contractual liability, or otherwise. Where liability cannot lawfully be excluded, it is limited to the greater of the amount you paid for the Application (nothing) and CAD $1.
+
+9. Intellectual property
+
+You and the Developer acknowledge that, in the event of any third-party claim that the Application or your possession and use of it infringes that third party's intellectual property rights, the Developer, not Apple, is solely responsible for the investigation, defence, settlement and discharge of that claim.
+
+All content retrieved from the Omnivox portal remains the property of its owner. You receive no rights in it under this Agreement, and nothing in this Agreement grants you or anyone else any right in the "Omnivox" name or any other mark.
+
+10. Legal compliance
+
+You represent and warrant that you are not located in a country or region subject to a U.S. Government embargo, or designated by the U.S. Government as a "terrorist supporting" country or region, and that you are not listed on any U.S. Government list of prohibited or restricted parties. You agree to comply with all applicable laws, including export control laws, in your use of the Application.
+
+11. Third-party terms
+
+You must comply with applicable third-party terms when using the Application. In particular, your use of it to reach the Omnivox portal remains subject to Dawson College's Omnivox Usage Conditions, to Skytech's terms and privacy policy, and to any acceptable-use or IT policy of your institution, as well as to your carrier or internet service agreement.
+
+12. Third-party beneficiary
+
+You and the Developer acknowledge and agree that Apple, and Apple's subsidiaries, are third-party beneficiaries of this Agreement, and that upon your acceptance of it Apple will have the right — and will be deemed to have accepted the right — to enforce this Agreement against you as a third-party beneficiary of it.
+
+13. Privacy
+
+The Application has no server. Your information is not sent to the Developer, because there is nowhere for it to go. What stays on your device, what goes to your college, and the one case where something reaches Apple, are set out in the Privacy Policy, which forms part of this Agreement.
+
+14. Pre-release versions
+
+Versions distributed through TestFlight are pre-release software. They may be incomplete, may contain errors, and may change your Omnivox account unintentionally. Use of a pre-release version is entirely at your own risk; verify anything important in the official portal. Your use of TestFlight is additionally governed by Apple's TestFlight Terms of Service, and this Agreement applies in addition to those terms.
+
+15. Contact
+
+Questions, complaints and claims about the Application should be directed to:
+
+Thomas Ma
+
+[postal address to be inserted before App Store submission]
+
+Montreal, Quebec, Canada
+
+Telephone: [telephone number to be inserted before App Store submission]
+
+Email: ma.yuecheng@kells.ca
+
+Omnivox Neo is an independent project and is not operated by, or on behalf of, Dawson College or Skytech Communications inc. For anything about your student record itself, contact Dawson College — they hold that information; this Application only displays it.
+
+16. The limits of this agreement
+
+This section overrides anything above that conflicts with it.
+
+If you are a consumer in Quebec, the Consumer Protection Act and the Civil Code of Québec give you rights that a contract cannot take away. Nothing in this Agreement excludes, restricts or modifies:
+
+- any legal warranty or right that applicable law does not permit to be excluded;
+
+- liability for bodily or moral injury;
+
+- liability for gross fault or intentional fault;
+
+- your right to bring proceedings where you live.
+
+Where a provision of this Agreement is prohibited or unenforceable under the law that applies to you, it applies only to the extent the law allows, and the rest continues in force. Every disclaimer and limitation above should be read as asking for as much protection as the law permits, and no more.
+
+17. Governing law
+
+This Agreement is governed by the laws of the Province of Quebec and the laws of Canada applicable in it. If you are a consumer, this does not deprive you of the protection of the mandatory rules of the place where you live, nor of your right to bring proceedings there.
+
+18. Acceptance, changes, and ending this agreement
+
+By ticking "I have read and accept the End User Licence Agreement" and signing in, you confirm that you have had the opportunity to read this Agreement and the Privacy Policy, that you accept them, and that you remain bound by your college's Omnivox Usage Conditions. The Application records, on your device only, which version you accepted and when.
+
+This Agreement may be revised. The version in force is the date at the top of this page. If it changes materially you will be asked to accept the new version before continuing — an earlier acceptance is never treated as covering new terms.
+
+You may end this Agreement at any time by deleting the Application. The Developer may stop distributing or supporting it at any time, without notice. Sections 2, 5, 7, 8, 9, 12 and 16 survive the end of this Agreement.
