@@ -100,7 +100,7 @@ Support is best-effort, by email, with no guaranteed response time and no commit
 
 7. Warranty
 
-The Developer is solely responsible for any product warranties, express or implied by law, to the extent not effectively disclaimed. Subject to section 16 and to the maximum extent permitted by applicable law, the Application is provided "as is" and "as available", with all faults and without warranty or condition of any kind, express, implied or statutory — including any implied warranty of merchantability, satisfactory quality, fitness for a particular purpose, accuracy, or non-infringement.
+The Developer is solely responsible for any product warranties, express or implied by law, to the extent not effectively disclaimed. Subject to section 16 and to the maximum extent permitted by applicable law, the Application is provided "as is" and "as available", with all faults and without warranty or condition of any kind, express or implied — including any implied warranty of merchantability, satisfactory quality, fitness for a particular purpose, accuracy, or non-infringement. Legal warranties that applicable law does not permit to be excluded are not excluded, and in Quebec that includes the warranties the Consumer Protection Act and the Civil Code of Québec impose.
 
 In particular, the Developer does not warrant that grades, timetables, deadlines, messages or any other information shown by the Application are accurate, complete or current. They are a best-effort reproduction of what the Omnivox site returned at the time, and the Omnivox portal remains the authoritative record.
 
@@ -110,7 +110,9 @@ In the event of any failure of the Application to conform to any applicable warr
 
 You and the Developer acknowledge that the Developer, not Apple, is responsible for addressing any claims of yours or of any third party relating to the Application or your possession or use of it, including: product liability claims; any claim that the Application fails to conform to any applicable legal or regulatory requirement; and claims arising under consumer protection, privacy or similar legislation.
 
-Subject to section 16 and to the fullest extent permitted by applicable law, the Developer is not liable for indirect, incidental, special, consequential, exemplary or punitive damages, nor for loss of data, loss of academic standing, missed deadlines, missed assessments, lost opportunity, or loss of access to your account, arising out of or in connection with the Application — whether in contract, in extra-contractual liability, or otherwise. Where liability cannot lawfully be excluded, it is limited to the greater of the amount you paid for the Application (nothing) and CAD $1.
+Subject to section 16 and to the fullest extent permitted by applicable law, the Developer is not liable for indirect, incidental, special, consequential, exemplary or punitive damages, nor for loss of data, loss of academic standing, missed deadlines, missed assessments, lost opportunity, or loss of access to your account, arising out of or in connection with the Application — whether in contract, in extra-contractual liability, or otherwise. Where liability can lawfully be limited but not excluded, it is limited to the greater of the amount you paid for the Application (nothing) and CAD $1.
+
+Nothing in this section limits the Developer's liability to you beyond what applicable law permits. Where the law of the place you live does not allow a limitation of this kind, or allows it only in part, it applies only so far as that law allows and no further.
 
 9. Intellectual property
 
