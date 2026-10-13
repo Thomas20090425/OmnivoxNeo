@@ -250,6 +250,12 @@ final class VersionGateService: ObservableObject {
         let store = URL(string: "https://apps.apple.com/ca/app/omnivox-neo/id0000000000")
         let flight = URL(string: "https://testflight.apple.com/join/REPLACE_ME")
 
+        // Stands the gate down entirely. Needed more often than it sounds: the
+        // live manifest can legitimately say this build is blocked, and
+        // everything else in the app is unreachable while it does.
+        if arguments.contains("--demo-version-normal") {
+            return .proceed
+        }
         if arguments.contains("--demo-version-announce") {
             return .announce(
                 title: "One Thing To Know",

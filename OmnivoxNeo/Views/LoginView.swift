@@ -13,8 +13,16 @@ struct LoginView: View {
         case password
     }
 
+    @ObservedObject private var acceptance = AgreementAcceptance.shared
+
     private var canSubmit: Bool {
-        model.loginStudentID.count == 7 && !password.isEmpty && !model.isBusy
+        model.loginStudentID.count == 7
+            && !password.isEmpty
+            && !model.isBusy
+            // Nothing reaches the college until the terms have been accepted.
+            // Gating the button rather than warning afterwards keeps the
+            // agreement a precondition instead of a formality.
+            && acceptance.hasAcceptedCurrent
     }
 
     var body: some View {
@@ -26,6 +34,7 @@ struct LoginView: View {
 
                 header
                 credentials
+                AgreementConsentRow(acceptance: acceptance)
                 submit
             }
             .frame(maxWidth: 440)
