@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Omnivox Neo — version manifest.
+
+  The app reads this before it does anything else and decides whether the build
+  in someone's hand is still fit to run. Served over HTTPS and edited by hand:
+  it is the one lever that reaches a build already installed on a phone, so it
+  is kept small enough to be edited correctly at two in the morning.
+
+  HOW A BUILD IS MATCHED
+  Exactly, on CFBundleShortVersionString, against a key under <Versions>.
+  Surrounding whitespace is ignored; nothing else is. A build with no entry
+  here, an entry with a Status the app does not recognise, or a file that fails
+  to parse all mean the same thing: NORMAL, no announcement. Silence is always
+  the safe answer, so a typo in this file can never lock anybody out.
+
+  WHERE "UPDATE" SENDS SOMEONE
+  Off the dot count in their own version number, not a flag in here:
+    1 dot   1.0       released   → AppStoreURL
+    2 dots  0.0.5     TestFlight → TestFlightURL
+    3 dots  0.0.3.5   internal   → TestFlightURL
+  One number decides both the label the app shows and where the button goes,
+  so the two cannot disagree.
+
+  THE THREE STATUSES
+    normal             Nothing is shown. If Announcement is set, it is shown
+                       once per launch with a single OK — for "we know about
+                       this, here is the workaround, the fix is coming".
+    updateRecommended  Title, your Announcement as the reason, then Update and
+                       Ignore. Ignore lasts for that launch only: it comes back
+                       on the next cold start until they update.
+    updateRequired     Update only, and no way past it. The app writes the
+                       first sentence itself — "A critical fix is available…" —
+                       and your Announcement is appended after it, so you only
+                       write the part that is specific to this build.
+
+  Announcement is optional everywhere. AnnouncementTitle only changes the
+  heading on a `normal` announcement; the other two title themselves.
+-->
+<plist version="1.0">
+<dict>
+	<!-- Bumped only if the shape below changes. The app refuses a schema it
+	     does not know rather than guessing at it, and refusing means NORMAL. -->
+	<key>SchemaVersion</key>
+	<integer>1</integer>
+
+	<!-- Where "Update" goes. Read from here rather than compiled in, so a new
+	     TestFlight link does not need a new build to take effect. -->
+	<key>AppStoreURL</key>
+	<string>https://apps.apple.com/ca/app/omnivox-neo/id0000000000</string>
+	<key>TestFlightURL</key>
+	<string>https://testflight.apple.com/join/REPLACE_ME</string>
+
+	<!-- Whether a required update quits the app after handing someone to the
+	     store. The blocking screen is there either way and cannot be dismissed,
+	     so this only decides whether the app also disappears. Off by default:
+	     App Review treats a self-terminating app as a crash. -->
+	<key>TerminateAfterUpdateRedirect</key>
+	<false/>
+
+	<key>Versions</key>
+	<dict>
+
+		<!-- Internal build, superseded. Shows the written-in sentence first,
+		     then the line below it. -->
+		<key>0.0.3.5</key>
+		<dict>
+			<key>Status</key>
+			<string>updateRequired</string>
+			<key>Announcement</key>
+			<string>This build signs you out at random and cannot refresh your timetable after midnight.</string>
+		</dict>
+
+		<!-- Older TestFlight build. Worth moving off, not urgent. -->
+		<key>0.0.4</key>
+		<dict>
+			<key>Status</key>
+			<string>updateRecommended</string>
+			<key>Announcement</key>
+			<string>Grades now read correctly for teachers who do not group their assessments, MIO messages can be swiped to file or flag, and the schedule opens straight away instead of waiting for the sign-in to finish.</string>
+		</dict>
+
+		<!-- The current build: fine to use, but with something known about it.
+		     This entry becomes updateRequired once the fix actually ships. -->
+		<key>0.0.5</key>
+		<dict>
+			<key>Status</key>
+			<string>normal</string>
+			<key>AnnouncementTitle</key>
+			<string>One Thing To Know</string>
+			<key>Announcement</key>
+			<string>Removing the last person from a MIO message does not work on this build — Omnivox ignores it. Add the new recipient first, then remove the old one. A fix is in review.</string>
+		</dict>
+
+		<!-- A build with nothing to say. Present only to show that an entry
+		     like this is the same as no entry at all; either is fine. -->
+		<key>1.0</key>
+		<dict>
+			<key>Status</key>
+			<string>normal</string>
+		</dict>
+
+	</dict>
+</dict>
+</plist>
