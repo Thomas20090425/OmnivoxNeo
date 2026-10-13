@@ -32,7 +32,7 @@ This is the most important section on the page, so it is near the top.
 
 Things the Application does that Omnivox does not
 
-Section 2 says the Application does less than Omnivox. In places it also does more, and that needs saying just as plainly. It already adds a Home Screen widget, a built-in two-factor authenticator, a saved timetable that works without a signal, course colours and wallpapers, and calendar sync. Features may be added later that Omnivox has no equivalent of — reporting a bug, or asking for something to be built, are two that are planned.
+Section 2 says the Application does less than Omnivox. In places it also does more, and that needs saying just as plainly. It already adds a Home Screen widget, a built-in two-factor authenticator, a saved timetable that works without a signal, course colours and wallpapers, calendar sync, and — under Account → Feedback and Roadmap — a way to report a bug or ask for a feature and to read the public list of what others have reported. That last one is the only part of the Application that sends anything to a party other than your college, it does so only when you fill in its form and submit it, and what you submit is published publicly as an issue on the project's GitHub repository. It is described in full in the Privacy Policy, which you should read before using it.
 
 None of those are Omnivox features, none of them come from Skytech or your college, and your college does not support them. Three commitments apply to every one of them, now and in future:
 
@@ -129,6 +129,10 @@ You represent and warrant that you are not located in a country or region subjec
 11. Third-party terms
 
 You must comply with applicable third-party terms when using the Application. In particular, your use of it to reach the Omnivox portal remains subject to Dawson College's Omnivox Usage Conditions, to Skytech's terms and privacy policy, and to any acceptable-use or IT policy of your institution, as well as to your carrier or internet service agreement.
+
+If you use the feedback feature, two further sets of terms apply to that use, because what you submit passes through services the Developer does not operate: those of BugDrop, which receives the form and files the report, and those of GitHub, which hosts the form, the repository and the resulting public issue. The Developer has no control over either service and does not warrant their availability. Anything you submit is published publicly and the Developer cannot undertake to remove it, although a request to do so will be acted on where GitHub makes that possible.
+
+You agree not to use the feedback feature to submit anything unlawful, defamatory, harassing, or infringing, and not to submit another person's personal information. You are responsible for what you choose to put into it, and you should assume that anything you put into it will be read by people other than the Developer.
 
 12. Third-party beneficiary
 

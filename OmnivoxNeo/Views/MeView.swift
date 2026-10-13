@@ -102,6 +102,20 @@ struct MeView: View {
                     }
                     .accessibilityHint("Opens application settings")
 
+                    // Between the settings and the way out, because that is
+                    // where somebody looks when the app has just done something
+                    // they did not expect.
+                    NavigationLink {
+                        CommunityFeedbackView()
+                    } label: {
+                        SettingsRowLabel(
+                            title: "Feedback and Roadmap",
+                            systemImage: "bubble.left.and.exclamationmark.bubble.right.fill",
+                            tint: Neo.accent
+                        )
+                    }
+                    .accessibilityHint("Report a bug, request a feature, or see what is already known")
+
                     Button(role: .destructive) {
                         showsRemoveAccountOptions = true
                     } label: {
@@ -113,6 +127,29 @@ struct MeView: View {
                         )
                     }
                     .disabled(isRemovingAccount)
+                }
+
+                // Who wrote this, with a face on it.
+                //
+                // An unofficial app asks for a college password on nobody's
+                // authority but its own. "Who is behind this?" is the first
+                // fair question, and it should not have an answer only a
+                // lawyer can find, so it gets a row of its own rather than a
+                // line inside the licence.
+                Section {
+                    NavigationLink {
+                        AboutTheAuthorView()
+                    } label: {
+                        SettingsRowLabel(
+                            title: "About the Developer",
+                            systemImage: "person.fill",
+                            tint: Neo.accent
+                        )
+                    }
+                } header: {
+                    Text("About")
+                } footer: {
+                    Text("Omnivox Neo is written by one student at Dawson, on his own time.")
                 }
 
                 // Reachable from inside the app, not only from the App Store
