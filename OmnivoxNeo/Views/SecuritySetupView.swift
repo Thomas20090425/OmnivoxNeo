@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct SecuritySetupView: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     @ObservedObject var model: AppModel
     @State private var protectsSchedule = true
     @State private var keepsInformationOnDevice = true

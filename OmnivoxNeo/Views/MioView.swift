@@ -15,6 +15,9 @@ import SwiftUI
 /// menu, because nothing behind them exists here. Borrowing the parts without
 /// the things is how an interface ends up full of controls that do nothing.
 struct MioView: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     @ObservedObject var model: AppModel
     @ObservedObject var store: MioStore
 
@@ -736,6 +739,9 @@ private struct MioSwipeRow<Content: View>: View {
 /// word to VoiceOver — because it is the single most important fact on the
 /// screen and the usual way of saying it is a shade of grey.
 private struct MioRow: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     let message: MioMessage
     let isUnread: Bool
     let showsRecipientCount: Bool
@@ -923,6 +929,9 @@ struct MioMonogram: View {
 // MARK: - The folder drawer
 
 private struct MioFolderList: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     /// What the college calls its messaging, rather than the word "Folders" —
     /// this is the place you are in, and its name is the heading.
     let title: String

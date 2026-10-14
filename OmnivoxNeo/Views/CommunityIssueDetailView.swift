@@ -8,6 +8,9 @@ import SwiftUI
 /// when it last moved — are a short list. The whole thread, with its comments
 /// and its commits, is one tap away for anybody who wants it.
 struct CommunityIssueDetailView: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     let issue: CommunityIssue
     var service: CommunityFeedbackService?
 

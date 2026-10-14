@@ -36,6 +36,24 @@ final class Personalization: ObservableObject {
     private(set) var accent: AccentChoice = .blue
     private(set) var wallpaper: WallpaperChoice = .none
     private(set) var wallpaperPhoto: Image?
+    /// How far back the wallpaper is pushed, as a blur radius in points.
+    ///
+    /// Zero means none, and that is the point of it being a number rather than
+    /// a switch: how much blur a photograph needs is a property of the
+    /// photograph. A busy canopy needs a lot before text in front of it
+    /// settles down; an out-of-focus sky needs none at all. Only the person
+    /// looking at it knows which they have.
+    private(set) var wallpaperBlur: Double = Personalization.defaultWallpaperBlur
+
+    /// What a photograph starts at.
+    ///
+    /// Not zero. Most photographs are detailed enough that text sitting
+    /// directly on them — the sign-in terms, the footnotes under a list — is
+    /// hard to read, so the first thing somebody sees should be the legible
+    /// version. Taking it off is one drag away.
+    static let defaultWallpaperBlur: Double = 28
+    static let maximumWallpaperBlur: Double = 60
+
     private(set) var gradeChartScale: GradeChartScale = .dynamic
 
     /// Icons and colours the student has picked for individual courses, keyed
@@ -67,6 +85,11 @@ final class Personalization: ObservableObject {
         )
         gradeChartScale = GradeChartScale(rawValue: defaults.string(forKey: key("gradeChartScale")) ?? "")
             ?? .dynamic
+        // `object(forKey:)` rather than `double(forKey:)`, which cannot tell
+        // "set to zero" from "never set" — and those mean opposite things
+        // here: no blur at all, or the default.
+        wallpaperBlur = (defaults.object(forKey: key("wallpaperBlur")) as? Double)
+            ?? Self.defaultWallpaperBlur
         courseAppearances = (defaults.data(forKey: key("courseAppearances")))
             .flatMap { try? JSONDecoder().decode([String: CourseAppearance].self, from: $0) } ?? [:]
         loadWallpaperPhoto()
@@ -80,6 +103,19 @@ final class Personalization: ObservableObject {
         accent = choice
         defaults.set(choice.rawValue, forKey: key("accent"))
         syncToWidgets()
+    }
+
+    /// How much the wallpaper is blurred, 0 for not at all.
+    ///
+    /// Not written to the widgets: the Home Screen already has the system's
+    /// own wallpaper behind it, and the square crop used there is a backdrop
+    /// to two lines of text rather than to a whole app.
+    func setWallpaperBlur(_ radius: Double) {
+        let clamped = min(max(radius, 0), Self.maximumWallpaperBlur)
+        guard clamped != wallpaperBlur else { return }
+        objectWillChange.send()
+        wallpaperBlur = clamped
+        defaults.set(clamped, forKey: key("wallpaperBlur"))
     }
 
     func setGradeChartScale(_ choice: GradeChartScale) {

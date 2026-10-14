@@ -13,6 +13,9 @@ import SwiftUI
 /// account whatever is used to reach it — and a student who only understood
 /// one of those would have understood the wrong one.
 struct AgreementConsentRow: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     @ObservedObject var acceptance: AgreementAcceptance
 
     @State private var reading: LegalDocument?

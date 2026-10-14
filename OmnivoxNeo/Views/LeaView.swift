@@ -33,6 +33,9 @@ enum LeaRoute: Hashable {
 /// stays, because a term is a different set of courses rather than a subset of
 /// this one.
 struct LeaView: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     @ObservedObject var model: AppModel
     @ObservedObject var store: LeaStore
 
@@ -807,6 +810,9 @@ struct LeaPlaceholder: View {
 }
 
 struct LeaFailureCard: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     let message: String
     let retry: () -> Void
 

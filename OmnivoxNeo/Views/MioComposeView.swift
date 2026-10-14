@@ -17,6 +17,9 @@ import WebKit
 /// replying to all and forwarding never reach it: MIO fills the recipients in
 /// itself, which is why those are native from beginning to end.
 struct MioComposeView: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     @ObservedObject var store: MioStore
     let intent: MioDraft.Intent
 
@@ -430,6 +433,9 @@ struct MioComposeView: View {
 /// on; the rest is one tap away, and the tap is its own control so it does not
 /// fight the one that opens the directory.
 struct MioRecipientChips: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     let names: [String]
     @Binding var isExpanded: Bool
 

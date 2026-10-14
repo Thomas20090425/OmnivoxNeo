@@ -26,11 +26,28 @@ enum Neo {
 
     /// The accent the student picked; blue by default.
     ///
-    /// Reading from the personalization store rather than being a constant is
-    /// what lets the whole app re-tint at once; views re-render because they
-    /// observe that store, and every `Neo.accent` they draw then resolves to
-    /// the new value.
+    /// Reading the store rather than being a constant is what lets the whole
+    /// app re-tint at once.
+    ///
+    /// - Important: a static property is invisible to SwiftUI. A view whose
+    ///   body says `Neo.accent` has declared no dependency on anything, so
+    ///   nothing tells SwiftUI to redraw it when the colour changes — which is
+    ///   why every screen that did not happen to observe the store kept the
+    ///   old colour until the app was launched again. Any view that draws with
+    ///   this must also hold `@ObservedObject … = Personalization.shared`, and
+    ///   `observesTheAccent()` below is the one-line way to say so.
+    ///
+    ///   `Color.accentColor` would have been tidier, but this project ships an
+    ///   `AccentColor` asset, and `Color.accentColor` resolves to the asset
+    ///   rather than to the environment's `.tint`.
     static var accent: Color {
+        Personalization.shared.accent.color
+    }
+
+    /// The same colour, named for the places that genuinely want the chosen
+    /// value rather than "whatever this view is tinted with" — setting the
+    /// root tint, and the swatches in the colour picker.
+    static var chosenAccent: Color {
         Personalization.shared.accent.color
     }
 
@@ -174,7 +191,12 @@ struct NeoBackground: View {
                                 // behave like a background. Colour and shape
                                 // survive, so it still looks like the picture
                                 // that was chosen.
-                                .blur(radius: 28, opaque: true)
+                                // `opaque: true` so the blur samples the image
+                                // rather than fading into transparency at the
+                                // edges, which would leave a pale border round
+                                // the screen. At a radius of zero this is a
+                                // no-op and the photograph is untouched.
+                                .blur(radius: personalization.wallpaperBlur, opaque: true)
                                 // Slightly calmed, so a vivid photograph does
                                 // not pull harder than the accent colour it
                                 // sits behind.

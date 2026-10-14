@@ -127,6 +127,41 @@ struct PersonalizationSettingsView: View {
                     }
                 }
 
+                // Only while a photograph is actually behind things. The
+                // built-in gradients have no detail to blur, so the control
+                // would do nothing and still ask to be understood.
+                if personalization.hasWallpaperPhoto, personalization.wallpaper == .photo {
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack(spacing: 12) {
+                            SettingsIcon(systemImage: "drop.fill", tint: Neo.accent)
+                            Text("Blur")
+                                .foregroundStyle(.primary)
+                            Spacer(minLength: 8)
+                            Text(blurDescription)
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
+                                .monospacedDigit()
+                        }
+
+                        Slider(
+                            value: blurBinding,
+                            in: 0...Personalization.maximumWallpaperBlur,
+                            step: 2
+                        ) {
+                            Text("Blur")
+                        } minimumValueLabel: {
+                            Image(systemName: "photo")
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                        } maximumValueLabel: {
+                            Image(systemName: "drop.fill")
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                        }
+                        .tint(Neo.accent)
+                    }
+                }
+
                 if personalization.hasWallpaperPhoto {
                     Button(role: .destructive) {
                         personalization.clearWallpaperPhoto()
@@ -180,9 +215,17 @@ struct PersonalizationSettingsView: View {
                 pendingCrop = nil
             } onConfirm: { cropped in
                 pendingCrop = nil
-                if let data = cropped.jpegData(compressionQuality: 0.9),
-                   !personalization.setWallpaperPhoto(data: data) {
+                guard let data = cropped.jpegData(compressionQuality: 0.9) else { return }
+                guard personalization.setWallpaperPhoto(data: data) else {
                     photoError = Loc.text("That photo couldn’t be saved. Try another one.")
+                    return
+                }
+                // The accent follows the photograph here too. A wallpaper from
+                // the camera roll and one from the shared library are the same
+                // decision, and only one of them changing the colour would be
+                // the odd behaviour to explain.
+                if let accent = WallpaperAccentSuggestion.accent(for: data) {
+                    personalization.setAccent(accent)
                 }
             }
         }
@@ -232,6 +275,26 @@ struct PersonalizationSettingsView: View {
     /// `title` arrives already localized: `AccentChoice` and `BuiltInWallpaper`
     /// are shared with the widget extension, which has no access to `Loc`, so
     /// their names are translated here at the call site instead.
+    /// Drives the slider.
+    ///
+    /// The store is not `@Published`, so the binding reads it directly and
+    /// writes through the setter, which is what sends the change on.
+    private var blurBinding: Binding<Double> {
+        Binding(
+            get: { personalization.wallpaperBlur },
+            set: { personalization.setWallpaperBlur($0) }
+        )
+    }
+
+    /// "None" rather than "0 pt": the number is not the point, and zero is the
+    /// one value on this slider that means something categorically different
+    /// from its neighbours.
+    private var blurDescription: String {
+        personalization.wallpaperBlur <= 0
+            ? Loc.text("None")
+            : "\(Int(personalization.wallpaperBlur))"
+    }
+
     private func wallpaperRow<Preview: View>(
         title: String,
         isSelected: Bool,

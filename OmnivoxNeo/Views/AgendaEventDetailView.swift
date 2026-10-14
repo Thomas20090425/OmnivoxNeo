@@ -196,6 +196,9 @@ struct AgendaEventDetailView: View {
 
 /// One link, and an honest statement of what tapping it will do.
 private struct LinkRow: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     let link: PortalLink
     let domainSuffix: String
     let onOpen: (PortalLink) -> Void

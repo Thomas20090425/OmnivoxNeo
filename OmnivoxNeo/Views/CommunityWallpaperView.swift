@@ -18,7 +18,14 @@ struct CommunityWallpaperView: View {
     /// Which one is currently the wallpaper, so the feed can say so.
     @State private var applied: String?
     @State private var failed: String?
-    @State private var suggestedAccent: AccentChoice?
+    /// An accent that was just changed to match a wallpaper, and what it was
+    /// before.
+    struct AccentChange: Equatable {
+        let from: AccentChoice
+        let to: AccentChoice
+    }
+
+    @State private var accentChange: AccentChange?
     @State private var showsRemoveDownloads = false
     /// The width the grid actually got, which is what tile height is worked
     /// out from.
@@ -68,8 +75,8 @@ struct CommunityWallpaperView: View {
                     grid
                 }
 
-                if let suggestedAccent {
-                    accentSuggestion(suggestedAccent)
+                if let accentChange {
+                    accentNotice(accentChange)
                 }
 
                 submission
@@ -308,48 +315,51 @@ struct CommunityWallpaperView: View {
             return
         }
         withAnimation(.easeInOut(duration: 0.2)) { applied = wallpaper.id }
-        // Offered, never applied on its own. Somebody who chose their colour
-        // deliberately should not find it changed because they liked a
-        // photograph.
+
+        // Applied, not offered. Picking a wallpaper and then being asked a
+        // second question about it is two decisions where somebody wanted
+        // one — and the accent is visible the moment it changes, so there is
+        // nothing to confirm that is not already on screen.
+        //
+        // Only when there is a confident answer. A photograph with no clear
+        // colour leaves the accent alone rather than moving it somewhere
+        // arbitrary.
+        guard let accent = WallpaperAccentSuggestion.accent(for: data) else { return }
+        let previous = personalization.accent
+        guard accent != previous else { return }
+        personalization.setAccent(accent)
+        // What it was, so it can be put back. Changing somebody's colour for
+        // them is only reasonable if undoing it is one tap.
         withAnimation(.easeInOut(duration: 0.25)) {
-            suggestedAccent = WallpaperAccentSuggestion.accent(for: data)
+            accentChange = AccentChange(from: previous, to: accent)
         }
     }
 
     // MARK: - The colour that goes with it
 
-    private func accentSuggestion(_ accent: AccentChoice) -> some View {
+    private func accentNotice(_ change: AccentChange) -> some View {
         HStack(spacing: 12) {
             Circle()
-                .fill(accent.color)
+                .fill(change.to.color)
                 .frame(width: 26, height: 26)
+                .accessibilityHidden(true)
 
             VStack(alignment: .leading, spacing: 1) {
-                Text("A colour from this photo")
+                Text("Accent changed to match")
                     .font(.subheadline.weight(.medium))
-                Text(LocalizedStringKey(accent.title))
+                Text(LocalizedStringKey(change.to.title))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
 
             Spacer(minLength: 8)
 
-            Button("Use It") {
-                personalization.setAccent(accent)
-                suggestedAccent = nil
+            Button("Undo") {
+                personalization.setAccent(change.from)
+                withAnimation(.easeInOut(duration: 0.2)) { accentChange = nil }
             }
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.bordered)
             .controlSize(.small)
-
-            Button {
-                suggestedAccent = nil
-            } label: {
-                Image(systemName: "xmark")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(.secondary)
-            }
-            .buttonStyle(.plain)
-            .accessibilityLabel(Text("Dismiss"))
         }
         .padding(14)
         .frame(maxWidth: .infinity, alignment: .leading)

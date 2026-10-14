@@ -24,6 +24,9 @@ import WebKit
 import Combine
 
 struct TOTPGuidedSetupView: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     @ObservedObject var model: AppModel
     @Environment(\.dismiss) private var dismiss
 
@@ -1178,6 +1181,9 @@ struct GuidedWebView: PlatformViewRepresentable {
 // MARK: - TOTP Code Display (Simplified)
 
 struct TOTPCodeDisplay: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     let secret: String
     @State private var code = "------"
     @State private var remainingSeconds = 30

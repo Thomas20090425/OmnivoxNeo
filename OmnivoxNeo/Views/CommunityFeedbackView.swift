@@ -8,6 +8,9 @@ import SwiftUI
 /// feedback to an app is that it disappears, and the cure for that is not a
 /// better confirmation message, it is being able to see the list.
 struct CommunityFeedbackView: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     @StateObject private var service = CommunityFeedbackService()
     @State private var filter: CommunityIssueFilter = .bugs
     @State private var isSubmitting = false
@@ -317,6 +320,9 @@ struct CommunityFeedbackView: View {
 // MARK: - One item in the list
 
 struct CommunityIssueRow: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     let issue: CommunityIssue
 
     var body: some View {

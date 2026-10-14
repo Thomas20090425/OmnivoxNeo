@@ -8,6 +8,9 @@ import SwiftUI
 /// update is the exception: there is nothing behind it, because nothing behind
 /// it was allowed to start.
 struct VersionGateNotice: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     let decision: VersionGateDecision
     let onUpdate: () -> Void
     let onDismiss: () -> Void

@@ -4,6 +4,9 @@ import AppKit
 #endif
 
 struct MeView: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     @ObservedObject var model: AppModel
 
     @State private var showsProfileSwitcher = false
@@ -208,6 +211,9 @@ struct MeView: View {
 }
 
 private struct AppSettingsView: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     @ObservedObject var model: AppModel
 
     @State private var isUpdatingLock = false

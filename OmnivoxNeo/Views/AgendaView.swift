@@ -11,6 +11,9 @@ import SwiftUI
 /// technically complete and impossible to scan: you could not tell a free week
 /// from a busy one without reading it.
 struct AgendaView: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     @ObservedObject var model: AppModel
     @ObservedObject private var readState: AgendaReadState
     @Environment(\.dismiss) private var dismiss
@@ -595,6 +598,9 @@ private struct MonthCalendar: View {
 }
 
 private struct DayCell: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     let day: Date
     let isSelected: Bool
     let isToday: Bool

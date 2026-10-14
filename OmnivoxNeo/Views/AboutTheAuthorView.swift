@@ -12,6 +12,9 @@ import SwiftUI
 /// What is deliberately **not** here: no address, no telephone number, nothing
 /// that is not already a public way to reach somebody.
 struct AboutTheAuthorView: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     @Environment(\.openURL) private var openURL
 
     private static let email = "yuecheng.ma@dawsoncollege.qc.ca"

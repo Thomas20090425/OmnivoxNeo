@@ -16,6 +16,9 @@ import SwiftUI
 /// every launch, every sign-in and every Face ID unlock. Declining now goes
 /// through `AppModel`, which owns both the flag and the question.
 struct FirstTimeTOTPPromptView: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     @ObservedObject var model: AppModel
     @Environment(\.dismiss) private var dismiss
     @State private var showSetup = false

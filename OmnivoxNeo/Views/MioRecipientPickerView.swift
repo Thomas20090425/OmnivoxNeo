@@ -20,6 +20,9 @@ import WebKit
 /// build, or a screen added since — it shows MIO's own page instead of
 /// pretending. That is also always reachable on purpose, from the menu.
 struct MioRecipientPicker: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     @ObservedObject var session: MioComposeSession
     @Environment(\.dismiss) private var dismiss
 

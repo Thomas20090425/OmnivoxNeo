@@ -6,6 +6,9 @@ import SwiftUI
 /// `.campusNavigation`. A student signed in to any other school never sees it,
 /// and never loads this file's view.
 struct DawsonCampusView: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     @ObservedObject var model: AppModel
 
     @State private var query = ""

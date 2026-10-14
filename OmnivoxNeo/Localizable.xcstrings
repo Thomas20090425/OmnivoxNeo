@@ -8188,6 +8188,26 @@
           }
         }
       }
+    },
+    "Blur" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Flou"
+          }
+        }
+      }
+    },
+    "Accent changed to match" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couleur d'accent ajustée à la photo"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

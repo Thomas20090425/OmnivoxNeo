@@ -22,6 +22,9 @@ struct LeaWebPage: Identifiable, Hashable {
 /// The page's own Close button is hidden: it posts back to a pop-up that does
 /// not exist here, and two ways out that behave differently is worse than one.
 struct LeaWebSheet: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     @ObservedObject var model: AppModel
     @ObservedObject var store: LeaStore
     let page: LeaWebPage

@@ -11,6 +11,9 @@ import UIKit
 #endif
 
 struct TOTPCodeView: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     let secret: TOTPSecret
     @State private var currentCode = TOTPCodeView.placeholderCode
     @State private var remainingSeconds = 30

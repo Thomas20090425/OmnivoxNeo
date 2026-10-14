@@ -289,6 +289,9 @@ struct ScheduleView: View {
 }
 
 private struct StatusHero: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     let status: ScheduleStatus
 
     /// The hero follows the student's accent.
@@ -362,6 +365,9 @@ private struct StatusHero: View {
 }
 
 private struct CourseCard: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     let meeting: CourseMeeting
     let isHighlighted: Bool
     let timeZone: TimeZone

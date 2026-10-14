@@ -193,6 +193,9 @@ enum RichTextHTML {
 /// deliberately absent is MIO's symbol palette and emoticon grid — the system
 /// keyboard has both, and better ones.
 struct MioFormattingBar: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     @ObservedObject var controller: RichTextController
 
     var body: some View {

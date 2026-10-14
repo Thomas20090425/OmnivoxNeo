@@ -12,6 +12,9 @@ import SwiftUI
 /// on the portal, the counter in the menu and the badge on the tab all agree
 /// afterwards without anything extra being sent.
 struct MioMessageView: View {
+    // Observed so a change of accent redraws this screen. `Neo.accent`
+    // is a static read, which SwiftUI cannot see as a dependency.
+    @ObservedObject private var accentStore = Personalization.shared
     @ObservedObject var store: MioStore
     let message: MioMessage
     let onCompose: (MioDraft.Intent) -> Void

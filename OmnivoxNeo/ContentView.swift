@@ -19,6 +19,7 @@ import SwiftUI
 struct ContentView: View {
     @StateObject private var profileStore = PortalProfileStore.shared
     @ObservedObject private var language = AppLanguageStore.shared
+    @ObservedObject private var personalization = Personalization.shared
 
     var body: some View {
         Group {
@@ -38,6 +39,11 @@ struct ContentView: View {
         // in the new language immediately — no relaunch, and no writing to
         // `AppleLanguages` behind iOS's back.
         .environment(\.locale, language.locale)
+        // The whole app's accent, in one line, and for the same reason as the
+        // language above it. `Neo.accent` resolves to this, so one assignment
+        // here re-tints every screen at once — no relaunch, and no screen left
+        // showing last week's colour because it happened not to be watching.
+        .tint(Neo.chosenAccent)
         // Account operations survive the session rebuild that carries them out,
         // so the message they leave behind is shown here rather than by the
         // model that no longer exists.
