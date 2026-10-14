@@ -100,6 +100,33 @@ struct PersonalizationSettingsView: View {
                 }
                 .disabled(isLoadingPhoto)
 
+                // Photographs other students took, as an alternative to one of
+                // your own. Its own row rather than a mode inside the picker
+                // above, because "a picture from my camera roll" and "a
+                // picture somebody else made" are different enough decisions
+                // that merging them into one button would be a riddle.
+                NavigationLink {
+                    CommunityWallpaperView()
+                } label: {
+                    HStack(spacing: 14) {
+                        Neo.inset
+                            .overlay {
+                                Image(systemName: "photo.stack")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .frame(width: 44, height: 30)
+                            .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 6, style: .continuous)
+                                    .strokeBorder(Neo.separator)
+                            }
+
+                        Text("Community Wallpapers")
+                            .foregroundStyle(.primary)
+                    }
+                }
+
                 if personalization.hasWallpaperPhoto {
                     Button(role: .destructive) {
                         personalization.clearWallpaperPhoto()

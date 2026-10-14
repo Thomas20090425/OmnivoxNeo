@@ -2146,7 +2146,16 @@
         }
       }
     },
-    "Dismiss" : {},
+    "Dismiss" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ignorer"
+          }
+        }
+      }
+    },
     "Document" : {
       "localizations" : {
         "fr" : {
@@ -7976,6 +7985,206 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Les réponses n'ont pas pu être chargées. Elles se trouvent sur GitHub."
+          }
+        }
+      }
+    },
+    "Community Wallpapers" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fonds d'écran de la communauté"
+          }
+        }
+      }
+    },
+    "Loading the wallpapers…" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chargement des fonds d'écran…"
+          }
+        }
+      }
+    },
+    "Wallpapers Unavailable" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fonds d'écran indisponibles"
+          }
+        }
+      }
+    },
+    "These are downloaded from the project's repository, so they need a connection." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ils sont téléchargés depuis le dépôt du projet : une connexion est donc nécessaire."
+          }
+        }
+      }
+    },
+    "Add your own" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ajouter le vôtre"
+          }
+        }
+      }
+    },
+    "Email a Photo" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyer une photo par courriel"
+          }
+        }
+      }
+    },
+    "Downloaded" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Téléchargés"
+          }
+        }
+      }
+    },
+    "%@ of wallpapers are saved on this device so they do not have to be downloaded again." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ de fonds d'écran sont enregistrés sur cet appareil pour ne pas avoir à être téléchargés de nouveau."
+          }
+        }
+      }
+    },
+    "Remove Downloads" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer les téléchargements"
+          }
+        }
+      }
+    },
+    "Remove Downloaded Wallpapers?" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer les fonds d'écran téléchargés ?"
+          }
+        }
+      }
+    },
+    "The wallpaper you are using now stays. Anything else will be downloaded again next time you pick it." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le fond d'écran que vous utilisez actuellement est conservé. Les autres seront téléchargés de nouveau la prochaine fois que vous les choisirez."
+          }
+        }
+      }
+    },
+    "That Wallpaper Could Not Be Downloaded" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce fond d'écran n'a pas pu être téléchargé"
+          }
+        }
+      }
+    },
+    "It needs a connection, and these files are large. Try again on wifi." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une connexion est nécessaire, et ces fichiers sont volumineux. Réessayez en wifi."
+          }
+        }
+      }
+    },
+    "A colour from this photo" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Une couleur tirée de cette photo"
+          }
+        }
+      }
+    },
+    "Use It" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "L'utiliser"
+          }
+        }
+      }
+    },
+    "Already downloaded" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déjà téléchargé"
+          }
+        }
+      }
+    },
+    "Remove Download" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supprimer le téléchargement"
+          }
+        }
+      }
+    },
+    "Wallpaper by %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fond d'écran de %@"
+          }
+        }
+      }
+    },
+    "Unknown photographer" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Photographe inconnu"
+          }
+        }
+      }
+    },
+    "Email a photo to %@ and it may end up here. Say what name you would like on it — leave that out and it goes up without one. Names that are not names will be treated as though you left it blank. You will get a reply either way." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyez une photo par courriel à %@ et elle pourrait se retrouver ici. Indiquez le nom que vous souhaitez y voir — sans cela, elle sera publiée sans nom. Les noms qui n'en sont pas seront traités comme si la case avait été laissée vide. Vous recevrez une réponse dans tous les cas."
           }
         }
       }

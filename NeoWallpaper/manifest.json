@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "wallpapers": [
+    {
+      "id": "0002",
+      "file": "0002.jpg",
+      "author": "Yuecheng Ma",
+      "width": 3918,
+      "height": 6965,
+      "bytes": 14964297,
+      "addedAt": "2026-10-14T00:58:47-04:00",
+      "thumbnail": "thumbnails/0002.jpg"
+    },
+    {
+      "id": "0003",
+      "file": "0003.jpg",
+      "author": "Yuecheng Ma",
+      "width": 4536,
+      "height": 8064,
+      "bytes": 10846549,
+      "addedAt": "2026-10-14T00:58:47-04:00",
+      "thumbnail": "thumbnails/0003.jpg"
+    },
+    {
+      "id": "0001",
+      "file": "0001.jpg",
+      "author": "Yuecheng Ma",
+      "width": 4536,
+      "height": 8064,
+      "bytes": 19155849,
+      "addedAt": "2026-10-14T00:39:57-04:00",
+      "thumbnail": "thumbnails/0001.jpg"
+    }
+  ]
+}
