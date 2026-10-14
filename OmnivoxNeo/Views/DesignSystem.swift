@@ -139,13 +139,49 @@ struct NeoBackground: View {
 
             case .photo:
                 if let photo = personalization.wallpaperPhoto {
-                    photo
-                        .resizable()
-                        .scaledToFill()
-                        // A chosen photo has no contract with the text above it,
-                        // so it is pushed back until it cannot compete.
-                        .overlay(Neo.canvas.opacity(0.55))
+                    // Drawn *inside* an empty view of exactly the right size,
+                    // rather than being the view itself.
+                    //
+                    // `scaledToFill` reports a size larger than it was offered
+                    // — that is how it fills — and `clipped` trims what is
+                    // drawn without changing what was reported. So the
+                    // background was telling the layout it needed more width
+                    // than the screen, and every screen with a photo wallpaper
+                    // was quietly pushed sideways: titles cut off at the left
+                    // edge, cards running past the right. An overlay cannot
+                    // resize what it is drawn over, so this cannot happen.
+                    Color.clear
+                        .overlay {
+                            photo
+                                .resizable()
+                                .scaledToFill()
+                                // Pushed back, not merely faded.
+                                //
+                                // Fading alone was the first attempt and it
+                                // does not work: a wash over a photograph
+                                // leaves every branch and leaf exactly where
+                                // it was, only paler — and fine detail at low
+                                // contrast is worse to read against than
+                                // detail at high contrast, because the eye
+                                // keeps trying to resolve it. Not every screen
+                                // puts its text on a card: the sign-in terms
+                                // and the footers under lists sit directly on
+                                // this, and over a gravel path they were
+                                // illegible.
+                                //
+                                // Blurring removes the detail rather than
+                                // dimming it, which is what makes a photograph
+                                // behave like a background. Colour and shape
+                                // survive, so it still looks like the picture
+                                // that was chosen.
+                                .blur(radius: 28, opaque: true)
+                                // Slightly calmed, so a vivid photograph does
+                                // not pull harder than the accent colour it
+                                // sits behind.
+                                .saturation(0.82)
+                        }
                         .clipped()
+                        .overlay(Neo.canvas.opacity(0.42))
                 } else {
                     Neo.canvas
                 }
