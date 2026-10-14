@@ -9,8 +9,11 @@ import SwiftUI
 /// and its commits, is one tap away for anybody who wants it.
 struct CommunityIssueDetailView: View {
     let issue: CommunityIssue
+    var service: CommunityFeedbackService?
 
     @Environment(\.openURL) private var openURL
+    @State private var comments: [CommunityIssueComment] = []
+    @State private var isLoadingComments = false
 
     var body: some View {
         ScrollView {
@@ -21,6 +24,7 @@ struct CommunityIssueDetailView: View {
                     description(summary)
                 }
                 attributionCard
+                replies
                 if let url = issue.webURL {
                     openOnGitHub(url)
                 }
@@ -28,6 +32,12 @@ struct CommunityIssueDetailView: View {
             .padding(16)
             .frame(maxWidth: 620)
             .frame(maxWidth: .infinity)
+        }
+        .task {
+            guard let service, issue.commentCount > 0, comments.isEmpty else { return }
+            isLoadingComments = true
+            comments = await service.comments(for: issue)
+            isLoadingComments = false
         }
         .scrollContentBackground(.hidden)
         .background(NeoBackground())
@@ -66,6 +76,14 @@ struct CommunityIssueDetailView: View {
                 Text(LocalizedStringKey(issue.status.label))
                     .font(.callout.italic())
                     .fontDesign(.serif)
+            }
+
+            if let assigned = issue.assignedToLabel {
+                Divider().padding(.leading, 16)
+                factRow(label: "Assigned to") {
+                    Text(verbatim: assigned)
+                        .foregroundStyle(Neo.accent)
+                }
             }
 
             Divider().padding(.leading, 16)
@@ -158,6 +176,74 @@ struct CommunityIssueDetailView: View {
         .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
         .neoCard()
+    }
+
+    // MARK: - What happened next
+
+    /// The replies, which are usually where the answer actually is.
+    ///
+    /// A bug marked Completed with a reply saying what was fixed and in which
+    /// build is a different thing from the word "Completed" on its own, and
+    /// until now the app showed the word and hid the reply — so the only way
+    /// to find out what had happened to your own report was to leave for
+    /// github.com.
+    @ViewBuilder
+    private var replies: some View {
+        if issue.commentCount > 0 {
+            VStack(alignment: .leading, spacing: 10) {
+                Text("Replies")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(.secondary)
+                    .textCase(.uppercase)
+
+                if comments.isEmpty {
+                    HStack(spacing: 8) {
+                        if isLoadingComments {
+                            ProgressView().controlSize(.small)
+                            Text("Loading the replies…")
+                        } else {
+                            Text("The replies could not be loaded. They are on GitHub.")
+                        }
+                    }
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                } else {
+                    ForEach(Array(comments.enumerated()), id: \.element.id) { index, comment in
+                        if index > 0 { Divider() }
+                        reply(comment)
+                    }
+                }
+            }
+            .padding(16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .neoCard()
+        }
+    }
+
+    private func reply(_ comment: CommunityIssueComment) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 6) {
+                Text(verbatim: comment.author)
+                    .font(.footnote.weight(.semibold))
+                if comment.isFromDeveloper {
+                    // Said in words rather than drawn as a coloured badge: it
+                    // is the one thing on this card worth knowing before
+                    // reading the reply, and it should survive being read
+                    // aloud or in greyscale.
+                    Text("Developer")
+                        .font(.caption.italic())
+                        .fontDesign(.serif)
+                        .foregroundStyle(Neo.accent)
+                }
+                Spacer(minLength: 6)
+                Text(comment.createdAt.formatted(date: .abbreviated, time: .omitted))
+                    .font(.caption)
+                    .foregroundStyle(.tertiary)
+            }
+
+            CommunityMarkdownText(markdown: comment.body, font: .footnote)
+                .textSelection(.enabled)
+        }
     }
 
     // MARK: - The way out

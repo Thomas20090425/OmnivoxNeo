@@ -175,8 +175,8 @@ section("Status mapping")
 do {
     typealias Case = (isOpen: Bool, reason: String?, labels: [String], expected: CommunityIssueStatus)
     let cases: [Case] = [
-        (true,  nil,            [],                      .underReview),
-        (true,  nil,            ["bug"],                 .underReview),
+        (true,  nil,            [],                      .submitted),
+        (true,  nil,            ["bug"],                 .submitted),
         (true,  nil,            ["status:planned"],      .planned),
         (true,  nil,            ["status: planned"],     .planned),
         (true,  nil,            ["Planned"],             .planned),
@@ -214,7 +214,7 @@ do {
     expectEqual(CommunityIssueStatus.closed.group, .closedOut, "closed groups with the closed-out items")
     expectEqual(CommunityIssueStatus.duplicate.group, .closedOut, "duplicates group with closed-out")
     expectEqual(CommunityIssueStatus.notPlanned.group, .closedOut, "not-planned groups with closed-out")
-    for active in [CommunityIssueStatus.underReview, .planned, .inProgress] {
+    for active in [CommunityIssueStatus.submitted, .planned, .inProgress] {
         expect(active.group.isActive, "\(active.label) is live work")
     }
     for done in [CommunityIssueStatus.completed, .closed, .duplicate, .notPlanned] {
@@ -226,9 +226,63 @@ do {
     expectEqual(CommunityIssueGroup.closedOut.title, "Not Planned or Closed", "the heading covers both")
     expectEqual(
         CommunityIssueGroup.displayOrder,
-        [.inProgress, .planned, .underReview, .completed, .closedOut],
+        [.inProgress, .planned, .submitted, .completed, .closedOut],
         "live work first, finished work last"
     )
+}
+
+do {
+    // Being assigned to somebody is what actually happens on GitHub when work
+    // starts, so it is the signal — no second label to remember.
+    expectEqual(
+        CommunityIssueStatus.resolve(isOpen: true, stateReason: nil, labels: [], isAssigned: true),
+        .inProgress, "an assigned open issue is in progress"
+    )
+    expectEqual(
+        CommunityIssueStatus.resolve(isOpen: true, stateReason: nil, labels: ["bug"], isAssigned: false),
+        .submitted, "an unassigned open issue is only submitted"
+    )
+    // An explicit label still wins, for work being done by somebody who is not
+    // assigned on GitHub.
+    expectEqual(
+        CommunityIssueStatus.resolve(
+            isOpen: true, stateReason: nil, labels: ["status:planned"], isAssigned: false
+        ),
+        .planned, "planned without an assignee"
+    )
+    // Assignment never resurrects something that is closed.
+    expectEqual(
+        CommunityIssueStatus.resolve(
+            isOpen: false, stateReason: "completed", labels: [], isAssigned: true
+        ),
+        .completed, "a closed issue stays closed however it is assigned"
+    )
+}
+
+do {
+    // Assignees and the pin come off the payload.
+    let assigned = """
+    {"id":1,"number":2,"title":"t","body":null,"state":"open","state_reason":null,
+     "labels":[{"id":1,"name":"enhancement","color":"x"},{"id":2,"name":"pinned","color":"x"}],
+     "user":{"login":"bot"},"assignees":[{"login":"Thomas20090425"}],"comments":3,
+     "created_at":"2026-10-01T09:00:00Z","updated_at":"2026-10-13T16:40:47Z",
+     "html_url":"https://github.com/o/r/issues/2","author_association":"NONE"}
+    """
+    let issue = decode("[\(assigned)]").compactMap(CommunityIssue.init(payload:)).first
+    expectEqual(issue?.assignees ?? [], ["Thomas20090425"], "the assignee is read")
+    expectEqual(issue?.assignedToLabel, "Thomas20090425", "and phrased for display")
+    expectEqual(issue?.status, .inProgress, "which makes it in progress")
+    expectEqual(issue?.isPinned, true, "a `pinned` label pins it")
+    expectEqual(issue?.commentCount, 3, "the reply count comes through")
+
+    // Absent `assignees` must not crash or mis-read: older payloads and some
+    // endpoints omit the key entirely.
+    let bare = issueJSON(number: 3, labels: ["bug"])
+    let unassigned = decode("[\(bare)]").compactMap(CommunityIssue.init(payload:)).first
+    expectEqual(unassigned?.assignees ?? ["x"], [], "a missing assignees key reads as nobody")
+    expect(unassigned?.assignedToLabel == nil, "and shows no assignment")
+    expectEqual(unassigned?.status, .submitted, "so it is submitted")
+    expectEqual(unassigned?.isPinned, false, "and not pinned")
 }
 
 // MARK: - Category
@@ -523,7 +577,7 @@ do {
     func group(_ which: CommunityIssueGroup) -> [Int] {
         issues.filter { $0.status.group == which }.map(\.number).sorted()
     }
-    expectEqual(group(.underReview), [1], "under review")
+    expectEqual(group(.submitted), [1], "submitted")
     expectEqual(group(.planned), [2], "planned")
     expectEqual(group(.inProgress), [3], "in progress")
     expectEqual(group(.completed), [4], "completed, and on its own")

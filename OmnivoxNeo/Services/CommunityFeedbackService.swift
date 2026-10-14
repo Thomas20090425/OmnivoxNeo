@@ -269,8 +269,56 @@ final class CommunityFeedbackService: ObservableObject {
     )] {
         let matching = issues.filter(filter.accepts)
         return CommunityIssueGroup.displayOrder.compactMap { group in
-            let items = matching.filter { $0.status.group == group }
+            let items = matching
+                .filter { $0.status.group == group }
+                // Pinned first, then by how recently anything happened. The
+                // list arrives already sorted by date, and `sorted(by:)` is
+                // not stable, so the date is compared again rather than
+                // assumed to survive.
+                .sorted { first, second in
+                    if first.isPinned != second.isPinned { return first.isPinned }
+                    return first.updatedAt > second.updatedAt
+                }
             return items.isEmpty ? nil : (group, items)
+        }
+    }
+
+    // MARK: - Replies
+
+    /// The replies on one issue, oldest first.
+    ///
+    /// Not cached and not prefetched: it is a request per issue opened, and a
+    /// roadmap of fifty issues would spend the whole anonymous rate limit
+    /// fetching replies nobody asked to read. Failure is silent and returns
+    /// nothing, because an issue with its replies missing is still worth
+    /// reading and an error about it would say nothing useful.
+    func comments(for issue: CommunityIssue) async -> [CommunityIssueComment] {
+        guard issue.commentCount > 0 else { return [] }
+        var components = URLComponents(
+            string: "https://api.github.com/repos/\(Self.repository)/issues/\(issue.number)/comments"
+        )!
+        components.queryItems = [
+            URLQueryItem(name: "per_page", value: "100"),
+            URLQueryItem(name: "sort", value: "created"),
+            URLQueryItem(name: "direction", value: "asc")
+        ]
+        guard let url = components.url else { return [] }
+
+        do {
+            let (data, response) = try await session.data(from: url)
+            guard
+                let http = response as? HTTPURLResponse,
+                (200..<300).contains(http.statusCode)
+            else { return [] }
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            let payloads = try decoder.decode([GitHubCommentPayload].self, from: data)
+            let owner = Self.repository.split(separator: "/").first.map(String.init) ?? ""
+            return payloads.compactMap {
+                CommunityIssueComment(payload: $0, developerLogin: owner)
+            }
+        } catch {
+            return []
         }
     }
 

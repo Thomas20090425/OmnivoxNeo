@@ -1,12 +1,8 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "" : {
-
-    },
-    " still apply to your account." : {
-
-    },
+    "" : {},
+    " still apply to your account." : {},
     "· %@" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -108,9 +104,7 @@
         }
       }
     },
-    "%@ is loaded from the college, so it needs a connection." : {
-
-    },
+    "%@ is loaded from the college, so it needs a connection." : {},
     "%@ isn’t a format this app can show. You can still open it in another app or save it." : {
       "localizations" : {
         "fr" : {
@@ -131,9 +125,7 @@
         }
       }
     },
-    "%@ needs something from you" : {
-
-    },
+    "%@ needs something from you" : {},
     "%@ no longer lists this document." : {
       "localizations" : {
         "fr" : {
@@ -337,9 +329,7 @@
         }
       }
     },
-    "%lld pt" : {
-
-    },
+    "%lld pt" : {},
     "%lld upcoming" : {
       "localizations" : {
         "fr" : {
@@ -424,9 +414,7 @@
         }
       }
     },
-    "+%lld" : {
-
-    },
+    "+%lld" : {},
     "⋮" : {
       "localizations" : {
         "fr" : {
@@ -1021,9 +1009,7 @@
         }
       }
     },
-    "Alpha Build" : {
-
-    },
+    "Alpha Build" : {},
     "Already a recipient" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1116,9 +1102,7 @@
         }
       }
     },
-    "App version: %@" : {
-
-    },
+    "App version: %@" : {},
     "Archive" : {
       "localizations" : {
         "fr" : {
@@ -1321,9 +1305,7 @@
         }
       }
     },
-    "Before You Sign In" : {
-
-    },
+    "Before You Sign In" : {},
     "Being worked on now." : {
       "localizations" : {
         "fr" : {
@@ -1334,9 +1316,7 @@
         }
       }
     },
-    "Beta (TestFlight) Build" : {
-
-    },
+    "Beta (TestFlight) Build" : {},
     "Biology" : {
       "localizations" : {
         "fr" : {
@@ -2102,9 +2082,7 @@
         }
       }
     },
-    "Delete" : {
-
-    },
+    "Delete" : {},
     "Delete Account" : {
       "localizations" : {
         "fr" : {
@@ -2125,12 +2103,8 @@
         }
       }
     },
-    "Delete Permanently" : {
-
-    },
-    "Delete This Message?" : {
-
-    },
+    "Delete Permanently" : {},
+    "Delete This Message?" : {},
     "Design" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2172,9 +2146,7 @@
         }
       }
     },
-    "Dismiss" : {
-
-    },
+    "Dismiss" : {},
     "Document" : {
       "localizations" : {
         "fr" : {
@@ -2959,9 +2931,7 @@
         }
       }
     },
-    "Hides this class" : {
-
-    },
+    "Hides this class" : {},
     "Highlight" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3023,9 +2993,7 @@
         }
       }
     },
-    "I accept the agreements" : {
-
-    },
+    "I accept the agreements" : {},
     "I also run a small company, Tjokas Technologies, doing iOS and web work and hosting servers for a few clients. Omnivox Neo is not part of that. Nobody is paying for it, nothing in it is for sale, and it collects nothing about you." : {
       "localizations" : {
         "fr" : {
@@ -3036,9 +3004,7 @@
         }
       }
     },
-    "I have read and accept the terms below." : {
-
-    },
+    "I have read and accept the terms below." : {},
     "I've Deleted It - Continue" : {
       "localizations" : {
         "fr" : {
@@ -3069,9 +3035,7 @@
         }
       }
     },
-    "Ignore" : {
-
-    },
+    "Ignore" : {},
     "Image" : {
       "localizations" : {
         "fr" : {
@@ -3163,12 +3127,8 @@
         }
       }
     },
-    "Instant open and offline access" : {
-
-    },
-    "Instant Open and Offline Access" : {
-
-    },
+    "Instant open and offline access" : {},
+    "Instant Open and Offline Access" : {},
     "Institution" : {
       "localizations" : {
         "fr" : {
@@ -3199,9 +3159,7 @@
         }
       }
     },
-    "Internal (How the fuck did you get this) build" : {
-
-    },
+    "Internal (How the fuck did you get this) build" : {},
     "Invalid secret code. Please check and try again." : {
       "localizations" : {
         "fr" : {
@@ -3243,9 +3201,7 @@
         }
       }
     },
-    "It moves to your deleted items in OmniVox." : {
-
-    },
+    "It moves to your deleted items in OmniVox." : {},
     "Italic" : {
       "localizations" : {
         "fr" : {
@@ -3286,12 +3242,8 @@
         }
       }
     },
-    "Keeps a copy of your timetable and recent activity on this device, so the app opens straight away and still works with no signal. It stays on this phone, is never sent anywhere, and only opens after %@." : {
-
-    },
-    "Keeps a copy of your timetable and recent activity on this iPhone so Neo opens straight away and still works with no signal. It never leaves this device, is not shared with anyone, and only opens after %@. Turning this off deletes the copy now." : {
-
-    },
+    "Keeps a copy of your timetable and recent activity on this device, so the app opens straight away and still works with no signal. It stays on this phone, is never sent anywhere, and only opens after %@." : {},
+    "Keeps a copy of your timetable and recent activity on this iPhone so Neo opens straight away and still works with no signal. It never leaves this device, is not shared with anyone, and only opens after %@. Turning this off deletes the copy now." : {},
     "Laboratory Technology" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3830,9 +3782,7 @@
         }
       }
     },
-    "Needs %@" : {
-
-    },
+    "Needs %@" : {},
     "Neo offers a built-in authenticator that generates verification codes right in the app. Or, you can keep using the official OmniVox Mobile app for codes—both options work great!" : {
       "localizations" : {
         "fr" : {
@@ -4268,15 +4218,9 @@
         }
       }
     },
-    "Not available offline" : {
-
-    },
-    "Not Available Offline" : {
-
-    },
-    "Not available until you are back online" : {
-
-    },
+    "Not available offline" : {},
+    "Not Available Offline" : {},
+    "Not available until you are back online" : {},
     "Not marked yet" : {
       "localizations" : {
         "fr" : {
@@ -4540,9 +4484,7 @@
         }
       }
     },
-    "Offline" : {
-
-    },
+    "Offline" : {},
     "OK" : {
       "localizations" : {
         "fr" : {
@@ -4564,9 +4506,7 @@
         }
       }
     },
-    "OmniVox needs you to sign in." : {
-
-    },
+    "OmniVox needs you to sign in." : {},
     "Omnivox Neo" : {
       "localizations" : {
         "fr" : {
@@ -4608,9 +4548,7 @@
         }
       }
     },
-    "Omnivox Neo is not made by, affiliated with, or endorsed by your college or by Skytech, and it is not a replacement for Omnivox. Your " : {
-
-    },
+    "Omnivox Neo is not made by, affiliated with, or endorsed by your college or by Skytech, and it is not a replacement for Omnivox. Your " : {},
     "Omnivox Neo is written by one student at Dawson, on his own time." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -4652,9 +4590,7 @@
         }
       }
     },
-    "On This Device" : {
-
-    },
+    "On This Device" : {},
     "One School for Now" : {
       "localizations" : {
         "fr" : {
@@ -5429,9 +5365,7 @@
         }
       }
     },
-    "Remove Flag" : {
-
-    },
+    "Remove Flag" : {},
     "Remove Highlight" : {
       "localizations" : {
         "fr" : {
@@ -5802,9 +5736,7 @@
         }
       }
     },
-    "Sends a bug report or a feature request" : {
-
-    },
+    "Sends a bug report or a feature request" : {},
     "Set" : {
       "localizations" : {
         "fr" : {
@@ -5977,9 +5909,7 @@
         }
       }
     },
-    "Showing what is saved on this device." : {
-
-    },
+    "Showing what is saved on this device." : {},
     "Shows event details" : {
       "localizations" : {
         "fr" : {
@@ -6001,9 +5931,7 @@
         }
       }
     },
-    "Shows this class" : {
-
-    },
+    "Shows this class" : {},
     "Sign In" : {
       "localizations" : {
         "fr" : {
@@ -6014,9 +5942,7 @@
         }
       }
     },
-    "Sign in again" : {
-
-    },
+    "Sign in again" : {},
     "Sign in to %@ again." : {
       "localizations" : {
         "fr" : {
@@ -6942,9 +6868,7 @@
         }
       }
     },
-    "This message will be gone for good." : {
-
-    },
+    "This message will be gone for good." : {},
     "This part of the directory is shown as MIO's own page." : {
       "localizations" : {
         "fr" : {
@@ -7116,9 +7040,7 @@
         }
       }
     },
-    "Turn on %@ first. Without it there would be nothing guarding the saved copy." : {
-
-    },
+    "Turn on %@ first. Without it there would be nothing guarding the saved copy." : {},
     "Turn on a category above to start." : {
       "localizations" : {
         "fr" : {
@@ -7239,12 +7161,8 @@
         }
       }
     },
-    "Update Recommended" : {
-
-    },
-    "Update Required" : {
-
-    },
+    "Update Recommended" : {},
+    "Update Required" : {},
     "Update type" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -7608,9 +7526,7 @@
         }
       }
     },
-    "You are signed in. Finish this below and the app will carry on by itself." : {
-
-    },
+    "You are signed in. Finish this below and the app will carry on by itself." : {},
     "You can set up Neo's built-in authenticator in App Settings. It generates 6-digit codes automatically—no need to switch apps or check notifications." : {
       "localizations" : {
         "fr" : {
@@ -7803,9 +7719,7 @@
         }
       }
     },
-    "Your messages are kept at the college, so they need a connection." : {
-
-    },
+    "Your messages are kept at the college, so they need a connection." : {},
     "Your messages could not be read." : {
       "localizations" : {
         "fr" : {
@@ -7962,6 +7876,106 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ZB43CZ3ARAX7C25B..."
+          }
+        }
+      }
+    },
+    "Submitted" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Soumis"
+          }
+        }
+      }
+    },
+    "Filed and visible to everyone. Nobody has started on it yet." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Déposé et visible de tous. Personne ne s'en est encore occupé."
+          }
+        }
+      }
+    },
+    "Your report is on the roadmap as #%@. It will appear in the list below, under Submitted." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Votre signalement figure sur la feuille de route sous le n° %@. Il apparaîtra dans la liste ci-dessous, sous « Soumis »."
+          }
+        }
+      }
+    },
+    "Assigned to %@" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attribué à %@"
+          }
+        }
+      }
+    },
+    "Assigned to" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attribué à"
+          }
+        }
+      }
+    },
+    "Anonymous" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anonyme"
+          }
+        }
+      }
+    },
+    "Pinned" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Épinglé"
+          }
+        }
+      }
+    },
+    "Developer" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Développeur"
+          }
+        }
+      }
+    },
+    "Loading the replies…" : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chargement des réponses…"
+          }
+        }
+      }
+    },
+    "The replies could not be loaded. They are on GitHub." : {
+      "localizations" : {
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les réponses n'ont pas pu être chargées. Elles se trouvent sur GitHub."
           }
         }
       }

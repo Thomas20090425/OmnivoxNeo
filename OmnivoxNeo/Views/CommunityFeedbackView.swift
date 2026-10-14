@@ -69,7 +69,7 @@ struct CommunityFeedbackView: View {
                 // The number goes in as a string for the same reason: it is an
                 // identifier, and a grouping separator in one would be wrong
                 // in every language.
-                Text("Your report is on the roadmap as #\(String(number)). It will appear in the list below, under Under Review.")
+                Text("Your report is on the roadmap as #\(String(number)). It will appear in the list below, under Submitted.")
             }
         }
     }
@@ -146,7 +146,7 @@ struct CommunityFeedbackView: View {
                         Section {
                             ForEach(entry.issues) { issue in
                                 NavigationLink {
-                                    CommunityIssueDetailView(issue: issue)
+                                    CommunityIssueDetailView(issue: issue, service: service)
                                 } label: {
                                     CommunityIssueRow(issue: issue)
                                 }
@@ -329,7 +329,14 @@ struct CommunityIssueRow: View {
                 .accessibilityHidden(true)
 
             VStack(alignment: .leading, spacing: 4) {
-                HStack(alignment: .firstTextBaseline, spacing: 6) {
+                HStack(alignment: .firstTextBaseline, spacing: 5) {
+                    if issue.isPinned {
+                        Image(systemName: "pin.fill")
+                            .font(.caption2)
+                            .foregroundStyle(Neo.accent)
+                            .accessibilityLabel(Text("Pinned"))
+                    }
+
                     Text(issue.title)
                         .font(.subheadline.weight(.medium))
                         .foregroundStyle(.primary)
@@ -374,11 +381,44 @@ struct CommunityIssueRow: View {
                 .font(.caption)
                 .foregroundStyle(.secondary)
                 .lineLimit(1)
+
+                // Who sent it, and who has it. Both on the row rather than
+                // only inside, because "is anybody actually doing this?" is
+                // the question the list is being scanned for, and making
+                // somebody open each issue to find out defeats the list.
+                HStack(spacing: 5) {
+                    Image(systemName: "person")
+                        .imageScale(.small)
+                        .accessibilityHidden(true)
+                    Text(attribution)
+
+                    if let assigned = issue.assignedToLabel {
+                        Text(verbatim: "·")
+                        Image(systemName: "hammer")
+                            .imageScale(.small)
+                            .accessibilityHidden(true)
+                        Text(Loc.text("Assigned to %@", assigned))
+                            .foregroundStyle(Neo.accent)
+                    }
+                }
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+                .lineLimit(1)
+                .padding(.top, 1)
             }
         }
         .padding(.vertical, 3)
         .accessibilityElement(children: .combine)
         .accessibilityLabel(accessibilityLabel)
+    }
+
+    /// The reporter's own name, or the fact that they did not give one.
+    ///
+    /// "Anonymous" rather than a blank: leaving the name box empty is a choice
+    /// the form offers, and showing nothing would read as missing data instead
+    /// of as the choice it was.
+    private var attribution: String {
+        issue.attribution ?? Loc.text("Anonymous")
     }
 
     private var accessibilityLabel: Text {

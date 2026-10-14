@@ -18,6 +18,10 @@ struct CommunityIssue: Identifiable, Hashable, Codable, Sendable {
     let category: CommunityIssueCategory
     /// The name the reporter chose to put on it, if they chose to.
     let attribution: String?
+    /// The GitHub accounts that have taken this on. Shown because "somebody is
+    /// actually doing this" is most of what a person wants from a roadmap, and
+    /// a status word alone does not say who.
+    let assignees: [String]
     let labels: [String]
     let updatedAt: Date
     let createdAt: Date
@@ -26,6 +30,70 @@ struct CommunityIssue: Identifiable, Hashable, Codable, Sendable {
     let webURL: URL?
 
     var id: Int { number }
+
+    /// Whether this sits at the top of its group.
+    ///
+    /// Read from a `pinned` label rather than GitHub's own pin. Pinning is
+    /// GraphQL-only and needs a token, and a token shipped inside an app is a
+    /// published token — whereas a label is set from the same screen, read by
+    /// anybody, and means exactly the same thing here.
+    var isPinned: Bool {
+        labels.contains { $0.lowercased() == "pinned" }
+    }
+
+    /// Who it is assigned to, as one phrase, or `nil` if nobody.
+    var assignedToLabel: String? {
+        assignees.isEmpty ? nil : assignees.joined(separator: ", ")
+    }
+}
+
+// MARK: - A reply on an issue
+
+/// One comment under an issue.
+///
+/// Fetched only when somebody opens an issue, because it is a second request
+/// per issue and the anonymous rate limit is sixty an hour. Worth it: a bug
+/// marked Completed with a reply saying *what* was fixed is the difference
+/// between a roadmap and a list of words.
+struct CommunityIssueComment: Identifiable, Hashable, Sendable {
+    let id: Int
+    let author: String
+    /// Whether this came from whoever owns the project, so a reply from the
+    /// developer can be told apart from one from anybody else.
+    let isFromDeveloper: Bool
+    let body: String
+    let createdAt: Date
+
+    init?(payload: GitHubCommentPayload, developerLogin: String) {
+        guard let body = payload.body?.trimmingCharacters(in: .whitespacesAndNewlines),
+              !body.isEmpty else { return nil }
+        id = payload.id
+        author = payload.user?.login ?? "someone"
+        // `OWNER` and `MEMBER` are GitHub's own words for it, and are more
+        // reliable than comparing logins, which breaks the day the account is
+        // renamed.
+        let association = payload.authorAssociation?.uppercased() ?? ""
+        isFromDeveloper = association == "OWNER" || association == "MEMBER"
+            || payload.user?.login.lowercased() == developerLogin.lowercased()
+        self.body = body
+        createdAt = payload.createdAt
+    }
+}
+
+struct GitHubCommentPayload: Decodable {
+    struct User: Decodable { let login: String }
+
+    let id: Int
+    let body: String?
+    let user: User?
+    let createdAt: Date
+    let authorAssociation: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id, body, user
+        case createdAt = "created_at"
+        case authorAssociation = "author_association"
+    }
 }
 
 // MARK: - Status
@@ -39,7 +107,14 @@ struct CommunityIssue: Identifiable, Hashable, Codable, Sendable {
 /// was fixed when all that is known is that the issue was closed would be the
 /// app inventing good news.
 enum CommunityIssueStatus: String, Codable, Hashable, Sendable, CaseIterable {
-    case underReview
+    /// Filed, public, and nobody has picked it up yet.
+    ///
+    /// Named for what happened — somebody submitted it — rather than for what
+    /// is being done about it. "Under review" was the first word here and it
+    /// was the wrong one: it describes a private process, and reads as though
+    /// a report is sitting in someone's inbox waiting to be let out, when in
+    /// fact it is already on a public list anybody can read.
+    case submitted
     case planned
     case inProgress
     case completed
@@ -66,15 +141,25 @@ enum CommunityIssueStatus: String, Codable, Hashable, Sendable, CaseIterable {
     ///   - stateReason: GitHub's own `state_reason` — `completed`,
     ///     `not_planned`, `duplicate`, `reopened`, or nothing at all.
     ///   - labels: the issue's labels, in any case.
-    static func resolve(isOpen: Bool, stateReason: String?, labels: [String]) -> Self {
+    ///   - isAssigned: whether anybody has taken it on.
+    static func resolve(
+        isOpen: Bool,
+        stateReason: String?,
+        labels: [String],
+        isAssigned: Bool = false
+    ) -> Self {
         let lowered = Set(labels.map { $0.lowercased() })
 
         if isOpen {
-            // A label beats no label; in-progress beats planned, because
-            // something being worked on is the more specific claim.
+            // Being assigned to somebody *is* the signal that work has
+            // started — it is the thing that actually happens on GitHub when
+            // somebody picks an issue up, so it needs no second step that is
+            // easy to forget. An explicit label still wins, for the case where
+            // something is being worked on by somebody who is not assigned.
             if inProgressLabels.contains(where: lowered.contains) { return .inProgress }
             if plannedLabels.contains(where: lowered.contains) { return .planned }
-            return .underReview
+            if isAssigned { return .inProgress }
+            return .submitted
         }
 
         // Closed. GitHub's reason is the authority when there is one; a label
@@ -94,7 +179,7 @@ enum CommunityIssueStatus: String, Codable, Hashable, Sendable, CaseIterable {
     /// Which heading an item appears under.
     var group: CommunityIssueGroup {
         switch self {
-        case .underReview: .underReview
+        case .submitted: .submitted
         case .planned: .planned
         case .inProgress: .inProgress
         case .completed: .completed
@@ -107,7 +192,7 @@ enum CommunityIssueStatus: String, Codable, Hashable, Sendable, CaseIterable {
     /// Closed" but says only "Closed", because that is all that is known.
     var label: String {
         switch self {
-        case .underReview: "Under Review"
+        case .submitted: "Submitted"
         case .planned: "Planned"
         case .inProgress: "In Progress"
         case .completed: "Completed"
@@ -119,7 +204,7 @@ enum CommunityIssueStatus: String, Codable, Hashable, Sendable, CaseIterable {
 
     var systemImage: String {
         switch self {
-        case .underReview: "tray"
+        case .submitted: "tray.and.arrow.down"
         case .planned: "calendar"
         case .inProgress: "hammer"
         case .completed: "checkmark.circle"
@@ -137,7 +222,7 @@ enum CommunityIssueStatus: String, Codable, Hashable, Sendable, CaseIterable {
 /// anything is happening about it, and a long list of things already fixed
 /// buries that.
 enum CommunityIssueGroup: String, Codable, Hashable, Sendable, CaseIterable, Identifiable {
-    case underReview
+    case submitted
     case planned
     case inProgress
     case completed
@@ -147,11 +232,11 @@ enum CommunityIssueGroup: String, Codable, Hashable, Sendable, CaseIterable, Ide
 
     /// The order they appear in: what is being worked on, then what will be,
     /// then what was, then what will not be.
-    static let displayOrder: [Self] = [.inProgress, .planned, .underReview, .completed, .closedOut]
+    static let displayOrder: [Self] = [.inProgress, .planned, .submitted, .completed, .closedOut]
 
     var title: String {
         switch self {
-        case .underReview: "Under Review"
+        case .submitted: "Submitted"
         case .planned: "Planned"
         case .inProgress: "In Progress"
         case .completed: "Completed"
@@ -161,8 +246,8 @@ enum CommunityIssueGroup: String, Codable, Hashable, Sendable, CaseIterable, Ide
 
     var explanation: String {
         switch self {
-        case .underReview:
-            "Received and read, with nothing decided yet."
+        case .submitted:
+            "Filed and visible to everyone. Nobody has started on it yet."
         case .planned:
             "Agreed, and waiting its turn."
         case .inProgress:
@@ -179,7 +264,7 @@ enum CommunityIssueGroup: String, Codable, Hashable, Sendable, CaseIterable, Ide
     /// by default rather than hidden.
     var isActive: Bool {
         switch self {
-        case .underReview, .planned, .inProgress: true
+        case .submitted, .planned, .inProgress: true
         case .completed, .closedOut: false
         }
     }
@@ -294,6 +379,8 @@ struct GitHubIssuePayload: Decodable {
     let stateReason: String?
     let labels: [Label]
     let user: User?
+    /// Who has taken the issue on. Empty when nobody has.
+    let assignees: [User]?
     let createdAt: Date
     let updatedAt: Date
     let comments: Int
@@ -301,7 +388,7 @@ struct GitHubIssuePayload: Decodable {
     let pullRequest: PullRequestMarker?
 
     enum CodingKeys: String, CodingKey {
-        case number, title, body, state, labels, user, comments
+        case number, title, body, state, labels, user, comments, assignees
         case stateReason = "state_reason"
         case createdAt = "created_at"
         case updatedAt = "updated_at"
@@ -321,16 +408,19 @@ extension CommunityIssue {
         guard !payload.isPullRequest else { return nil }
 
         let labels = payload.labels.map(\.name)
+        let assignees = (payload.assignees ?? []).map(\.login)
         number = payload.number
         title = payload.title.trimmingCharacters(in: .whitespacesAndNewlines)
         summary = Self.description(fromIssueBody: payload.body)
         status = CommunityIssueStatus.resolve(
             isOpen: payload.state.lowercased() == "open",
             stateReason: payload.stateReason,
-            labels: labels
+            labels: labels,
+            isAssigned: !assignees.isEmpty
         )
         category = CommunityIssueCategory.resolve(labels: labels)
         attribution = Self.attribution(fromIssueBody: payload.body)
+        self.assignees = assignees
         self.labels = labels
         createdAt = payload.createdAt
         updatedAt = payload.updatedAt
