@@ -126,9 +126,7 @@ struct LeaCourseView: View {
     private var tiles: some View {
         LazyVGrid(columns: columns, spacing: 12) {
             if let section = course.section(.documents) {
-                NavigationLink {
-                    LeaDocumentsView(store: store, course: course)
-                } label: {
+                NavigationLink(value: LeaRoute.documents(course)) {
                     LeaTile(
                         symbol: "doc.text.fill",
                         title: section.label,
@@ -141,9 +139,7 @@ struct LeaCourseView: View {
             }
 
             if let section = course.section(.assignments) {
-                NavigationLink {
-                    LeaAssignmentsView(model: model, store: store, course: course)
-                } label: {
+                NavigationLink(value: LeaRoute.assignments(course)) {
                     LeaTile(
                         symbol: "tray.and.arrow.up.fill",
                         title: section.label,
@@ -156,9 +152,7 @@ struct LeaCourseView: View {
             }
 
             if let section = course.section(.grades) {
-                NavigationLink {
-                    LeaGradesView(store: store, course: course)
-                } label: {
+                NavigationLink(value: LeaRoute.grades(course)) {
                     LeaTile(
                         symbol: "chart.line.uptrend.xyaxis",
                         title: section.label,
@@ -174,9 +168,7 @@ struct LeaCourseView: View {
             // which at Dawson is switched off in nearly every course. A tile is
             // for somewhere worth going.
             if let section = course.section(.announcements), !section.announcements.isEmpty {
-                NavigationLink {
-                    LeaAnnouncementsView(store: store, course: course)
-                } label: {
+                NavigationLink(value: LeaRoute.announcements(course)) {
                     LeaTile(
                         symbol: "megaphone.fill",
                         title: section.label,
@@ -192,9 +184,7 @@ struct LeaCourseView: View {
             // directory: a student looking for a reading is looking inside the
             // class it was set for.
             if let sites = store.sites(forCourseCode: course.code), sites.url != nil {
-                NavigationLink {
-                    LeaTeacherSitesView(store: store, teacher: sites)
-                } label: {
+                NavigationLink(value: LeaRoute.teacherSites(course, sites)) {
                     LeaTile(
                         symbol: "link",
                         title: String(localized: "Websites"),
@@ -505,8 +495,6 @@ struct LeaAnnouncementsView: View {
     @ObservedObject var store: LeaStore
     let course: LeaCourse
 
-    private var identity: CourseIdentity { store.identity(for: course) }
-
     private var announcements: [LeaAnnouncementSummary] {
         course.section(.announcements)?.announcements ?? []
     }
@@ -527,9 +515,7 @@ struct LeaAnnouncementsView: View {
                         ForEach(Array(announcements.enumerated()), id: \.element.id) { index, item in
                             if index > 0 { Divider().padding(.leading, 16) }
                             if item.url != nil {
-                                NavigationLink {
-                                    LeaAnnouncementView(store: store, summary: item, tint: identity.start)
-                                } label: {
+                                NavigationLink(value: LeaRoute.announcement(course, item)) {
                                     LeaCourseView.announcementRow(item)
                                 }
                                 .buttonStyle(LeaPressStyle())

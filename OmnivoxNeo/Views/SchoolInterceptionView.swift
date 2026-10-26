@@ -41,7 +41,10 @@ struct SchoolInterceptionView: View {
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
         }
-        .frame(maxWidth: .infinity)
+        // Keep the app's message readable within one pane when Duo is partly
+        // folded; the school's web page below owns its own layout.
+        .frame(maxWidth: 400)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 24)
         .padding(.top, 10)
         .padding(.bottom, 14)

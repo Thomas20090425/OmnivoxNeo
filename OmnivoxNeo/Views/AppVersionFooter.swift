@@ -2,32 +2,31 @@ import SwiftUI
 
 /// Which build this is, in two quiet lines under everything else.
 ///
-/// The channel is not stored anywhere and not compiled in — it is **read out
-/// of the version number itself**, by counting the dots. That is deliberate:
-/// a flag saying "this is a beta" and a version number saying `0.0.3.5` can
-/// disagree, and when they do the flag is the one that lies. One number, set
-/// in one place (`MARKETING_VERSION`), and the label follows from it.
+/// Distributable builds use the shape of `MARKETING_VERSION` for their channel.
+/// Internal builds use the Debug configuration instead of a fourth version
+/// component, which App Store Connect does not accept. `CURRENT_PROJECT_VERSION`
+/// is the separate build number and does not change the channel.
 enum AppRelease {
-    /// How the number is read.
+    /// How a distributable build's marketing version is read.
     ///
-    /// | dots | example   | what it is                |
-    /// |------|-----------|---------------------------|
-    /// | 1    | `1.0`     | shipped to people          |
-    /// | 2    | `0.0.5`   | handed out through TestFlight |
-    /// | 3    | `0.0.3.5` | never left this machine    |
+    /// | version | channel             |
+    /// |---------|---------------------|
+    /// | `1.0`   | alpha               |
+    /// | `0.0.6` | beta (TestFlight)   |
+    ///
+    /// Debug builds are internal regardless of the marketing version.
     enum Channel {
         case alpha
         case beta
         case internalBuild
 
-        /// Counting the separators rather than parsing the parts, because the
-        /// parts carry no meaning here — the *shape* of the number is the
-        /// whole signal.
+        /// The marketing version signals the channel for distributable builds.
+        /// A third dot cannot be used to mark an internal build: it would make
+        /// the version invalid for App Store Connect.
         init(version: String) {
             switch version.filter({ $0 == "." }).count {
             case 0, 1: self = .alpha
-            case 2: self = .beta
-            default: self = .internalBuild
+            default: self = .beta
             }
         }
 
@@ -48,7 +47,11 @@ enum AppRelease {
     }
 
     static var channel: Channel {
+        #if DEBUG
+        .internalBuild
+        #else
         Channel(version: version)
+        #endif
     }
 }
 

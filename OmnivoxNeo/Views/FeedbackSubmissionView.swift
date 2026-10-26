@@ -55,7 +55,11 @@ struct FeedbackSubmissionView: View {
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { onFinish(.cancelled) }
+                    Button {
+                        onFinish(.cancelled)
+                    } label: {
+                        Label("Cancel", systemImage: "xmark")
+                    }
                 }
             }
         }

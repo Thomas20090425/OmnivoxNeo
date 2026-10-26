@@ -6,6 +6,7 @@ import PhotosUI
 /// Colour and wallpaper, scoped to the signed-in account.
 struct PersonalizationSettingsView: View {
     @ObservedObject private var personalization = Personalization.shared
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     #if os(iOS)
     @State private var photoSelection: PhotosPickerItem?
@@ -14,7 +15,12 @@ struct PersonalizationSettingsView: View {
     @State private var photoError: String?
     @State private var isLoadingPhoto = false
 
-    private let columns = [GridItem(.adaptive(minimum: 58, maximum: 76), spacing: 14)]
+    private var columns: [GridItem] {
+        // The outer display and a side-by-side inner window can both be narrow.
+        // Give translated labels room to wrap instead of shrinking their text.
+        let minimum: CGFloat = dynamicTypeSize.isAccessibilitySize ? 104 : 76
+        return [GridItem(.adaptive(minimum: minimum, maximum: 120), spacing: 12)]
+    }
 
     var body: some View {
         List {
@@ -86,6 +92,7 @@ struct PersonalizationSettingsView: View {
 
                         Text(personalization.hasWallpaperPhoto ? "Your Photo" : "Choose a Photo")
                             .foregroundStyle(.primary)
+                            .fixedSize(horizontal: false, vertical: true)
 
                         Spacer(minLength: 8)
 
@@ -124,6 +131,7 @@ struct PersonalizationSettingsView: View {
 
                         Text("Community Wallpapers")
                             .foregroundStyle(.primary)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
                 }
 
@@ -210,7 +218,9 @@ struct PersonalizationSettingsView: View {
             guard let item else { return }
             Task { await load(item) }
         }
-        .fullScreenCover(item: $pendingCrop) { pending in
+        // A system sheet moves clear of Duo's folding region as the pose
+        // changes; a custom full-screen crop overlay would not.
+        .sheet(item: $pendingCrop) { pending in
             WallpaperCropView(image: pending.image) {
                 pendingCrop = nil
             } onConfirm: { cropped in
@@ -228,6 +238,8 @@ struct PersonalizationSettingsView: View {
                     personalization.setAccent(accent)
                 }
             }
+            .presentationDetents([.large])
+            .interactiveDismissDisabled()
         }
         #endif
         .scrollContentBackground(.hidden)
@@ -259,10 +271,11 @@ struct PersonalizationSettingsView: View {
                     }
 
                 Text(Loc.text(choice.title))
-                    .font(.caption2)
+                    .font(.caption)
                     .foregroundStyle(isSelected ? .primary : .secondary)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.8)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .frame(maxWidth: .infinity)
             .contentShape(Rectangle())

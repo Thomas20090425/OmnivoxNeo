@@ -36,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		AA0000000000000000000004 /* OmnivoxNeoWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OmnivoxNeoWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA00000000000000000000F1 /* ReleaseVersion.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ReleaseVersion.xcconfig; sourceTree = "<group>"; };
 		E9B44FB4304A8ECA008B5EC7 /* OmnivoxNeo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OmnivoxNeo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -93,6 +94,7 @@
 		E9B44FAB304A8ECA008B5EC7 = {
 			isa = PBXGroup;
 			children = (
+				AA00000000000000000000F1 /* ReleaseVersion.xcconfig */,
 				AA0000000000000000000002 /* OmnivoxNeoWidgets */,
 				E9F2C9303065ED3400725E3C /* OmnivoxNeoShared */,
 				E9B44FB6304A8ECA008B5EC7 /* OmnivoxNeo */,
@@ -247,7 +249,6 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = OmnivoxNeoWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V3C22X6SVS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -258,7 +259,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.0.3.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tjokas.OmnivoxNeo.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -278,7 +278,6 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = OmnivoxNeoWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V3C22X6SVS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -289,7 +288,6 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.0.3.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tjokas.OmnivoxNeo.Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -306,6 +304,7 @@
 		};
 		E9B44FBD304A8ECB008B5EC7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA00000000000000000000F1 /* ReleaseVersion.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -368,6 +367,7 @@
 		};
 		E9B44FBE304A8ECB008B5EC7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA00000000000000000000F1 /* ReleaseVersion.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -429,7 +429,6 @@
 				"CODE_SIGN_ENTITLEMENTS[sdk=iphonesimulator*]" = OmnivoxNeo/OmnivoxNeoApp.entitlements;
 				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = OmnivoxNeo/OmnivoxNeo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V3C22X6SVS;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -454,7 +453,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 0.0.6.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tjokas.OmnivoxNeo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -481,7 +479,6 @@
 				"CODE_SIGN_ENTITLEMENTS[sdk=iphonesimulator*]" = OmnivoxNeo/OmnivoxNeoApp.entitlements;
 				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = OmnivoxNeo/OmnivoxNeo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V3C22X6SVS;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -506,7 +503,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 0.0.6.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tjokas.OmnivoxNeo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;

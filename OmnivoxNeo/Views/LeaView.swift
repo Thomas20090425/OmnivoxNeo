@@ -11,7 +11,11 @@ enum LeaRoute: Hashable {
     case documents(LeaCourse)
     case assignments(LeaCourse)
     case grades(LeaCourse)
+    case announcements(LeaCourse)
     case announcement(LeaCourse, LeaAnnouncementSummary)
+    case teacherSites(LeaCourse, LeaTeacherSites)
+    case file(LeaCourse, LeaOpenedFile)
+    case submission(LeaCourse, LeaWebPage)
 
     var course: LeaCourse {
         switch self {
@@ -19,7 +23,11 @@ enum LeaRoute: Hashable {
              .documents(let course),
              .assignments(let course),
              .grades(let course),
-             .announcement(let course, _):
+             .announcements(let course),
+             .announcement(let course, _),
+             .teacherSites(let course, _),
+             .file(let course, _),
+             .submission(let course, _):
             course
         }
     }
@@ -42,9 +50,37 @@ struct LeaView: View {
     /// Which course cards have their summary open. Empty at launch: the cards
     /// start folded so the whole term fits on one screen.
     @State private var expanded: Set<String> = []
-    /// What the other column is showing, where there is one.
-    @State private var selected: LeaRoute?
+    /// One path for both presentations. The first route is the detail column's
+    /// root at regular width; later routes are pushed inside that column. On
+    /// a compact display the entire path is a single navigation stack.
+    @State private var path: [LeaRoute] = []
     @State private var columns: NavigationSplitViewVisibility = .doubleColumn
+    /// Only the currently open submission keeps a live form. This belongs to
+    /// Léa's profile-scoped tab, not to either width-specific navigation tree.
+    @State private var assignmentSession: LeaAssignmentWebSession?
+    @State private var readerSession: LeaReaderSession?
+
+    private var selected: LeaRoute? { path.last }
+    private var detailRoot: LeaRoute? { path.first }
+
+    /// Keep a disappearing navigation container from clearing the route as
+    /// SwiftUI replaces it during a fold or unfold.
+    private var compactPath: Binding<[LeaRoute]> {
+        Binding(
+            get: { path },
+            set: { if !prefersSplitLayout { path = $0 } }
+        )
+    }
+
+    private var splitDetailPath: Binding<[LeaRoute]> {
+        Binding(
+            get: { Array(path.dropFirst()) },
+            set: { destinations in
+                guard prefersSplitLayout, let detailRoot else { return }
+                path = [detailRoot] + destinations
+            }
+        )
+    }
 
     @Environment(\.prefersSplitLayout) private var prefersSplitLayout
     @Environment(\.sessionLimitation) private var limitation
@@ -72,12 +108,44 @@ struct LeaView: View {
             guard limitation == nil, model.portalIsIdle else { return }
             store.loadIfNeeded()
         }
+        // A different term is a different set of courses. Clear the shared
+        // route in both presentations, including while the display resizes.
+        .onChange(of: store.selectedTerm) { path.removeAll() }
+        .onChange(of: path) { _, newPath in
+            if let assignmentSession {
+                let stillShowingSubmission: Bool
+                if case .submission(_, let page)? = newPath.last {
+                    stillShowingSubmission = page == assignmentSession.page
+                } else {
+                    stillShowingSubmission = false
+                }
+                if !stillShowingSubmission {
+                    self.assignmentSession = nil
+                    // A compact/split swap also calls onDisappear on its old
+                    // sheet, so only refresh on an actual route change.
+                    store.refresh()
+                }
+            }
+
+            if let readerSession {
+                let stillShowingFile: Bool
+                if case .file(_, let file)? = newPath.last,
+                   file == readerSession.file {
+                    stillShowingFile = true
+                } else {
+                    stillShowingFile = false
+                }
+                if !stillShowingFile {
+                    self.readerSession = nil
+                }
+            }
+        }
     }
 
     // MARK: - One column, or two
 
     private var stackBody: some View {
-        NavigationStack {
+        NavigationStack(path: compactPath) {
             stream
                 .navigationDestination(for: LeaRoute.self) { route in
                     destination(for: route)
@@ -102,19 +170,19 @@ struct LeaView: View {
                     max: SplitColumn.maxWidth
                 )
         } detail: {
-            NavigationStack {
-                if let selected {
-                    destination(for: selected)
-                        .id(selected)
+            NavigationStack(path: splitDetailPath) {
+                if let detailRoot {
+                    destination(for: detailRoot)
+                        .navigationDestination(for: LeaRoute.self) { route in
+                            destination(for: route)
+                        }
+                        .id(detailRoot)
                 } else {
                     noSelection
                 }
             }
         }
         .navigationSplitViewStyle(.balanced)
-        // A different term is a different set of courses, so what was open is
-        // no longer one of them.
-        .onChange(of: store.selectedTerm) { selected = nil }
     }
 
     private var stream: some View {
@@ -164,11 +232,25 @@ struct LeaView: View {
         case .course(let course):
             LeaCourseView(model: model, store: store, course: course)
         case .documents(let course):
-            LeaDocumentsView(store: store, course: course)
+            LeaDocumentsView(store: store, course: course) { file in
+                append(.file(course, file), after: .documents(course))
+            }
         case .assignments(let course):
-            LeaAssignmentsView(model: model, store: store, course: course)
+            LeaAssignmentsView(
+                model: model,
+                store: store,
+                course: course,
+                onOpenSubmission: { page in
+                    append(.submission(course, page), after: .assignments(course))
+                },
+                onOpenFile: { file in
+                    append(.file(course, file), after: .assignments(course))
+                }
+            )
         case .grades(let course):
             LeaGradesView(store: store, course: course)
+        case .announcements(let course):
+            LeaAnnouncementsView(store: store, course: course)
         case .announcement(let course, let summary):
             if summary.url != nil {
                 LeaAnnouncementView(
@@ -179,7 +261,36 @@ struct LeaView: View {
             } else {
                 LeaCourseView(model: model, store: store, course: course)
             }
+        case .teacherSites(_, let teacher):
+            LeaTeacherSitesView(store: store, teacher: teacher)
+        case .file(_, let file):
+            LeaFileReaderView(
+                file: file,
+                session: readerSession?.file == file ? readerSession : nil
+            )
+        case .submission(_, let page):
+            if let assignmentSession, assignmentSession.page == page {
+                LeaWebSheet(session: assignmentSession)
+            } else {
+                ContentUnavailableView("Submission Unavailable", systemImage: "doc.questionmark")
+            }
         }
+    }
+
+    /// Downloads may finish after the student has left their list. Only open
+    /// the result if that list is still the visible destination.
+    private func append(_ route: LeaRoute, after source: LeaRoute) {
+        guard path.last == source else { return }
+        if case .submission(_, let page) = route {
+            assignmentSession = LeaAssignmentWebSession(
+                page: page,
+                hiddenSelector: model.institution.conventions.lea.assignmentCloseButtonSelector,
+                websiteDataStore: model.portalWebsiteDataStore
+            )
+        } else if case .file(_, let file) = route {
+            readerSession = LeaReaderSession(file: file)
+        }
+        path.append(route)
     }
 
     // MARK: - Term
@@ -278,7 +389,7 @@ struct LeaView: View {
                         title: store.displayTitle(for: course),
                         // Nil means "push it"; a closure means there is a
                         // second column waiting for it.
-                        onSelect: prefersSplitLayout ? { selected = $0 } : nil,
+                        onSelect: prefersSplitLayout ? { path = [$0] } : nil,
                         selection: selected,
                         // Held here rather than inside the card: a lazy stack
                         // rebuilds a card that scrolls far enough away, and a

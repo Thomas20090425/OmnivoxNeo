@@ -102,16 +102,19 @@ struct AgendaView: View {
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Done") { dismiss() }
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label("Done", systemImage: "checkmark")
+                    }
                 }
 
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         showsCalendarSync = true
                     } label: {
-                        Image(systemName: "calendar.badge.plus")
+                        Label("Calendar subscription", systemImage: "calendar.badge.plus")
                     }
-                    .accessibilityLabel("Calendar subscription")
                 }
             }
             .sheet(item: $selectedEvent) { event in
@@ -198,47 +201,60 @@ struct AgendaView: View {
     /// case. Each carries the colour its dots use in the grid above, so the row
     /// doubles as the legend.
     private var categoryFilters: some View {
-        HStack(spacing: 8) {
-            ForEach(PortalCalendarEvent.Category.agendaCategories, id: \.self) { category in
-                let isOn = enabledCategories.contains(category)
-
-                Button {
-                    toggle(category)
-                } label: {
-                    HStack(spacing: 6) {
-                        Circle()
-                            .fill(category.tint)
-                            .frame(width: 8, height: 8)
-                            .opacity(isOn ? 1 : 0.35)
-
-                        category.label(conventions)
-                            .font(.footnote.weight(.medium))
-                            .foregroundStyle(isOn ? .primary : .secondary)
-                            .lineLimit(1)
-                            // "Academic Calendar" is the longest label and the
-                            // one that must not truncate — a chip reading
-                            // "Academic Cale…" is a filter you have to guess at.
-                            .minimumScaleFactor(0.7)
-                    }
-                    .padding(.horizontal, 9)
-                    .padding(.vertical, 8)
-                    .frame(maxWidth: .infinity)
-                    .background(
-                        isOn ? category.tint.opacity(0.14) : Color.clear,
-                        in: Capsule()
-                    )
-                    .overlay {
-                        Capsule().strokeBorder(
-                            isOn ? category.tint.opacity(0.45) : Neo.separator,
-                            lineWidth: 1
-                        )
-                    }
-                    .contentShape(Capsule())
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 8) {
+                ForEach(PortalCalendarEvent.Category.agendaCategories, id: \.self) {
+                    categoryFilter($0)
                 }
-                .buttonStyle(.plain)
-                .accessibilityAddTraits(isOn ? [.isSelected, .isButton] : .isButton)
+            }
+            .fixedSize(horizontal: true, vertical: false)
+
+            // On the shorter outer display or at larger text sizes, labels
+            // keep their full names and wrap into two rows instead of shrinking.
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
+                ForEach(PortalCalendarEvent.Category.agendaCategories, id: \.self) {
+                    categoryFilter($0)
+                }
             }
         }
+        .frame(maxWidth: .infinity)
+    }
+
+    private func categoryFilter(_ category: PortalCalendarEvent.Category) -> some View {
+        let isOn = enabledCategories.contains(category)
+
+        return Button {
+            toggle(category)
+        } label: {
+            HStack(spacing: 6) {
+                Circle()
+                    .fill(category.tint)
+                    .frame(width: 8, height: 8)
+                    .opacity(isOn ? 1 : 0.35)
+
+                category.label(conventions)
+                    .font(.footnote.weight(.medium))
+                    .foregroundStyle(isOn ? .primary : .secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .multilineTextAlignment(.leading)
+            }
+            .padding(.horizontal, 9)
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity, minHeight: 44)
+            .background(
+                isOn ? category.tint.opacity(0.14) : Color.clear,
+                in: Capsule()
+            )
+            .overlay {
+                Capsule().strokeBorder(
+                    isOn ? category.tint.opacity(0.45) : Neo.separator,
+                    lineWidth: 1
+                )
+            }
+            .contentShape(Capsule())
+        }
+        .buttonStyle(.plain)
+        .accessibilityAddTraits(isOn ? [.isSelected, .isButton] : .isButton)
     }
 
     /// Unread counts per day, so the grid can mark exactly the days that
@@ -560,13 +576,33 @@ private struct MonthCalendar: View {
     }
 
     private var header: some View {
+        ViewThatFits(in: .horizontal) {
+            HStack(spacing: 4) {
+                monthTitle
+                    .fixedSize(horizontal: true, vertical: false)
+                Spacer(minLength: 8)
+                monthControls
+                    .fixedSize(horizontal: true, vertical: false)
+            }
+
+            // Long localized month names and larger text can use their own
+            // line on Duo's outer display without squeezing the controls.
+            VStack(alignment: .leading, spacing: 4) {
+                monthTitle
+                monthControls
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+        }
+    }
+
+    private var monthTitle: some View {
+        Text(AgendaFormat.monthHeading(month, calendar: calendar, timeZone: timeZone))
+            .font(.headline)
+            .foregroundStyle(.primary)
+    }
+
+    private var monthControls: some View {
         HStack(spacing: 4) {
-            Text(AgendaFormat.monthHeading(month, calendar: calendar, timeZone: timeZone))
-                .font(.headline)
-                .foregroundStyle(.primary)
-
-            Spacer(minLength: 8)
-
             Button { onStepMonth(-1) } label: {
                 Image(systemName: "chevron.left")
                     .font(.footnote.weight(.semibold))

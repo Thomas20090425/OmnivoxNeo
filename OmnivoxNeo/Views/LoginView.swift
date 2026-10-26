@@ -39,7 +39,7 @@ struct LoginView: View {
             }
             .frame(maxWidth: 440)
             .padding(.horizontal, 20)
-            .padding(.top, 44)
+            .padding(.top, 24)
             .padding(.bottom, 32)
             .frame(maxWidth: .infinity)
         }
@@ -92,73 +92,76 @@ struct LoginView: View {
         .padding(.bottom, 6)
     }
 
-    /// Two rows in one grouped block, separated by a hairline — the same shape
-    /// as a system form, so the fields look like fields rather than like two
-    /// outlined boxes that happen to sit near each other.
+    /// Labels sit above their fields so they remain readable at accessibility
+    /// text sizes and on the Duo's narrow outer display.
     private var credentials: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 6) {
                 Text("Student ID")
-                    .font(.body)
+                    .font(.subheadline.weight(.medium))
                     .foregroundStyle(.primary)
-                    .frame(width: 96, alignment: .leading)
 
-                TextField("0000000", text: $model.loginStudentID)
-                    .focused($focusedField, equals: .studentID)
-                    .studentIDInputTraits()
-                    .submitLabel(.next)
-                    .onChange(of: model.loginStudentID) { _, newValue in
-                        let normalized = AppModel.normalizedStudentID(newValue)
-                        if normalized != newValue {
-                            model.loginStudentID = normalized
+                HStack(spacing: 10) {
+                    TextField("0000000", text: $model.loginStudentID)
+                        .focused($focusedField, equals: .studentID)
+                        .studentIDInputTraits()
+                        .submitLabel(.next)
+                        .onChange(of: model.loginStudentID) { _, newValue in
+                            let normalized = AppModel.normalizedStudentID(newValue)
+                            if normalized != newValue {
+                                model.loginStudentID = normalized
+                            }
                         }
-                    }
-                    .onSubmit { focusedField = .password }
+                        .onSubmit { focusedField = .password }
 
-                if model.loginStudentID.count == 7 {
-                    Image(systemName: "checkmark")
-                        .font(.footnote.weight(.semibold))
-                        .foregroundStyle(.secondary)
-                        .accessibilityLabel("Student ID is complete")
+                    if model.loginStudentID.count == 7 {
+                        Image(systemName: "checkmark")
+                            .font(.footnote.weight(.semibold))
+                            .foregroundStyle(.secondary)
+                            .accessibilityLabel("Student ID is complete")
+                    }
                 }
             }
-            .padding(.horizontal, 16)
-            .frame(minHeight: 50)
+            .padding(16)
+            .frame(maxWidth: .infinity, minHeight: 64, alignment: .leading)
 
             Divider().padding(.leading, 16)
 
-            HStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 6) {
                 Text("Password")
-                    .font(.body)
+                    .font(.subheadline.weight(.medium))
                     .foregroundStyle(.primary)
-                    .frame(width: 96, alignment: .leading)
 
-                Group {
-                    if showsPassword {
-                        TextField("Required", text: $password)
-                    } else {
-                        SecureField("Required", text: $password)
+                HStack(spacing: 10) {
+                    Group {
+                        if showsPassword {
+                            TextField("Required", text: $password)
+                        } else {
+                            SecureField("Required", text: $password)
+                        }
                     }
-                }
-                .focused($focusedField, equals: .password)
-                .omnivoxPasswordInputTraits()
-                .submitLabel(.go)
-                .onSubmit { submitIfPossible() }
+                    .focused($focusedField, equals: .password)
+                    .omnivoxPasswordInputTraits()
+                    .submitLabel(.go)
+                    .onSubmit { submitIfPossible() }
 
-                Button {
-                    showsPassword.toggle()
-                } label: {
-                    Image(systemName: showsPassword ? "eye.slash" : "eye")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                        .frame(width: 44, height: 44)
-                        .contentShape(Rectangle())
+                    Button {
+                        showsPassword.toggle()
+                    } label: {
+                        Image(systemName: showsPassword ? "eye.slash" : "eye")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                            .frame(width: 44, height: 44)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel(showsPassword ? "Hide password" : "Show password")
                 }
-                .buttonStyle(.plain)
-                .accessibilityLabel(showsPassword ? "Hide password" : "Show password")
             }
             .padding(.leading, 16)
-            .frame(minHeight: 50)
+            .padding(.trailing, 8)
+            .padding(.vertical, 8)
+            .frame(maxWidth: .infinity, minHeight: 64, alignment: .leading)
 
             Divider().padding(.leading, 16)
 
@@ -166,14 +169,16 @@ struct LoginView: View {
                 showsInstitutionMessage = true
             } label: {
                 HStack(spacing: 12) {
-                    Text("Institution")
-                        .font(.body)
-                        .foregroundStyle(.primary)
-                        .frame(width: 96, alignment: .leading)
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("Institution")
+                            .font(.subheadline.weight(.medium))
+                            .foregroundStyle(.primary)
 
-                    Text(model.institution.displayName)
-                        .font(.body)
-                        .foregroundStyle(.secondary)
+                        Text(model.institution.displayName)
+                            .font(.body)
+                            .foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
 
                     Spacer(minLength: 6)
 
@@ -181,8 +186,8 @@ struct LoginView: View {
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
-                .padding(.horizontal, 16)
-                .frame(minHeight: 50)
+                .padding(16)
+                .frame(maxWidth: .infinity, minHeight: 64, alignment: .leading)
                 .contentShape(Rectangle())
             }
             .buttonStyle(.plain)

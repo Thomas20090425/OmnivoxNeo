@@ -1,4 +1,4 @@
- import WidgetKit
+import WidgetKit
 import SwiftUI
 
 /// The large widget: the whole day at once.
@@ -23,26 +23,21 @@ struct DayWidget: Widget {
 
 struct DayView: View {
     let entry: ScheduleEntry
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @ScaledMetric(relativeTo: .subheadline) private var compactRowHeight: CGFloat = 32
+    @ScaledMetric(relativeTo: .subheadline) private var regularRowHeight: CGFloat = 44
+    @ScaledMetric(relativeTo: .headline) private var headerAndStatusHeight: CGFloat = 62
+    @ScaledMetric(relativeTo: .caption2) private var overflowHeight: CGFloat = 20
 
-    /// Six rows is what fits comfortably; beyond that the remainder is summarized.
-    private static let maxRows = 6
+    /// An expanded widget can use more of its height, while a compact pane or
+    /// larger text must leave room for the status and overflow count.
+    private static let maxRows = 8
 
     private var schedule: SharedSchedule? { entry.schedule }
 
     private var todaysCourses: [SharedCourse] {
         schedule?.courses(on: entry.date) ?? []
     }
-
-    private var visible: [SharedCourse] {
-        Array(todaysCourses.prefix(Self.maxRows))
-    }
-
-    private var hidden: Int {
-        max(0, todaysCourses.count - visible.count)
-    }
-
-    /// Rows lose their course code before they lose their place in the list.
-    private var isCompact: Bool { todaysCourses.count > 4 }
 
     /// Scoped to today rather than to the schedule as a whole: a countdown to
     /// tomorrow's first class under a "Today" heading would be answering a
@@ -56,8 +51,25 @@ struct DayView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            header
+        GeometryReader { geometry in
+            content(in: geometry.size)
+        }
+    }
+
+    private func content(in available: CGSize) -> some View {
+        // WidgetKit can offer different heights across the outer display,
+        // inner display, and its resized layouts. Budget rows from the space
+        // actually available instead of assuming every large widget is equal.
+        let isCompact = todaysCourses.count > 4
+            || available.height < 290
+            || dynamicTypeSize.isAccessibilitySize
+        let rowHeight = isCompact ? compactRowHeight : regularRowHeight
+        let rowBudget = max(1, Int(max(0, available.height - headerAndStatusHeight - overflowHeight) / rowHeight))
+        let visible = Array(todaysCourses.prefix(min(Self.maxRows, rowBudget)))
+        let hidden = max(0, todaysCourses.count - visible.count)
+
+        return VStack(alignment: .leading, spacing: 0) {
+            header(isCompact: isCompact)
 
             ClassStatusStrip(
                 current: currentCourse,
@@ -80,7 +92,7 @@ struct DayView: View {
                 VStack(spacing: 0) {
                     ForEach(Array(visible.enumerated()), id: \.element.id) { index, course in
                         if index > 0 { Divider().opacity(0.4) }
-                        row(for: course)
+                        row(for: course, isCompact: isCompact)
                     }
                 }
                 .padding(.top, 4)
@@ -103,19 +115,22 @@ struct DayView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
     }
 
-    private var header: some View {
+    private func header(isCompact: Bool) -> some View {
         HStack(alignment: .firstTextBaseline, spacing: 6) {
             Text(entry.date.formatted(.dateTime.weekday(.wide)))
                 .font(.headline)
                 .foregroundStyle(.primary)
+                .lineLimit(1)
+                .layoutPriority(1)
 
             Text(entry.date.formatted(.dateTime.month(.abbreviated).day()))
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
+                .lineLimit(1)
 
             Spacer(minLength: 4)
 
-            if let accountLabel = schedule?.accountLabel, !accountLabel.isEmpty {
+            if !isCompact, let accountLabel = schedule?.accountLabel, !accountLabel.isEmpty {
                 Text(accountLabel)
                     .font(.caption2)
                     .foregroundStyle(.tertiary)
@@ -124,7 +139,7 @@ struct DayView: View {
         }
     }
 
-    private func row(for course: SharedCourse) -> some View {
+    private func row(for course: SharedCourse, isCompact: Bool) -> some View {
         let isNow = course.start <= entry.date && entry.date < course.end
         let isPast = course.end <= entry.date
 
@@ -155,8 +170,10 @@ struct DayView: View {
                 Text(course.start.formatted(date: .omitted, time: .shortened))
                     .font(.caption.weight(.medium).monospacedDigit())
                     .foregroundStyle(isPast ? .tertiary : .secondary)
+                    .fixedSize(horizontal: true, vertical: false)
 
-                if let location = course.location, !location.isEmpty {
+                if !dynamicTypeSize.isAccessibilitySize,
+                   let location = course.location, !location.isEmpty {
                     Text(location)
                         .font(.caption2)
                         .foregroundStyle(isPast ? .tertiary : .secondary)

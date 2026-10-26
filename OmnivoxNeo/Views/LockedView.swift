@@ -7,6 +7,17 @@ struct LockedView: View {
     @ObservedObject var model: AppModel
 
     var body: some View {
+        GeometryReader { geometry in
+            ScrollView {
+                card
+                    .frame(maxWidth: .infinity)
+                    .frame(minHeight: geometry.size.height)
+            }
+            .scrollBounceBehavior(.basedOnSize)
+        }
+    }
+
+    private var card: some View {
         VStack(spacing: 26) {
             ZStack {
                 Circle()

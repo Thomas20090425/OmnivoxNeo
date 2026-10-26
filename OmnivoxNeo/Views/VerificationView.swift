@@ -39,7 +39,11 @@ struct VerificationView: View {
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { model.usePasswordInstead() }
+                    Button {
+                        model.usePasswordInstead()
+                    } label: {
+                        Label("Cancel", systemImage: "xmark")
+                    }
                 }
 
                 ToolbarItem(placement: .primaryAction) {

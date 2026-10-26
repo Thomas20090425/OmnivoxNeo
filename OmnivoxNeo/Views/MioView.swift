@@ -23,9 +23,6 @@ struct MioView: View {
 
     @State private var isShowingFolders = false
     @State private var composing: MioDraft.Intent?
-    /// Which message the other column is showing. Only used where there *is*
-    /// another column.
-    @State private var selected: MioMessage?
     @State private var columns: NavigationSplitViewVisibility = .doubleColumn
     /// Which message is waiting on an answer to "are you sure".
     @State private var pendingDelete: MioMessage?
@@ -33,8 +30,18 @@ struct MioView: View {
     /// row's tap now belongs to the swipe wrapper around it — a link inside
     /// would fire at the end of a swipe and open the message you were trying
     /// to flag.
-    @State private var path = NavigationPath()
+    /// Both the compact stack and the regular-width detail column read this
+    /// route, so an open message remains open when the device folds.
+    @State private var path: [MioMessage] = []
     @FocusState private var isSearching: Bool
+
+    private var selected: MioMessage? { path.last }
+    private var compactPath: Binding<[MioMessage]> {
+        Binding(
+            get: { path },
+            set: { if !prefersSplitLayout { path = $0 } }
+        )
+    }
 
     @Environment(\.prefersSplitLayout) private var prefersSplitLayout
     @Environment(\.sessionLimitation) private var limitation
@@ -55,13 +62,19 @@ struct MioView: View {
             guard limitation == nil, model.portalIsIdle else { return }
             store.loadIfNeeded()
         }
+        // Folder changes invalidate the open message in either layout.
+        .onChange(of: store.selectedFolderKey) { path.removeAll() }
         .animation(.snappy(duration: 0.25), value: store.notice)
         // A drawer that comes in from the side, which is where the button that
         // opens it is and where every mail app on every platform puts it. It
         // was a sheet from the bottom, which works and reads as something else
         // entirely — a bottom sheet is a thing you are being asked about, and
         // this is a place you are going.
-        .overlay(alignment: .top) { noticeBanner }
+        .overlay(alignment: .top) {
+            // On a compact display the message can cover the list, so keep
+            // notices over the whole navigation stack.
+            if !prefersSplitLayout { noticeBanner }
+        }
         .overlay { folderDrawer }
         .sheet(item: $composing) { intent in
             MioComposeView(store: store, intent: intent)
@@ -79,7 +92,7 @@ struct MioView: View {
                 store.deletingIsPermanent ? "Delete Permanently" : "Delete",
                 role: .destructive
             ) {
-                if selected?.id == message.id { selected = nil }
+                if selected?.id == message.id { path.removeAll() }
                 store.delete(message)
             }
             Button("Cancel", role: .cancel) {}
@@ -100,7 +113,7 @@ struct MioView: View {
 
     /// A phone: the list is the screen, and a message is pushed on top of it.
     private var stackBody: some View {
-        NavigationStack(path: $path) {
+        NavigationStack(path: compactPath) {
             listColumn
                 #if os(iOS)
                 .navigationBarHidden(true)
@@ -140,7 +153,7 @@ struct MioView: View {
                         store: store,
                         message: selected,
                         onCompose: { composing = $0 },
-                        onDeleted: { self.selected = nil }
+                        onDeleted: { path.removeAll() }
                     )
                     // Rebuilt when the choice changes: the message view holds
                     // its own scroll position and its own web view, and reusing
@@ -152,9 +165,6 @@ struct MioView: View {
             }
         }
         .navigationSplitViewStyle(.balanced)
-        // A folder is a different set of messages, so whatever was open is no
-        // longer in the list beside it.
-        .onChange(of: store.selectedFolderKey) { selected = nil }
     }
 
     private var listColumn: some View {
@@ -197,6 +207,11 @@ struct MioView: View {
                 Spacer(minLength: 0)
             }
             .accessibilityHidden(true)
+        }
+        // On a wide display, a notice centered over both columns would sit
+        // across the fold. Keep it within the list that caused the change.
+        .overlay(alignment: .top) {
+            if prefersSplitLayout { noticeBanner }
         }
     }
 
@@ -266,7 +281,7 @@ struct MioView: View {
                         store: store,
                         onSelect: { folder in
                             store.select(folder)
-                            selected = nil
+                            path.removeAll()
                             showFolders(false)
                         }
                     )
@@ -496,7 +511,7 @@ struct MioView: View {
             return
         }
         if prefersSplitLayout {
-            selected = message
+            path = [message]
         } else {
             path.append(message)
         }

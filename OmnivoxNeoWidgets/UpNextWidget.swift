@@ -22,6 +22,8 @@ struct UpNextWidget: Widget {
 
 struct UpNextView: View {
     let entry: ScheduleEntry
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @ScaledMetric(relativeTo: .headline) private var preferredHeight: CGFloat = 112
 
     private var schedule: SharedSchedule? { entry.schedule }
     private var current: SharedCourse? { schedule?.current(at: entry.date) }
@@ -33,33 +35,41 @@ struct UpNextView: View {
 
     var body: some View {
         if let focus {
-            VStack(alignment: .leading, spacing: 0) {
-                header
+            GeometryReader { geometry in
+                let compact = geometry.size.height < preferredHeight
 
-                Spacer(minLength: 6)
+                VStack(alignment: .leading, spacing: 0) {
+                    header
 
-                Text(focus.title)
-                    .font(.headline)
-                    .foregroundStyle(.primary)
-                    .lineLimit(2)
-                    .minimumScaleFactor(0.85)
+                    Spacer(minLength: compact ? 2 : 6)
 
-                HStack(spacing: 6) {
-                    Text(timeRange(focus))
-                    if let location = focus.location, !location.isEmpty {
-                        Text("·")
-                        Text(location).fontWeight(.medium)
+                    Text(focus.title)
+                        .font(.headline)
+                        .foregroundStyle(.primary)
+                        .lineLimit(compact ? 1 : 2)
+                        .minimumScaleFactor(dynamicTypeSize.isAccessibilitySize ? 1 : 0.85)
+
+                    HStack(spacing: 6) {
+                        Text(timeRange(focus))
+                            .fixedSize(horizontal: true, vertical: false)
+                        if let location = focus.location, !location.isEmpty {
+                            Text("·")
+                            Text(location)
+                                .fontWeight(.medium)
+                                .lineLimit(1)
+                        }
+                    }
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+
+                    if !compact {
+                        Spacer(minLength: 6)
+
+                        thenLine
                     }
                 }
-                .font(.caption)
-                .foregroundStyle(.secondary)
-                .lineLimit(1)
-
-                Spacer(minLength: 6)
-
-                thenLine
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
         } else {
             WidgetEmptyState(
                 title: schedule == nil ? "Open Omnivox Neo" : "Nothing Left Today",
@@ -132,25 +142,39 @@ struct ClassStatusStrip: View {
 
     var body: some View {
         if let focus {
-            HStack(spacing: 5) {
-                Circle()
-                    .fill(current == nil ? accent : Color.green)
-                    .frame(width: 6, height: 6)
+            ViewThatFits(in: .horizontal) {
+                HStack(spacing: 5) {
+                    statusMark
+                    Spacer(minLength: 4)
+                    countdown(to: focus)
+                }
 
-                Text(current == nil ? "Up Next" : "In Class")
-                    .font(.caption2.weight(.semibold))
-                    .foregroundStyle(current == nil ? accent : .green)
-
-                Spacer(minLength: 4)
-
-                // Counting to the end of the class in progress, otherwise to
-                // the start of the one coming.
-                Text(current == nil ? focus.start : focus.end, style: .relative)
-                    .font(.caption2.weight(.medium).monospacedDigit())
-                    .foregroundStyle(.secondary)
-                    .lineLimit(1)
+                // On a narrow widget, keep the status legible instead of
+                // squeezing it against a partially visible timer.
+                statusMark
             }
         }
+    }
+
+    private var statusMark: some View {
+        HStack(spacing: 5) {
+            Circle()
+                .fill(current == nil ? accent : Color.green)
+                .frame(width: 6, height: 6)
+
+            Text(current == nil ? "Up Next" : "In Class")
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(current == nil ? accent : .green)
+                .fixedSize(horizontal: true, vertical: false)
+        }
+    }
+
+    private func countdown(to focus: SharedCourse) -> some View {
+        // WidgetKit updates relative text without a new timeline entry.
+        Text(current == nil ? focus.start : focus.end, style: .relative)
+            .font(.caption2.weight(.medium).monospacedDigit())
+            .foregroundStyle(.secondary)
+            .fixedSize(horizontal: true, vertical: false)
     }
 }
 

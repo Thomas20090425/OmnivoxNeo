@@ -107,8 +107,12 @@ struct MioRecipientPicker: View {
                         // how somebody is taken off the list — and the version
                         // that only offered Done when *somebody* was chosen
                         // made that the one thing you could not finish.
-                        Button("Done") { finish() }
-                            .fontWeight(.semibold)
+                        Button {
+                            finish()
+                        } label: {
+                            Label("Done", systemImage: "checkmark")
+                        }
+                        .fontWeight(.semibold)
                     }
                 }
                 // Internal builds only.

@@ -71,27 +71,31 @@ struct MioComposeView: View {
                 // Everything here is about a message still being written, so
                 // none of it belongs on the screen that says it has gone.
                 if session.phase != .sent {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { close() }
-                        .disabled(session.phase == .sending)
-                }
-                ToolbarItem(placement: .primaryAction) {
-                    if session.phase == .sending {
-                        ProgressView()
-                    } else {
+                    ToolbarItem(placement: .cancellationAction) {
                         Button {
-                            Task {
-                                await session.send()
-                                if session.phase == .sent {
-                                    store.messageWasSent()
-                                }
-                            }
+                            close()
                         } label: {
-                            Label("Send", systemImage: "paperplane.fill")
+                            Label("Cancel", systemImage: "xmark")
                         }
-                        .disabled(!canSend)
+                        .disabled(session.phase == .sending)
                     }
-                }
+                    ToolbarItem(placement: .primaryAction) {
+                        if session.phase == .sending {
+                            ProgressView()
+                        } else {
+                            Button {
+                                Task {
+                                    await session.send()
+                                    if session.phase == .sent {
+                                        store.messageWasSent()
+                                    }
+                                }
+                            } label: {
+                                Label("Send", systemImage: "paperplane.fill")
+                            }
+                            .disabled(!canSend)
+                        }
+                    }
                 }
             }
             .navigationDestination(isPresented: $isPickingRecipients) {
@@ -577,7 +581,11 @@ struct MioUploadSheet: View {
                 #endif
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
-                        Button("Done") { onFinish() }
+                        Button {
+                            onFinish()
+                        } label: {
+                            Label("Done", systemImage: "checkmark")
+                        }
                     }
                 }
         }

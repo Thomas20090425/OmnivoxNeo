@@ -79,9 +79,11 @@ struct MioMessageView: View {
                 Button {
                     store.toggleFlag(message)
                 } label: {
-                    Image(systemName: message.isFlagged ? "flag.fill" : "flag")
+                    Label(
+                        message.isFlagged ? "Remove flag" : "Flag",
+                        systemImage: message.isFlagged ? "flag.fill" : "flag"
+                    )
                 }
-                .accessibilityLabel(message.isFlagged ? Text("Remove flag") : Text("Flag"))
 
                 Menu {
                     Button {
@@ -109,9 +111,8 @@ struct MioMessageView: View {
                         )
                     }
                 } label: {
-                    Image(systemName: "ellipsis.circle")
+                    Label("More", systemImage: "ellipsis.circle")
                 }
-                .accessibilityLabel(Text("More"))
 
                 // Its own button rather than a line in the menu. Deleting mail
                 // is one of the three things anybody does on this screen, and

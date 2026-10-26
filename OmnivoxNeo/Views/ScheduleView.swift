@@ -3,9 +3,11 @@ import SwiftUI
 struct ScheduleView: View {
     @ObservedObject var model: AppModel
     @ObservedObject private var readState: AgendaReadState
+    @Environment(\.prefersSplitLayout) private var prefersSplitLayout
 
     @State private var selectedDay = Date()
     @State private var showsAgenda = false
+    @State private var splitColumns: NavigationSplitViewVisibility = .doubleColumn
 
     init(model: AppModel) {
         self.model = model
@@ -35,67 +37,124 @@ struct ScheduleView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            TimelineView(.periodic(from: .now, by: 1)) { timeline in
-                ScrollView {
-                    LazyVStack(spacing: 18) {
-                        // Drawn here rather than left to `navigationTitle`,
-                        // which can only truncate. A greeting is addressed to
-                        // the person reading it, so "Good Afternoon, Alexand…"
-                        // cuts off the one word the sentence existed for.
-                        MarqueeText(text: greeting(at: timeline.date))
-                            .font(.largeTitle.weight(.bold))
-                            .foregroundStyle(.primary)
-                            .padding(.top, 4)
-
-                        dayPicker
-
-                        StatusHero(
-                            status: ScheduleTimeline.status(
-                                for: model.courses,
-                                on: selectedDay,
-                                now: timeline.date,
-                                calendar: calendar
+        TimelineView(.periodic(from: .now, by: 1)) { timeline in
+            Group {
+                if prefersSplitLayout {
+                    // A closed Duo has one compact page. Its open display has
+                    // room for the date and status beside that day's classes.
+                    // NavigationSplitView also moves its panes around the
+                    // folding region when the inner display is partly folded.
+                    NavigationSplitView(columnVisibility: $splitColumns) {
+                        overviewColumn(now: timeline.date)
+                            .navigationSplitViewColumnWidth(
+                                min: SplitColumn.minWidth,
+                                ideal: SplitColumn.idealWidth,
+                                max: SplitColumn.maxWidth
                             )
-                        )
-
-                        scheduleSection(now: timeline.date)
-
-                        if let error = model.sessionError {
-                            SessionErrorBanner(message: error)
+                    } detail: {
+                        NavigationStack {
+                            scheduleColumn(now: timeline.date)
                         }
                     }
-                    .frame(maxWidth: 760)
-                    .padding(.horizontal, 20)
-                    .padding(.top, 12)
-                    .padding(.bottom, 34)
-                    .frame(maxWidth: .infinity)
-                }
-                .refreshable {
-                    model.refreshSchedule()
-                }
-                // Cards and the day-picker circles are the surface colour, so
-                // the page behind them has to be the grouped colour or they
-                // disappear into a plain white background.
-                .scrollContentBackground(.hidden)
-                .background(NeoBackground())
-                // The bar keeps the salutation without the name: it is what
-                // remains once the greeting above has been scrolled away, and
-                // it is short enough that it never needed to move.
-                .navigationTitle(Self.anonymousGreetingKey(for: calendar.component(.hour, from: timeline.date)))
-                #if os(iOS)
-                .navigationBarTitleDisplayMode(.inline)
-                #endif
-                .toolbar {
-                    if showsAgendaButton {
-                        ToolbarItem(placement: .primaryAction) {
-                            agendaButton
-                        }
+                    .navigationSplitViewStyle(.balanced)
+                } else {
+                    NavigationStack {
+                        compactColumn(now: timeline.date)
                     }
                 }
             }
-            .sheet(isPresented: $showsAgenda) {
-                AgendaView(model: model)
+        }
+        .sheet(isPresented: $showsAgenda) {
+            AgendaView(model: model)
+        }
+    }
+
+    private func compactColumn(now: Date) -> some View {
+        page {
+            greetingView(at: now)
+            dayPicker
+            statusView(at: now)
+            scheduleSection(now: now)
+            sessionError
+        }
+        // The compact bar retains the greeting after the full name scrolls
+        // away. The calendar action stays in the system toolbar so Duo can
+        // place it on its vertical edge.
+        .navigationTitle(Self.anonymousGreetingKey(for: calendar.component(.hour, from: now)))
+        #if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+        #endif
+        .toolbar { agendaToolbar }
+    }
+
+    private func overviewColumn(now: Date) -> some View {
+        page {
+            greetingView(at: now)
+            dayPicker
+            statusView(at: now)
+        }
+        .navigationTitle("Home")
+        #if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+        #endif
+    }
+
+    private func scheduleColumn(now: Date) -> some View {
+        page {
+            scheduleSection(now: now)
+            sessionError
+        }
+        .navigationTitle("Schedule")
+        #if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+        #endif
+        .toolbar { agendaToolbar }
+    }
+
+    private func page<Content: View>(@ViewBuilder content: () -> Content) -> some View {
+        ScrollView {
+            LazyVStack(spacing: 18, content: content)
+                .frame(maxWidth: 760)
+                .padding(.horizontal, 20)
+                .padding(.top, 12)
+                .padding(.bottom, 34)
+                .frame(maxWidth: .infinity)
+        }
+        .refreshable { model.refreshSchedule() }
+        .scrollContentBackground(.hidden)
+        .background(NeoBackground())
+    }
+
+    private func greetingView(at date: Date) -> some View {
+        MarqueeText(text: greeting(at: date))
+            .font(.largeTitle.weight(.bold))
+            .foregroundStyle(.primary)
+            .padding(.top, 4)
+    }
+
+    private func statusView(at date: Date) -> some View {
+        StatusHero(
+            status: ScheduleTimeline.status(
+                for: model.courses,
+                on: selectedDay,
+                now: date,
+                calendar: calendar
+            )
+        )
+    }
+
+    @ViewBuilder
+    private var sessionError: some View {
+        if let error = model.sessionError {
+            SessionErrorBanner(message: error)
+        }
+    }
+
+    @ToolbarContentBuilder
+    private var agendaToolbar: some ToolbarContent {
+        if showsAgendaButton {
+            ToolbarItem(placement: .primaryAction) {
+                agendaButton
             }
         }
     }
@@ -109,7 +168,7 @@ struct ScheduleView: View {
         Button {
             showsAgenda = true
         } label: {
-            Image(systemName: "bell.fill")
+            Label("Agenda", systemImage: "bell.fill")
                 .overlay(alignment: .topTrailing) {
                     if unreadCount > 0 {
                         Circle()
@@ -119,7 +178,6 @@ struct ScheduleView: View {
                     }
                 }
         }
-        .accessibilityLabel("Agenda")
         .accessibilityValue(unreadCount > 0 ? Loc.text("%lld new or updated", unreadCount) : "")
     }
 

@@ -1,0 +1,3 @@
+// Shared by the app and its widget for every build configuration.
+MARKETING_VERSION = 0.0.6
+CURRENT_PROJECT_VERSION = 3

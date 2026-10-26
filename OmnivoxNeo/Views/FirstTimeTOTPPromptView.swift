@@ -25,14 +25,19 @@ struct FirstTimeTOTPPromptView: View {
     @State private var hasDeclined = false
 
     var body: some View {
-        Group {
-            if hasDeclined {
-                declined
-            } else {
-                offer
+        ScrollView {
+            Group {
+                if hasDeclined {
+                    declined
+                } else {
+                    offer
+                }
             }
+            .frame(maxWidth: 520)
+            .padding(24)
+            .frame(maxWidth: .infinity)
         }
-        .padding(24)
+        .scrollBounceBehavior(.basedOnSize)
         .animation(.easeInOut(duration: 0.2), value: hasDeclined)
         .sheet(isPresented: $showSetup) {
             TOTPGuidedSetupView(model: model)
@@ -88,8 +93,6 @@ struct FirstTimeTOTPPromptView: View {
                 .background(Neo.surface, in: RoundedRectangle(cornerRadius: 12))
             }
 
-            Spacer()
-
             // Buttons
             VStack(spacing: 12) {
                 Button {
@@ -131,8 +134,6 @@ struct FirstTimeTOTPPromptView: View {
             Text("You can turn the built-in authenticator on whenever you like. Open the Account tab, tap App Settings, then Set Up Built-in Authenticator.")
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
-
-            Spacer()
 
             Button {
                 dismiss()

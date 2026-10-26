@@ -74,6 +74,9 @@ struct SessionLimitationBanner: View {
         }
         .padding(.horizontal, 14)
         .padding(.vertical, 10)
+        // The banner background can span the open display, but its words and
+        // action belong in one readable pane, clear of the Duo's fold.
+        .frame(maxWidth: 380, alignment: .leading)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(.regularMaterial)
         .overlay(alignment: .bottom) {

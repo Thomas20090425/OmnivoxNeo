@@ -2,11 +2,8 @@ import SwiftUI
 
 /// What the student sees when the manifest has something to say.
 ///
-/// Drawn over the app rather than instead of it, for everything except a
-/// required update — an announcement is a note, not a destination, and the app
-/// behind it should already be there when the note goes away. A required
-/// update is the exception: there is nothing behind it, because nothing behind
-/// it was allowed to start.
+/// Presented over the app in a system sheet, except that a required update
+/// keeps the guarded app from starting until the version check allows it.
 struct VersionGateNotice: View {
     // Observed so a change of accent redraws this screen. `Neo.accent`
     // is a static read, which SwiftUI cannot see as a dependency.
@@ -45,62 +42,59 @@ struct VersionGateNotice: View {
         }
     }
 
-    private var isRequired: Bool {
-        if case .requireUpdate = decision { return true }
-        return false
+    var body: some View {
+        // Presented in a system sheet so its contents move away from Duo's
+        // folding region and cameras as the display changes pose.
+        GeometryReader { geometry in
+            ScrollView {
+                noticeCard
+                    .frame(maxWidth: .infinity)
+                    .frame(minHeight: geometry.size.height)
+            }
+            .scrollBounceBehavior(.basedOnSize)
+        }
+        .background(NeoBackground())
+        // Nothing underneath a required update may be reached — not by a tap
+        // that lands outside the sheet, not by a VoiceOver swipe past it.
+        .accessibilityAddTraits(.isModal)
     }
 
-    var body: some View {
-        ZStack {
-            // Heavier behind a required update: there is no way past it, and
-            // the app should not look momentarily available underneath.
-            Rectangle()
-                .fill(.black.opacity(isRequired ? 0.55 : 0.32))
-                .ignoresSafeArea()
+    private var noticeCard: some View {
+        VStack(spacing: 0) {
+            VStack(spacing: 14) {
+                NeoLogo(size: 46)
 
-            VStack(spacing: 0) {
-                VStack(spacing: 14) {
-                    NeoLogo(size: 46)
+                Text(title)
+                    .font(.title3.weight(.semibold))
+                    .multilineTextAlignment(.center)
 
-                    Text(title)
-                        .font(.title3.weight(.semibold))
-                        .multilineTextAlignment(.center)
+                Text(AppRelease.version)
+                    .font(.footnote.italic())
+                    .fontDesign(.serif)
+                    .foregroundStyle(.secondary)
 
-                    // The state said in words rather than with a coloured dot
-                    // or a pill: the sentence is the thing that has to survive
-                    // being read quickly, and type carries it better.
-                    Text(AppRelease.version)
-                        .font(.footnote.italic())
-                        .fontDesign(.serif)
-                        .foregroundStyle(.secondary)
-
-                    Text(message)
-                        .font(.callout)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                .padding(.horizontal, 26)
-                .padding(.top, 30)
-                .padding(.bottom, 24)
-
-                Divider()
-
-                buttons
+                Text(message)
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
             }
-            .frame(maxWidth: 360)
-            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 22))
-            .overlay(
-                RoundedRectangle(cornerRadius: 22)
-                    .strokeBorder(.white.opacity(0.08))
-            )
-            .shadow(color: .black.opacity(0.28), radius: 28, y: 12)
-            .padding(28)
+            .padding(.horizontal, 26)
+            .padding(.top, 30)
+            .padding(.bottom, 24)
+
+            Divider()
+
+            buttons
         }
-        // Nothing underneath a required update may be reached — not by a tap
-        // that lands outside the card, not by a VoiceOver swipe past it.
-        .accessibilityAddTraits(.isModal)
-        .transition(.opacity.combined(with: .scale(scale: 0.97)))
+        .frame(maxWidth: 360)
+        .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 22))
+        .overlay(
+            RoundedRectangle(cornerRadius: 22)
+                .strokeBorder(.white.opacity(0.08))
+        )
+        .shadow(color: .black.opacity(0.28), radius: 28, y: 12)
+        .padding(28)
     }
 
     @ViewBuilder
@@ -171,6 +165,11 @@ struct VersionGate<Guarded: View>: View {
         }
     }
 
+    private var requiresUpdate: Bool {
+        if case .requireUpdate = visibleDecision { return true }
+        return false
+    }
+
     var body: some View {
         ZStack {
             NeoBackground()
@@ -184,16 +183,24 @@ struct VersionGate<Guarded: View>: View {
             } else {
                 LaunchingView()
             }
-
+        }
+        .sheet(isPresented: Binding(
+            get: { visibleDecision != nil },
+            set: { presented in
+                if !presented && !requiresUpdate {
+                    service.dismissForThisLaunch()
+                }
+            }
+        )) {
             if let decision = visibleDecision {
                 VersionGateNotice(
                     decision: decision,
                     onUpdate: { service.openUpdateDestination() },
                     onDismiss: { service.dismissForThisLaunch() }
                 )
+                .interactiveDismissDisabled(requiresUpdate)
             }
         }
-        .animation(.easeInOut(duration: 0.22), value: visibleDecision)
         .animation(.easeInOut(duration: 0.22), value: service.allowsApp)
         .task {
             await service.begin()

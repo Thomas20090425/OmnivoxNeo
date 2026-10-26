@@ -16,9 +16,9 @@ struct LeaAssignmentsView: View {
     @ObservedObject var model: AppModel
     @ObservedObject var store: LeaStore
     let course: LeaCourse
+    let onOpenSubmission: (LeaWebPage) -> Void
+    let onOpenFile: (LeaOpenedFile) -> Void
 
-    @State private var openSubmission: LeaWebPage?
-    @State private var openFile: LeaOpenedFile?
     @State private var downloading: String?
     @State private var downloadError: String?
     @ObservedObject private var personalization = Personalization.shared
@@ -69,15 +69,6 @@ struct LeaAssignmentsView: View {
         #endif
         .task { store.loadAssignments(for: course) }
         .refreshable { store.reloadAssignments(for: course) }
-        // Both pushed rather than presented: an upload form and a marked-up
-        // assignment are each a whole screen's work, and a sheet can be swiped
-        // shut by accident in the middle of either.
-        .navigationDestination(item: $openSubmission) { page in
-            LeaWebSheet(model: model, store: store, page: page)
-        }
-        .navigationDestination(item: $openFile) { file in
-            LeaFileReaderView(file: file)
-        }
         .alert(
             Text("Couldn’t open that"),
             isPresented: Binding(get: { downloadError != nil }, set: { if !$0 { downloadError = nil } })
@@ -121,7 +112,7 @@ struct LeaAssignmentsView: View {
         VStack(alignment: .leading, spacing: 12) {
             Button {
                 if let url = assignment.instructionsURL {
-                    openSubmission = LeaWebPage(url: url, title: assignment.title)
+                    onOpenSubmission(LeaWebPage(url: url, title: assignment.title))
                 }
             } label: {
                 HStack(alignment: .top, spacing: 14) {
@@ -278,7 +269,7 @@ struct LeaAssignmentsView: View {
             defer { downloading = nil }
             do {
                 let local = try await store.downloadCorrectedCopy(for: assignment, in: course)
-                openFile = LeaOpenedFile(url: local, title: assignment.title)
+                onOpenFile(LeaOpenedFile(url: local, title: assignment.title))
             } catch {
                 downloadError = (error as? LeaService.Failure)?.message ?? error.localizedDescription
             }

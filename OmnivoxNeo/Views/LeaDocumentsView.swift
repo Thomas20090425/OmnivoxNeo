@@ -9,8 +9,8 @@ import SwiftUI
 struct LeaDocumentsView: View {
     @ObservedObject var store: LeaStore
     let course: LeaCourse
+    let onOpenFile: (LeaOpenedFile) -> Void
 
-    @State private var openFile: LeaOpenedFile?
     @State private var pendingLink: LeaDocument?
     @State private var downloading: String?
     @State private var downloadError: String?
@@ -65,13 +65,6 @@ struct LeaDocumentsView: View {
         #endif
         .task { store.loadDocuments(for: course) }
         .refreshable { store.reloadDocuments(for: course) }
-        // Pushed, not presented. A sheet gives up the top of the screen to a
-        // grabber and can be swiped away by accident halfway through a page of
-        // slides; a pushed page gets the whole screen and only leaves when the
-        // reader means it to.
-        .navigationDestination(item: $openFile) { file in
-            LeaFileReaderView(file: file)
-        }
         // An alert rather than a card at the foot of the page: this is the
         // answer to something the student just tapped, and it has to arrive
         // where they are looking.
@@ -154,7 +147,7 @@ struct LeaDocumentsView: View {
                         document,
                         from: course.section(.documents)?.url
                     )
-                    openFile = LeaOpenedFile(url: url, title: name ?? document.title)
+                    onOpenFile(LeaOpenedFile(url: url, title: name ?? document.title))
                 } catch {
                     downloadError = (error as? LeaService.Failure)?.message
                         ?? error.localizedDescription

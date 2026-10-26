@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 import WebKit
 
@@ -25,53 +26,46 @@ struct LeaWebSheet: View {
     // Observed so a change of accent redraws this screen. `Neo.accent`
     // is a static read, which SwiftUI cannot see as a dependency.
     @ObservedObject private var accentStore = Personalization.shared
-    @ObservedObject var model: AppModel
-    @ObservedObject var store: LeaStore
-    let page: LeaWebPage
-
-    @State private var isLoading = true
+    @ObservedObject var session: LeaAssignmentWebSession
 
     var body: some View {
-        LeaWebContainer(
-            url: page.url,
-            hiddenSelector: model.institution.conventions.lea.assignmentCloseButtonSelector,
-            isLoading: $isLoading
-        )
+        LeaWebContainer(session: session)
         .ignoresSafeArea(edges: .bottom)
         .overlay(alignment: .top) {
-            if isLoading {
+            if session.isLoading {
                 ProgressView()
                     .progressViewStyle(.linear)
                     .tint(Neo.accent)
             }
         }
-        .navigationTitle(page.title)
+        .navigationTitle(session.page.title)
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         // An upload form wants the whole screen, and the tab bar is not
         // somewhere to go from the middle of handing something in.
         .toolbar(.hidden, for: .tabBar)
         #endif
-        .onDisappear {
-            // Anything handed in while this was open changed the list behind
-            // it, so it is refetched rather than left claiming the assignment
-            // is still outstanding.
-            store.refresh()
-        }
     }
 }
 
-#if canImport(UIKit)
-private struct LeaWebContainer: UIViewRepresentable {
-    let url: URL
-    let hiddenSelector: String
-    @Binding var isLoading: Bool
+/// Owned by the selected submission route rather than either navigation
+/// container. A fold replaces the container, but not this live form. Leaving
+/// the route releases it; only the profile's normal cookie store is shared.
+@MainActor
+final class LeaAssignmentWebSession: NSObject, ObservableObject, WKNavigationDelegate {
+    let page: LeaWebPage
+    let webView: WKWebView
+    @Published private(set) var isLoading = true
+    #if canImport(UIKit)
+    weak var activeHost: UIView?
+    #endif
 
-    func makeUIView(context: Context) -> WKWebView {
+    init(page: LeaWebPage, hiddenSelector: String, websiteDataStore: WKWebsiteDataStore) {
+        self.page = page
         let configuration = WKWebViewConfiguration()
         // The same cookie jar as everything else, so the page opens signed in
         // instead of bouncing to a login form inside a sheet.
-        configuration.websiteDataStore = context.coordinator.dataStore
+        configuration.websiteDataStore = websiteDataStore
         configuration.applicationNameForUserAgent = AppModel.portalUserAgentProduct
 
         let hide = WKUserScript(
@@ -87,70 +81,71 @@ private struct LeaWebContainer: UIViewRepresentable {
         )
         configuration.userContentController.addUserScript(hide)
 
-        let view = WKWebView(frame: .zero, configuration: configuration)
-        view.navigationDelegate = context.coordinator
-        view.allowsBackForwardNavigationGestures = true
-        view.load(URLRequest(url: url))
-        return view
+        webView = WKWebView(frame: .zero, configuration: configuration)
+        super.init()
+        webView.navigationDelegate = self
+        webView.allowsBackForwardNavigationGestures = true
+        webView.load(URLRequest(url: page.url))
     }
 
-    func updateUIView(_ view: WKWebView, context: Context) {}
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(isLoading: $isLoading)
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        isLoading = true
     }
 
-    final class Coordinator: NSObject, WKNavigationDelegate {
-        let dataStore: WKWebsiteDataStore
-        private let isLoading: Binding<Bool>
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        isLoading = false
+    }
 
-        init(isLoading: Binding<Bool>) {
-            self.isLoading = isLoading
-            dataStore = LeaWebSession.shared.dataStore ?? .default()
-        }
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        isLoading = false
+    }
 
-        func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-            isLoading.wrappedValue = true
-        }
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        isLoading = false
+    }
+}
 
-        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-            isLoading.wrappedValue = false
-        }
+#if canImport(UIKit)
+private struct LeaWebContainer: UIViewRepresentable {
+    let session: LeaAssignmentWebSession
 
-        func webView(
-            _ webView: WKWebView,
-            didFail navigation: WKNavigation!,
-            withError error: Error
-        ) {
-            isLoading.wrappedValue = false
-        }
+    func makeUIView(context: Context) -> UIView {
+        let host = UIView()
+        session.activeHost = host
+        attachWebView(to: host)
+        return host
+    }
 
-        func webView(
-            _ webView: WKWebView,
-            didFailProvisionalNavigation navigation: WKNavigation!,
-            withError error: Error
-        ) {
-            isLoading.wrappedValue = false
+    func updateUIView(_ host: UIView, context: Context) {
+        if session.activeHost === host, session.webView.superview !== host {
+            attachWebView(to: host)
         }
+    }
+
+    private func attachWebView(to host: UIView) {
+        // SwiftUI can briefly own both layout branches during a transition.
+        // It retires the old host while the browser itself stays in the
+        // profile-scoped route session and moves to the new host.
+        let webView = session.webView
+        webView.removeFromSuperview()
+        webView.frame = host.bounds
+        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        host.addSubview(webView)
     }
 }
 #else
 private struct LeaWebContainer: View {
-    let url: URL
-    let hiddenSelector: String
-    @Binding var isLoading: Bool
+    let session: LeaAssignmentWebSession
 
     var body: some View {
-        Link(destination: url) { Text(url.absoluteString) }
+        Link(destination: session.page.url) { Text(session.page.url.absoluteString) }
     }
 }
 #endif
 
-/// Where the profile's cookie jar is parked so a sheet can reach it.
-///
-/// `UIViewRepresentable.Coordinator` is built before the view has an
-/// environment, so the store is handed over when the profile's model is made
-/// rather than looked up on demand.
+/// Existing profile cookie-store handoff from `HomeView`. Assignment forms
+/// now receive the current profile's store directly and never keep their
+/// live web view in this shared object.
 @MainActor
 final class LeaWebSession {
     static let shared = LeaWebSession()

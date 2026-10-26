@@ -52,15 +52,17 @@ struct CommunityWallpaperView: View {
     }
 
     private static let gutter: CGFloat = 14
-    /// A phone's own proportions, so a tile previews what the photograph will
-    /// look like filling the screen rather than whatever shape it happens to
-    /// be.
-    private static let tileRatio: CGFloat = 0.56
+    /// On a narrow outer display, portrait tiles make the photo easy to judge.
+    /// A wider inner window gets shorter tiles so both columns stay useful
+    /// without turning each preview into a full-screen vertical poster.
+    private var tileRatio: CGFloat {
+        (pageWidth ?? 0) >= 540 ? 0.82 : 0.56
+    }
 
     /// How tall a tile is, from the width the grid actually got.
     private var tileHeight: CGFloat {
         guard gridWidth > 0 else { return 240 }
-        return ((gridWidth - Self.gutter) / 2) / Self.tileRatio
+        return ((gridWidth - Self.gutter) / 2) / tileRatio
     }
 
     var body: some View {
@@ -246,7 +248,7 @@ struct CommunityWallpaperView: View {
                 Text(verbatim: wallpaper.credit)
                     .font(.caption.weight(.medium))
                     .foregroundStyle(.white)
-                    .lineLimit(1)
+                    .lineLimit(2)
 
                 if !isDownloaded, let size = wallpaper.downloadSize {
                     Text(verbatim: size)

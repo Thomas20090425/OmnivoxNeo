@@ -1,3 +1,4 @@
+import Combine
 import PDFKit
 import QuickLook
 import SwiftUI
@@ -28,6 +29,31 @@ struct LeaOpenedFile: Identifiable, Hashable {
     var id: String { url.absoluteString }
 }
 
+/// Reader state for one opened file. Léa holds this only while that file is
+/// selected, allowing the PDF view to be rebuilt across a width change
+/// without losing the page or the current search.
+@MainActor
+final class LeaReaderSession: ObservableObject {
+    let file: LeaOpenedFile
+    let pdfDocument: PDFDocument?
+
+    @Published var currentPage = 1
+    @Published var pageCount = 0
+    @Published var isSearching = false
+    @Published var query = ""
+    @Published var matchCount = 0
+    @Published var matchIndex = 0
+
+    init(file: LeaOpenedFile) {
+        self.file = file
+        // Léa sometimes names a non-PDF download `.pdf`; loading the document
+        // is the actual format check, and happens just once for this route.
+        pdfDocument = file.url.pathExtension.lowercased() == "pdf"
+            ? PDFDocument(url: file.url)
+            : nil
+    }
+}
+
 /// The app's own reader for course documents.
 ///
 /// Built rather than handed to `QLPreviewController` for PDFs specifically,
@@ -41,14 +67,12 @@ struct LeaOpenedFile: Identifiable, Hashable {
 /// the marks when the teacher reposts the file.
 struct LeaFileReaderView: View {
     let file: LeaOpenedFile
+    @StateObject private var session: LeaReaderSession
 
-    @State private var currentPage = 1
-    @State private var pageCount = 0
-    @State private var isSearching = false
-    @State private var query = ""
-    /// How many times the query appears, and which one is being looked at.
-    @State private var matchCount = 0
-    @State private var matchIndex = 0
+    init(file: LeaOpenedFile, session: LeaReaderSession? = nil) {
+        self.file = file
+        _session = StateObject(wrappedValue: session ?? LeaReaderSession(file: file))
+    }
 
     /// A PDF this app can actually open.
     ///
@@ -57,23 +81,18 @@ struct LeaFileReaderView: View {
     /// handed something else draws a blank page with no complaint. A file that
     /// fails here goes to Quick Look, which handles far more formats — and if
     /// that cannot read it either, the screen says so instead of staying empty.
-    private var pdf: PDFDocument? {
-        guard file.url.pathExtension.lowercased() == "pdf" else { return nil }
-        return PDFDocument(url: file.url)
-    }
-
-    private var isPDF: Bool { pdf != nil }
+    private var isPDF: Bool { session.pdfDocument != nil }
 
     var body: some View {
         Group {
-            if let document = pdf {
+            if let document = session.pdfDocument {
                 PDFReader(
                     document: document,
-                    query: query,
-                    matchIndex: matchIndex,
-                    currentPage: $currentPage,
-                    pageCount: $pageCount,
-                    matchCount: $matchCount
+                    query: session.query,
+                    matchIndex: session.matchIndex,
+                    currentPage: $session.currentPage,
+                    pageCount: $session.pageCount,
+                    matchCount: $session.matchCount
                 )
                 .ignoresSafeArea(edges: .bottom)
             } else if canPreview {
@@ -94,57 +113,54 @@ struct LeaFileReaderView: View {
         .toolbar(.hidden, for: .tabBar)
         #endif
         .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                ShareLink(item: file.url) {
+                    Label("Share", systemImage: "square.and.arrow.up")
+                }
+            }
+
+            #if os(iOS)
+            if isPDF {
+                // A search field that only appears when asked for keeps the
+                // page itself full-width, but it needs something to ask
+                // with: as a pushed screen there is no search bar sitting
+                // under the title waiting to be tapped.
                 ToolbarItem(placement: .primaryAction) {
-                    ShareLink(item: file.url) {
-                        Image(systemName: "square.and.arrow.up")
-                    }
-                    .accessibilityLabel("Share")
-                }
-
-                #if os(iOS)
-                if isPDF {
-                    // A search field that only appears when asked for keeps the
-                    // page itself full-width, but it needs something to ask
-                    // with: as a pushed screen there is no search bar sitting
-                    // under the title waiting to be tapped.
-                    ToolbarItem(placement: .primaryAction) {
-                        Button {
-                            isSearching = true
-                        } label: {
-                            Image(systemName: "magnifyingglass")
-                        }
-                        .accessibilityLabel("Search in document")
-                    }
-
-                    ToolbarItem(placement: .primaryAction) {
-                        Button {
-                            print(file: file.url, title: file.title)
-                        } label: {
-                            Image(systemName: "printer")
-                        }
-                        .accessibilityLabel("Print")
+                    Button {
+                        session.isSearching = true
+                    } label: {
+                        Label("Search in document", systemImage: "magnifyingglass")
                     }
                 }
-                #endif
 
-                if isPDF {
-                    ToolbarItem(placement: .status) {
-                        if query.isEmpty {
-                            if pageCount > 0 {
-                                Text("\(currentPage) / \(pageCount)")
-                                    .font(.caption.monospacedDigit())
-                                    .foregroundStyle(.secondary)
-                            }
-                        } else {
-                            searchControls
-                        }
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
+                        print(file: file.url, title: file.title)
+                    } label: {
+                        Label("Print", systemImage: "printer")
                     }
                 }
+            }
+            #endif
+
+            if isPDF {
+                ToolbarItem(placement: .status) {
+                    if session.query.isEmpty {
+                        if session.pageCount > 0 {
+                            Text("\(session.currentPage) / \(session.pageCount)")
+                                .font(.caption.monospacedDigit())
+                                .foregroundStyle(.secondary)
+                        }
+                    } else {
+                        searchControls
+                    }
+                }
+            }
         }
-        .onChange(of: query) { _, _ in matchIndex = 0 }
+        .onChange(of: session.query) { _, _ in session.matchIndex = 0 }
         .searchable(
-            text: $query,
-            isPresented: $isSearching,
+            text: $session.query,
+            isPresented: $session.isSearching,
             placement: .toolbar,
             prompt: Text("Search in document")
         )
@@ -159,14 +175,14 @@ struct LeaFileReaderView: View {
     /// to step to.
     @ViewBuilder
     private var searchControls: some View {
-        if matchCount == 0 {
+        if session.matchCount == 0 {
             Text("No matches")
                 .font(.caption)
                 .foregroundStyle(.secondary)
         } else {
             HStack(spacing: 14) {
                 Button {
-                    matchIndex = (matchIndex - 1 + matchCount) % matchCount
+                    session.matchIndex = (session.matchIndex - 1 + session.matchCount) % session.matchCount
                 } label: {
                     Image(systemName: "chevron.up")
                 }
@@ -175,13 +191,13 @@ struct LeaFileReaderView: View {
                 // `fixedSize` because the status slot will otherwise squeeze
                 // the count down to nothing between the two arrows, which
                 // leaves a pair of chevrons and no sense of how far they go.
-                Text("\(matchIndex + 1) of \(matchCount)")
+                Text("\(session.matchIndex + 1) of \(session.matchCount)")
                     .font(.caption.monospacedDigit())
                     .foregroundStyle(.secondary)
                     .fixedSize()
 
                 Button {
-                    matchIndex = (matchIndex + 1) % matchCount
+                    session.matchIndex = (session.matchIndex + 1) % session.matchCount
                 } label: {
                     Image(systemName: "chevron.down")
                 }
@@ -267,6 +283,12 @@ private struct PDFReader: UIViewRepresentable {
             object: view
         )
         context.coordinator.view = view
+        context.coordinator.preserveInitialPage = !query.isEmpty
+
+        if currentPage > 1, document.pageCount > 0,
+           let page = document.page(at: min(currentPage, document.pageCount) - 1) {
+            view.go(to: page)
+        }
 
         DispatchQueue.main.async {
             pageCount = view.document?.pageCount ?? 0
@@ -310,8 +332,15 @@ private struct PDFReader: UIViewRepresentable {
         // The one being looked at is selected as well as highlighted, so it
         // stands out from the others, and the page is brought to it.
         let match = coordinator.matches[target]
-        view.setCurrentSelection(match, animate: true)
-        view.go(to: match)
+        if coordinator.preserveInitialPage {
+            // Reconstituting the PDF view after a fold should not jump back to
+            // the selected search hit if the reader had scrolled elsewhere.
+            coordinator.preserveInitialPage = false
+            view.setCurrentSelection(match, animate: false)
+        } else {
+            view.setCurrentSelection(match, animate: true)
+            view.go(to: match)
+        }
     }
 
     func makeCoordinator() -> Coordinator {
@@ -323,6 +352,7 @@ private struct PDFReader: UIViewRepresentable {
         var lastQuery = ""
         var matches: [PDFSelection] = []
         var lastIndex = -1
+        var preserveInitialPage = false
         private let currentPage: Binding<Int>
 
         init(currentPage: Binding<Int>) {

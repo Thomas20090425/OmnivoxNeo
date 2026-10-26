@@ -60,7 +60,11 @@ struct CalendarSyncSettingsView: View {
             .navigationTitle("Calendar")
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") { dismiss() }
+                    Button {
+                        dismiss()
+                    } label: {
+                        Label("Done", systemImage: "checkmark")
+                    }
                 }
             }
             .task {

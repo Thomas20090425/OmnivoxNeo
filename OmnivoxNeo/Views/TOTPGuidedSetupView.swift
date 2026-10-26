@@ -29,6 +29,9 @@ struct TOTPGuidedSetupView: View {
     @ObservedObject private var accentStore = Personalization.shared
     @ObservedObject var model: AppModel
     @Environment(\.dismiss) private var dismiss
+    #if os(iOS)
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+    #endif
 
     @StateObject private var coordinator: SetupCoordinator
 
@@ -38,21 +41,37 @@ struct TOTPGuidedSetupView: View {
     }
 
     var body: some View {
-        VStack(spacing: 0) {
-            // Guide Section (Top)
-            guideSection
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Neo.surface)
+        Group {
+            if usesSideBySideGuide {
+                // On the Duo's open display, the system split view keeps the
+                // instructions and portal on separate sides of the fold.
+                NavigationSplitView {
+                    guideScrollView
+                        .background(Neo.surface)
+                        .navigationSplitViewColumnWidth(min: 280, ideal: 380, max: 460)
+                } detail: {
+                    guidedWebView
+                }
+            } else {
+                // On the narrow outer display, both remain visible. The
+                // instructions scroll independently instead of pushing the
+                // portal entirely off a short screen.
+                GeometryReader { geometry in
+                    VStack(spacing: 0) {
+                        guideScrollView
+                            .frame(
+                                height: min(
+                                    max(190, geometry.size.height * 0.38),
+                                    geometry.size.height * 0.48
+                                )
+                            )
+                            .background(Neo.surface)
 
-            Divider()
-
-            // WebView Section (Bottom)
-            GuidedWebView(
-                coordinator: coordinator,
-                institution: model.institution,
-                dataStore: model.webView.configuration.websiteDataStore
-            )
+                        Divider()
+                        guidedWebView
+                    }
+                }
+            }
         }
         .interactiveDismissDisabled(coordinator.capturedSecret != nil)
         .onAppear {
@@ -72,6 +91,31 @@ struct TOTPGuidedSetupView: View {
                 }
             }
         }
+    }
+
+    private var usesSideBySideGuide: Bool {
+        #if os(iOS)
+        horizontalSizeClass == .regular
+        #else
+        true
+        #endif
+    }
+
+    private var guideScrollView: some View {
+        ScrollView {
+            guideSection
+                .frame(maxWidth: .infinity)
+                .padding()
+        }
+        .id(coordinator.currentStep)
+    }
+
+    private var guidedWebView: some View {
+        GuidedWebView(
+            coordinator: coordinator,
+            institution: model.institution,
+            dataStore: model.webView.configuration.websiteDataStore
+        )
     }
 
     @ViewBuilder
@@ -243,8 +287,9 @@ struct TOTPGuidedSetupView: View {
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
 
-            HStack(spacing: 12) {
-                // Status indicator with checkmark
+            VStack(alignment: .leading, spacing: 10) {
+                // Stacking keeps both controls readable on the outer display
+                // and at accessibility text sizes.
                 HStack(spacing: 8) {
                     Image(systemName: coordinator.capturedSecret != nil ? "checkmark.circle.fill" : "checkmark.circle")
                         .foregroundStyle(coordinator.capturedSecret != nil ? Neo.live : Color.secondary.opacity(0.3))
@@ -254,8 +299,6 @@ struct TOTPGuidedSetupView: View {
                         .font(.subheadline)
                         .foregroundStyle(coordinator.capturedSecret != nil ? Neo.live : .secondary)
                 }
-
-                Spacer()
 
                 // Check clipboard again button (always visible as fallback)
                 Button {
@@ -272,6 +315,7 @@ struct TOTPGuidedSetupView: View {
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.small)
+                .frame(maxWidth: .infinity, alignment: .trailing)
             }
             .padding(.horizontal)
             .padding(.vertical, 8)
@@ -352,7 +396,7 @@ struct TOTPGuidedSetupView: View {
 
 @MainActor
 class SetupCoordinator: NSObject, ObservableObject {
-    enum Step {
+    enum Step: Hashable {
         case checkExisting
         case deleteExisting
         case createNew
@@ -370,6 +414,9 @@ class SetupCoordinator: NSObject, ObservableObject {
     @Published var deletionError: Bool = false
 
     weak var webView: WKWebView?
+    // Folding or unfolding switches between the stacked and split layouts.
+    // Keep the live browser so an in-progress MFA setup doesn't restart.
+    var retainedWebView: WKWebView?
     private var clipboardTimer: Timer?
     private var lastClipboardContent: String?
     var nextButtonUnhidden = false
@@ -680,6 +727,25 @@ struct GuidedWebView: PlatformViewRepresentable {
     #endif
 
     private func makeWebView(context: Context) -> WKWebView {
+        if let webView = coordinator.retainedWebView {
+            webView.navigationDelegate = context.coordinator
+            coordinator.webView = webView
+            // A layout change replaces the representable's navigation
+            // delegate. Resume any page-specific polling or code refresh
+            // without reloading the portal or losing the current step.
+            if !webView.isLoading {
+                switch coordinator.currentStep {
+                case .checkExisting, .createNew, .revealSecret, .enterCode:
+                    context.coordinator.webView(webView, didFinish: nil)
+                case .copySecret where coordinator.capturedSecret == nil:
+                    context.coordinator.webView(webView, didFinish: nil)
+                default:
+                    break
+                }
+            }
+            return webView
+        }
+
         let configuration = WKWebViewConfiguration()
         configuration.websiteDataStore = dataStore
         configuration.applicationNameForUserAgent = "OmnivoxNeo/1.0"
@@ -687,6 +753,7 @@ struct GuidedWebView: PlatformViewRepresentable {
         let webView = WKWebView(frame: .zero, configuration: configuration)
         webView.navigationDelegate = context.coordinator
         coordinator.webView = webView
+        coordinator.retainedWebView = webView
 
         let url = institution.origin
             .appending(path: institution.conventions.mfaSettingsPath)

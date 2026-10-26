@@ -9,6 +9,21 @@ struct SecuritySetupView: View {
     @State private var keepsInformationOnDevice = true
 
     var body: some View {
+        GeometryReader { geometry in
+            ScrollView {
+                card
+                    .frame(maxWidth: .infinity)
+                    .frame(minHeight: geometry.size.height)
+            }
+            .scrollBounceBehavior(.basedOnSize)
+        }
+        .onAppear {
+            protectsSchedule = model.biometricCapability.isAvailable
+            keepsInformationOnDevice = model.biometricCapability.isAvailable
+        }
+    }
+
+    private var card: some View {
         VStack(spacing: 26) {
             ZStack {
                 Circle()
@@ -122,9 +137,5 @@ struct SecuritySetupView: View {
         .padding(28)
         .neoCard()
         .padding(24)
-        .onAppear {
-            protectsSchedule = model.biometricCapability.isAvailable
-            keepsInformationOnDevice = model.biometricCapability.isAvailable
-        }
     }
 }
